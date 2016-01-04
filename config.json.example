@@ -1,16 +1,15 @@
 {
   "site":{
-    "port": 5000,
-    "name": "Koa Starter Kit",
-    "secret": "koa-starter-kit-is-awesome",
+    "port": 5050,
+    "name": "Paw Wars",
+    "secret": "games-with-cats-are-the-best-games",
     "oauth": {
       "host": "http://127.0.0.1",
       "github": {
         "clientID": "OAUTH CLIENT ID FOR GITHUB",
         "clientSecret": "OAUTH CLIENT SECRET FOR GITHUB"
       }
-    },
-    "analytics": "UA-00000000-0"
+    }
   },
   "deploy":{
     "username": "YOUR USERNAME",

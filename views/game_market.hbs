@@ -4,12 +4,13 @@
     <br>
     <p>Here's a listing of which items you can buy and sell and the prices for each</p>
 
-    <div class="card text-xs-center">
+    {{#each items}}
+    <div class="card text-xs-center" data-id="{{id}}">
       <div class="card-block">
-        <h4 class="card-title">Catnip</h4>
-        <p class="card-text"><small class="text-muted">200 available @ $20 per unit</small></p>
+        <h4 class="card-title">{{name}}</h4>
+        <p class="card-text"><small class="text-muted">200 available @ ${{price}} per unit</small></p>
 
-        <p class="card-text">A magical green plant that makes cats chill and murderous at the same time.</p>
+        <p class="card-text">{{description}}</p>
         <a href="#" class="btn btn-success">Buy</a>
         <a href="#" class="btn btn-danger">Sell</a>
       </div>
@@ -17,6 +18,7 @@
         You have <strong>0</strong> units to sell
       </div>
     </div>
+    {{/each}}
 
   </div>
 </div><!-- /.container -->

@@ -10,6 +10,8 @@ const routes = new Router();
 
 const main = require('./controllers/main.js');
 
+const items = require('./models/items.json');
+
 // routes
 let user = null;
 
@@ -49,7 +51,7 @@ routes.get('/account', main.account);
 
 // game routes (these will be replaced by controllers)
 routes.get('/game/market', function* (){
-  yield this.render('game_market', {title: config.site.name});
+  yield this.render('game_market', {title: config.site.name, items: items});
 });
 routes.get('/game/airport', function* (){
   yield this.render('game_airport', {title: config.site.name});

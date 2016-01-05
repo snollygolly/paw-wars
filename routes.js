@@ -47,4 +47,16 @@ routes.get('/auth/github/callback',
 
 routes.get('/account', main.account);
 
+// game routes (these will be replaced by controllers)
+routes.get('/game/market', function* (){
+  yield this.render('game_market', {title: config.site.name});
+});
+routes.get('/game/airport', function* (){
+  yield this.render('game_airport', {title: config.site.name});
+});
+routes.get('/game/bank', function* (){
+  yield this.render('game_bank', {title: config.site.name});
+});
+
+
 app.use(routes.middleware());

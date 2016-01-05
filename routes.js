@@ -11,6 +11,7 @@ const routes = new Router();
 const main = require('./controllers/main.js');
 
 const items = require('./models/items.json');
+const places = require('./models/places.json');
 
 // routes
 let user = null;
@@ -54,7 +55,7 @@ routes.get('/game/market', function* (){
   yield this.render('game_market', {title: config.site.name, items: items});
 });
 routes.get('/game/airport', function* (){
-  yield this.render('game_airport', {title: config.site.name});
+  yield this.render('game_airport', {title: config.site.name, places: places});
 });
 routes.get('/game/bank', function* (){
   yield this.render('game_bank', {title: config.site.name});

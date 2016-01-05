@@ -3,10 +3,24 @@
     <h1>Airport</h1>
     <br>
     <p>Here's a listing of where you can fly right now and how much it will cost you</p>
-    <ul>
-      <li>Dallas - $100</li>
-      <li>New York - $150</li>
-      <li>Los Angeles - $150</li>
-    </ul>
+
+    {{#each places}}
+    <div class="card text-xs-center" data-id="{{id}}">
+      <div class="card-block">
+        <p class="card-title"><strong>{{name}}</strong></p>
+        <p class="card-text"><small class="text-muted">{{city}}, {{country}} - {{continent}}</small></p>
+        <p class="card-text">
+          Flight: <strong>US123</strong><br>
+          Service To: <strong>{{id}}</strong><br>
+          Price: <strong>$120</strong>
+        </p>
+        <a href="#" class="btn btn-primary">Book Flight</a>
+      </div>
+      <div class="card-footer text-muted">
+        Flight Time: <strong>?</strong> turns
+      </div>
+    </div>
+    {{/each}}
+
   </div>
 </div><!-- /.container -->

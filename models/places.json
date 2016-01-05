@@ -1,0 +1,65 @@
+[
+  {
+    "id": "DAL",
+    "name": "Dallas Love Field",
+    "city": "Dallas",
+    "country": "United States of America",
+    "continent": "North America"
+  },
+  {
+    "id": "LAX",
+    "name": "Los Angeles International Airport",
+    "city": "Los Angeles",
+    "country": "United States of America",
+    "continent": "North America"
+  },
+  {
+    "id": "JFK",
+    "name": "John F. Kennedy International Airport",
+    "city": "New York",
+    "country": "United States of America",
+    "continent": "North America"
+  },
+  {
+    "id": "MEX",
+    "name": "Mexico City International Airport",
+    "city": "Mexico City",
+    "country": "Mexico",
+    "continent": "North America"
+  },
+  {
+    "id": "YYZ",
+    "name": "Toronto Pearson International Airport",
+    "city": "Toronto",
+    "country": "Canada",
+    "continent": "North America"
+  },
+  {
+    "id": "BOG",
+    "name": "El Dorado International Airport",
+    "city": "Bogota",
+    "country": "Colombia",
+    "continent": "South America"
+  },
+  {
+    "id": "SDU",
+    "name": "Santos Dumont Airport",
+    "city": "Rio de Janeiro",
+    "country": "Brazil",
+    "continent": "South America"
+  },
+  {
+    "id": "LIM",
+    "name": "Jorge Chavez International Airport",
+    "city": "Lima",
+    "country": "Peru",
+    "continent": "South America"
+  },
+  {
+    "id": "SCL",
+    "name": "Santiago International Airport",
+    "city": "Santiago",
+    "country": "Chile",
+    "continent": "South America"
+  }
+]

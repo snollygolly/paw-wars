@@ -10,3 +10,7 @@ body {
 .template-heading {
   padding: 40px 15px;
 }
+
+#main-container {
+  padding-top: 50px;
+}

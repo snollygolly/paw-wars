@@ -10,7 +10,7 @@ module.exports.index = function* index(){
 	// loop through each items to set prices and qty
 	for (let item of items){
 		// get the mod percentage we're going to use to indicate price and qty available
-		let modPerc = item.price / 100;
+		let modPerc = item.rarity / 100;
 		// TODO: handle events in here, they may affect qty and price
 		// generate some random numbers for price and qty
 		// TODO: handle variations in price here, they may follow trends?
@@ -22,7 +22,7 @@ module.exports.index = function* index(){
 
 		// calculate and set price
 		let price = Math.round((modPerc * modBasePrice) * 100) / 100;
-		item.sell_price = price;
+		item.price = price;
 		// calculate and set total units available
 		let units = Math.round((1 - modPerc) * modBaseUnits);
 		item.units = units;

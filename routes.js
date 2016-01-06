@@ -9,8 +9,8 @@ const Router = require('koa-router');
 const routes = new Router();
 
 const main = require('./controllers/main.js');
+const game_market = require('./controllers/game_market.js');
 
-const items = require('./models/items.json');
 const places = require('./models/places.json');
 
 // routes
@@ -51,6 +51,7 @@ routes.get('/auth/github/callback',
 routes.get('/account', main.account);
 
 // game routes (these will be replaced by controllers)
+routes.get('/game/market', game_market.index);
 routes.get('/game/market', function* (){
   yield this.render('game_market', {title: config.site.name, items: items});
 });

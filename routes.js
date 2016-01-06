@@ -9,7 +9,9 @@ const Router = require('koa-router');
 const routes = new Router();
 
 const main = require('./controllers/main.js');
+
 const game_market = require('./controllers/game_market.js');
+const game_airport = require('./controllers/game_airport.js');
 
 const places = require('./models/places.json');
 
@@ -52,12 +54,8 @@ routes.get('/account', main.account);
 
 // game routes (these will be replaced by controllers)
 routes.get('/game/market', game_market.index);
-routes.get('/game/market', function* (){
-  yield this.render('game_market', {title: config.site.name, items: items});
-});
-routes.get('/game/airport', function* (){
-  yield this.render('game_airport', {title: config.site.name, places: places});
-});
+routes.get('/game/airport', game_airport.index);
+
 routes.get('/game/bank', function* (){
   yield this.render('game_bank', {title: config.site.name});
 });

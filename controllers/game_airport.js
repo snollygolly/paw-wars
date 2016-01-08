@@ -10,6 +10,10 @@ module.exports.index = function* index(){
 	// loop through each items to set prices and qty
 	for (let place of places){
 		place.flight_number = generateFlightNumber();
+		// generate price for flights
+		// TODO: factor in continents into pricing and probably travel time
+		let priceVariance = common.getRandomArbitrary(-0.30, 0.15);
+		place.price = (Math.round(((config.game.base_price * priceVariance) + config.game.base_price) * 100) / 100).toFixed(2);
 	}
 	yield this.render('game_airport', {title: config.site.name, places: places});
 }

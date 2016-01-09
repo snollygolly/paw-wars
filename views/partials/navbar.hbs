@@ -1,11 +1,33 @@
 <nav class="navbar navbar-dark bg-inverse navbar-fixed-top">
-  <div class="nav navbar-nav">
+  <button class="navbar-toggler hidden-sm-up" type="button" data-toggle="collapse" data-target="#main-navbar">
+    &#9776;
+  </button>
+  <div class="collapse navbar-toggleable-xs" id="main-navbar">
     <a class="navbar-brand" href="/">{{get_name}}</a>
-    {{#if user}}
-      <a class="nav-item nav-link" href="/settings">Account</a>
-    {{else}}
-      <a class="nav-item nav-link" href="/login">Login</a>
-    {{/if}}
-    <a class="nav-item nav-link" href="/play">Play</a>
+    <ul class="nav navbar-nav">
+      {{#if user}}
+        <li class="nav-item">
+          <a class="nav-link" href="/settings">Account</a>
+        </li>
+      {{else}}
+        <li class="nav-item">
+          <a class="nav-link" href="/login">Login</a>
+        </li>
+      {{/if}}
+      <li class="nav-item">
+        <a class="nav-link" href="/game">Play</a>
+      </li>
+    </ul>
+    <ul class="game-navbar nav navbar-nav pull-xs-right">
+      <li class="nav-item">
+        <a class="nav-link" href="/game/market">Market</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/game/airport">Airport</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/game/bank">Bank</a>
+      </li>
+    </ul>
   </div>
 </nav>

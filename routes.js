@@ -53,6 +53,10 @@ routes.get('/auth/github/callback',
 routes.get('/account', main.account);
 
 // game routes (these will be replaced by controllers)
+routes.get('/game', function* (){
+  yield this.render('game', {title: config.site.name});
+});
+
 routes.get('/game/market', game_market.index);
 routes.get('/game/airport', game_airport.index);
 

@@ -12,6 +12,12 @@ module.exports.index = function* index(){
 		player = this.session.passport.user;
 		// TODO: add an else in here to redirect, but it's too much of pain atm
 	}
+	// TODO: actually get the current location
+	let location = {
+		city: "Dallas",
+		country: "United States of America",
+		continent: "North America"
+	}
 	// loop through each items to set prices and qty
 	for (let place of places){
 		place.flight_number = generateFlightNumber();
@@ -19,6 +25,8 @@ module.exports.index = function* index(){
 		// TODO: factor in continents into pricing and probably travel time
 		let priceVariance = common.getRandomArbitrary(-0.30, 0.15);
 		place.price = (Math.round(((config.game.base_price * priceVariance) + config.game.base_price) * 100) / 100).toFixed(2);
+		// generate flight time
+		place.flight_time = findFlightTime(location, place)
 	}
 	yield this.render('game_airport', {
 		title: config.site.name,
@@ -42,4 +50,11 @@ function generateFlightNumber(){
 		flightNumber += String(common.getRandomInt(0, 9));
 	}
 	return flightNumber;
+}
+
+function findFlightTime(current, future){
+	let flightTime = 0;
+	if (current.country != future.country){flightTime++;}
+	if (current.continent != future.continent){flightTime++;}
+	return flightTime;
 }

@@ -3,7 +3,7 @@
 const config = require('../config.json');
 const r = require('rethinkdb');
 
-let connection
+let connection;
 
 function* createConnection() {
   try{
@@ -28,13 +28,9 @@ module.exports.convertProfile = function convertProfile (profile){
 module.exports.getPlayer = function * getPlayer(player){
   // set up the connection
   yield createConnection();
-  // check to see if the document exists
-  let cursor = yield r.table('players').getAll(player.id).run(connection);
-  let result = null;
-  try{
-    // try to get the player profile, expect that this might fail
-    result = yield cursor.next();
-  }catch(e){
+  // try to get the player profile, expect that this might fail
+  let result = yield r.table('players').get(player.id).run(connection);
+  if (result === null){
     // they don't exist, let's create them
     result = yield module.exports.createPlayer(player);
   }
@@ -75,7 +71,7 @@ module.exports.replacePlayer = function * replacePlayer(player){
     // ...return the error object
     throw new Error("Player object invalid / playerModel.replacePlayer");
   }
-  let result = yield r.table('players').getAll(player.id).replace(player, {returnChanges: true}).run(connection);
+  let result = yield r.table('players').get(player.id).replace(player, {returnChanges: true}).run(connection);
   connection.close();
   //console.log("* replacePlayer:", result.changes[0].new_val);
   return result.changes[0].new_val;

@@ -1,60 +1,60 @@
 [
   {
-    "id": 1,
+    "id": "catnip",
     "name": "Catnip",
     "description": "A magical green plant that makes cats chill and murderous at the same time.",
     "rarity": 30
   },
   {
-    "id": 2,
+    "id": "scratching_post",
     "name": "Scratching Post",
     "description": "A tall post wrapped in sisal, and begging to be ripped to shreds.",
     "rarity": 65
   },
   {
-    "id": 3,
+    "id": "toy_mouse",
     "name": "Toy Mouse",
     "description": "A small toy mouse that looks real enough to fool cats into murdering it.",
     "rarity": 10
   },
   {
-    "id": 4,
+    "id": "toy_bird",
     "name": "Toy Bird",
     "description": "A collection of feathers and cloth on a stick made for chasing and pouncing.",
     "rarity": 15
   },
   {
-    "id": 5,
+    "id": "canned_food",
     "name": "Canned Food",
     "description": "Smells like a fish market in the sun on a hot day and tastes like it smells.  Delicious.",
     "rarity": 25
   },
   {
-    "id": 6,
+    "id": "laser_pointer",
     "name": "Laser Pointer",
     "description": "A magic tube that summons the unkillable foe known as \"The Red Dot\".",
     "rarity": 80
   },
   {
-    "id": 7,
+    "id": "yarn",
     "name": "Yarn",
     "description": "Tangles of cloth snakes begging to be killed",
     "rarity": 5
   },
   {
-    "id": 8,
+    "id": "brush",
     "name": "Brush",
     "description": "A wooden handle with boar bristles in it.  Wonderfully rough and great for rubbing against.",
     "rarity": 20
   },
   {
-    "id": 9,
+    "id": "cat_tree",
     "name": "Cat Tree",
     "description": "A huge contraption in a tiny box.  Unfolds into an artificial tree for perching and resting.",
     "rarity": 90
   },
   {
-    "id": 10,
+    "id": "saucer_of_milk",
     "name": "Saucer of Milk",
     "description": "A dish filled with cows milk, a favorite of discerning cats everywhere.",
     "rarity": 2

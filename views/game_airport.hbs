@@ -14,13 +14,33 @@
           Service To: <strong>{{id}}</strong><br>
           Price: <strong>${{price}}</strong>
         </p>
-        <a href="#" class="btn btn-primary">Book Flight</a>
+        <button class="btn btn-primary" id="transport-buy-btn" data-id="{{id}}" data-name="{{name}}" data-price="{{price}}" data-city="{{city}}" data-flight-number="{{flight_number}}" data-flight-time="0" data-toggle="modal" data-target="#transport-modal">Book Flight</button>
       </div>
       <div class="card-footer text-muted">
-        Flight Time: <strong>?</strong> turns
+        Flight Time: <strong>0</strong> turns
       </div>
     </div>
     {{/each}}
 
   </div>
 </div><!-- /.container -->
+
+<div class="modal fade" id="transport-modal">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <h4 id="transport-title" class="modal-title"></h4>
+      </div>
+      <div class="modal-body">
+        <p id="transport-confirm-message">Your flight will takeoff <strong id="transport-confirm-leave">immediately</strong> and land at <strong id="transport-confirm-destination">an airport</strong> in <strong id="transport-confirm-turns">0</strong>.  You will be charged <strong id="transport-confirm-price">$0.00</strong> for this one-way flight.</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+        <button type="button" id="transport-confirm-book-btn" class="btn btn-success">Book</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->

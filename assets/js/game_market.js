@@ -16,14 +16,7 @@ $( document ).ready(function() {
     modal.find('#transaction-title').text(titleType + " " + name);
     // see what type of button to show/type
     hideAllBtns();
-    var confirmButton = null;
-    if (type == "buy"){
-      // they want to buy items
-      confirmButton = $('#transaction-confirm-buy-btn');
-    }else if (type == "sell"){
-      // they want to sell items
-      confirmButton = $('#transaction-confirm-sell-btn');
-    }
+    var confirmButton = $('#transaction-confirm-' + type + '-btn');
     // make the button visible
     confirmButton.show();
     // start populating the button with data

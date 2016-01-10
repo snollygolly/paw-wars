@@ -15,7 +15,7 @@ module.exports.index = function* index(){
 		let priceVariance = common.getRandomArbitrary(-0.30, 0.15);
 		place.price = (Math.round(((config.game.base_price * priceVariance) + config.game.base_price) * 100) / 100).toFixed(2);
 	}
-	yield this.render('game_airport', {title: config.site.name, places: places});
+	yield this.render('game_airport', {title: config.site.name, places: places, script: "game_airport"});
 }
 
 function generateFlightNumber(){

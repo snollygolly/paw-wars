@@ -9,6 +9,12 @@
         "clientID": "OAUTH CLIENT ID FOR GITHUB",
         "clientSecret": "OAUTH CLIENT SECRET FOR GITHUB"
       }
+    },
+    "db": {
+      "host": "localhost",
+      "port": 28015,
+      "authKey": "",
+      "db": "paw_wars"
     }
   },
   "deploy":{

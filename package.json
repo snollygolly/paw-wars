@@ -33,7 +33,8 @@
     "koa-passport": "^1.2.0",
     "koa-router": "^5.3.0",
     "koa-static-folder": "^0.1.6",
-    "passport-github": "^1.0.0"
+    "passport-github": "^1.0.0",
+    "rethinkdb": "^2.2.1"
   },
   "devDependencies": {
     "shipit-cli": "^1.4.1",

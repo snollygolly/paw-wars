@@ -51,6 +51,7 @@ routes.get('/auth/github/callback',
 );
 
 routes.get('/account', main.account);
+routes.get('/db', main.db);
 
 // game routes (these will be replaced by controllers)
 routes.get('/game', function* (){

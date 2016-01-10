@@ -5,14 +5,14 @@
     <p>Here's a listing of which items you can buy and sell and the prices for each</p>
 
     {{#each items}}
-    <div class="card text-xs-center" data-id="{{id}}">
+    <div class="card text-xs-center transaction-listing">
       <div class="card-block">
         <h4 class="card-title">{{name}}</h4>
         <p class="card-text"><small class="text-muted">{{units}} available @ ${{price}} per unit</small></p>
 
         <p class="card-text">{{description}}</p>
-        <a href="#" class="btn btn-success">Buy</a>
-        <a href="#" class="btn btn-danger">Sell</a>
+        <button class="btn btn-success" id="transaction-buy-btn" data-type="buy" data-id="{{id}}" data-name="{{name}}" data-units="{{units}}" data-price="{{price}}" data-toggle="modal" data-target="#transaction-modal">Buy</button>
+        <button class="btn btn-danger" id="transaction-sell-btn" data-type="sell" data-id="{{id}}" data-name="{{name}}" data-units="0" data-price="{{price}}" data-toggle="modal" data-target="#transaction-modal">Sell</button>
       </div>
       <div class="card-footer text-muted">
         You have <strong>0</strong> units to sell
@@ -22,3 +22,28 @@
 
   </div>
 </div><!-- /.container -->
+
+<div class="modal fade" id="transaction-modal">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <h4 id="transaction-title" class="modal-title"></h4>
+      </div>
+      <div class="modal-body">
+        <fieldset class="form-group">
+          <label id="transaction-units-label" for="transaction-units"></label>
+          <input type="number" class="form-control" id="transaction-units" min="0" max="0" value="0" pattern="\d*">
+        </fieldset>
+        <p id="transaction-confirm-message"></p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+        <button type="button" id="transaction-confirm-buy-btn" class="btn btn-success">Buy</button>
+        <button type="button" id="transaction-confirm-sell-btn" class="btn btn-danger">Sell</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->

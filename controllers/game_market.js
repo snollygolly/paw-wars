@@ -27,5 +27,5 @@ module.exports.index = function* index(){
 		let units = Math.round((1 - modPerc) * modBaseUnits);
 		item.units = units;
 	}
-	yield this.render('game_market', {title: config.site.name, items: items});
+	yield this.render('game_market', {title: config.site.name, items: items, script: "game_market"});
 }

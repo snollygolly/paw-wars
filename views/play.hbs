@@ -1,0 +1,28 @@
+<div class="container">
+  <h1>Start a new life in {{title}}</h1>
+  <br>
+  <p>You can be anyone you want to be.  Anything is possible.</p>
+  <fieldset class="form-group">
+    <label for="life-location">Select where you'd like to live</label>
+    <select class="form-control" id="life-location">
+      {{#each places}}
+        <option value="{{id}}">{{city}}, {{country}} - {{continent}}</option>
+      {{/each}}
+    </select>
+  </fieldset>
+
+  <table class="table table-bordered table-sm">
+    <tbody>
+      <tr class="table-success">
+        <td>Starting Cash</td>
+        <td>{{config.game.starting_cash}}</td>
+      </tr>
+      <tr class="table-danger">
+        <td>Starting Debt</td>
+        <td>{{config.game.starting_debt}}</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <button id="life-start-btn" type="button" class="btn btn-primary">Start your life!</button>
+</div><!-- /.container -->

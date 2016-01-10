@@ -17,11 +17,11 @@ function* createConnection() {
   }
 }
 
-module.exports.createLife = function createLife (life){
+module.exports.createLife = function createLife (player, life){
   // set up the connection
   yield createConnection();
   //create the life object
-  let newLife = generateLife(life);
+  let newLife = generateLife(player, life);
   let result = yield r.table('life').insert(newLife, {returnChanges: true}).run(connection);
   connection.close();
   //console.log("* createLife:", result.changes[0].new_val);
@@ -46,8 +46,9 @@ function validateLife(life){
   return {status: true};
 }
 
-function generateLife(oldLife){
+function generateLife(player, oldLife){
   let life = {
+    id: player.id + "_" + new Date(),
     status: {
       location: {
         city: places[0].city,

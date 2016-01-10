@@ -5,8 +5,13 @@ const places = require('../models/places.json');
 
 const common = require('../helpers/common');
 
+let player = null;
+
 module.exports.index = function* index(){
-	// TODO: add passport stuff back in here
+	if (this.isAuthenticated()) {
+		player = this.session.passport.user;
+		// TODO: add an else in here to redirect, but it's too much of pain atm
+	}
 	// loop through each items to set prices and qty
 	for (let place of places){
 		place.flight_number = generateFlightNumber();
@@ -15,7 +20,12 @@ module.exports.index = function* index(){
 		let priceVariance = common.getRandomArbitrary(-0.30, 0.15);
 		place.price = (Math.round(((config.game.base_price * priceVariance) + config.game.base_price) * 100) / 100).toFixed(2);
 	}
-	yield this.render('game_airport', {title: config.site.name, places: places, script: "game_airport"});
+	yield this.render('game_airport', {
+		title: config.site.name,
+		player: (player === null) ? null : player,
+		places: places,
+		script: "game_airport"
+	});
 }
 
 function generateFlightNumber(){

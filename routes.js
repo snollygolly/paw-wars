@@ -16,13 +16,22 @@ const game_airport = require('./controllers/game_airport.js');
 const places = require('./models/places.json');
 
 // routes
-let user = null;
+let player = null;
 
-routes.get('/', function* (){
-  if (this.isAuthenticated()) {
-    user = this.session.passport.user;
-  }
-  yield this.render('index', {title: config.site.name, user: user});
+// app routes
+routes.get('/', main.index);
+routes.get('/account', main.account);
+
+// game routes (these will be replaced by controllers)
+routes.get('/game', function* (){
+  yield this.render('game', {title: config.site.name});
+});
+
+routes.get('/game/market', game_market.index);
+routes.get('/game/airport', game_airport.index);
+
+routes.get('/game/bank', function* (){
+  yield this.render('game_bank', {title: config.site.name});
 });
 
 // for passport
@@ -30,7 +39,7 @@ routes.get('/login', function* (){
   if (this.isAuthenticated()) {
     user = this.session.passport.user;
   }
-  yield this.render('login', {user: user});
+  yield this.render('login', {player: player});
 });
 
 routes.get('/logout', function* () {
@@ -49,20 +58,5 @@ routes.get('/auth/github/callback',
     failureRedirect: '/'
   })
 );
-
-routes.get('/account', main.account);
-
-// game routes (these will be replaced by controllers)
-routes.get('/game', function* (){
-  yield this.render('game', {title: config.site.name});
-});
-
-routes.get('/game/market', game_market.index);
-routes.get('/game/airport', game_airport.index);
-
-routes.get('/game/bank', function* (){
-  yield this.render('game_bank', {title: config.site.name});
-});
-
 
 app.use(routes.middleware());

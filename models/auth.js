@@ -28,7 +28,9 @@ const GithubStrategy = require('passport-github').Strategy
     // retrieve user ...
     co(function *(){
       // do some async/yield stuff here to get/set profile data
-      done(null, profile);
+      let player = playerModel.convertProfile(profile);
+      yield playerModel.getPlayer(player)
+      done(null, player);
     }).catch(function onError(e){
       console.error("Something went terribly wrong!");
       console.error(e.stack);

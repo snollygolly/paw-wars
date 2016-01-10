@@ -17,18 +17,18 @@ function* createConnection() {
   }
 }
 
-module.exports.createLife = function createLife (player, life){
+module.exports.createLife = function* createLife (player, life){
   // set up the connection
   yield createConnection();
   //create the life object
   let newLife = generateLife(player, life);
-  let result = yield r.table('life').insert(newLife, {returnChanges: true}).run(connection);
+  let result = yield r.table('lives').insert(newLife, {returnChanges: true}).run(connection);
   connection.close();
   //console.log("* createLife:", result.changes[0].new_val);
   return result.changes[0].new_val;
 }
 
-module.exports.getLife = function * getLife(life){
+module.exports.getLife = function* getLife(life){
   // set up the connection
   yield createConnection();
   // check to see if the document exists
@@ -48,9 +48,10 @@ function validateLife(life){
 
 function generateLife(player, oldLife){
   let life = {
-    id: player.id + "_" + new Date(),
+    id: player.id + "_" + Date.now(),
     status: {
       location: {
+        id: places[0].id,
         city: places[0].city,
         country: places[0].country,
         continent: places[0].continent
@@ -62,12 +63,12 @@ function generateLife(player, oldLife){
       finance: {
         cash: config.game.starting_cash,
         debt: config.game.starting_debt
-      }
+      },
       inventory: {}
     },
     turns: []
   };
-  life.inventory[items[0].id] = 1;
+  life.status.inventory[items[0].id] = 1;
   return life;
 }
 /*

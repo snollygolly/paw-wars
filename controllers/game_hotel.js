@@ -6,14 +6,21 @@ const places = require('../models/places.json');
 const common = require('../helpers/common');
 
 let player = null;
+let life = null;
 
-module.exports.hotel = function* hotel(){
+module.exports.index = function* index(){
 	if (this.isAuthenticated()) {
 		player = this.session.passport.user;
 		// TODO: add an else in here to redirect, but it's too much of pain atm
 	}
+	try{
+		life = this.session.life
+	}catch(e){
+		console.log("* No life in session")
+	}
 	yield this.render('game_hotel', {
 		title: config.site.name,
-		player: (player === null) ? null : player
+		player: player,
+		life: life
 	});
 }

@@ -10,7 +10,7 @@ const routes = new Router();
 
 const main = require('./controllers/main.js');
 
-const game_generic = require('./controllers/game_generic.js');
+const game_hotel = require('./controllers/game_hotel.js');
 const game_market = require('./controllers/game_market.js');
 const game_airport = require('./controllers/game_airport.js');
 const game_life = require('./controllers/game_life.js');
@@ -26,7 +26,7 @@ routes.get('/account', main.account);
 routes.get('/play', game_life.play);
 routes.post('/game/life', game_life.create);
 
-routes.get('/game/hotel', game_generic.hotel);
+routes.get('/game/hotel', game_hotel.index);
 
 routes.get('/game/market', game_market.index);
 routes.get('/game/airport', game_airport.index);

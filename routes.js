@@ -28,7 +28,11 @@ routes.post('/game/life', game_life.create);
 
 routes.get('/game/hotel', game_hotel.index);
 
+// market routes
 routes.get('/game/market', game_market.index);
+routes.post('/game/market/transaction', game_market.transaction);
+
+// airport routes
 routes.get('/game/airport', game_airport.index);
 
 routes.get('/game/bank', function* (){

@@ -3,6 +3,7 @@
 const config = require('../config.json');
 const places = require('./places.json');
 const items = require('./items.json');
+const common = require('../helpers/common');
 const r = require('rethinkdb');
 
 let connection;
@@ -41,9 +42,62 @@ module.exports.getLife = function* getLife(life){
   return result;
 }
 
+module.exports.doMarketTransaction = function* doMarketTransaction(life, transaction){
+  // set up the connection
+  yield createConnection();
+  // check to see if the document exists
+  let result = yield r.table('lives').get(life.id).run(connection);
+  if (result === null){
+    throw new Error("Life document not found / lifeModel.doMarketTransaction");
+  }
+  // make sure that quatity is available
+  connection.close();
+  //console.log("* getLife:", result);
+  return result;
+}
+
 function validateLife(life){
   if (!life.id){return {status: false, reason: "No ID"};}
   return {status: true};
+}
+
+function generateMarketPrices(){
+  // generates the prices and units for the market
+  let priceArr = [];
+  // loop through each items to set prices and qty
+	for (let item of items){
+    let priceObj = {
+      id: item.id,
+    };
+		// get the mod percentage we're going to use to indicate price and qty available
+		let modPerc = item.rarity / 100;
+		// TODO: handle events in here, they may affect qty and price
+		// generate some random numbers for price and qty
+		// TODO: handle variations in price here, they may follow trends?
+		let priceVariance = common.getRandomArbitrary(-0.10, 0.15);
+		let modBasePrice = (config.game.base_price * priceVariance) + config.game.base_price;
+
+		let unitVariance = common.getRandomArbitrary(-0.10, 0.15);
+		let modBaseUnits = (config.game.base_units * unitVariance) + config.game.base_units;
+
+		// calculate and set price
+		let price = Math.round((modPerc * modBasePrice) * 100) / 100;
+		priceObj.price = price;
+		// calculate and set total units available
+		let units = Math.round((1 - modPerc) * modBaseUnits);
+		priceObj.units = units;
+    // push to array
+    priceArr.push(priceObj);
+	}
+  return priceArr;
+}
+
+function generateAirportPrices(){
+  // generates prices for the airport
+}
+
+function generateBankPrices(){
+  // generates interest rates and such for the bank?
 }
 
 function generateLife(player, parameters){
@@ -68,12 +122,18 @@ function generateLife(player, parameters){
       inventory: []
     },
     current: {},
+    prices: {
+      market: [],
+      airport: []
+    },
     turns: []
   };
   life.starting.inventory.push({id: items[0].id, units: 1});
   // we just created life.  let that dwell on you for a little bit.
   // this is where it all starts.
   life.current = life.starting;
+  // simulate the prices here
+  life.prices.market = generateMarketPrices();
   return life;
 }
 /*

@@ -2,6 +2,7 @@
 
 const config = require('../config.json');
 const items = require('../models/items.json');
+const lifeModel = require('../models/game_life');
 
 const common = require('../helpers/common');
 
@@ -26,7 +27,6 @@ module.exports.index = function* index(){
 		items[i].price_id = life.listings.market[i].id;
 		i++;
 	}
-	console.log(life);
 	yield this.render('game_market', {
 		title: config.site.name,
 		player: player,
@@ -45,6 +45,9 @@ module.exports.transaction = function* transaction(){
 	// if (!life){
 	// 	throw new Error("No life found / marketController:transaction");
 	// }
+	life = {
+		id: "99999_1452551084011"
+	}
 	let parameters = this.request.body;
 	if (!parameters){
 		return this.body = {error: true, message: "Missing parameter object"};
@@ -58,7 +61,7 @@ module.exports.transaction = function* transaction(){
 	if (parameters.type != "buy" && parameters.type != "sell"){
 		return this.body = {error: true, message: "Bad transaction type"};
 	}
-	if (Number.isInteger(parameters.units) === false){
+	if (Number.isInteger(parameters.units) === false || parameters.units <= 0){
 		return this.body = {error: true, message: "Bad unit amount"};
 	}
 	// we've passed checks at this point
@@ -68,5 +71,12 @@ module.exports.transaction = function* transaction(){
 		item: parameters.item,
 		units: parameters.units
 	};
-	this.body = {error: false, inventory: {}, debug: this.request.body};
+	life = yield lifeModel.doMarketTransaction(life.id, transaction);
+	if (life.error){
+		// something went wrong during the process
+		return this.body = {error: true, message: life.message};
+	}
+	// update the session
+	this.session.life = life;
+	this.body = {error: false, life: life, debug: this.request.body};
 }

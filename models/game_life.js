@@ -29,11 +29,11 @@ module.exports.createLife = function* createLife (player, parameters){
   return result.changes[0].new_val;
 }
 
-module.exports.getLife = function* getLife(life){
+module.exports.getLife = function* getLife(id){
   // set up the connection
   yield createConnection();
   // check to see if the document exists
-  let result = yield r.table('lives').get(life.id).run(connection);
+  let result = yield r.table('lives').get(id).run(connection);
   if (result === null){
     throw new Error("Life document not found / lifeModel.getLife");
   }
@@ -42,26 +42,73 @@ module.exports.getLife = function* getLife(life){
   return result;
 }
 
-module.exports.doMarketTransaction = function* doMarketTransaction(life, transaction){
+module.exports.replaceLife = function * replaceLife(life){
   // set up the connection
   yield createConnection();
-  // check to see if the document exists
-  let result = yield r.table('lives').get(life.id).run(connection);
-  if (result === null){
-    throw new Error("Life document not found / lifeModel.doMarketTransaction");
+  // validate
+  let valid = validateLife(life);
+  // if this player object isn't valid...
+  if (valid.status === false){
+    // ...return the error object
+    throw new Error("Player object invalid / playerModel.replacePlayer");
   }
-  // make sure that quatity is available
+  let result = yield r.table('lives').get(life.id).replace(life, {returnChanges: true}).run(connection);
   connection.close();
+  //console.log("* replaceLife:", result.changes[0].new_val);
+  return result.changes[0].new_val;
+}
+
+module.exports.doMarketTransaction = function* doMarketTransaction(id, transaction){
+  let life = yield module.exports.getLife(id);
   // start to error check the transactions
   // first, see what they want to do, and see if the units are available
-  if (transaction.type == "buy"){
-    let listing = getObjFromID(transaction.item, life.prices.market);
-
-  }else if (transaction.type == "sell"){
-
+  let listing = getObjFromID(transaction.item, life.listings.market);
+  let inventory = getObjFromID(transaction.item, life.current.inventory);
+  // figure out the total price
+  let totalPrice = transaction.units * listing.price;
+  if (inventory === false){
+    // we searched the inventory for this object, but didn't find it, lets make it
+    inventory = {
+      id: listing.id,
+      units: 0
+    }
+    life.current.inventory.push(inventory);
   }
-  //console.log("* getLife:", result);
-  return result;
+  if (transaction.type == "buy"){
+    // TODO: check for available space in inventory
+    if (transaction.units > listing.units){
+      // they want more than we have
+      return {error: true, message: "Transaction buys more units than available"};
+    }
+    // check their money (keep in mind, savings doesn't count. dealers don't take checks)
+    if (totalPrice > life.current.finance.cash){
+      return {error: true, message: "Transaction requests more units than life can afford"};
+    }
+    // adjust the user's money
+    life.current.finance.cash -= totalPrice;
+    // adjust the listing's stock
+    listing.units -= transaction.units;
+    // adjust the inventory stock
+    inventory.units += transaction.units;
+  }else if (transaction.type == "sell"){
+    let inventory = getObjFromID(transaction.item, life.current.inventory);
+    if (transaction.units > inventory.units){
+      return {error: true, message: "Transaction sells more units than available"};
+    }
+    // adjust the user's money
+    life.current.finance.cash += totalPrice;
+    // adjust the listing's stock
+    listing.units += transaction.units;
+    // adjust the inventory stock
+    inventory.units -= transaction.units;
+  }
+  // save it back to the array
+  life.listings.market = replaceObjFromArr(listing, life.listings.market);
+  life.current.inventory = replaceObjFromArr(inventory, life.current.inventory);
+  // save the new life
+  life = yield module.exports.replaceLife(life);
+  //console.log("* doMarketTransaction:", life);
+  return life;
 }
 
 function validateLife(life){
@@ -75,7 +122,18 @@ function getObjFromID(id, searchArr){
       return obj;
     }
   }
-  throw new Error(`No object id match (${id}) / lifeModel.getObjFromID`);
+  return false;
+}
+
+function replaceObjFromArr(obj, searchArr){
+  let returnArr = [];
+  for (let searchObj of searchArr){
+    if (searchObj.id == obj.id){
+      searchObj = obj;
+    }
+    returnArr.push(searchObj);
+  }
+  return returnArr;
 }
 
 function generateMarketListings(){
@@ -150,7 +208,7 @@ function generateLife(player, parameters){
   // this is where it all starts.
   life.current = life.starting;
   // simulate the prices here
-  life.listings.market = generateMarketListing();
+  life.listings.market = generateMarketListings();
   return life;
 }
 /*

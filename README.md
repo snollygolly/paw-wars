@@ -1,5 +1,5 @@
 # :smiley_cat: paw-wars
-A dope wars clone with cats
+A modern take on [Drugwars](https://en.wikipedia.org/wiki/Drugwars) (Dopewars), but with cats.
 
 ## Prerequisites
 * [Node.js](https://nodejs.org/en/) (Version 5 and up recommended)

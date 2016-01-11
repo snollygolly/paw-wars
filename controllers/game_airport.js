@@ -13,7 +13,7 @@ module.exports.index = function* index(){
 		player = this.session.passport.user;
 		// TODO: add an else in here to redirect, but it's too much of pain atm
 	}
-	try{life = this.session.life;}catch(e){}
+	life = this.session.life;
 	// TODO: actually get the current location
 	let location = {
 		city: "Dallas",

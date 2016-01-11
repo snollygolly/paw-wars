@@ -13,7 +13,10 @@ module.exports.index = function* index(){
 		player = this.session.passport.user;
 		// TODO: add an else in here to redirect, but it's too much of pain atm
 	}
-	try{life = this.session.life;}catch(e){}
+	life = this.session.life;
+	if (!life){
+		throw new Error("No life found / marketController:index");
+	}
 	// loop through each items to set prices and qty
 	for (let item of items){
 		// get the mod percentage we're going to use to indicate price and qty available

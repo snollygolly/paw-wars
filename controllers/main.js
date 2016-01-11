@@ -10,7 +10,7 @@ module.exports.index = function* index(){
 	if (this.isAuthenticated()) {
 	  player = this.session.passport.user;
 	}
-	try{life = this.session.life;}catch(e){}
+	life = this.session.life;
 	yield this.render('index', {
 		title: config.site.name,
 		player: player,
@@ -22,7 +22,7 @@ module.exports.account = function* account(){
 	if (this.isAuthenticated()) {
 	  player = this.session.passport.user;
 	}
-	try{life = this.session.life;}catch(e){}
+	life = this.session.life;
 	yield this.render('account', {
 		title: config.site.name,
 		player: player,

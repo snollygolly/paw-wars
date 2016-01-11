@@ -46,7 +46,7 @@ module.exports.transaction = function* transaction(){
 	// 	throw new Error("No life found / marketController:transaction");
 	// }
 	life = {
-		id: "99999_1452551084011"
+		id: "99999_1452554605282"
 	}
 	let parameters = this.request.body;
 	if (!parameters){

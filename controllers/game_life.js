@@ -38,7 +38,6 @@ module.exports.create = function* create(){
 	// TODO: don't create a new life if this player already has one
 	life = yield lifeModel.createLife(player, {location: location});
 	this.session.life = life;
-	life.turn_count = life.turns.length;
 	return this.redirect('/game/hotel');
 }
 

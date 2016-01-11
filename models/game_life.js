@@ -105,11 +105,18 @@ module.exports.doMarketTransaction = function* doMarketTransaction(id, transacti
   // save it back to the array
   life.listings.market = replaceObjFromArr(listing, life.listings.market);
   life.current.inventory = replaceObjFromArr(inventory, life.current.inventory);
+  life.actions.push({
+    turn: life.current.turn,
+    type: "market",
+    data: transaction
+  })
   // save the new life
   life = yield module.exports.replaceLife(life);
   //console.log("* doMarketTransaction:", life);
   return life;
 }
+
+
 
 function validateLife(life){
   if (!life.id){return {status: false, reason: "No ID"};}
@@ -179,6 +186,7 @@ function generateLife(player, parameters){
   let life = {
     id: player.id + "_" + Date.now(),
     starting: {
+      turn: 1,
       location: {
         id: parameters.location.id,
         city: parameters.location.city,
@@ -201,7 +209,7 @@ function generateLife(player, parameters){
       market: [],
       airport: []
     },
-    turns: []
+    actions: []
   };
   life.starting.inventory.push({id: items[0].id, units: 1});
   // we just created life.  let that dwell on you for a little bit.

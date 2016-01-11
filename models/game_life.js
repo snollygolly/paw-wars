@@ -49,7 +49,7 @@ function validateLife(life){
 function generateLife(player, parameters){
   let life = {
     id: player.id + "_" + Date.now(),
-    status: {
+    current: {
       location: {
         id: parameters.location.id,
         city: parameters.location.city,
@@ -64,11 +64,11 @@ function generateLife(player, parameters){
         cash: config.game.starting_cash,
         debt: config.game.starting_debt
       },
-      inventory: {}
+      inventory: []
     },
     turns: []
   };
-  life.status.inventory[items[0].id] = 1;
+  life.current.inventory.push({id: items[0].id, units: 1});
   return life;
 }
 /*

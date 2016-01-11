@@ -6,12 +6,14 @@ const items = require('../models/items.json');
 const common = require('../helpers/common');
 
 let player = null;
+let life = null;
 
 module.exports.index = function* index(){
 	if (this.isAuthenticated()) {
 		player = this.session.passport.user;
 		// TODO: add an else in here to redirect, but it's too much of pain atm
 	}
+	try{life = this.session.life;}catch(e){}
 	// loop through each items to set prices and qty
 	for (let item of items){
 		// get the mod percentage we're going to use to indicate price and qty available
@@ -32,9 +34,11 @@ module.exports.index = function* index(){
 		let units = Math.round((1 - modPerc) * modBaseUnits);
 		item.units = units;
 	}
+	console.log(life);
 	yield this.render('game_market', {
 		title: config.site.name,
-		player: (player === null) ? null : player,
+		player: player,
+		life: life,
 		items: items,
 		script: "game_market"
 	});

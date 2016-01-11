@@ -2,6 +2,7 @@
 
 const hbs = require('koa-hbs');
 const config = require('../config.json');
+const items = require('../models/items.json');
 
 hbs.registerHelper('if_eq', function(a, b, opts) {
   if(a == b) // Or === depending on your needs
@@ -29,8 +30,8 @@ hbs.registerHelper('has_analytics', function(opts) {
   return (config.site.analytics && config.site.analytics !== false) ? fnTrue() : fnFalse();
 });
 
-hbs.registerHelper('life_health_description', function(a, opts) {
-  let hp = Number(a);
+hbs.registerHelper('life_health_description', function(hp, opts) {
+  hp = Number(hp);
   if (hp === 100){
     return "the best you ever have";
   }else if (hp >= 75){
@@ -42,4 +43,28 @@ hbs.registerHelper('life_health_description', function(a, opts) {
   }else{
     return "near death";
   }
+});
+
+hbs.registerHelper('life_inventory_suffix', function(id, inventory, opts) {
+  console.log("suffix", id, inventory);
+  for (let item of inventory){
+    if (item.id === id){
+      if (item.units === 1){
+        return `${item.units} unit`;
+      }else{
+        return `${item.units} units`;
+      }
+    }
+  }
+  return "0 units";
+});
+
+hbs.registerHelper('life_inventory_no_suffix', function(id, inventory, opts) {
+  console.log("no suffix", id, inventory);
+  for (let item of inventory){
+    if (item.id === id){
+      return item.units;
+    }
+  }
+  return 0;
 });

@@ -6,12 +6,14 @@ const places = require('../models/places.json');
 const common = require('../helpers/common');
 
 let player = null;
+let life = null;
 
 module.exports.index = function* index(){
 	if (this.isAuthenticated()) {
 		player = this.session.passport.user;
 		// TODO: add an else in here to redirect, but it's too much of pain atm
 	}
+	try{life = this.session.life;}catch(e){}
 	// TODO: actually get the current location
 	let location = {
 		city: "Dallas",
@@ -31,6 +33,7 @@ module.exports.index = function* index(){
 	yield this.render('game_airport', {
 		title: config.site.name,
 		player: (player === null) ? null : player,
+		life: life,
 		places: places,
 		script: "game_airport"
 	});

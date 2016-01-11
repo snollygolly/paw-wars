@@ -20,10 +20,10 @@ module.exports.index = function* index(){
 	let i = 0;
 	while (i < items.length){
 		// loop through items and prices, merge them together
-		items[i].price = life.prices.market[i].price;
-		items[i].units = life.prices.market[i].units;
+		items[i].price = life.listings.market[i].price;
+		items[i].units = life.listings.market[i].units;
 		// price_id is for debugging, to make sure values match
-		items[i].price_id = life.prices.market[i].id;
+		items[i].price_id = life.listings.market[i].id;
 		i++;
 	}
 	console.log(life);

@@ -52,6 +52,14 @@ module.exports.doMarketTransaction = function* doMarketTransaction(life, transac
   }
   // make sure that quatity is available
   connection.close();
+  // start to error check the transactions
+  // first, see what they want to do, and see if the units are available
+  if (transaction.type == "buy"){
+    let listing = getObjFromID(transaction.item, life.prices.market);
+
+  }else if (transaction.type == "sell"){
+
+  }
   //console.log("* getLife:", result);
   return result;
 }
@@ -61,7 +69,16 @@ function validateLife(life){
   return {status: true};
 }
 
-function generateMarketPrices(){
+function getObjFromID(id, searchArr){
+  for (let obj of searchArr){
+    if (obj.id == id){
+      return obj;
+    }
+  }
+  throw new Error(`No object id match (${id}) / lifeModel.getObjFromID`);
+}
+
+function generateMarketListings(){
   // generates the prices and units for the market
   let priceArr = [];
   // loop through each items to set prices and qty
@@ -92,11 +109,11 @@ function generateMarketPrices(){
   return priceArr;
 }
 
-function generateAirportPrices(){
+function generateAirportListings(){
   // generates prices for the airport
 }
 
-function generateBankPrices(){
+function generateBankListings(){
   // generates interest rates and such for the bank?
 }
 
@@ -122,7 +139,7 @@ function generateLife(player, parameters){
       inventory: []
     },
     current: {},
-    prices: {
+    listings: {
       market: [],
       airport: []
     },
@@ -133,7 +150,7 @@ function generateLife(player, parameters){
   // this is where it all starts.
   life.current = life.starting;
   // simulate the prices here
-  life.prices.market = generateMarketPrices();
+  life.listings.market = generateMarketListing();
   return life;
 }
 /*

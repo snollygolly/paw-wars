@@ -49,7 +49,7 @@ function validateLife(life){
 function generateLife(player, parameters){
   let life = {
     id: player.id + "_" + Date.now(),
-    current: {
+    starting: {
       location: {
         id: parameters.location.id,
         city: parameters.location.city,
@@ -67,9 +67,13 @@ function generateLife(player, parameters){
       },
       inventory: []
     },
+    current: {},
     turns: []
   };
-  life.current.inventory.push({id: items[0].id, units: 1});
+  life.starting.inventory.push({id: items[0].id, units: 1});
+  // we just created life.  let that dwell on you for a little bit.
+  // this is where it all starts.
+  life.current = life.starting;
   return life;
 }
 /*

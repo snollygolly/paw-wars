@@ -1,29 +1,27 @@
 {
-  "name": "koa-starter",
-  "version": "1.0.0",
-  "description": "A starter kit for a slightly opinionated koa project.",
+  "name": "paw-wars",
+  "version": "0.0.1",
+  "description": "A modern take on Drugwars (Dopewars), but with cats.",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon -e js,json,hbs index.js",
+    "start": "./node_modules/.bin/nodemon -e js,json,hbs index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/snollygolly/koa-starter.git"
+    "url": "git+https://github.com/snollygolly/paw-wars.git"
   },
   "keywords": [
-    "koa",
-    "starter",
-    "starter-kit",
-    "handlebars",
-    "passport"
+    "paw-wars",
+    "drugwars",
+    "dopewars"
   ],
   "author": "snollygolly (@snollygolly)",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/snollygolly/koa-starter/issues"
+    "url": "https://github.com/snollygolly/paw-wars/issues"
   },
-  "homepage": "https://github.com/snollygolly/koa-starter#readme",
+  "homepage": "https://github.com/snollygolly/paw-wars#readme",
   "dependencies": {
     "co": "^4.6.0",
     "koa": "^1.1.2",

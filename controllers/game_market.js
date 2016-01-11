@@ -41,12 +41,9 @@ module.exports.transaction = function* transaction(){
 		player = this.session.passport.user;
 		// TODO: add an else in here to redirect, but it's too much of pain atm
 	}
-	// life = this.session.life;
-	// if (!life){
-	// 	throw new Error("No life found / marketController:transaction");
-	// }
-	life = {
-		id: "99999_1452554605282"
+	life = this.session.life;
+	if (!life){
+		throw new Error("No life found / marketController:transaction");
 	}
 	let parameters = this.request.body;
 	if (!parameters){

@@ -4,62 +4,223 @@
     "name": "Dallas Love Field",
     "city": "Dallas",
     "country": "United States of America",
-    "continent": "North America"
+    "continent": "North America",
+    "size": 7
   },
   {
     "id": "LAX",
     "name": "Los Angeles International Airport",
     "city": "Los Angeles",
     "country": "United States of America",
-    "continent": "North America"
+    "continent": "North America",
+    "size": 18
   },
   {
     "id": "JFK",
     "name": "John F. Kennedy International Airport",
-    "city": "New York",
+    "city": "New York City",
     "country": "United States of America",
-    "continent": "North America"
+    "continent": "North America",
+    "size": 24
   },
   {
     "id": "MEX",
     "name": "Mexico City International Airport",
     "city": "Mexico City",
     "country": "Mexico",
-    "continent": "North America"
+    "continent": "North America",
+    "size": 20
   },
   {
     "id": "YYZ",
     "name": "Toronto Pearson International Airport",
     "city": "Toronto",
     "country": "Canada",
-    "continent": "North America"
+    "continent": "North America",
+    "size": 6
   },
   {
     "id": "BOG",
     "name": "El Dorado International Airport",
     "city": "Bogota",
     "country": "Colombia",
-    "continent": "South America"
+    "continent": "South America",
+    "size": 10
   },
   {
     "id": "SDU",
     "name": "Santos Dumont Airport",
     "city": "Rio de Janeiro",
     "country": "Brazil",
-    "continent": "South America"
+    "continent": "South America",
+    "size": 12
   },
   {
     "id": "LIM",
     "name": "Jorge Chavez International Airport",
     "city": "Lima",
     "country": "Peru",
-    "continent": "South America"
+    "continent": "South America",
+    "size": 10
   },
   {
     "id": "SCL",
     "name": "Santiago International Airport",
     "city": "Santiago",
     "country": "Chile",
-    "continent": "South America"
+    "continent": "South America",
+    "size": 7
+  },
+  {
+    "id": "LHR",
+    "name": "Heathrow Airport",
+    "city": "London",
+    "country": "England",
+    "continent": "Europe",
+    "size": 14
+  },
+  {
+    "id": "CDG",
+    "name": "Paris Charles de Gaulle Airport",
+    "city": "Paris",
+    "country": "France",
+    "continent": "Europe",
+    "size": 12
+  },
+  {
+    "id": "IST",
+    "name": "Istanbul Ataturk Airport",
+    "city": "Istanbul",
+    "country": "Turkey",
+    "continent": "Europe",
+    "size": 14
+  },
+  {
+    "id": "SVO",
+    "name": "Sheremetyevo International Airport",
+    "city": "Moscow",
+    "country": "Russia",
+    "continent": "Europe",
+    "size": 17
+  },
+  {
+    "id": "AMS",
+    "name": "Amsterdam Airport Schiphol",
+    "city": "Amsterdam",
+    "country": "Netherlands",
+    "continent": "Europe",
+    "size": 3
+  },
+  {
+    "id": "MAD",
+    "name": "Adolfo Suarez Madrid–Barajas Airport",
+    "city": "Madrid",
+    "country": "Spain",
+    "continent": "Europe",
+    "size": 6
+  },
+  {
+    "id": "HND",
+    "name": "Tokyo International Airport",
+    "city": "Tokyo",
+    "country": "Japan",
+    "continent": "Asia",
+    "size": 38
+  },
+  {
+    "id": "KHI",
+    "name": "Jinnah International Airport",
+    "city": "Karachi",
+    "country": "Pakistan",
+    "continent": "Asia",
+    "size": 24
+  },
+  {
+    "id": "ICN",
+    "name": "Incheon International Airport",
+    "city": "Seoul",
+    "country": "South Korea",
+    "continent": "Asia",
+    "size": 26
+  },
+  {
+    "id": "PVG",
+    "name": "Shanghai Pudong International Airport",
+    "city": "Shanghai",
+    "country": "China",
+    "continent": "Asia",
+    "size": 34
+  },
+  {
+    "id": "DEL",
+    "name": "Indira Gandhi International Airport",
+    "city": "New Delhi",
+    "country": "India",
+    "continent": "Asia",
+    "size": 22
+  },
+  {
+    "id": "MNL",
+    "name": "Ninoy Aquino International Airport",
+    "city": "Manila",
+    "country": "Philippines",
+    "continent": "Asia",
+    "size": 12
+  },
+  {
+    "id": "CGK",
+    "name": "Soekarno–Hatta International Airport",
+    "city": "Jakarta",
+    "country": "Indonesia",
+    "continent": "Asia",
+    "size": 10
+  },
+  {
+    "id": "LOS",
+    "name": "Murtala Muhammed International Airport",
+    "city": "Lagos",
+    "country": "Nigeria",
+    "continent": "Africa",
+    "size": 25
+  },
+  {
+    "id": "CAI",
+    "name": "Cairo International Airport",
+    "city": "Cairo",
+    "country": "Egypt",
+    "continent": "Africa",
+    "size": 20
+  },
+  {
+    "id": "JNB",
+    "name": "O. R. Tambo International Airport",
+    "city": "Johannesburg",
+    "country": "South Africa",
+    "continent": "Africa",
+    "size": 4
+  },
+  {
+    "id": "SYD",
+    "name": "Sydney Airport",
+    "city": "Sydney",
+    "country": "Australia",
+    "continent": "Australia",
+    "size": 5
+  },
+  {
+    "id": "MEL",
+    "name": "Melbourne Airport",
+    "city": "Melbourne",
+    "country": "Australia",
+    "continent": "Australia",
+    "size": 4
+  },
+  {
+    "id": "BNE",
+    "name": "Brisbane Airport",
+    "city": "Brisbane",
+    "country": "Australia",
+    "continent": "Australia",
+    "size": 2
   }
 ]

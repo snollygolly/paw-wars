@@ -34,6 +34,7 @@ routes.post('/game/market/transaction', game_market.transaction);
 
 // airport routes
 routes.get('/game/airport', game_airport.index);
+routes.post('/game/airport/fly', game_airport.fly);
 
 routes.get('/game/bank', function* (){
   yield this.render('game_bank', {title: config.site.name});

@@ -51,6 +51,7 @@ app.use(function *(next) {
   try {
     yield next;
   } catch (err) {
+    this.app.emit('error', err, this);
     yield this.render('error', {
       dump: err
     });

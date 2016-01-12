@@ -26,8 +26,7 @@ $( document ).ready(function() {
     confirmButton.data('price', price);
     $('#transaction-units').attr('max', units);
     $('#transaction-units').data('price', price);
-    $('#transaction-units-label').html("How many units would you like to " + type + "? " + ((type == "buy") ? "They" : "You") + " have <strong>"
-     + units + "</strong> in stock.");
+    $('#transaction-units-label').html("How many units would you like to " + type + "? " + ((type == "buy") ? "They" : "You") + " have <strong>" + units + "</strong> in stock.");
     $('#transaction-confirm-message').html(titleType + "ing <strong id=\"transaction-units-msg\">0</strong> of this item will " + ((type == "buy") ? "cost" : "make") + " you <strong id=\"transaction-price-msg\">$0</strong>.<br>You have $<strong id=\"transaction-cash-msg\">" + cash + "</strong> on you.");
   });
 

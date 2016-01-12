@@ -23,8 +23,6 @@ module.exports.index = function* index(){
 		// loop through items and prices, merge them together
 		items[i].price = life.listings.market[i].price;
 		items[i].units = life.listings.market[i].units;
-		// price_id is for debugging, to make sure values match
-		items[i].price_id = life.listings.market[i].id;
 		i++;
 	}
 	yield this.render('game_market', {
@@ -52,9 +50,9 @@ module.exports.transaction = function* transaction(){
 	if (!parameters.id || !parameters.type || !parameters.item || !parameters.units){
 		return this.body = {error: true, message: "Missing parameters"};
 	}
-	// if (life.id != parameters.id){
-	// 	return this.body = {error: "Bad ID"};
-	// }
+	if (life.id != parameters.id){
+		return this.body = {error: "Bad ID"};
+	}
 	if (parameters.type != "buy" && parameters.type != "sell"){
 		return this.body = {error: true, message: "Bad transaction type"};
 	}
@@ -76,5 +74,5 @@ module.exports.transaction = function* transaction(){
 	}
 	// update the session
 	this.session.life = life;
-	this.body = {error: false, life: life, debug: this.request.body};
+	this.body = {error: false, life: life};
 }

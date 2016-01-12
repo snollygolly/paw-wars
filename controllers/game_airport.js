@@ -2,6 +2,7 @@
 
 const config = require('../config.json');
 const places = require('../models/places.json');
+const lifeModel = require('../models/game_life');
 
 const common = require('../helpers/common');
 
@@ -14,21 +15,16 @@ module.exports.index = function* index(){
 		// TODO: add an else in here to redirect, but it's too much of pain atm
 	}
 	life = this.session.life;
-	// TODO: actually get the current location
-	let location = {
-		city: "Dallas",
-		country: "United States of America",
-		continent: "North America"
+	if (!life){
+		throw new Error("No life found / airportController:index");
 	}
-	// loop through each items to set prices and qty
-	for (let place of places){
-		place.flight_number = generateFlightNumber();
-		// generate price for flights
-		// TODO: factor in continents into pricing and probably travel time
-		let priceVariance = common.getRandomArbitrary(-0.30, 0.15);
-		place.price = (Math.round(((config.game.base_price * priceVariance) + config.game.base_price) * 100) / 100).toFixed(2);
-		// generate flight time
-		place.flight_time = findFlightTime(location, place)
+	let i = 0;
+	while (i < places.length){
+		// loop through items and prices, merge them together
+		places[i].flight_number = life.listings.airport[i].flight_number;
+		places[i].price = life.listings.airport[i].price;
+		places[i].flight_time = life.listings.airport[i].flight_time;
+		i++;
 	}
 	yield this.render('game_airport', {
 		title: config.site.name,
@@ -39,25 +35,37 @@ module.exports.index = function* index(){
 	});
 }
 
-function generateFlightNumber(){
-	// generates a believable flight number randomly
-	let flightNumber = '';
-	let alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-	// see how long each segment is
-	let letterSeg = common.getRandomInt(2,3);
-	let numberSeg = common.getRandomInt(3,4);
-	for (let i=0; i < letterSeg; i++){
-		flightNumber += alphabet.charAt(common.getRandomInt(0, alphabet.length));
+module.exports.fly = function* fly(){
+	if (this.isAuthenticated()) {
+		player = this.session.passport.user;
+		// TODO: add an else in here to redirect, but it's too much of pain atm
 	}
-	for (let i=0; i < numberSeg; i++){
-		flightNumber += String(common.getRandomInt(0, 9));
+	life = this.session.life;
+	if (!life){
+		throw new Error("No life found / airportController:fly");
 	}
-	return flightNumber;
-}
-
-function findFlightTime(current, future){
-	let flightTime = 0;
-	if (current.country != future.country){flightTime++;}
-	if (current.continent != future.continent){flightTime++;}
-	return flightTime;
+	let parameters = this.request.body;
+	if (!parameters){
+		return this.body = {error: true, message: "Missing parameter object"};
+	}
+	if (!parameters.id || !parameters.destination){
+		return this.body = {error: true, message: "Missing parameters"};
+	}
+	// if (life.id != parameters.id){
+	// 	return this.body = {error: "Bad ID"};
+	// }
+	// TODO: destination verification
+	// we've passed checks at this point
+	let flight = {
+		id: Date.now(),
+		destination: parameters.destination
+	};
+	life = yield lifeModel.doAirportFly(life.id, flight);
+	if (life.error){
+		// something went wrong during the process
+		return this.body = {error: true, message: life.message};
+	}
+	// update the session
+	this.session.life = life;
+	this.body = {error: false, life: life};
 }

@@ -42,7 +42,7 @@ module.exports.getLife = function* getLife(id){
   return result;
 }
 
-module.exports.replaceLife = function * replaceLife(life){
+module.exports.replaceLife = function* replaceLife(life){
   // set up the connection
   yield createConnection();
   // validate
@@ -81,11 +81,11 @@ module.exports.doMarketTransaction = function* doMarketTransaction(id, transacti
       return {error: true, message: "Transaction buys more units than available"};
     }
     // check their money (keep in mind, savings doesn't count. dealers don't take checks)
-    if (totalPrice > life.current.finance.cash){
+    if (totalPrice > Number(life.current.finance.cash)){
       return {error: true, message: "Transaction requests more units than life can afford"};
     }
     // adjust the user's money
-    life.current.finance.cash -= totalPrice;
+    life.current.finance.cash = (Number(life.current.finance.cash) - totalPrice).toFixed(2);
     // adjust the listing's stock
     listing.units -= transaction.units;
     // adjust the inventory stock
@@ -96,14 +96,12 @@ module.exports.doMarketTransaction = function* doMarketTransaction(id, transacti
       return {error: true, message: "Transaction sells more units than available"};
     }
     // adjust the user's money
-    life.current.finance.cash += totalPrice;
+    life.current.finance.cash = (Number(life.current.finance.cash) + totalPrice).toFixed(2);
     // adjust the listing's stock
     listing.units += transaction.units;
     // adjust the inventory stock
     inventory.units -= transaction.units;
   }
-  // make sure the cash is the right format
-  life.current.finance.cash.toFixed(2);
   // save it back to the array
   life.listings.market = replaceObjFromArr(listing, life.listings.market);
   life.current.inventory = replaceObjFromArr(inventory, life.current.inventory);
@@ -131,13 +129,11 @@ module.exports.doAirportFly = function* doAirportFly(id, flight){
   // figure out the total price
   let totalPrice = listing.price;
   // check their money (keep in mind, savings doesn't count. dealers don't take checks)
-  if (totalPrice > life.current.finance.cash){
+  if (totalPrice > Number(life.current.finance.cash)){
     return {error: true, message: "Flight costs more than life can afford"};
   }
   // adjust the user's money
-  life.current.finance.cash -= totalPrice;
-  // make sure the cash is the right format
-  life.current.finance.cash.toFixed(2);
+  life.current.finance.cash = (Number(life.current.finance.cash) - totalPrice).toFixed(2);
   // adjust their location
   life.current.location = location;
   // build the life action
@@ -148,6 +144,7 @@ module.exports.doAirportFly = function* doAirportFly(id, flight){
   });
   // adjust the turn
   life.current.turn += listing.flight_time;
+  life = changeTurn(life, life.current.turn);
   // save the new life
   life = yield module.exports.replaceLife(life);
   //console.log("* doAirportFly:", life);
@@ -157,6 +154,16 @@ module.exports.doAirportFly = function* doAirportFly(id, flight){
 function validateLife(life){
   if (!life.id){return {status: false, reason: "No ID"};}
   return {status: true};
+}
+
+
+function changeTurn(life, turn){
+  life.listings.market = generateMarketListings(life);
+  life.listings.airport = generateAirportListings(life);
+  life.current.turn = turn;
+  // TODO: charge interest
+  // TODO: random events happen here
+  return life;
 }
 
 function getObjFromID(id, searchArr){
@@ -275,7 +282,7 @@ function generateLife(player, parameters){
         status: null
       },
       finance: {
-        cash: config.game.starting_cash,
+        cash: config.game.starting_cash.toFixed(2),
         savings: 0,
         debt: config.game.starting_debt
       },

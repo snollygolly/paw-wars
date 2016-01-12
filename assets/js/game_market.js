@@ -76,8 +76,8 @@ function updateUnits(life){
   // this is what you should use for updating all market status after getting
   // a life object back from the request
   // update the hud
-  $("#hud-cash").html(life.current.finance.cash.toFixed(2));
-  $('#transaction-modal').data('cash', life.current.finance.cash.toFixed(2));
+  $("#hud-cash").html(life.current.finance.cash);
+  $('#transaction-modal').data('cash', life.current.finance.cash);
   // update units and prices for all item cards
   var i = 0;
   var listings = life.listings.market;
@@ -132,7 +132,7 @@ function hideAllBtns(){
 
 function toTitleCase(str)
 {
-    return str.replace(/\w\S*/g, function(txt){return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();});
+  return str.replace(/\w\S*/g, function(txt){return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();});
 }
 
 function displayAlert(type, message){

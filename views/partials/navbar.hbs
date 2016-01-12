@@ -4,7 +4,7 @@
   </button>
   <div class="collapse navbar-toggleable-xs" id="main-navbar">
     <a class="navbar-brand" href="/">{{get_name}}</a>
-    <ul class="nav navbar-nav">
+    <ul class="nav navbar-nav pull-xs-right">
       {{#if player.id}}
         <li class="nav-item">
           <a class="nav-link" href="/settings">Account</a>
@@ -14,14 +14,15 @@
           <a class="nav-link" href="/login">Login</a>
         </li>
       {{/if}}
-      <li class="nav-item">
-        <a class="nav-link" href="/play">Play</a>
-      </li>
-    </ul>
-    <ul class="game-navbar nav navbar-nav pull-xs-right">
-      <li class="nav-item">
-        <a class="nav-link" href="/game/hotel">Hotel</a>
-      </li>
+      {{#if life}}
+        <li class="nav-item">
+          <a class="nav-link" href="/game/hotel">Hotel</a>
+        </li>
+      {{else}}
+        <li class="nav-item">
+          <a class="nav-link" href="/play">Play</a>
+        </li>
+      {{/if}}
     </ul>
   </div>
 </nav>

@@ -14,6 +14,9 @@ module.exports.play = function* play(){
 	}
 	life = this.session.life;
 	// TODO: check if the user has a game in progress eventually
+	if (life){
+		throw new Error("Can't start a new game when one is in progress / lifeController:play");
+	}
 	yield this.render('game_life', {
 		config: config,
 		title: config.site.name,

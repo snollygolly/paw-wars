@@ -47,20 +47,20 @@ app.use(hbs.middleware({
   defaultLayout: 'main'
 }));
 
-require('./routes');
-
-console.log(`${config.site.name} is now listening on port ${config.site.port}`);
-app.listen(config.site.port);
-
 app.use(function *(next) {
   try {
     yield next;
   } catch (err) {
-    this.status = err.status || 500;
-    this.body = err.message;
-    this.app.emit('error', err, this);
+    yield this.render('error', {
+      dump: err
+    });
   }
 });
+
+require('./routes');
+
+console.log(`${config.site.name} is now listening on port ${config.site.port}`);
+app.listen(config.site.port);
 
 process.on('SIGINT', function() {
   process.exit();

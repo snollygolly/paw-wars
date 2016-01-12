@@ -74,6 +74,9 @@ $( document ).ready(function() {
 function updateUnits(life){
   // this is what you should use for updating all market status after getting
   // a life object back from the request
+  // update the hud
+  $("#hud-cash").html(life.current.finance.cash.toFixed(2));
+  // update units and prices for all item cards
   var i = 0;
   var listings = life.listings.market;
   var inventory = life.current.inventory;

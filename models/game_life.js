@@ -102,6 +102,8 @@ module.exports.doMarketTransaction = function* doMarketTransaction(id, transacti
     // adjust the inventory stock
     inventory.units -= transaction.units;
   }
+  // make sure the cash is the right format
+  life.current.finance.cash.toFixed(2);
   // save it back to the array
   life.listings.market = replaceObjFromArr(listing, life.listings.market);
   life.current.inventory = replaceObjFromArr(inventory, life.current.inventory);

@@ -3,20 +3,21 @@
     <h1>Marketplace</h1>
     <br>
     <p>Here's a listing of which items you can buy and sell and the prices for each</p>
-
+    <div id="alert-container"></div>
+    <br>
     {{#each items}}
     <div class="card text-xs-center transaction-listing">
       <div class="card-block">
         <h4 class="card-title">{{name}}</h4>
-        <p class="card-text"><small class="text-muted">{{units}} available @ ${{price}} per unit</small></p>
+        <p class="card-text"><small class="text-muted"><span class="transaction-listing-units">{{units}}</span> available @ ${{price}} per unit</small></p>
 
         <p class="card-text">{{description}}</p>
-        <button class="btn btn-success" id="transaction-buy-btn" data-type="buy" data-id="{{id}}" data-name="{{name}}" data-units="{{units}}" data-price="{{price}}" data-toggle="modal" data-target="#transaction-modal">Buy</button>
-        <button class="btn btn-danger" id="transaction-sell-btn" data-type="sell" data-id="{{id}}" data-name="{{name}}" data-units="{{life_inventory_no_suffix id ../life.current.inventory}}" data-price="{{price}}" data-toggle="modal" data-target="#transaction-modal">Sell</button>
+        <button class="btn btn-success transaction-buy-btn" data-type="buy" data-id="{{id}}" data-name="{{name}}" data-units="{{units}}" data-price="{{price}}" data-toggle="modal" data-target="#transaction-modal">Buy</button>
+        <button class="btn btn-danger transaction-sell-btn" data-type="sell" data-id="{{id}}" data-name="{{name}}" data-units="{{life_inventory id ../life.current.inventory}}" data-price="{{price}}" data-toggle="modal" data-target="#transaction-modal">Sell</button>
       </div>
       <div class="card-footer text-muted">
         {{#if ../life.id}}
-          You have <strong>{{life_inventory_suffix id ../../life.current.inventory}}</strong> to sell
+          You have <strong class="transaction-inventory-units">{{life_inventory id ../../life.current.inventory}}</strong> to sell
         {{else}}
           You can't sell anything here because you're a ghost
         {{/if}}
@@ -45,8 +46,8 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-        <button type="button" id="transaction-confirm-buy-btn" class="btn btn-success">Buy</button>
-        <button type="button" id="transaction-confirm-sell-btn" class="btn btn-danger">Sell</button>
+        <button type="button" id="transaction-confirm-buy-btn" class="btn btn-success" data-life-id="{{life.id}}">Buy</button>
+        <button type="button" id="transaction-confirm-sell-btn" class="btn btn-danger" data-life-id="{{life.id}}">Sell</button>
       </div>
     </div><!-- /.modal-content -->
   </div><!-- /.modal-dialog -->

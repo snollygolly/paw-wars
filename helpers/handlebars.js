@@ -45,22 +45,7 @@ hbs.registerHelper('life_health_description', function(hp, opts) {
   }
 });
 
-hbs.registerHelper('life_inventory_suffix', function(id, inventory, opts) {
-  console.log("suffix", id, inventory);
-  for (let item of inventory){
-    if (item.id === id){
-      if (item.units === 1){
-        return `${item.units} unit`;
-      }else{
-        return `${item.units} units`;
-      }
-    }
-  }
-  return "0 units";
-});
-
-hbs.registerHelper('life_inventory_no_suffix', function(id, inventory, opts) {
-  console.log("no suffix", id, inventory);
+hbs.registerHelper('life_inventory', function(id, inventory, opts) {
   for (let item of inventory){
     if (item.id === id){
       return item.units;

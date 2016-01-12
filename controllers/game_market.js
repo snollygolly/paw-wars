@@ -58,6 +58,7 @@ module.exports.transaction = function* transaction(){
 	if (parameters.type != "buy" && parameters.type != "sell"){
 		return this.body = {error: true, message: "Bad transaction type"};
 	}
+	parameters.units = parseInt(parameters.units);
 	if (Number.isInteger(parameters.units) === false || parameters.units <= 0){
 		return this.body = {error: true, message: "Bad unit amount"};
 	}

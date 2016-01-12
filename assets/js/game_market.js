@@ -19,6 +19,8 @@ $( document ).ready(function() {
     var confirmButton = $('#transaction-confirm-' + type + '-btn');
     // make the button visible
     confirmButton.show();
+    // get the cash from the button
+    var cash = $('#transaction-modal').data('cash');
     // start populating the button with data
     confirmButton.data('id', id);
     confirmButton.data('price', price);
@@ -26,7 +28,7 @@ $( document ).ready(function() {
     $('#transaction-units').data('price', price);
     $('#transaction-units-label').html("How many units would you like to " + type + "? " + ((type == "buy") ? "They" : "You") + " have <strong>"
      + units + "</strong> in stock.");
-    $('#transaction-confirm-message').html(titleType + "ing <strong id=\"transaction-units-msg\">0</strong> of this item will " + ((type == "buy") ? "cost" : "make") + " you <strong id=\"transaction-price-msg\">$0</strong>.");
+    $('#transaction-confirm-message').html(titleType + "ing <strong id=\"transaction-units-msg\">0</strong> of this item will " + ((type == "buy") ? "cost" : "make") + " you <strong id=\"transaction-price-msg\">$0</strong>.<br>You have $<strong id=\"transaction-cash-msg\">" + cash + "</strong> on you.");
   });
 
   $('#transaction-units').on('input', function(e){
@@ -76,6 +78,7 @@ function updateUnits(life){
   // a life object back from the request
   // update the hud
   $("#hud-cash").html(life.current.finance.cash.toFixed(2));
+  $('#transaction-modal').data('cash', life.current.finance.cash.toFixed(2));
   // update units and prices for all item cards
   var i = 0;
   var listings = life.listings.market;

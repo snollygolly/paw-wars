@@ -1,11 +1,21 @@
 <div class="container">
+  {{> hud}}
   <div>
     <h1>Bank</h1>
     <br>
     <p>The bank is where you can handle loans, and also your bank accounts</p>
-    <ul>
-      <li>You Owe - $100,000</li>
-      <li>You Have - $10</li>
-    </ul>
+    <br>
+    <div>
+      <p>You have: $<strong id="bank-cash-amount">0</strong> on you in cash</p>
+      <button type="button" class="btn btn-success">Deposit Money</button>
+      <button type="button" class="btn btn-danger">Borrow Money</button>
+    </div>
+    <br>
+    <div>
+      <p>You currently owe: $<strong id="bank-loan-amount">0</strong> to the bank.</p>
+      <p><small>The bank will charge you <strong id="bank-interest-amount">5</strong>% (compounded per turn) in interest for any outstanding loans.</small></p>
+      <button type="button" class="btn btn-success">Repay Money</button>
+      <button type="button" class="btn btn-danger">Borrow Money</button>
+    </div>
   </div>
 </div><!-- /.container -->

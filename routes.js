@@ -11,6 +11,7 @@ const routes = new Router();
 const main = require('./controllers/main.js');
 
 const game_hotel = require('./controllers/game_hotel.js');
+const game_bank = require('./controllers/game_bank.js');
 const game_market = require('./controllers/game_market.js');
 const game_airport = require('./controllers/game_airport.js');
 const game_life = require('./controllers/game_life.js');
@@ -36,9 +37,8 @@ routes.post('/game/market/transaction', game_market.transaction);
 routes.get('/game/airport', game_airport.index);
 routes.post('/game/airport/fly', game_airport.fly);
 
-routes.get('/game/bank', function* (){
-  yield this.render('game_bank', {title: config.site.name});
-});
+// bank routes
+routes.get('/game/bank', game_bank.index);
 
 // for passport
 routes.get('/login', function* (){

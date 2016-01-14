@@ -83,7 +83,7 @@ function updateUnits(life){
   var listings = life.listings.market;
   var inventory = life.current.inventory;
   while (i < listings.length){
-    var item = $('.transaction-listing:eq(' + i + ')');
+    var item = $('.transaction-listing[data-id="' + listings[i].id + '"]');
     // update the amount on hand
     $(item).find('.transaction-listing-units').html(listings[i].units);
     $(item).find('.transaction-buy-btn').data('units', listings[i].units);

@@ -25,6 +25,8 @@ module.exports.index = function* index(){
 		items[i].units = life.listings.market[i].units;
 		i++;
 	}
+	life.listings.market.sort(sortByPrice);
+	items.sort(sortByPrice);
 	yield this.render('game_market', {
 		title: config.site.name,
 		player: player,
@@ -32,6 +34,10 @@ module.exports.index = function* index(){
 		items: items,
 		script: "game_market"
 	});
+
+	function sortByPrice(a, b){
+		return Number(a.price) - Number(b.price);
+	}
 }
 
 module.exports.transaction = function* transaction(){

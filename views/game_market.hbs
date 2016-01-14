@@ -9,11 +9,10 @@
     <div class="row">
       {{#each items}}
       <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
-        <div class="card text-xs-center transaction-listing">
+        <div class="card text-xs-center transaction-listing" data-id="{{id}}">
           <div class="card-block">
             <h4 class="card-title">{{name}}</h4>
             <p class="card-text"><small class="text-muted"><span class="transaction-listing-units">{{units}}</span> available @ ${{price}} per unit</small></p>
-
             <p class="card-text">{{description}}</p>
             <button class="btn btn-success transaction-buy-btn" data-type="buy" data-id="{{id}}" data-name="{{name}}" data-units="{{units}}" data-price="{{price}}" data-toggle="modal" data-target="#transaction-modal">Buy</button>
             <button class="btn btn-danger transaction-sell-btn" data-type="sell" data-id="{{id}}" data-name="{{name}}" data-units="{{life_inventory id ../life.current.inventory}}" data-price="{{price}}" data-toggle="modal" data-target="#transaction-modal">Sell</button>

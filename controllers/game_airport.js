@@ -26,6 +26,8 @@ module.exports.index = function* index(){
 		places[i].flight_time = life.listings.airport[i].flight_time;
 		i++;
 	}
+	life.listings.airport.sort(sortByTurns);
+	places.sort(sortByTurns);
 	yield this.render('game_airport', {
 		title: config.site.name,
 		player: (player === null) ? null : player,
@@ -33,6 +35,10 @@ module.exports.index = function* index(){
 		places: places,
 		script: "game_airport"
 	});
+
+	function sortByTurns(a, b){
+		return Number(a.flight_time) - Number(b.flight_time);
+	}
 }
 
 module.exports.fly = function* fly(){

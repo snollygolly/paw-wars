@@ -11,6 +11,75 @@ hbs.registerHelper('if_eq', function(a, b, opts) {
     return opts.inverse(this);
 });
 
+hbs.registerHelper('if_cond', function(a, operator, b, options) {
+  switch (operator) {
+    case '==':
+    case '===':
+      if (a === b) {
+        return options.fn(this);
+      } else {
+        return options.inverse(this);
+      }
+    case '!=':
+      if (a !== b) {
+        return options.fn(this);
+      } else {
+        return options.inverse(this);
+      }
+    case '<':
+      if (a < b) {
+        return options.fn(this);
+      } else {
+        return options.inverse(this);
+      }
+    case '<=':
+      if (a <= b) {
+        return options.fn(this);
+      } else {
+        return options.inverse(this);
+      }
+    case '>':
+      if (a > b) {
+        return options.fn(this);
+      } else {
+        return options.inverse(this);
+      }
+    case '>=':
+      if (a >= b) {
+        return options.fn(this);
+      } else {
+        return options.inverse(this);
+      }
+    case '&&':
+      if (a && b) {
+        return options.fn(this);
+      } else {
+        return options.inverse(this);
+      }
+    case '||':
+      if (a || b) {
+        return options.fn(this);
+      } else {
+        return options.inverse(this);
+      }
+    default:
+      return options.inverse(this);
+  }
+});
+
+hbs.registerHelper("math", function(lvalue, operator, rvalue, options) {
+  lvalue = parseFloat(lvalue);
+  rvalue = parseFloat(rvalue);
+
+  switch (operator) {
+    case "+": return lvalue + rvalue;
+    case "-": return lvalue - rvalue;
+    case "*": return lvalue * rvalue;
+    case "/": return lvalue / rvalue;
+    case "%": return lvalue % rvalue;
+  }
+});
+
 hbs.registerHelper('copyright_year', function(opts) {
   return new Date().getFullYear();
 });

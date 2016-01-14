@@ -1,0 +1,33 @@
+{
+  "name": "paw-wars",
+  "description": "A modern take on Drugwars (Dopewars), but with cats.",
+  "main": "index.js",
+  "authors": [
+    "snollygolly (@snollygolly)"
+  ],
+  "license": "ISC",
+  "keywords": [
+    "paw-wars",
+    "drugwars",
+    "dopewars"
+  ],
+  "homepage": "https://github.com/snollygolly/paw-wars",
+  "moduleType": [
+    "es6",
+    "node"
+  ],
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "v4.0.0-alpha.2",
+    "tether": "~1.1.1",
+    "font-awesome": "~4.5.0",
+    "bootstrap-social": "~4.12.0"
+  }
+}

@@ -6,26 +6,43 @@
     <p>Here's a listing of which items you can buy and sell and the prices for each</p>
     <div id="alert-container"></div>
     <br>
-    {{#each items}}
-    <div class="card text-xs-center transaction-listing">
-      <div class="card-block">
-        <h4 class="card-title">{{name}}</h4>
-        <p class="card-text"><small class="text-muted"><span class="transaction-listing-units">{{units}}</span> available @ ${{price}} per unit</small></p>
+    <div class="row">
+      {{#each items}}
+      <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
+        <div class="card text-xs-center transaction-listing">
+          <div class="card-block">
+            <h4 class="card-title">{{name}}</h4>
+            <p class="card-text"><small class="text-muted"><span class="transaction-listing-units">{{units}}</span> available @ ${{price}} per unit</small></p>
 
-        <p class="card-text">{{description}}</p>
-        <button class="btn btn-success transaction-buy-btn" data-type="buy" data-id="{{id}}" data-name="{{name}}" data-units="{{units}}" data-price="{{price}}" data-toggle="modal" data-target="#transaction-modal">Buy</button>
-        <button class="btn btn-danger transaction-sell-btn" data-type="sell" data-id="{{id}}" data-name="{{name}}" data-units="{{life_inventory id ../life.current.inventory}}" data-price="{{price}}" data-toggle="modal" data-target="#transaction-modal">Sell</button>
+            <p class="card-text">{{description}}</p>
+            <button class="btn btn-success transaction-buy-btn" data-type="buy" data-id="{{id}}" data-name="{{name}}" data-units="{{units}}" data-price="{{price}}" data-toggle="modal" data-target="#transaction-modal">Buy</button>
+            <button class="btn btn-danger transaction-sell-btn" data-type="sell" data-id="{{id}}" data-name="{{name}}" data-units="{{life_inventory id ../life.current.inventory}}" data-price="{{price}}" data-toggle="modal" data-target="#transaction-modal">Sell</button>
+          </div>
+          <div class="card-footer text-muted">
+            {{#if ../life.id}}
+              You have <strong class="transaction-inventory-units">{{life_inventory id ../../life.current.inventory}}</strong> to sell
+            {{else}}
+              You can't sell anything here because you're a ghost
+            {{/if}}
+          </div>
+        </div>
       </div>
-      <div class="card-footer text-muted">
-        {{#if ../life.id}}
-          You have <strong class="transaction-inventory-units">{{life_inventory id ../../life.current.inventory}}</strong> to sell
-        {{else}}
-          You can't sell anything here because you're a ghost
-        {{/if}}
-      </div>
+      {{!-- lg --}}
+      {{#if_cond (math (math @index '+' 1) '%' 4) '===' 0}}
+      <div class="clearfix hidden-xl-up hidden-md-down"></div>
+      {{/if_cond}}
+      {{!-- md --}}
+      {{#if_cond (math (math @index '+' 1) '%' 3) '===' 0}}
+      <div class="clearfix hidden-lg-up hidden-sm-down"></div>
+      {{/if_cond}}
+      {{!-- sm --}}
+      {{#if_cond (math (math @index '+' 1) '%' 2) '===' 0}}
+      <div class="clearfix hidden-md-up hidden-xs-down"></div>
+      {{/if_cond}}
+      {{!-- xs --}}
+      <div class="clearfix hidden-sm-up"></div>
+      {{/each}}
     </div>
-    {{/each}}
-
   </div>
 </div><!-- /.container -->
 

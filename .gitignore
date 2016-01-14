@@ -27,3 +27,6 @@ build/Release
 node_modules
 config.json
 tmp
+
+rethinkdb_data
+assets/bower_components

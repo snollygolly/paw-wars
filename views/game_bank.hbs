@@ -7,15 +7,15 @@
     <br>
     <div>
       <p>You have: $<strong id="bank-cash-amount">0</strong> on you in cash</p>
-      <button type="button" class="btn btn-success">Deposit Money</button>
-      <button type="button" class="btn btn-danger">Borrow Money</button>
+      <button type="button" class="btn btn-success" id="bank-deposit-btn">Deposit Money</button>
+      <button type="button" class="btn btn-danger" id="bank-withdraw-btn">Withdraw Money</button>
     </div>
     <br>
     <div>
       <p>You currently owe: $<strong id="bank-loan-amount">0</strong> to the bank.</p>
       <p><small>The bank will charge you <strong id="bank-interest-amount">5</strong>% (compounded per turn) in interest for any outstanding loans.</small></p>
-      <button type="button" class="btn btn-success">Repay Money</button>
-      <button type="button" class="btn btn-danger">Borrow Money</button>
+      <button type="button" class="btn btn-success" id="bank-repay-btn">Repay Money</button>
+      <button type="button" class="btn btn-danger" id="bank-deposit-btn">Borrow Money</button>
     </div>
   </div>
 </div><!-- /.container -->

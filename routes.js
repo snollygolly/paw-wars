@@ -39,6 +39,10 @@ routes.post('/game/airport/fly', game_airport.fly);
 
 // bank routes
 routes.get('/game/bank', game_bank.index);
+routes.get('/game/bank/savings', game_bank.transaction);
+routes.post('/game/bank/savings', game_bank.transaction);
+routes.get('/game/bank/loans', game_bank.lending);
+routes.post('/game/bank/loans', game_bank.lending);
 
 // for passport
 routes.get('/login', function* (){

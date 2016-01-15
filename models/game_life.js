@@ -151,6 +151,41 @@ module.exports.doAirportFly = function* doAirportFly(id, flight){
   return life;
 }
 
+module.exports.doBankTransaction = function* doBankTransaction(id, transaction){
+  // NOTE: transaction is provided as a float, no need to parse
+  let life = yield module.exports.getLife(id);
+  // start to error check the transactions
+  if (transaction.type == "withdraw"){
+    // if this is a withdraw, make it a negative number
+    transaction.amount *= -1;
+  }
+  // make sure they are numbers
+  life.current.finance.cash = parseFloat(life.current.finance.cash);
+  life.current.finance.savings = parseFloat(life.current.finance.savings);
+  // just do the math and see if it's possible after
+  life.current.finance.savings += transaction.amount;
+  life.current.finance.cash -= transaction.amount;
+  if (life.current.finance.cash < 0){
+    return {error: true, message: "Insufficient cash"};
+  }
+  if (life.current.finance.savings < 0){
+    return {error: true, message: "Insufficient savings"};
+  }
+  // make sure the format is good
+  life.current.finance.cash = life.current.finance.cash.toFixed(2);
+  life.current.finance.savings = life.current.finance.savings.toFixed(2);
+  // build the life action
+  life.actions.push({
+    turn: life.current.turn,
+    type: "bank",
+    data: transaction
+  });
+  // save the new life
+  life = yield module.exports.replaceLife(life);
+  //console.log("* doBankTransaction:", life);
+  return life;
+}
+
 function validateLife(life){
   if (!life.id){return {status: false, reason: "No ID"};}
   return {status: true};

@@ -43,7 +43,6 @@ module.exports.transaction = function* transaction(){
 		// this got, this means it's a get
 		parameters = this.request.query;
 	}else{
-		console.log(this.request.query);
 		return this.body = {error: true, message: "Invalid type passed"};
 	}
 	// let's start doing some checks
@@ -79,33 +78,36 @@ module.exports.lending = function* lending(){
 	}
 	life = this.session.life;
 	if (!life){
-		throw new Error("No life found / bankController:withdraw");
+		throw new Error("No life found / bankController:lending");
 	}
-	let parameters = this.request.body;
-	if (!parameters){
-		return this.body = {error: true, message: "Missing parameter object"};
+	let parameters;
+	// figure out which type of transaction they want to be doing here
+	if (this.request.body.type == "repay"){
+		// they posted, this means it's a deposit
+		parameters = this.request.body;
+	}else if (this.request.query.type == "borrow"){
+		// this got, this means it's a get
+		parameters = this.request.query;
+	}else{
+		return this.body = {error: true, message: "Invalid type passed"};
 	}
-	if (!parameters.id || !parameters.type || !parameters.item || !parameters.units){
-		return this.body = {error: true, message: "Missing parameters"};
+	// let's start doing some checks
+	parameters.amount = parseFloat(parameters.amount);
+	// is this a valid amount?
+	if (parameters.amount <= 0){
+		return this.body = {error: true, message: "Bad unit amount"};
 	}
+	// is this the right life ID?
 	if (life.id != parameters.id){
 		return this.body = {error: "Bad ID"};
-	}
-	if (parameters.type != "buy" && parameters.type != "sell"){
-		return this.body = {error: true, message: "Bad transaction type"};
-	}
-	parameters.units = parseInt(parameters.units);
-	if (Number.isInteger(parameters.units) === false || parameters.units <= 0){
-		return this.body = {error: true, message: "Bad unit amount"};
 	}
 	// we've passed checks at this point
 	let transaction = {
 		id: Date.now(),
 		type: parameters.type,
-		item: parameters.item,
-		units: parameters.units
+		amount: parameters.amount
 	};
-	life = yield lifeModel.doMarketTransaction(life.id, transaction);
+	life = yield lifeModel.doBankLending(life.id, transaction);
 	if (life.error){
 		// something went wrong during the process
 		return this.body = {error: true, message: life.message};

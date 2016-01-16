@@ -186,6 +186,41 @@ module.exports.doBankTransaction = function* doBankTransaction(id, transaction){
   return life;
 }
 
+module.exports.doBankLending = function* doBankLending(id, transaction){
+  // NOTE: transaction is provided as a float, no need to parse
+  let life = yield module.exports.getLife(id);
+  // start to error check the transactions
+  if (transaction.type == "borrow"){
+    // if this is a withdraw, make it a negative number
+    transaction.amount *= -1;
+  }
+  // make sure they are numbers
+  life.current.finance.savings = parseFloat(life.current.finance.savings);
+  life.current.finance.debt = parseFloat(life.current.finance.debt);
+  // just do the math and see if it's possible after
+  life.current.finance.savings -= transaction.amount;
+  life.current.finance.debt -= transaction.amount;
+  if (life.current.finance.savings < 0){
+    return {error: true, message: "Insufficient savings"};
+  }
+  if (life.current.finance.debt < 0){
+    return {error: true, message: "Overpayment on loan"};
+  }
+  // make sure the format is good
+  life.current.finance.savings = life.current.finance.savings.toFixed(2);
+  life.current.finance.debt = life.current.finance.debt.toFixed(2);
+  // build the life action
+  life.actions.push({
+    turn: life.current.turn,
+    type: "bank",
+    data: transaction
+  });
+  // save the new life
+  life = yield module.exports.replaceLife(life);
+  //console.log("* doBankTransaction:", life);
+  return life;
+}
+
 function validateLife(life){
   if (!life.id){return {status: false, reason: "No ID"};}
   return {status: true};

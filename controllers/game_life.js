@@ -1,7 +1,7 @@
 "use strict";
 
 const config = require('../config.json');
-const places = require('../models/places.json');
+const places = require('../models/game/places.json');
 const lifeModel = require('../models/game_life');
 
 let player = null;

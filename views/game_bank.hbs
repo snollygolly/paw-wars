@@ -4,18 +4,43 @@
     <h1>Bank</h1>
     <br>
     <p>The bank is where you can handle loans, and also your bank accounts</p>
+    <div id="alert-container"></div>
     <br>
     <div>
-      <p>You have: $<strong id="bank-cash-amount">0</strong> on you in cash</p>
-      <button type="button" class="btn btn-success" id="bank-deposit-btn">Deposit Money</button>
-      <button type="button" class="btn btn-danger" id="bank-withdraw-btn">Withdraw Money</button>
+      <p>You have: $<strong id="bank-savings-amount">{{life.current.finance.savings}}</strong> in your savings account</p>
+      <button id="bank-deposit-btn" class="btn btn-success transaction-btn" data-type="deposit" data-id="{{life.id}}" data-max="{{life.current.finance.cash}}" data-toggle="modal" data-target="#transaction-modal">Deposit Money</button>
+      <button id="bank-withdraw-btn" class="btn btn-danger transaction-btn" data-type="withdraw" data-id="{{life.id}}" data-max="{{life.current.finance.savings}}" data-toggle="modal" data-target="#transaction-modal">Withdraw Money</button>
     </div>
     <br>
     <div>
-      <p>You currently owe: $<strong id="bank-loan-amount">0</strong> to the bank.</p>
+      <p>You currently owe: $<strong id="bank-debt-amount">0</strong> to the bank.</p>
       <p><small>The bank will charge you <strong id="bank-interest-amount">5</strong>% (compounded per turn) in interest for any outstanding loans.</small></p>
-      <button type="button" class="btn btn-success" id="bank-repay-btn">Repay Money</button>
-      <button type="button" class="btn btn-danger" id="bank-borrow-btn">Borrow Money</button>
+      <button id="bank-repay-btn" class="btn btn-success transaction-btn" data-type="repay" data-id="{{life.id}}" data-max="{{life.current.finance.savings}}" data-toggle="modal" data-target="#transaction-modal">Repay Money</button>
+      <button id="bank-borrow-btn" class="btn btn-danger transaction-btn" data-type="borrow" data-id="{{life.id}}" data-max="100000" data-toggle="modal" data-target="#transaction-modal">Borrow Money</button>
     </div>
   </div>
 </div><!-- /.container -->
+
+<div class="modal fade" id="transaction-modal">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <h4 id="transaction-title" class="modal-title"></h4>
+      </div>
+      <div class="modal-body">
+        <fieldset class="form-group">
+          <label id="transaction-amount-label" for="transaction-amount"></label>
+          <input type="number" class="form-control" id="transaction-amount" min="0" max="0" value="0" pattern="\d*">
+        </fieldset>
+        <p id="transaction-confirm-message"></p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+        <button type="button" id="transaction-confirm-btn" class="btn btn-success">Confirm</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->

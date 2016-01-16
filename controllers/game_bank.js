@@ -21,7 +21,8 @@ module.exports.index = function* index(){
 	yield this.render('game_bank', {
 		title: config.site.name,
 		player: player,
-		life: life
+		life: life,
+		script: "game_bank"
 	});
 }
 

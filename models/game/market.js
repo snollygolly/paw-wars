@@ -32,7 +32,7 @@ module.exports.doMarketTransaction = function* doMarketTransaction(id, transacti
       return {error: true, message: "Transaction requests more units than life can afford"};
     }
     // adjust the user's money
-    life.current.finance.cash = (Number(life.current.finance.cash) - totalPrice).toFixed(2);
+    life.current.finance.cash -= totalPrice;
     // adjust the listing's stock
     listing.units -= transaction.units;
     // adjust the inventory stock
@@ -43,7 +43,7 @@ module.exports.doMarketTransaction = function* doMarketTransaction(id, transacti
       return {error: true, message: "Transaction sells more units than available"};
     }
     // adjust the user's money
-    life.current.finance.cash = (Number(life.current.finance.cash) + totalPrice).toFixed(2);
+    life.current.finance.cash += totalPrice;
     // adjust the listing's stock
     listing.units += transaction.units;
     // adjust the inventory stock
@@ -73,7 +73,6 @@ module.exports.generateMarketListings = function generateMarketListings(life){
     };
 		// get the mod percentage we're going to use to indicate price and qty available
 		let modPerc = item.rarity / 100;
-		// TODO: handle events in here, they may affect qty and price
 		// generate some random numbers for price and qty
 		// TODO: handle variations in price here, they may follow trends?
 		let priceVariance = common.getRandomArbitrary(-0.10, 0.15);
@@ -83,7 +82,7 @@ module.exports.generateMarketListings = function generateMarketListings(life){
 		let modBaseUnits = (config.game.base_units * unitVariance) + config.game.base_units;
 
 		// calculate and set price
-		let price = Math.round((modPerc * modBasePrice) * 100) / 100;
+		let price = Math.round(modPerc * modBasePrice);
 		priceObj.price = price;
 		// calculate and set total units available
 		let units = Math.round((1 - modPerc) * modBaseUnits);

@@ -32,7 +32,7 @@ $( document ).ready(function() {
 
   $('#transaction-units').on('input', function(e){
     var currentUnits = $(event.target).val();
-    var currentPrice = ($(event.target).data('price') * currentUnits).toFixed(2);
+    var currentPrice = $(event.target).data('price') * currentUnits;
     $('#transaction-units-msg').html(currentUnits);
     $('#transaction-price-msg').html("$" + currentPrice);
   });

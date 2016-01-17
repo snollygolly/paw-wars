@@ -18,11 +18,11 @@ module.exports.doAirportFly = function* doAirportFly(id, flight){
   // figure out the total price
   let totalPrice = listing.price;
   // check their money (keep in mind, savings doesn't count. dealers don't take checks)
-  if (totalPrice > Number(life.current.finance.cash)){
+  if (totalPrice > life.current.finance.cash){
     return {error: true, message: "Flight costs more than life can afford"};
   }
   // adjust the user's money
-  life.current.finance.cash = (Number(life.current.finance.cash) - totalPrice).toFixed(2);
+  life.current.finance.cash = life.current.finance.cash - totalPrice;
   // adjust their location
   life.current.location = location;
   // build the life action
@@ -53,7 +53,7 @@ module.exports.generateAirportListings = function generateAirportListings(life){
 		// generate price for flights
 		// TODO: factor in continents into pricing and probably travel time
 		let priceVariance = common.getRandomArbitrary(-0.30, 0.15);
-		priceObj.price = (Math.round(((config.game.base_price * priceVariance) + config.game.base_price) * 100) / 100).toFixed(2);
+		priceObj.price = Math.round((config.game.base_price * priceVariance) + config.game.base_price);
 		// generate flight time
 		priceObj.flight_time = findFlightTime(location, place)
     priceArr.push(priceObj);

@@ -5,16 +5,13 @@ const common = require('../../helpers/common');
 const model = require('../game_life.js');
 
 module.exports.doBankTransaction = function* doBankTransaction(id, transaction){
-  // NOTE: transaction is provided as a float, no need to parse
+  // NOTE: transaction is provided as a int, no need to parse
   let life = yield model.getLife(id);
   // start to error check the transactions
   if (transaction.type == "withdraw"){
     // if this is a withdraw, make it a negative number
     transaction.amount *= -1;
   }
-  // make sure they are numbers
-  life.current.finance.cash = parseFloat(life.current.finance.cash);
-  life.current.finance.savings = parseFloat(life.current.finance.savings);
   // just do the math and see if it's possible after
   life.current.finance.savings += transaction.amount;
   life.current.finance.cash -= transaction.amount;
@@ -24,9 +21,6 @@ module.exports.doBankTransaction = function* doBankTransaction(id, transaction){
   if (life.current.finance.savings < 0){
     return {error: true, message: "Insufficient savings"};
   }
-  // make sure the format is good
-  life.current.finance.cash = life.current.finance.cash.toFixed(2);
-  life.current.finance.savings = life.current.finance.savings.toFixed(2);
   // build the life action
   life.actions.push({
     turn: life.current.turn,
@@ -40,16 +34,13 @@ module.exports.doBankTransaction = function* doBankTransaction(id, transaction){
 }
 
 module.exports.doBankLending = function* doBankLending(id, transaction){
-  // NOTE: transaction is provided as a float, no need to parse
+  // NOTE: transaction is provided as an it, no need to parse
   let life = yield model.getLife(id);
   // start to error check the transactions
   if (transaction.type == "borrow"){
     // if this is a withdraw, make it a negative number
     transaction.amount *= -1;
   }
-  // make sure they are numbers
-  life.current.finance.savings = parseFloat(life.current.finance.savings);
-  life.current.finance.debt = parseFloat(life.current.finance.debt);
   // just do the math and see if it's possible after
   life.current.finance.savings -= transaction.amount;
   life.current.finance.debt -= transaction.amount;
@@ -59,9 +50,6 @@ module.exports.doBankLending = function* doBankLending(id, transaction){
   if (life.current.finance.debt < 0){
     return {error: true, message: "Overpayment on loan"};
   }
-  // make sure the format is good
-  life.current.finance.savings = life.current.finance.savings.toFixed(2);
-  life.current.finance.debt = life.current.finance.debt.toFixed(2);
   // build the life action
   life.actions.push({
     turn: life.current.turn,
@@ -75,6 +63,6 @@ module.exports.doBankLending = function* doBankLending(id, transaction){
 }
 
 module.exports.chargeInterest = function chargeInterest(life){
-  life.current.finance.debt += Number(life.current.finance.debt * (config.game.interest / 100)).toFixed(2);
+  life.current.finance.debt += life.current.finance.debt * (config.game.interest / 100);
   return life;
 }

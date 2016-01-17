@@ -68,7 +68,7 @@ function makeDescription(eventObj, adjustment){
     description = description.replace(/\{\{item\}\}/g, adjustment.item.name);
   }
   if (description.indexOf("{{amount}}") >= 0){
-    description = description.replace(/\{\{amount\}\}/g, (adjustment.amount * config.game.base_price).toFixed(2));
+    description = description.replace(/\{\{amount\}\}/g, Math.round(adjustment.amount * config.game.base_price));
   }
   return description;
 }
@@ -79,7 +79,7 @@ function adjustMarketListing(life, adjustment){
   // adjust the listing's stock
   listing.units = Math.round(listing.units * adjustment.units);
   // adjust the listing's price
-  listing.price = Number(listing.price * adjustment.price).toFixed(2);
+  listing.price = Math.round(listing.price * adjustment.price);
   // insert it back into the listings
   life.listings.market = common.replaceObjFromArr(listing, life.listings.market);
   return life;
@@ -105,7 +105,6 @@ function adjustCurrentInventory(life, adjustment){
 
 function adjustCurrentCash(life, adjustment){
   // adjust the user's cash
-  life.current.finance.cash = Number(adjustment.amount * config.game.base_price) + Number(life.current.finance.cash);
-  life.current.finance.cash = Number(life.current.finance.cash).toFixed(2);
+  life.current.finance.cash += adjustment.amount * config.game.base_price;
   return life;
 }

@@ -101,7 +101,7 @@ function generateLife(player, parameters){
         status: null
       },
       finance: {
-        cash: config.game.starting_cash.toFixed(2),
+        cash: config.game.starting_cash,
         savings: 0,
         debt: config.game.starting_debt
       },

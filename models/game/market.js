@@ -9,7 +9,6 @@ module.exports.doMarketTransaction = function* doMarketTransaction(id, transacti
   let life = yield model.getLife(id);
   // start to error check the transactions
   // first, see what they want to do, and see if the units are available
-  console.log(common);
   let listing = common.getObjFromID(transaction.item, life.listings.market);
   let inventory = common.getObjFromID(transaction.item, life.current.inventory);
   // figure out the total price

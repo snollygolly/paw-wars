@@ -7,6 +7,7 @@ const r = require('rethinkdb');
 const market = require('./game/market');
 const airport = require('./game/airport');
 const bank = require('./game/bank');
+const events = require('./game/events');
 
 let connection;
 
@@ -52,7 +53,7 @@ module.exports.replaceLife = function* replaceLife(life){
   // if this player object isn't valid...
   if (valid.status === false){
     // ...return the error object
-    throw new Error("Player object invalid / playerModel.replacePlayer");
+    throw new Error("Life object invalid / lifeModel.replaceLife");
   }
   let result = yield r.table('lives').get(life.id).replace(life, {returnChanges: true}).run(connection);
   connection.close();
@@ -63,9 +64,9 @@ module.exports.replaceLife = function* replaceLife(life){
 module.exports.changeTurn = function changeTurn(life, turn){
   life.listings.market = market.generateMarketListings(life);
   life.listings.airport = airport.generateAirportListings(life);
-  life.current.turn = turn;
   // TODO: charge interest
-  // TODO: random events happen here
+  life = events.simulateEvents(life);
+  life.current.turn = turn;
   return life;
 }
 
@@ -87,6 +88,7 @@ function generateLife(player, parameters){
     id: player.id + "_" + Date.now(),
     starting: {
       turn: 1,
+      event: "You feel like this is the first day of the rest of your life.",
       location: {
         id: parameters.location.id,
         city: parameters.location.city,

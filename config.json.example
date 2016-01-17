@@ -27,6 +27,7 @@
     "base_price": 250,
     "base_units": 1000,
     "starting_cash": 10000,
-    "starting_debt": 10000
+    "starting_debt": 10000,
+    "event_rate": 15
   }
 }

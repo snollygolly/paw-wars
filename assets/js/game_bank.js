@@ -87,6 +87,7 @@ function updateDispay(life){
   // a life object back from the request
   // update the hud
   $("#hud-cash").html(life.current.finance.cash);
+  $("#hud-storage").html(life.current.storage.available + "/" + life.current.storage.total);
   // update all the buttons with maxes
   $("#bank-deposit-btn").data("max",  life.current.finance.cash);
   $("#bank-withdraw-btn").data("max", life.current.finance.savings);

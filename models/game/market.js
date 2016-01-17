@@ -22,7 +22,10 @@ module.exports.doMarketTransaction = function* doMarketTransaction(id, transacti
     life.current.inventory.push(inventory);
   }
   if (transaction.type == "buy"){
-    // TODO: check for available space in inventory
+    if (transaction.units > life.current.storage.available){
+      // they want more than we have
+      return {error: true, message: "Transaction buys more units than storage can hold"};
+    }
     if (transaction.units > listing.units){
       // they want more than we have
       return {error: true, message: "Transaction buys more units than available"};
@@ -35,6 +38,8 @@ module.exports.doMarketTransaction = function* doMarketTransaction(id, transacti
     life.current.finance.cash -= totalPrice;
     // adjust the listing's stock
     listing.units -= transaction.units;
+    // adjust the storage
+    life.current.storage.available -= transaction.units;
     // adjust the inventory stock
     inventory.units += transaction.units;
   }else if (transaction.type == "sell"){
@@ -46,6 +51,8 @@ module.exports.doMarketTransaction = function* doMarketTransaction(id, transacti
     life.current.finance.cash += totalPrice;
     // adjust the listing's stock
     listing.units += transaction.units;
+    // adjust the storage
+    life.current.storage.available += transaction.units;
     // adjust the inventory stock
     inventory.units -= transaction.units;
   }

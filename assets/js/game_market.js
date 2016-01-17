@@ -49,7 +49,7 @@ $( document ).ready(function() {
         updateUnits(result.life);
         displayAlert("success", "You have successfully bought " + transaction.units + (transaction.units === 1 ? " unit" : " units"));
       }else{
-        displayAlert("warning", "Oh no!  Something has gone wrong (" + result.error + ")");
+        displayAlert("warning", "Oh no!  Something has gone wrong (" + result.message + ")");
       }
     });
   });
@@ -77,6 +77,7 @@ function updateUnits(life){
   // a life object back from the request
   // update the hud
   $("#hud-cash").html(life.current.finance.cash);
+  $("#hud-storage").html(life.current.storage.available + "/" + life.current.storage.total);
   $('#transaction-modal').data('cash', life.current.finance.cash);
   // update units and prices for all item cards
   var i = 0;

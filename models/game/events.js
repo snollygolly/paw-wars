@@ -96,10 +96,20 @@ function adjustCurrentInventory(life, adjustment){
     }
     life.current.inventory.push(inventory);
   }
-  // adjust the listing's stock
-  inventory.units += Math.round(config.game.base_units * adjustment.units);
-  // insert it back into the inventory
-  life.current.inventory = common.replaceObjFromArr(inventory, life.current.inventory);
+  let newUnits = Math.round(config.game.base_units * adjustment.units);
+  if (newUnits <= life.current.storage.available){
+    // adjust the listing's stock
+    inventory.units += newUnits;
+    // insert it back into the inventory
+    life.current.inventory = common.replaceObjFromArr(inventory, life.current.inventory);
+  }else{
+    // they don't have enough available storage
+    life.actions.push({
+      turn: life.current.turn,
+      type: "event - failed (storage)",
+      data: adjustment
+    });
+  }
   return life;
 }
 

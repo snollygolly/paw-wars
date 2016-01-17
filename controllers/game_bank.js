@@ -27,6 +27,8 @@ module.exports.index = function* index(){
 }
 
 module.exports.transaction = function* transaction(){
+	// for error handling
+	this.state.api = true;
 	if (this.isAuthenticated()) {
 		player = this.session.passport.user;
 		// TODO: add an else in here to redirect, but it's too much of pain atm
@@ -73,6 +75,8 @@ module.exports.transaction = function* transaction(){
 }
 
 module.exports.lending = function* lending(){
+	// for error handling
+	this.state.api = true;
 	if (this.isAuthenticated()) {
 		player = this.session.passport.user;
 		// TODO: add an else in here to redirect, but it's too much of pain atm

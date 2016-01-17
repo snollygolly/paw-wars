@@ -51,10 +51,16 @@ app.use(function *(next) {
   try {
     yield next;
   } catch (err) {
-    this.app.emit('error', err, this);
-    yield this.render('error', {
-      dump: err
-    });
+    if (this.state.api === true){
+      // if this was an API request, send the error back in a plain response
+      this.body = {error: true, message: String(err)};
+    }else{
+      // this wasn't an API request, show the error page
+      this.app.emit('error', err, this);
+      yield this.render('error', {
+        dump: err
+      });
+    }
   }
 });
 

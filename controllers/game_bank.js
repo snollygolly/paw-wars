@@ -19,7 +19,6 @@ module.exports.index = function* index(){
 		throw new Error("No life found / bankController:index");
 	}
 	yield this.render('game_bank', {
-		config: config,
 		title: config.site.name,
 		player: player,
 		life: life,

@@ -63,6 +63,6 @@ module.exports.doBankLending = function* doBankLending(id, transaction){
 }
 
 module.exports.chargeInterest = function chargeInterest(life){
-  life.current.finance.debt += life.current.finance.debt * (config.game.interest / 100);
+  life.current.finance.debt += life.current.finance.debt * (life.current.finance.interest / 100);
   return life;
 }

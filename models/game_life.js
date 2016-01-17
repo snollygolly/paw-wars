@@ -103,7 +103,8 @@ function generateLife(player, parameters){
       finance: {
         cash: config.game.starting_cash,
         savings: 0,
-        debt: config.game.starting_debt
+        debt: config.game.starting_debt,
+        interest: config.game.interest
       },
       inventory: []
     },

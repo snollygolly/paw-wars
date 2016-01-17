@@ -1,10 +1,22 @@
 {
   "market":{
     "base_price": 250,
-    "base_units": 1000
+    "base_units": 1000,
+    "price_variance": {
+      "min": -0.35,
+      "max": 0.35
+    },
+    "unit_variance": {
+      "min": -0.50,
+      "max": 0.50
+    }
   },
   "airport": {
-    "base_price": 250
+    "base_price": 150,
+    "price_variance": {
+      "min": -0.30,
+      "max": 0.15
+    }
   },
   "bank": {
     "interest": 2,

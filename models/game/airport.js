@@ -52,7 +52,7 @@ module.exports.generateAirportListings = function generateAirportListings(life){
 		priceObj.flight_number = generateFlightNumber();
 		// generate price for flights
 		// TODO: factor in continents into pricing and probably travel time
-		let priceVariance = common.getRandomArbitrary(-0.30, 0.15);
+		let priceVariance = common.getRandomArbitrary(game.airport.price_variance.min, game.airport.price_variance.max);
 		priceObj.price = Math.round((game.airport.base_price * priceVariance) + game.airport.base_price);
 		// generate flight time
 		priceObj.flight_time = findFlightTime(location, place)

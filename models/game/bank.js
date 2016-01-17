@@ -74,6 +74,7 @@ module.exports.doBankLending = function* doBankLending(id, transaction){
   return life;
 }
 
-module.exports.generateBankListings = function generateBankListings(){
-  // generates interest rates and such for the bank?
+module.exports.chargeInterest = function chargeInterest(life){
+  life.current.finance.debt += Number(life.current.finance.debt * (config.game.interest / 100)).toFixed(2);
+  return life;
 }

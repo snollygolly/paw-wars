@@ -26,6 +26,7 @@
   "game":{
     "base_price": 250,
     "base_units": 1000,
+    "base_interest": 5,
     "starting_cash": 10000,
     "starting_debt": 10000,
     "event_rate": 15

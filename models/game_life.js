@@ -64,7 +64,8 @@ module.exports.replaceLife = function* replaceLife(life){
 module.exports.changeTurn = function changeTurn(life, turn){
   life.listings.market = market.generateMarketListings(life);
   life.listings.airport = airport.generateAirportListings(life);
-  // TODO: charge interest
+  life = bank.chargeInterest(life);
+  // TODO: add cop checks here
   life = events.simulateEvents(life);
   life.current.turn = turn;
   return life;

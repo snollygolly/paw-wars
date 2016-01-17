@@ -13,8 +13,8 @@
     </div>
     <br>
     <div>
-      <p>You currently owe: $<strong id="bank-debt-amount">0</strong> to the bank.</p>
-      <p><small>The bank will charge you <strong id="bank-interest-amount">5</strong>% (compounded per turn) in interest for any outstanding loans.</small></p>
+      <p>You currently owe: $<strong id="bank-debt-amount">{{life.current.finance.debt}}</strong> to the bank.</p>
+      <p><small>The bank will charge you <strong id="bank-interest-amount">{{config.game.interest}}</strong>% (compounded per turn) in interest for any outstanding loans.</small></p>
       <button id="bank-repay-btn" class="btn btn-success transaction-btn" data-type="repay" data-id="{{life.id}}" data-max="{{life.current.finance.savings}}" data-toggle="modal" data-target="#transaction-modal">Repay Money</button>
       <button id="bank-borrow-btn" class="btn btn-danger transaction-btn" data-type="borrow" data-id="{{life.id}}" data-max="100000" data-toggle="modal" data-target="#transaction-modal">Borrow Money</button>
     </div>

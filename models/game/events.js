@@ -115,6 +115,6 @@ function adjustCurrentInventory(life, adjustment){
 
 function adjustCurrentCash(life, adjustment){
   // adjust the user's cash
-  life.current.finance.cash += adjustment.amount * game.market.base_price;
+  life.current.finance.cash += Math.round(adjustment.amount * game.market.base_price);
   return life;
 }

@@ -1,6 +1,6 @@
 "use strict";
 
-const config = require('../../config.json');
+const game = require('../../game.json');
 const items = require('./items.json');
 const events = require('./events.json');
 const common = require('../../helpers/common');
@@ -10,7 +10,7 @@ module.exports.simulateEvents = function simulateEvents(life){
   // see if we even get an event
   let eventRoll = common.getRandomInt(0, 100);
   // see if our roll is good enough for an event
-  if (config.game.event_rate <= eventRoll){
+  if (game.events.event_rate <= eventRoll){
     // they didn't get an event
     life.current.event = "Nothing of interest happened this turn.";
     return life;
@@ -68,7 +68,7 @@ function makeDescription(eventObj, adjustment){
     description = description.replace(/\{\{item\}\}/g, adjustment.item.name);
   }
   if (description.indexOf("{{amount}}") >= 0){
-    description = description.replace(/\{\{amount\}\}/g, Math.round(adjustment.amount * config.game.base_price));
+    description = description.replace(/\{\{amount\}\}/g, Math.round(adjustment.amount * game.market.base_price));
   }
   return description;
 }
@@ -96,7 +96,7 @@ function adjustCurrentInventory(life, adjustment){
     }
     life.current.inventory.push(inventory);
   }
-  let newUnits = Math.round(config.game.base_units * adjustment.units);
+  let newUnits = Math.round(game.market.base_units * adjustment.units);
   if (newUnits <= life.current.storage.available){
     // adjust the listing's stock
     inventory.units += newUnits;
@@ -115,6 +115,6 @@ function adjustCurrentInventory(life, adjustment){
 
 function adjustCurrentCash(life, adjustment){
   // adjust the user's cash
-  life.current.finance.cash += adjustment.amount * config.game.base_price;
+  life.current.finance.cash += adjustment.amount * game.market.base_price;
   return life;
 }

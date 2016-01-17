@@ -1,6 +1,6 @@
 "use strict";
 
-const config = require('../../config.json');
+const game = require('../../game.json');
 const items = require('./items.json');
 const common = require('../../helpers/common');
 const model = require('../game_life.js');
@@ -83,10 +83,10 @@ module.exports.generateMarketListings = function generateMarketListings(life){
 		// generate some random numbers for price and qty
 		// TODO: handle variations in price here, they may follow trends?
 		let priceVariance = common.getRandomArbitrary(-0.10, 0.15);
-		let modBasePrice = (config.game.base_price * priceVariance) + config.game.base_price;
+		let modBasePrice = (game.market.base_price * priceVariance) + game.market.base_price;
 
 		let unitVariance = common.getRandomArbitrary(-0.10, 0.15);
-		let modBaseUnits = (config.game.base_units * unitVariance) + config.game.base_units;
+		let modBaseUnits = (game.market.base_units * unitVariance) + game.market.base_units;
 
 		// calculate and set price
 		let price = Math.round(modPerc * modBasePrice);

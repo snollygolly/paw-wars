@@ -1,6 +1,6 @@
 "use strict";
 
-const config = require('../../config.json');
+const game = require('../../game.json');
 const places = require('./places.json');
 const common = require('../../helpers/common');
 const model = require('../game_life.js');
@@ -53,7 +53,7 @@ module.exports.generateAirportListings = function generateAirportListings(life){
 		// generate price for flights
 		// TODO: factor in continents into pricing and probably travel time
 		let priceVariance = common.getRandomArbitrary(-0.30, 0.15);
-		priceObj.price = Math.round((config.game.base_price * priceVariance) + config.game.base_price);
+		priceObj.price = Math.round((game.airport.base_price * priceVariance) + game.airport.base_price);
 		// generate flight time
 		priceObj.flight_time = findFlightTime(location, place)
     priceArr.push(priceObj);

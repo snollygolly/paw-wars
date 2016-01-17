@@ -22,13 +22,5 @@
     "hostname": "YOUR HOSTNAME",
     "path": "~/Paw-Wars",
     "screen": "paw-wars"
-  },
-  "game":{
-    "base_price": 250,
-    "base_units": 1000,
-    "interest": 2,
-    "starting_cash": 10000,
-    "starting_debt": 10000,
-    "event_rate": 15
   }
 }

@@ -1,0 +1,17 @@
+{
+  "market":{
+    "base_price": 250,
+    "base_units": 1000
+  },
+  "airport": {
+    "base_price": 250
+  },
+  "bank": {
+    "interest": 2,
+    "starting_cash": 10000,
+    "starting_debt": 10000
+  },
+  "events": {
+    "event_rate": 15
+  }
+}

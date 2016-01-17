@@ -1,6 +1,7 @@
 "use strict";
 
 const config = require('../config.json');
+const game = require('../game.json');
 const common = require('../helpers/common');
 const r = require('rethinkdb');
 
@@ -101,10 +102,10 @@ function generateLife(player, parameters){
         status: null
       },
       finance: {
-        cash: config.game.starting_cash,
+        cash: game.bank.starting_cash,
         savings: 0,
-        debt: config.game.starting_debt,
-        interest: config.game.interest
+        debt: game.bank.starting_debt,
+        interest: game.bank.interest
       },
       inventory: [],
       storage: {

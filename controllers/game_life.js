@@ -1,6 +1,7 @@
 "use strict";
 
 const config = require('../config.json');
+const game = require('../game.json');
 const places = require('../models/game/places.json');
 const lifeModel = require('../models/game_life');
 
@@ -18,7 +19,7 @@ module.exports.play = function* play(){
 		throw new Error("Can't start a new game when one is in progress / lifeController:play");
 	}
 	yield this.render('game_life', {
-		config: config,
+		game: game,
 		title: config.site.name,
 		player: player,
 		life: life,

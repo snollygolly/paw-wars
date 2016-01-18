@@ -2,6 +2,7 @@
 
 const chai = require('chai');
 const expect = chai.expect;
+const common = require('../helpers/common');
 const model = require('../models/game_life');
 const places = require('../models/game/places.json');
 
@@ -40,6 +41,116 @@ describe('Life Model - Base Validation', function describeBaseValidation() {
   });
 });
 
+describe('Life Model - Starting Validation', function describeStartingValidation() {
+  it('current life should have required properties', function hasRequiredProperties(done) {
+    expect(life.starting).to.be.an('object');
+    expect(life.starting).to.have.property('turn');
+    expect(life.starting).to.have.property('event');
+    expect(life.starting).to.have.property('finance');
+    expect(life.starting).to.have.property('health');
+    expect(life.starting).to.have.property('inventory');
+    expect(life.starting).to.have.property('location');
+    expect(life.starting).to.have.property('storage');
+    return done();
+  });
+
+  it('current life has a valid turn', function hasValidTurn(done) {
+    expect(life.starting.turn).to.be.a('number');
+    return done();
+  });
+
+  it('current life has a valid event', function hasValidEvent(done) {
+    expect(life.starting.event).to.be.a('string');
+    return done();
+  });
+
+  it('current life has a valid finance object', function hasValidFinance(done) {
+    expect(life.starting.finance).to.be.an('object');
+    // cash
+    expect(life.starting.finance).to.have.property('cash');
+    expect(life.starting.finance.cash).to.be.a('number');
+    expect(life.starting.finance.cash).to.be.at.least(0);
+    expect(common.isWholeNumber(life.starting.finance.cash)).to.be.true;
+    // debt
+    expect(life.starting.finance).to.have.property('debt');
+    expect(life.starting.finance.debt).to.be.a('number');
+    expect(life.starting.finance.debt).to.be.at.least(0);
+    expect(common.isWholeNumber(life.starting.finance.debt)).to.be.true;
+    // savings
+    expect(life.starting.finance).to.have.property('savings');
+    expect(life.starting.finance.savings).to.be.a('number');
+    expect(life.starting.finance.savings).to.be.at.least(0);
+    expect(common.isWholeNumber(life.starting.finance.savings)).to.be.true;
+    // debt interest
+    expect(life.starting.finance).to.have.property('debt_interest');
+    expect(life.starting.finance.debt_interest).to.be.a('number');
+    expect(life.starting.finance.debt_interest).to.be.at.least(0);
+    // savings interest
+    expect(life.starting.finance).to.have.property('savings_interest');
+    expect(life.starting.finance.savings_interest).to.be.a('number');
+    expect(life.starting.finance.savings_interest).to.be.at.least(0);
+    return done();
+  });
+
+  it('current life has a valid health object', function hasValidHealth(done) {
+    expect(life.starting.health).to.be.an('object');
+    expect(life.starting.health).to.have.property('points');
+    expect(life.starting.health.points).to.be.a('number');
+    expect(life.starting.health.points).to.be.above(0);
+    expect(common.isWholeNumber(life.starting.health.points)).to.be.true;
+    expect(life.starting.health).to.have.property('status');
+    return done();
+  });
+
+  it('current life has a valid inventory array', function hasValidInventory(done) {
+    expect(life.starting.inventory).to.be.an('array');
+    return done();
+  });
+
+  it('current life has a valid location object', function hasValidLocation(done) {
+    expect(life.starting.location).to.be.an('object');
+    // city
+    expect(life.starting.location).to.have.property('city');
+    expect(life.starting.location.city).to.be.a('string');
+    expect(life.starting.location.city).to.equal(LOCATION.location.city);
+    // country
+    expect(life.starting.location).to.have.property('country');
+    expect(life.starting.location.country).to.be.a('string');
+    expect(life.starting.location.country).to.equal(LOCATION.location.country);
+    // continent
+    expect(life.starting.location).to.have.property('continent');
+    expect(life.starting.location.continent).to.be.a('string');
+    expect(life.starting.location.continent).to.equal(LOCATION.location.continent);
+    // ID
+    expect(life.starting.location).to.have.property('id');
+    expect(life.starting.location.id).to.be.a('string');
+    expect(life.starting.location.id).to.equal(LOCATION.location.id);
+    // size
+    expect(life.starting.location).to.have.property('size');
+    expect(life.starting.location.size).to.be.a('number');
+    expect(life.starting.location.size).to.be.at.least(0);
+    expect(life.starting.location.size).to.equal(LOCATION.location.size);
+    return done();
+  });
+
+  it('current life has a valid storage object', function hasValidStorage(done) {
+    expect(life.starting.storage).to.be.an('object');
+    // available
+    expect(life.starting.storage).to.have.property('available');
+    expect(life.starting.storage.available).to.be.a('number');
+    expect(life.starting.storage.available).to.be.at.least(0);
+    expect(common.isWholeNumber(life.starting.storage.available)).to.be.true;
+    // total
+    expect(life.starting.storage).to.have.property('total');
+    expect(life.starting.storage.total).to.be.a('number');
+    expect(life.starting.storage.total).to.be.at.least(0);
+    expect(common.isWholeNumber(life.starting.storage.total)).to.be.true;
+    // make sure total is > than available always
+    expect(life.starting.storage.total).to.be.at.least(life.starting.storage.available);
+    return done();
+  });
+});
+
 describe('Life Model - Current Validation', function describeCurrentValidation() {
   it('current life should have required properties', function hasRequiredProperties(done) {
     expect(life.current).to.be.an('object');
@@ -69,17 +180,17 @@ describe('Life Model - Current Validation', function describeCurrentValidation()
     expect(life.current.finance).to.have.property('cash');
     expect(life.current.finance.cash).to.be.a('number');
     expect(life.current.finance.cash).to.be.at.least(0);
-    expect(isWholeNumber(life.current.finance.cash)).to.be.true;
+    expect(common.isWholeNumber(life.current.finance.cash)).to.be.true;
     // debt
     expect(life.current.finance).to.have.property('debt');
     expect(life.current.finance.debt).to.be.a('number');
     expect(life.current.finance.debt).to.be.at.least(0);
-    expect(isWholeNumber(life.current.finance.debt)).to.be.true;
+    expect(common.isWholeNumber(life.current.finance.debt)).to.be.true;
     // savings
     expect(life.current.finance).to.have.property('savings');
     expect(life.current.finance.savings).to.be.a('number');
     expect(life.current.finance.savings).to.be.at.least(0);
-    expect(isWholeNumber(life.current.finance.savings)).to.be.true;
+    expect(common.isWholeNumber(life.current.finance.savings)).to.be.true;
     // debt interest
     expect(life.current.finance).to.have.property('debt_interest');
     expect(life.current.finance.debt_interest).to.be.a('number');
@@ -96,7 +207,7 @@ describe('Life Model - Current Validation', function describeCurrentValidation()
     expect(life.current.health).to.have.property('points');
     expect(life.current.health.points).to.be.a('number');
     expect(life.current.health.points).to.be.above(0);
-    expect(isWholeNumber(life.current.health.points)).to.be.true;
+    expect(common.isWholeNumber(life.current.health.points)).to.be.true;
     expect(life.current.health).to.have.property('status');
     return done();
   });
@@ -138,12 +249,12 @@ describe('Life Model - Current Validation', function describeCurrentValidation()
     expect(life.current.storage).to.have.property('available');
     expect(life.current.storage.available).to.be.a('number');
     expect(life.current.storage.available).to.be.at.least(0);
-    expect(isWholeNumber(life.current.storage.available)).to.be.true;
+    expect(common.isWholeNumber(life.current.storage.available)).to.be.true;
     // total
     expect(life.current.storage).to.have.property('total');
     expect(life.current.storage.total).to.be.a('number');
     expect(life.current.storage.total).to.be.at.least(0);
-    expect(isWholeNumber(life.current.storage.total)).to.be.true;
+    expect(common.isWholeNumber(life.current.storage.total)).to.be.true;
     // make sure total is > than available always
     expect(life.current.storage.total).to.be.at.least(life.current.storage.available);
     return done();
@@ -169,40 +280,14 @@ describe('Life Model - Listing Validation', function describeListingValidation()
   });
 });
 
-describe('Life Model - Airport Listing Validation', function describeAirportValidation() {
-  for (let listing of life.listings.airport){
-    it('listing [' + listing.id + '] has a valid airport object', function hasValidAirportObj(done) {
-      expect(listing).to.be.an('object');
-      // id
-      expect(listing).to.have.property('id');
-      expect(listing.id).to.be.a('string');
-      // price
-      expect(listing).to.have.property('price');
-      expect(listing.price).to.be.a('number');
-      expect(listing.price).to.be.above(0);
-      expect(isWholeNumber(listing.price)).to.be.true;
-      // size
-      expect(listing).to.have.property('size');
-      expect(listing.size).to.be.a('number');
-      expect(listing.size).to.be.at.least(0);
-      expect(isWholeNumber(listing.size)).to.be.true;
-      // flight time
-      expect(listing).to.have.property('flight_time');
-      expect(listing.flight_time).to.be.a('number');
-      expect(listing.flight_time).to.be.at.least(0);
-      expect(isWholeNumber(listing.flight_time)).to.be.true;
-      // flight number
-      expect(listing).to.have.property('flight_number');
-      expect(listing.flight_number).to.be.a('string');
-      return done();
-    });
-  }
-});
+describe('Life Model - Actions Validation', function describeActionsValidation() {
+  it('actions is an array', function hasValidActions(done) {
+    expect(life.actions).to.be.an('array');
+    return done();
+  });
 
-function isWholeNumber(num){
-  if (num % 1 === 0){
-    return true;
-  }else{
-    return false;
-  }
-}
+  it('actions should be empty', function hasEmptyActions(done) {
+    expect(life.actions.length).to.equal(0);
+    return done();
+  });
+});

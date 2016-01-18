@@ -27,3 +27,11 @@ module.exports.replaceObjFromArr = function replaceObjFromArr(obj, searchArr){
   }
   return returnArr;
 }
+
+module.exports.isWholeNumber = function isWholeNumber(num){
+  if (num % 1 === 0){
+    return true;
+  }else{
+    return false;
+  }
+}

@@ -59,9 +59,11 @@ module.exports.generateAirportListings = function generateAirportListings(life){
     let priceFloor = multi * Math.abs(game.airport.price_variance.min);
     // use this to boost the base price of all price generation (larger size = less price)
 		let priceVariance = common.getRandomArbitrary(game.airport.price_variance.min + priceFloor, game.airport.price_variance.max + priceFloor);
-		priceObj.price = Math.round((game.airport.base_price * priceVariance) + game.airport.base_price);
-		// generate flight time
-		priceObj.flight_time = findFlightTime(location, place)
+    // generate flight time
+    priceObj.flight_time = findFlightTime(location, place);
+    // generate price
+    let basePrice = (game.airport.base_price * priceVariance) + game.airport.base_price;
+		priceObj.price = Math.round(basePrice * (priceObj.flight_time + 1));
     priceArr.push(priceObj);
 	}
   return priceArr;

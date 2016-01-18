@@ -25,7 +25,7 @@ let oldLife = JSON.parse(JSON.stringify(life));
 
 describe('Market - Listings Validation', function describeListingsValidation() {
   for (let listing of life.listings.market){
-    it('listing [' + listing.id + '] has a valid market object', function hasValidMarketObj(done) {
+    it('listing [' + listing.id + '] should have a valid market object', function hasValidMarketObj(done) {
       expect(listing).to.be.an('object');
       // id
       expect(listing).to.have.property('id');
@@ -93,7 +93,7 @@ describe('Market - Transaction Validation (Buy)', function describeTransactionVa
 
   it('market should update the player cash', function cashValidation(done) {
     // set up
-    let newCash = oldLife.current.finance.cash - (oldListing.price * UNITS);
+    let newCash = Math.round(oldLife.current.finance.cash - (oldListing.price * UNITS));
     // make sure the cash updated after the buy
     expect(newLife.current.finance.cash).to.be.a('number');
     expect(newLife.current.finance.cash).to.be.at.least(0);
@@ -139,7 +139,7 @@ describe('Market - Transaction Validation (Sell)', function describeTransactionV
     units: 0
   }
   let transaction = {
-    id: "testing",
+    id: PLAYER.id,
     type: "sell",
     item: ITEM.id,
     units: UNITS

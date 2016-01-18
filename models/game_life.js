@@ -26,7 +26,7 @@ module.exports.createLife = function* createLife (player, parameters){
   // set up the connection
   yield createConnection();
   //create the life object
-  let life = generateLife(player, parameters);
+  let life = module.exports.generateLife(player, parameters);
   let result = yield r.table('lives').insert(life, {returnChanges: true}).run(connection);
   connection.close();
   //console.log("* createLife:", result.changes[0].new_val);
@@ -85,7 +85,7 @@ module.exports.doBankTransaction = bank.doBankTransaction;
 module.exports.doBankLending = bank.doBankLending;
 module.exports.generateBankListings = bank.generateBankListings;
 
-function generateLife(player, parameters){
+module.exports.generateLife = function generateLife(player, parameters){
   let life = {
     id: player.id + "_" + Date.now(),
     starting: {

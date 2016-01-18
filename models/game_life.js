@@ -77,7 +77,7 @@ module.exports.saveMarketTransaction = market.saveMarketTransaction;
 module.exports.generateMarketListings = market.generateMarketListings;
 
 // airport
-module.exports.doAirportFly = airport.doAirportFly;
+module.exports.saveAirportFly = airport.saveAirportFly;
 module.exports.generateAirportListings = airport.generateAirportListings;
 
 // bank

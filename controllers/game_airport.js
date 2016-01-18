@@ -68,7 +68,7 @@ module.exports.fly = function* fly(){
 		id: Date.now(),
 		destination: parameters.destination
 	};
-	life = yield lifeModel.doAirportFly(life.id, flight);
+	life = yield lifeModel.saveAirportFly(life.id, flight);
 	if (life.error){
 		// something went wrong during the process
 		return this.body = {error: true, message: life.message};

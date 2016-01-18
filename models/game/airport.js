@@ -5,8 +5,22 @@ const places = require('./places.json');
 const common = require('../../helpers/common');
 const model = require('../game_life.js');
 
-module.exports.doAirportFly = function* doAirportFly(id, flight){
+module.exports.saveAirportFly = function* saveAirportFly(id, flight){
+  // get the latest copy from the database
   let life = yield model.getLife(id);
+  // run all the transaction logic against it and get it back
+  life = module.exports.doAirportFly(life, flight);
+  // check for errors
+  if (life.error === true){
+    // exit early
+    return life;
+  }
+  // now replace it in the DB
+  life = yield model.replaceLife(life);
+  return life;
+}
+
+module.exports.doAirportFly = function doAirportFly(life, flight){
   // start to error check the transactions
   // first, see what they want to do, and see if the units are available
   let listing = common.getObjFromID(flight.destination, life.listings.airport);
@@ -34,8 +48,6 @@ module.exports.doAirportFly = function* doAirportFly(id, flight){
   // adjust the turn
   life.current.turn += listing.flight_time;
   life = model.changeTurn(life, life.current.turn);
-  // save the new life
-  life = yield model.replaceLife(life);
   //console.log("* doAirportFly:", life);
   return life;
 }

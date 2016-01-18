@@ -3,9 +3,23 @@
 const common = require('../../helpers/common');
 const model = require('../game_life.js');
 
-module.exports.doBankTransaction = function* doBankTransaction(id, transaction){
-  // NOTE: transaction is provided as a int, no need to parse
+module.exports.saveBankTransaction = function* saveBankTransaction(id, transaction){
+  // get the latest copy from the database
   let life = yield model.getLife(id);
+  // run all the transaction logic against it and get it back
+  life = module.exports.doBankTransaction(life, transaction);
+  // check for errors
+  if (life.error === true){
+    // exit early
+    return life;
+  }
+  // now replace it in the DB
+  life = yield model.replaceLife(life);
+  return life;
+}
+
+module.exports.doBankTransaction = function doBankTransaction(life, transaction){
+  // NOTE: transaction is provided as a int, no need to parse
   // start to error check the transactions
   if (transaction.type == "withdraw"){
     // if this is a withdraw, make it a negative number
@@ -26,15 +40,27 @@ module.exports.doBankTransaction = function* doBankTransaction(id, transaction){
     type: "bank",
     data: transaction
   });
-  // save the new life
-  life = yield model.replaceLife(life);
   //console.log("* doBankTransaction:", life);
   return life;
 }
 
-module.exports.doBankLending = function* doBankLending(id, transaction){
-  // NOTE: transaction is provided as an it, no need to parse
+module.exports.saveBankLending = function* saveBankLending(id, transaction){
+  // get the latest copy from the database
   let life = yield model.getLife(id);
+  // run all the transaction logic against it and get it back
+  life = module.exports.doBankLending(life, transaction);
+  // check for errors
+  if (life.error === true){
+    // exit early
+    return life;
+  }
+  // now replace it in the DB
+  life = yield model.replaceLife(life);
+  return life;
+}
+
+module.exports.doBankLending = function doBankLending(life, transaction){
+  // NOTE: transaction is provided as an it, no need to parse
   // start to error check the transactions
   if (transaction.type == "borrow"){
     // if this is a withdraw, make it a negative number
@@ -55,8 +81,6 @@ module.exports.doBankLending = function* doBankLending(id, transaction){
     type: "bank",
     data: transaction
   });
-  // save the new life
-  life = yield model.replaceLife(life);
   //console.log("* doBankTransaction:", life);
   return life;
 }

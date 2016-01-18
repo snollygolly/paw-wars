@@ -64,7 +64,7 @@ module.exports.transaction = function* transaction(){
 		type: parameters.type,
 		amount: parameters.amount
 	};
-	life = yield lifeModel.doBankTransaction(life.id, transaction);
+	life = yield lifeModel.saveBankTransaction(life.id, transaction);
 	if (life.error){
 		// something went wrong during the process
 		return this.body = {error: true, message: life.message};
@@ -112,7 +112,7 @@ module.exports.lending = function* lending(){
 		type: parameters.type,
 		amount: parameters.amount
 	};
-	life = yield lifeModel.doBankLending(life.id, transaction);
+	life = yield lifeModel.saveBankLending(life.id, transaction);
 	if (life.error){
 		// something went wrong during the process
 		return this.body = {error: true, message: life.message};

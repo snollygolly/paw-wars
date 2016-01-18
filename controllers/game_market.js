@@ -75,7 +75,7 @@ module.exports.transaction = function* transaction(){
 		item: parameters.item,
 		units: parameters.units
 	};
-	life = yield lifeModel.doMarketTransaction(life.id, transaction);
+	life = yield lifeModel.saveMarketTransaction(life.id, transaction);
 	if (life.error){
 		// something went wrong during the process
 		return this.body = {error: true, message: life.message};

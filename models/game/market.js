@@ -5,8 +5,22 @@ const items = require('./items.json');
 const common = require('../../helpers/common');
 const model = require('../game_life.js');
 
-module.exports.doMarketTransaction = function* doMarketTransaction(id, transaction){
+module.exports.saveMarketTransaction = function* saveMarketTransaction(id, transaction){
+  // get the latest copy from the database
   let life = yield model.getLife(id);
+  // run all the transaction logic against it and get it back
+  life = module.exports.doMarketTransaction(life, transaction);
+  // check for errors
+  if (life.error === true){
+    // exit early
+    return life;
+  }
+  // now replace it in the DB
+  life = yield model.replaceLife(life);
+  return life;
+}
+
+module.exports.doMarketTransaction = function doMarketTransaction(life, transaction){
   // start to error check the transactions
   // first, see what they want to do, and see if the units are available
   let listing = common.getObjFromID(transaction.item, life.listings.market);
@@ -64,8 +78,6 @@ module.exports.doMarketTransaction = function* doMarketTransaction(id, transacti
     type: "market",
     data: transaction
   })
-  // save the new life
-  life = yield model.replaceLife(life);
   //console.log("* doMarketTransaction:", life);
   return life;
 }

@@ -169,28 +169,6 @@ describe('Life Model - Listing Validation', function describeListingValidation()
   });
 });
 
-describe('Life Model - Market Listing Validation', function describeMarketValidation() {
-  for (let listing of life.listings.market){
-    it('listing [' + listing.id + '] has a valid market object', function hasValidMarketObj(done) {
-      expect(listing).to.be.an('object');
-      // id
-      expect(listing).to.have.property('id');
-      expect(listing.id).to.be.a('string');
-      // price
-      expect(listing).to.have.property('price');
-      expect(listing.price).to.be.a('number');
-      expect(listing.price).to.be.above(0);
-      expect(isWholeNumber(listing.price)).to.be.true;
-      // units
-      expect(listing).to.have.property('units');
-      expect(listing.units).to.be.a('number');
-      expect(listing.units).to.be.at.least(0);
-      expect(isWholeNumber(listing.units)).to.be.true;
-      return done();
-    });
-  }
-});
-
 describe('Life Model - Airport Listing Validation', function describeAirportValidation() {
   for (let listing of life.listings.airport){
     it('listing [' + listing.id + '] has a valid airport object', function hasValidAirportObj(done) {

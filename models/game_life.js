@@ -73,7 +73,7 @@ module.exports.changeTurn = function changeTurn(life, turn){
 }
 
 // market
-module.exports.doMarketTransaction = market.doMarketTransaction;
+module.exports.saveMarketTransaction = market.saveMarketTransaction;
 module.exports.generateMarketListings = market.generateMarketListings;
 
 // airport

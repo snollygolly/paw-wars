@@ -5,8 +5,6 @@ const expect = require('chai').expect;
 const main = require('../main');
 const config = main.config
 const common = main.common;
-const model = main.model;
-const places = main.places;
 
 module.exports.describeBaseValidation = function describeBaseValidation(life) {
   it('life should not be null', function isNotNull(done) {
@@ -252,4 +250,35 @@ module.exports.describeCurrentValidation = function describeCurrentValidation(li
     expect(life.current.storage.total).to.be.at.least(life.current.storage.available);
     return done();
   });
+}
+
+module.exports.describeListingValidation = function describeListingValidation(life) {
+  it('listing should have required properties', function hasRequiredProperties(done) {
+    expect(life.listings).to.be.an('object');
+    expect(life.listings).to.have.property('market');
+    expect(life.listings).to.have.property('airport');
+    return done();
+  });
+
+  it('listing has a valid market array', function hasValidMarket(done) {
+    expect(life.listings.market).to.be.an('array');
+    return done();
+  });
+
+  it('listing has a valid airport array', function hasValidAirport(done) {
+    expect(life.listings.market).to.be.an('array');
+    return done();
+  });
+}
+
+module.exports.describeActionsValidation = function describeActionsValidation(life) {
+  it('actions is an array', function hasValidActions(done) {
+   expect(life.actions).to.be.an('array');
+   return done();
+ });
+
+ it('actions should be empty', function hasEmptyActions(done) {
+   expect(life.actions.length).to.equal(0);
+   return done();
+ });
 }

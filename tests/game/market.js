@@ -1,29 +1,14 @@
 'use strict';
 
-const chai = require('chai');
-const expect = chai.expect;
-const common = require('../helpers/common');
-const model = require('../models/game_life');
-const market = require('../models/game/market');
-const places = require('../models/game/places.json');
-const items = require('../models/game/items.json');
+const expect = require('chai').expect;
 
-// generate a new life with the player id of "testing" and start in the first place on the list
-const UNITS = 10;
-const ITEM = items[0];
-const PLAYER = {
-  id: "testing"
-};
-const LOCATION = {
-  location: places[0]
-};
-const life = model.generateLife(PLAYER, LOCATION);
+const main = require('../main');
+const config = main.config
+const common = main.common;
 
-let newLife;
-// this is required because evidently you CAN change a const if you're crafty enough
-let oldLife = JSON.parse(JSON.stringify(life));
+const market = main.market;
 
-describe('Market - Listings Validation', function describeListingsValidation() {
+module.exports.describeListingsValidation = function describeListingsValidation(life) {
   for (let listing of life.listings.market){
     it('listing [' + listing.id + '] should have a valid market object', function hasValidMarketObj(done) {
       expect(listing).to.be.an('object');
@@ -43,23 +28,20 @@ describe('Market - Listings Validation', function describeListingsValidation() {
       return done();
     });
   }
-});
+}
 
-describe('Market - Transaction Validation (Buy)', function describeTransactionValidation() {
-  let oldListing = common.getObjFromID(ITEM.id, oldLife.listings.market);
+module.exports.describeBuyTransactionValidation = function describeBuyTransactionValidation(life) {
+  life = JSON.parse(JSON.stringify(life));
+  const oldLife = JSON.parse(JSON.stringify(life));
+  let oldListing = common.getObjFromID(config.ITEM.id, oldLife.listings.market);
   let oldInventory = {
-    id: ITEM.id,
+    id: config.ITEM.id,
     units: 0
   }
-  let transaction = {
-    id: "testing",
-    type: "buy",
-    item: ITEM.id,
-    units: UNITS
-  };
+  let transaction = module.exports.makeBuyTransaction();
+  let newLife = market.doMarketTransaction(life, transaction);
 
   it('market should accept a buy transaction', function acceptsMarketTransaction(done) {
-    newLife = market.doMarketTransaction(life, transaction);
     // check for errors
     expect(newLife).to.not.have.property('error');
     return done();
@@ -67,8 +49,8 @@ describe('Market - Transaction Validation (Buy)', function describeTransactionVa
 
   it('market should update the listing units', function listingUnitValidation(done) {
     // set up
-    let newListing = common.getObjFromID(ITEM.id, newLife.listings.market);
-    let newUnits = oldListing.units - UNITS;
+    let newListing = common.getObjFromID(config.ITEM.id, newLife.listings.market);
+    let newUnits = oldListing.units - config.UNITS;
     // make sure the listing updated after the buy
     expect(newListing).to.have.property('units');
     expect(newListing.units).to.be.a('number');
@@ -80,8 +62,8 @@ describe('Market - Transaction Validation (Buy)', function describeTransactionVa
 
   it('market should update the player inventory', function inventoryValidation(done) {
     // set up
-    let newInventory = common.getObjFromID(ITEM.id, newLife.current.inventory);
-    let newUnits = oldInventory.units + UNITS;
+    let newInventory = common.getObjFromID(config.ITEM.id, newLife.current.inventory);
+    let newUnits = oldInventory.units + config.UNITS;
     // make sure the listing updated after the buy
     expect(newInventory).to.have.property('units');
     expect(newInventory.units).to.be.a('number');
@@ -93,7 +75,7 @@ describe('Market - Transaction Validation (Buy)', function describeTransactionVa
 
   it('market should update the player cash', function cashValidation(done) {
     // set up
-    let newCash = Math.round(oldLife.current.finance.cash - (oldListing.price * UNITS));
+    let newCash = Math.round(oldLife.current.finance.cash - (oldListing.price * config.UNITS));
     // make sure the cash updated after the buy
     expect(newLife.current.finance.cash).to.be.a('number');
     expect(newLife.current.finance.cash).to.be.at.least(0);
@@ -104,7 +86,7 @@ describe('Market - Transaction Validation (Buy)', function describeTransactionVa
 
   it('market should update the player storage', function storageValidation(done) {
     // set up
-    let newStorage = oldLife.current.storage.available - UNITS;
+    let newStorage = oldLife.current.storage.available - config.UNITS;
     // make sure the cash updated after the buy
     expect(newLife.current.storage.available).to.be.a('number');
     expect(newLife.current.storage.available).to.be.at.least(0);
@@ -130,23 +112,20 @@ describe('Market - Transaction Validation (Buy)', function describeTransactionVa
     expect(newAction.data).to.equal(transaction);
     return done();
   });
-});
+}
 
-describe('Market - Transaction Validation (Sell)', function describeTransactionValidation() {
-  let oldListing = common.getObjFromID(ITEM.id, oldLife.listings.market);
+module.exports.describeSellTransactionValidation = function describeSellTransactionValidation(life) {
+  life = JSON.parse(JSON.stringify(life));
+  let oldLife = JSON.parse(JSON.stringify(life));
+  let oldListing = common.getObjFromID(config.ITEM.id, oldLife.listings.market);
   let oldInventory = {
-    id: ITEM.id,
-    units: 0
+    id: config.ITEM.id,
+    units: config.UNITS
   }
-  let transaction = {
-    id: PLAYER.id,
-    type: "sell",
-    item: ITEM.id,
-    units: UNITS
-  };
+  let transaction = module.exports.makeSellTransaction();
+  let newLife = market.doMarketTransaction(life, transaction);
 
   it('market should accept a sell transaction', function acceptsMarketTransaction(done) {
-    newLife = market.doMarketTransaction(life, transaction);
     // check for errors
     expect(newLife).to.not.have.property('error');
     return done();
@@ -154,9 +133,8 @@ describe('Market - Transaction Validation (Sell)', function describeTransactionV
 
   it('market should update the listing units', function listingUnitValidation(done) {
     // set up
-    let newListing = common.getObjFromID(ITEM.id, newLife.listings.market);
-    // there's no change in units
-    let newUnits = oldListing.units;
+    let newListing = common.getObjFromID(config.ITEM.id, newLife.listings.market);
+    let newUnits = oldListing.units + config.UNITS;
     // make sure the listing updated after the buy
     expect(newListing).to.have.property('units');
     expect(newListing.units).to.be.a('number');
@@ -168,9 +146,8 @@ describe('Market - Transaction Validation (Sell)', function describeTransactionV
 
   it('market should update the player inventory', function inventoryValidation(done) {
     // set up
-    let newInventory = common.getObjFromID(ITEM.id, newLife.current.inventory);
-    // there's no change in units
-    let newUnits = oldInventory.units;
+    let newInventory = common.getObjFromID(config.ITEM.id, newLife.current.inventory);
+    let newUnits = oldInventory.units - config.UNITS;
     // make sure the listing updated after the buy
     expect(newInventory).to.have.property('units');
     expect(newInventory.units).to.be.a('number');
@@ -182,8 +159,7 @@ describe('Market - Transaction Validation (Sell)', function describeTransactionV
 
   it('market should update the player cash', function cashValidation(done) {
     // set up
-    // there's no change in cash
-    let newCash = oldLife.current.finance.cash;
+    let newCash = oldLife.current.finance.cash + (oldListing.price * config.UNITS);
     // make sure the cash updated after the buy
     expect(newLife.current.finance.cash).to.be.a('number');
     expect(newLife.current.finance.cash).to.be.at.least(0);
@@ -194,8 +170,7 @@ describe('Market - Transaction Validation (Sell)', function describeTransactionV
 
   it('market should update the player storage', function storageValidation(done) {
     // set up
-    // there's no change in storage
-    let newStorage = oldLife.current.storage.available;
+    let newStorage = oldLife.current.storage.available + config.UNITS;
     // make sure the cash updated after the buy
     expect(newLife.current.storage.available).to.be.a('number');
     expect(newLife.current.storage.available).to.be.at.least(0);
@@ -221,4 +196,22 @@ describe('Market - Transaction Validation (Sell)', function describeTransactionV
     expect(newAction.data).to.equal(transaction);
     return done();
   });
-});
+}
+
+module.exports.makeBuyTransaction = function makeBuyTransaction(){
+  return {
+    id: "testing",
+    type: "buy",
+    item: config.ITEM.id,
+    units: config.UNITS
+  };
+}
+
+module.exports.makeSellTransaction = function makeSellTransaction(){
+  return {
+    id: "testing",
+    type: "sell",
+    item: config.ITEM.id,
+    units: config.UNITS
+  };
+}

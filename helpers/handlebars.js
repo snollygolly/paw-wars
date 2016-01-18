@@ -138,3 +138,7 @@ hbs.registerHelper('format_currency', function(amount, opts) {
     return x1 + x2;
   }
 });
+
+hbs.registerHelper('format_percent', function(percent, opts) {
+  return (percent * 100);
+});

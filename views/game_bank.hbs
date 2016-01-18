@@ -8,13 +8,14 @@
     <br>
     <div>
       <p>You have: $<strong id="bank-savings-amount">{{life.current.finance.savings}}</strong> in your savings account</p>
+      <p><small>The bank will pay you <strong id="bank-interest-amount">{{format_percent life.current.finance.savings_interest}}</strong>% (compounded per turn) in interest for your savings.</small></p>
       <button id="bank-deposit-btn" class="btn btn-success transaction-btn" data-type="deposit" data-id="{{life.id}}" data-max="{{life.current.finance.cash}}" data-toggle="modal" data-target="#transaction-modal">Deposit Money</button>
       <button id="bank-withdraw-btn" class="btn btn-danger transaction-btn" data-type="withdraw" data-id="{{life.id}}" data-max="{{life.current.finance.savings}}" data-toggle="modal" data-target="#transaction-modal">Withdraw Money</button>
     </div>
     <br>
     <div>
       <p>You currently owe: $<strong id="bank-debt-amount">{{life.current.finance.debt}}</strong> to the bank.</p>
-      <p><small>The bank will charge you <strong id="bank-interest-amount">{{life.current.finance.interest}}</strong>% (compounded per turn) in interest for any outstanding loans.</small></p>
+      <p><small>The bank will charge you <strong id="bank-interest-amount">{{format_percent life.current.finance.debt_interest}}</strong>% (compounded per turn) in interest for any outstanding loans.</small></p>
       <button id="bank-repay-btn" class="btn btn-success transaction-btn" data-type="repay" data-id="{{life.id}}" data-max="{{life.current.finance.savings}}" data-toggle="modal" data-target="#transaction-modal">Repay Money</button>
       <button id="bank-borrow-btn" class="btn btn-danger transaction-btn" data-type="borrow" data-id="{{life.id}}" data-max="100000" data-toggle="modal" data-target="#transaction-modal">Borrow Money</button>
     </div>

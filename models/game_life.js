@@ -65,7 +65,7 @@ module.exports.replaceLife = function* replaceLife(life){
 module.exports.changeTurn = function changeTurn(life, turn){
   life.listings.market = market.generateMarketListings(life);
   life.listings.airport = airport.generateAirportListings(life);
-  life = bank.chargeInterest(life);
+  life = bank.handleInterest(life);
   // TODO: add cop checks here
   life = events.simulateEvents(life);
   life.current.turn = turn;
@@ -106,7 +106,8 @@ function generateLife(player, parameters){
         cash: game.bank.starting_cash,
         savings: 0,
         debt: game.bank.starting_debt,
-        interest: game.bank.interest
+        debt_interest: game.bank.debt_interest,
+        savings_interest: game.bank.savings_interest
       },
       inventory: [],
       storage: {

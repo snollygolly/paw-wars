@@ -89,7 +89,6 @@ module.exports.generateMarketListings = function generateMarketListings(life){
     // generate a high end
     let priceMax = multi * game.market.price_variance.max;
 		let priceVariance = common.getRandomArbitrary(priceMin, priceMax);
-    console.log("min", priceMin, "max", priceMax, "actual", priceVariance);
 		let modBasePrice = (game.market.base_price * priceVariance) + game.market.base_price;
     // generate a low end
     let unitMin = multi * game.market.unit_variance.min;

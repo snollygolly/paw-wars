@@ -3,12 +3,12 @@
     "base_price": 250,
     "base_units": 1000,
     "price_variance": {
-      "min": -0.35,
-      "max": 0.35
+      "min": -0.75,
+      "max": 0.75
     },
     "unit_variance": {
-      "min": -0.50,
-      "max": 0.50
+      "min": -0.90,
+      "max": 0.90
     },
     "size_max": 50,
     "size_affect": 1

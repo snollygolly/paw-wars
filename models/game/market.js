@@ -82,10 +82,20 @@ module.exports.generateMarketListings = function generateMarketListings(life){
 		let modPerc = item.rarity / 100;
 		// generate some random numbers for price and qty
 		// TODO: handle variations in price here, they may follow trends?
-		let priceVariance = common.getRandomArbitrary(game.market.price_variance.min, game.market.price_variance.max);
+    // generate a multiplier for how much size affects price
+    let multi = (1 - (life.current.location.size / game.market.size_max)) * game.market.size_affect;
+    // generate a low end
+    let priceMin = multi * game.market.price_variance.min;
+    // generate a high end
+    let priceMax = multi * game.market.price_variance.max;
+		let priceVariance = common.getRandomArbitrary(priceMin, priceMax);
+    console.log("min", priceMin, "max", priceMax, "actual", priceVariance);
 		let modBasePrice = (game.market.base_price * priceVariance) + game.market.base_price;
-
-		let unitVariance = common.getRandomArbitrary(game.market.unit_variance.min, game.market.unit_variance.max);
+    // generate a low end
+    let unitMin = multi * game.market.unit_variance.min;
+    // generate a high end
+    let unitMax = multi * game.market.unit_variance.max;
+		let unitVariance = common.getRandomArbitrary(unitMin, unitMax);
 		let modBaseUnits = (game.market.base_units * unitVariance) + game.market.base_units;
 
 		// calculate and set price

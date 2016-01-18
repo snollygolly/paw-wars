@@ -95,7 +95,8 @@ function generateLife(player, parameters){
         id: parameters.location.id,
         city: parameters.location.city,
         country: parameters.location.country,
-        continent: parameters.location.continent
+        continent: parameters.location.continent,
+        size: parameters.location.size
       },
       health: {
         points: 100,

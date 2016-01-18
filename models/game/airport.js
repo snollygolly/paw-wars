@@ -48,11 +48,17 @@ module.exports.generateAirportListings = function generateAirportListings(life){
 	for (let place of places){
     let priceObj = {
       id: place.id,
+      size: place.size
     };
 		priceObj.flight_number = generateFlightNumber();
 		// generate price for flights
 		// TODO: factor in continents into pricing and probably travel time
-		let priceVariance = common.getRandomArbitrary(game.airport.price_variance.min, game.airport.price_variance.max);
+    // generate a multiplier for how much size affects price
+    let multi = (1 - (priceObj.size / game.airport.size_max)) * game.airport.size_affect;
+    // take whatever the min is, take the abs (we don't want negative numbers), multi the multiplier
+    let priceFloor = multi * Math.abs(game.airport.price_variance.min);
+    // use this to boost the base price of all price generation (larger size = less price)
+		let priceVariance = common.getRandomArbitrary(game.airport.price_variance.min + priceFloor, game.airport.price_variance.max + priceFloor);
 		priceObj.price = Math.round((game.airport.base_price * priceVariance) + game.airport.base_price);
 		// generate flight time
 		priceObj.flight_time = findFlightTime(location, place)

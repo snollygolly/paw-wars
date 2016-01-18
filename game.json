@@ -9,14 +9,18 @@
     "unit_variance": {
       "min": -0.50,
       "max": 0.50
-    }
+    },
+    "size_max": 50,
+    "size_affect": 1
   },
   "airport": {
     "base_price": 150,
     "price_variance": {
-      "min": -0.30,
-      "max": 0.15
-    }
+      "min": -0.75,
+      "max": 0.25
+    },
+    "size_max": 50,
+    "size_affect": 1
   },
   "bank": {
     "interest": 2,

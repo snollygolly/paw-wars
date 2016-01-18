@@ -1,21 +1,14 @@
 'use strict';
 
-const chai = require('chai');
-const expect = chai.expect;
-const common = require('../helpers/common');
-const model = require('../models/game_life');
-const places = require('../models/game/places.json');
+const expect = require('chai').expect;
 
-// generate a new life with the player id of "testing" and start in the first place on the list
-const PLAYER = {
-  id: "testing"
-};
-const LOCATION = {
-  location: places[0]
-}
-const life = model.generateLife(PLAYER, LOCATION);
+const main = require('../main');
+const config = main.config
+const common = main.common;
+const model = main.model;
+const places = main.places;
 
-describe('Life Model - Base Validation', function describeBaseValidation() {
+module.exports.describeBaseValidation = function describeBaseValidation(life) {
   it('life should not be null', function isNotNull(done) {
     expect(life).to.not.be.a('null');
     return done();
@@ -35,13 +28,13 @@ describe('Life Model - Base Validation', function describeBaseValidation() {
     expect(life.id).to.be.a('string');
     let idArr = life.id.split("_");
     expect(idArr.length).to.equal(2);
-    expect(idArr[0]).to.equal(PLAYER.id);
+    expect(idArr[0]).to.equal(config.PLAYER.id);
     // TODO: expect().to.be.a.timestamp?
     return done();
   });
-});
+}
 
-describe('Life Model - Starting Validation', function describeStartingValidation() {
+module.exports.describeStartingValidation = function describeStartingValidation(life) {
   it('current life should have required properties', function hasRequiredProperties(done) {
     expect(life.starting).to.be.an('object');
     expect(life.starting).to.have.property('turn');
@@ -112,24 +105,24 @@ describe('Life Model - Starting Validation', function describeStartingValidation
     // city
     expect(life.starting.location).to.have.property('city');
     expect(life.starting.location.city).to.be.a('string');
-    expect(life.starting.location.city).to.equal(LOCATION.location.city);
+    expect(life.starting.location.city).to.equal(config.LOCATION.location.city);
     // country
     expect(life.starting.location).to.have.property('country');
     expect(life.starting.location.country).to.be.a('string');
-    expect(life.starting.location.country).to.equal(LOCATION.location.country);
+    expect(life.starting.location.country).to.equal(config.LOCATION.location.country);
     // continent
     expect(life.starting.location).to.have.property('continent');
     expect(life.starting.location.continent).to.be.a('string');
-    expect(life.starting.location.continent).to.equal(LOCATION.location.continent);
+    expect(life.starting.location.continent).to.equal(config.LOCATION.location.continent);
     // ID
     expect(life.starting.location).to.have.property('id');
     expect(life.starting.location.id).to.be.a('string');
-    expect(life.starting.location.id).to.equal(LOCATION.location.id);
+    expect(life.starting.location.id).to.equal(config.LOCATION.location.id);
     // size
     expect(life.starting.location).to.have.property('size');
     expect(life.starting.location.size).to.be.a('number');
     expect(life.starting.location.size).to.be.at.least(0);
-    expect(life.starting.location.size).to.equal(LOCATION.location.size);
+    expect(life.starting.location.size).to.equal(config.LOCATION.location.size);
     return done();
   });
 
@@ -149,9 +142,9 @@ describe('Life Model - Starting Validation', function describeStartingValidation
     expect(life.starting.storage.total).to.be.at.least(life.starting.storage.available);
     return done();
   });
-});
+}
 
-describe('Life Model - Current Validation', function describeCurrentValidation() {
+module.exports.describeCurrentValidation = function describeCurrentValidation(life) {
   it('current life should have required properties', function hasRequiredProperties(done) {
     expect(life.current).to.be.an('object');
     expect(life.current).to.have.property('turn');
@@ -222,24 +215,24 @@ describe('Life Model - Current Validation', function describeCurrentValidation()
     // city
     expect(life.current.location).to.have.property('city');
     expect(life.current.location.city).to.be.a('string');
-    expect(life.current.location.city).to.equal(LOCATION.location.city);
+    expect(life.current.location.city).to.equal(config.LOCATION.location.city);
     // country
     expect(life.current.location).to.have.property('country');
     expect(life.current.location.country).to.be.a('string');
-    expect(life.current.location.country).to.equal(LOCATION.location.country);
+    expect(life.current.location.country).to.equal(config.LOCATION.location.country);
     // continent
     expect(life.current.location).to.have.property('continent');
     expect(life.current.location.continent).to.be.a('string');
-    expect(life.current.location.continent).to.equal(LOCATION.location.continent);
+    expect(life.current.location.continent).to.equal(config.LOCATION.location.continent);
     // ID
     expect(life.current.location).to.have.property('id');
     expect(life.current.location.id).to.be.a('string');
-    expect(life.current.location.id).to.equal(LOCATION.location.id);
+    expect(life.current.location.id).to.equal(config.LOCATION.location.id);
     // size
     expect(life.current.location).to.have.property('size');
     expect(life.current.location.size).to.be.a('number');
     expect(life.current.location.size).to.be.at.least(0);
-    expect(life.current.location.size).to.equal(LOCATION.location.size);
+    expect(life.current.location.size).to.equal(config.LOCATION.location.size);
     return done();
   });
 
@@ -259,35 +252,4 @@ describe('Life Model - Current Validation', function describeCurrentValidation()
     expect(life.current.storage.total).to.be.at.least(life.current.storage.available);
     return done();
   });
-});
-
-describe('Life Model - Listing Validation', function describeListingValidation() {
-  it('listing should have required properties', function hasRequiredProperties(done) {
-    expect(life.listings).to.be.an('object');
-    expect(life.listings).to.have.property('market');
-    expect(life.listings).to.have.property('airport');
-    return done();
-  });
-
-  it('listing has a valid market array', function hasValidMarket(done) {
-    expect(life.listings.market).to.be.an('array');
-    return done();
-  });
-
-  it('listing has a valid airport array', function hasValidAirport(done) {
-    expect(life.listings.market).to.be.an('array');
-    return done();
-  });
-});
-
-describe('Life Model - Actions Validation', function describeActionsValidation() {
-  it('actions is an array', function hasValidActions(done) {
-    expect(life.actions).to.be.an('array');
-    return done();
-  });
-
-  it('actions should be empty', function hasEmptyActions(done) {
-    expect(life.actions.length).to.equal(0);
-    return done();
-  });
-});
+}

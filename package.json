@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "./node_modules/.bin/nodemon -e js,json,hbs index.js",
-    "test": "./node_modules/.bin/mocha --recursive ./tests/",
+    "test": "./node_modules/.bin/mocha ./tests/",
     "seed": "node helpers/seed.js"
   },
   "repository": {

@@ -1,48 +1,54 @@
 'use strict';
 
-const chai = require('chai');
-const expect = chai.expect;
-const common = require('../helpers/common');
-const model = require('../models/game_life');
-const airport = require('../models/game/airport');
-const places = require('../models/game/places.json');
-const items = require('../models/game/items.json');
+const expect = require('chai').expect;
 
-// generate a new life with the player id of "testing" and start in the first place on the list
-const UNITS = 10;
-const ITEM = items[0];
-const PLAYER = {
-  id: "testing"
-};
-const LOCATION = {
-  location: places[0],
-  destination: places[10]
-};
-const life = model.generateLife(PLAYER, LOCATION);
+const main = require('../main');
+const config = main.config
+const common = main.common;
 
-let newLife;
-// this is required because evidently you CAN change a const if you're crafty enough
-let oldLife = JSON.parse(JSON.stringify(life));
+const airport = main.airport;
 
-describe('Airport - Listings Validation', function describeAirportValidation() {
+module.exports.describeAirportValidation = function describeAirportValidation(life) {
   for (let listing of life.listings.airport){
     it('listing [' + listing.id + '] should have a valid airport object', function hasValidAirportObj(done) {
-      validateListing(listing);
+      expect(listing).to.be.an('object');
+      // id
+      expect(listing).to.have.property('id');
+      expect(listing.id).to.be.a('string');
+      // price
+      expect(listing).to.have.property('price');
+      expect(listing.price).to.be.a('number');
+      expect(listing.price).to.be.above(0);
+      expect(common.isWholeNumber(listing.price)).to.be.true;
+      // size
+      expect(listing).to.have.property('size');
+      expect(listing.size).to.be.a('number');
+      expect(listing.size).to.be.at.least(0);
+      expect(common.isWholeNumber(listing.size)).to.be.true;
+      // flight time
+      expect(listing).to.have.property('flight_time');
+      expect(listing.flight_time).to.be.a('number');
+      expect(listing.flight_time).to.be.at.least(0);
+      expect(common.isWholeNumber(listing.flight_time)).to.be.true;
+      // flight number
+      expect(listing).to.have.property('flight_number');
+      expect(listing.flight_number).to.be.a('string');
       return done();
     });
   }
-});
-
-describe('Airport - Transaction Validation (Flight)', function describeFlightValidation() {
+}
+module.exports.describeFlightValidation = function describeFlightValidation(life) {
+  life = JSON.parse(JSON.stringify(life));
+  const oldLife = JSON.parse(JSON.stringify(life));
   // old listing is actually the DESTINATION location object, but from the old life
-  let oldListing = common.getObjFromID(LOCATION.destination.id, oldLife.listings.airport);
+  let oldListing = common.getObjFromID(config.LOCATION.destination.id, oldLife.listings.airport);
   let flight = {
-		id: PLAYER.id,
-		destination: LOCATION.destination.id
+		id: config.PLAYER.id,
+		destination: config.LOCATION.destination.id
 	};
+  let newLife = airport.doAirportFly(life, flight)
 
   it('airport should accept a flight', function acceptsAirportFlight(done) {
-    newLife = airport.doAirportFly(life, flight);
     // check for errors
     expect(newLife).to.not.have.property('error');
     return done();
@@ -60,8 +66,6 @@ describe('Airport - Transaction Validation (Flight)', function describeFlightVal
     let oldListing = oldLife.listings.airport[0];
     // make sure it's changed
     expect(newLife.listings.airport[0]).to.not.equal(oldListing);
-    // and make sure that change results in a valid listing
-    validateListing(newLife.listings.airport[0]);
     return done();
   });
 
@@ -110,29 +114,4 @@ describe('Airport - Transaction Validation (Flight)', function describeFlightVal
     expect(common.isWholeNumber(newAction.data.price)).to.be.true;
     return done();
   });
-});
-
-function validateListing(listing){
-  expect(listing).to.be.an('object');
-  // id
-  expect(listing).to.have.property('id');
-  expect(listing.id).to.be.a('string');
-  // price
-  expect(listing).to.have.property('price');
-  expect(listing.price).to.be.a('number');
-  expect(listing.price).to.be.above(0);
-  expect(common.isWholeNumber(listing.price)).to.be.true;
-  // size
-  expect(listing).to.have.property('size');
-  expect(listing.size).to.be.a('number');
-  expect(listing.size).to.be.at.least(0);
-  expect(common.isWholeNumber(listing.size)).to.be.true;
-  // flight time
-  expect(listing).to.have.property('flight_time');
-  expect(listing.flight_time).to.be.a('number');
-  expect(listing.flight_time).to.be.at.least(0);
-  expect(common.isWholeNumber(listing.flight_time)).to.be.true;
-  // flight number
-  expect(listing).to.have.property('flight_number');
-  expect(listing.flight_number).to.be.a('string');
 }

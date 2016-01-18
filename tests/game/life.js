@@ -45,17 +45,17 @@ module.exports.describeStartingValidation = function describeStartingValidation(
     return done();
   });
 
-  it('current life has a valid turn', function hasValidTurn(done) {
+  it('current life should have a valid turn', function hasValidTurn(done) {
     expect(life.starting.turn).to.be.a('number');
     return done();
   });
 
-  it('current life has a valid event', function hasValidEvent(done) {
+  it('current life should have a valid event', function hasValidEvent(done) {
     expect(life.starting.event).to.be.a('string');
     return done();
   });
 
-  it('current life has a valid finance object', function hasValidFinance(done) {
+  it('current life should have a valid finance object', function hasValidFinance(done) {
     expect(life.starting.finance).to.be.an('object');
     // cash
     expect(life.starting.finance).to.have.property('cash');
@@ -83,7 +83,7 @@ module.exports.describeStartingValidation = function describeStartingValidation(
     return done();
   });
 
-  it('current life has a valid health object', function hasValidHealth(done) {
+  it('current life should have a valid health object', function hasValidHealth(done) {
     expect(life.starting.health).to.be.an('object');
     expect(life.starting.health).to.have.property('points');
     expect(life.starting.health.points).to.be.a('number');
@@ -93,12 +93,12 @@ module.exports.describeStartingValidation = function describeStartingValidation(
     return done();
   });
 
-  it('current life has a valid inventory array', function hasValidInventory(done) {
+  it('current life should have a valid inventory array', function hasValidInventory(done) {
     expect(life.starting.inventory).to.be.an('array');
     return done();
   });
 
-  it('current life has a valid location object', function hasValidLocation(done) {
+  it('current life should have a valid location object', function hasValidLocation(done) {
     expect(life.starting.location).to.be.an('object');
     // city
     expect(life.starting.location).to.have.property('city');
@@ -124,7 +124,7 @@ module.exports.describeStartingValidation = function describeStartingValidation(
     return done();
   });
 
-  it('current life has a valid storage object', function hasValidStorage(done) {
+  it('current life should have a valid storage object', function hasValidStorage(done) {
     expect(life.starting.storage).to.be.an('object');
     // available
     expect(life.starting.storage).to.have.property('available');
@@ -155,17 +155,17 @@ module.exports.describeCurrentValidation = function describeCurrentValidation(li
     return done();
   });
 
-  it('current life has a valid turn', function hasValidTurn(done) {
+  it('current life should have a valid turn', function hasValidTurn(done) {
     expect(life.current.turn).to.be.a('number');
     return done();
   });
 
-  it('current life has a valid event', function hasValidEvent(done) {
+  it('current life should have a valid event', function hasValidEvent(done) {
     expect(life.current.event).to.be.a('string');
     return done();
   });
 
-  it('current life has a valid finance object', function hasValidFinance(done) {
+  it('current life should have a valid finance object', function hasValidFinance(done) {
     expect(life.current.finance).to.be.an('object');
     // cash
     expect(life.current.finance).to.have.property('cash');
@@ -193,7 +193,7 @@ module.exports.describeCurrentValidation = function describeCurrentValidation(li
     return done();
   });
 
-  it('current life has a valid health object', function hasValidHealth(done) {
+  it('current life should have a valid health object', function hasValidHealth(done) {
     expect(life.current.health).to.be.an('object');
     expect(life.current.health).to.have.property('points');
     expect(life.current.health.points).to.be.a('number');
@@ -203,12 +203,12 @@ module.exports.describeCurrentValidation = function describeCurrentValidation(li
     return done();
   });
 
-  it('current life has a valid inventory array', function hasValidInventory(done) {
+  it('current life should have a valid inventory array', function hasValidInventory(done) {
     expect(life.current.inventory).to.be.an('array');
     return done();
   });
 
-  it('current life has a valid location object', function hasValidLocation(done) {
+  it('current life should have a valid location object', function hasValidLocation(done) {
     expect(life.current.location).to.be.an('object');
     // city
     expect(life.current.location).to.have.property('city');
@@ -234,7 +234,7 @@ module.exports.describeCurrentValidation = function describeCurrentValidation(li
     return done();
   });
 
-  it('current life has a valid storage object', function hasValidStorage(done) {
+  it('current life should have a valid storage object', function hasValidStorage(done) {
     expect(life.current.storage).to.be.an('object');
     // available
     expect(life.current.storage).to.have.property('available');
@@ -260,19 +260,19 @@ module.exports.describeListingValidation = function describeListingValidation(li
     return done();
   });
 
-  it('listing has a valid market array', function hasValidMarket(done) {
+  it('listing should have a valid market array', function hasValidMarket(done) {
     expect(life.listings.market).to.be.an('array');
     return done();
   });
 
-  it('listing has a valid airport array', function hasValidAirport(done) {
+  it('listing should have a valid airport array', function hasValidAirport(done) {
     expect(life.listings.market).to.be.an('array');
     return done();
   });
 }
 
 module.exports.describeActionsValidation = function describeActionsValidation(life) {
-  it('actions is an array', function hasValidActions(done) {
+  it('actions should be an array', function hasValidActions(done) {
    expect(life.actions).to.be.an('array');
    return done();
  });

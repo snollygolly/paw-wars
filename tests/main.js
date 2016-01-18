@@ -3,15 +3,21 @@
 const chai = require('chai');
 const expect = chai.expect;
 
+const game = require('../game.json');
 module.exports.common = require('../helpers/common');
+// main model
 module.exports.model = require('../models/game_life');
+// game sub models
 module.exports.market = require('../models/game/market');
 module.exports.airport = require('../models/game/airport');
+module.exports.bank = require('../models/game/bank');
+// JSON data
 module.exports.places = require('../models/game/places.json');
 module.exports.items = require('../models/game/items.json');
-
+// for setting testing values
 module.exports.config = {
   UNITS: 10,
+  AMOUNT: 500,
   ITEM: module.exports.items[0],
   PLAYER: {
     id: "testing"
@@ -19,13 +25,15 @@ module.exports.config = {
   LOCATION: {
     location: module.exports.places[0],
     destination: module.exports.places[10]
-  }
+  },
+  GAME: game
 }
 
 // test modules
 const lifeTest = require('./game/life');
 const marketTest = require('./game/market');
 const airportTest = require('./game/airport');
+const bankTest = require('./game/bank');
 
 // start testing by generating a life
 let life;
@@ -42,9 +50,26 @@ life = cycleLife();
 describe('Market - Listings Validation', () => {marketTest.describeListingsValidation(life)});
 describe('Market - Transaction Validation (Buy)', () => {marketTest.describeBuyTransactionValidation(life)});
 // set up life
-let transaction = marketTest.makeBuyTransaction();
-life = module.exports.market.doMarketTransaction(life, transaction);
+life = module.exports.market.doMarketTransaction(life, marketTest.makeBuyTransaction());
 describe('Market - Transaction Validation (Sell)', () => {marketTest.describeSellTransactionValidation(life)});
+
+// testing the bank
+life = cycleLife();
+describe('Bank - Finance Validation', () => {bankTest.describeFinanceValidation(life)});
+life = cycleLife();
+describe('Bank - Transaction Validation (Deposit)', () => {bankTest.describeDepositTransactionValidation(life)});
+// set up withdraw
+life = cycleLife();
+life = module.exports.bank.doBankTransaction(life, bankTest.makeTransaction("deposit"));
+describe('Bank - Transaction Validation (Withdraw)', () => {bankTest.describeWithdrawTransactionValidation(life)});
+// set up repay
+life = cycleLife();
+life = module.exports.bank.doBankTransaction(life, bankTest.makeTransaction("deposit"));
+describe('Bank - Lending Validation (Repay)', () => {bankTest.describeRepayLendingValidation(life)});
+// set up borrow
+life = cycleLife();
+describe('Bank - Lending Validation (Repay)', () => {bankTest.describeBorrowLendingValidation(life)});
+
 
 // testing the airport
 life = cycleLife();

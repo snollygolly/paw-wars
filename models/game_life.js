@@ -81,8 +81,8 @@ module.exports.saveAirportFly = airport.saveAirportFly;
 module.exports.generateAirportListings = airport.generateAirportListings;
 
 // bank
-module.exports.doBankTransaction = bank.doBankTransaction;
-module.exports.doBankLending = bank.doBankLending;
+module.exports.saveBankTransaction = bank.saveBankTransaction;
+module.exports.saveBankLending = bank.saveBankLending;
 module.exports.generateBankListings = bank.generateBankListings;
 
 module.exports.generateLife = function generateLife(player, parameters){
@@ -104,7 +104,7 @@ module.exports.generateLife = function generateLife(player, parameters){
       },
       finance: {
         cash: game.bank.starting_cash,
-        savings: 0,
+        savings: game.bank.starting_savings,
         debt: game.bank.starting_debt,
         debt_interest: game.bank.debt_interest,
         savings_interest: game.bank.savings_interest

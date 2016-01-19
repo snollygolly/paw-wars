@@ -16,14 +16,14 @@ module.exports.doSimulateEvents = function doSimulateEvents(life){
     newLife.current.event = "Nothing of interest happened this turn.";
     return newLife;
   }
-  newLife = module.exports.simulateEvents(newLife);
+  // pick a random number from the events
+  let eventIndex = common.getRandomInt(0, (events.length - 1));
+  newLife = module.exports.simulateEvents(newLife, eventIndex);
   return newLife;
 }
 
-module.exports.simulateEvents = function simulateEvents(life){
+module.exports.simulateEvents = function simulateEvents(life, eventIndex){
   let newLife = JSON.parse(JSON.stringify(life));
-  // pick a random number from the events
-  let eventIndex = common.getRandomInt(0, (events.length - 1));
   let eventObj = events[eventIndex];
   // see what kind of event this is
   let adjustment;

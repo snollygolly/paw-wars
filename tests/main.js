@@ -1,7 +1,6 @@
 'use strict';
 
-const chai = require('chai');
-const expect = chai.expect;
+const chai = require('chai').expect;
 
 const game = require('../game.json');
 module.exports.common = require('../helpers/common');
@@ -36,6 +35,8 @@ const airportTest = require('./game/airport');
 const bankTest = require('./game/bank');
 // negative (error) test modules
 const marketTestErrors = require('./game/market-errors');
+const airportTestErrors = require('./game/airport-errors');
+const bankTestErrors = require('./game/bank-errors');
 
 // start testing by generating a life
 let life;
@@ -72,11 +73,22 @@ life = module.exports.bank.doBankTransaction(life, bankTest.makeTransaction("dep
 describe('Bank - Lending Validation (Repay)', () => {bankTest.describeRepayLendingValidation(life)});
 // set up borrow
 describe('Bank - Lending Validation (Borrow)', () => {bankTest.describeBorrowLendingValidation(life)});
+// errors
+life = cycleLife();
+describe('Bank - Transaction Error Validation (Deposit)', () => {bankTestErrors.describeBankDepositErrors(life)});
+describe('Bank - Transaction Error Validation (Withdraw)', () => {bankTestErrors.describeBankWithdrawErrors(life)});
+life = cycleLife();
+describe('Bank - Lending Error Validation (Repay)', () => {bankTestErrors.describeBankRepayErrors(life)});
+describe('Bank - Lending Error Validation (Borrow)', () => {bankTestErrors.describeBankBorrowErrors(life)});
 
 // testing the airport
 life = cycleLife();
 describe('Airport - Listings Validation', () => {airportTest.describeAirportValidation(life)});
 describe('Airport - Transaction Validation (Flight)', () => {airportTest.describeFlightValidation(life)});
+// errors
+life = cycleLife();
+describe('Airport - Transaction Error Validation (Flight)', () => {airportTestErrors.describeFlightAirportErrors(life)});
+
 
 function cycleLife(){
   let lifeObj = module.exports.model.generateLife(module.exports.config.PLAYER, module.exports.config.LOCATION);

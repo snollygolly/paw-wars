@@ -2,18 +2,27 @@
 
 const expect = require('chai').expect;
 
-const main = require('../main');
+const main = require('./00-main');
 const config = main.config
 const common = main.common;
+const model = main.model;
 
 const market = main.market;
 
-module.exports.describeListingsValidation = function describeListingsValidation(life) {
-  expect(life).to.not.be.undefined;
-  expect(life).to.have.property('listings');
-  expect(life.listings).to.have.property('market');
-  expect(life.listings.market).to.be.an('array');
-  for (let listing of life.listings.market){
+let life;
+
+describe('Market - Listings Validation', () => {
+	before(() => {
+		// set up life
+		life = model.generateLife(config.PLAYER, config.LOCATION);
+		life.testing = true;
+  });
+
+	// set up life
+	let listingLife = model.generateLife(config.PLAYER, config.LOCATION);
+	listingLife.testing = true;
+
+  for (let listing of listingLife.listings.market){
     it('listing [' + listing.id + '] should have a valid market object', function hasValidMarketObj(done) {
       expect(listing).to.be.an('object');
       // id
@@ -32,17 +41,29 @@ module.exports.describeListingsValidation = function describeListingsValidation(
       return done();
     });
   }
-}
+});
 
-module.exports.describeBuyTransactionValidation = function describeBuyTransactionValidation(life) {
-  const oldLife = JSON.parse(JSON.stringify(life));
-  let oldListing = common.getObjFromID(config.ITEM.id, oldLife.listings.market);
-  let oldInventory = {
-    id: config.ITEM.id,
-    units: 0
-  }
-  let transaction = module.exports.makeTransaction("buy");
-  let newLife = market.doMarketTransaction(life, transaction);
+describe('Market - Transaction Validation (Buy)', () => {
+	let oldLife;
+	let oldListing;
+	let oldInventory;
+	let transaction;
+	let newLife;
+
+	before(() => {
+		// set up life
+		life = model.generateLife(config.PLAYER, config.LOCATION);
+		life.testing = true;
+
+		oldLife = JSON.parse(JSON.stringify(life));
+		oldListing = common.getObjFromID(config.ITEM.id, oldLife.listings.market);
+		oldInventory = {
+			id: config.ITEM.id,
+			units: 0
+		}
+		transaction = makeTransaction("buy");
+		newLife = market.doMarketTransaction(life, transaction);
+  });
 
   it('market should accept a buy transaction', function acceptsMarketTransaction(done) {
     // check for errors
@@ -115,17 +136,34 @@ module.exports.describeBuyTransactionValidation = function describeBuyTransactio
     expect(newAction.data).to.equal(transaction);
     return done();
   });
-}
+});
 
-module.exports.describeSellTransactionValidation = function describeSellTransactionValidation(life) {
-  let oldLife = JSON.parse(JSON.stringify(life));
-  let oldListing = common.getObjFromID(config.ITEM.id, oldLife.listings.market);
-  let oldInventory = {
-    id: config.ITEM.id,
-    units: config.UNITS
-  }
-  let transaction = module.exports.makeTransaction("sell");
-  let newLife = market.doMarketTransaction(life, transaction);
+describe('Market - Transaction Validation (Sell)', () => {
+	let oldLife;
+	let oldListing;
+	let oldInventory;
+	let transaction;
+	let newLife;
+
+	before(() => {
+		// set up life
+		life = model.generateLife(config.PLAYER, config.LOCATION);
+		life.testing = true;
+
+		oldLife = JSON.parse(JSON.stringify(life));
+		// start to set up a buy transaction first
+		transaction = makeTransaction("buy")
+		oldLife = market.doMarketTransaction(life, transaction);
+		// set up listings
+		oldListing = common.getObjFromID(config.ITEM.id, oldLife.listings.market);
+		oldInventory = {
+			id: config.ITEM.id,
+			units: config.UNITS
+		}
+		// do the sell and check start the tests
+		transaction = makeTransaction("sell");
+		newLife = market.doMarketTransaction(oldLife, transaction);
+  });
 
   it('market should accept a sell transaction', function acceptsMarketTransaction(done) {
     // check for errors
@@ -198,9 +236,9 @@ module.exports.describeSellTransactionValidation = function describeSellTransact
     expect(newAction.data).to.equal(transaction);
     return done();
   });
-}
+});
 
-module.exports.makeTransaction = function makeTransaction(type){
+function makeTransaction(type){
   return {
     id: "testing",
     type: type,

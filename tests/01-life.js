@@ -2,12 +2,21 @@
 
 const expect = require('chai').expect;
 
-const main = require('../main');
+const main = require('./00-main');
 const config = main.config
 const common = main.common;
+const model = main.model;
 
-module.exports.describeBaseValidation = function describeBaseValidation(life) {
-  it('life should not be undefined', function isNotNull(done) {
+let life;
+
+describe('Life Model - Base Validation', () => {
+	before(() => {
+		// set up life
+		life = model.generateLife(config.PLAYER, config.LOCATION);
+		life.testing = true;
+  });
+
+	it('life should not be undefined', function isNotNull(done) {
     expect(life).to.not.be.an('undefined');
     return done();
   });
@@ -30,10 +39,10 @@ module.exports.describeBaseValidation = function describeBaseValidation(life) {
     // TODO: expect().to.be.a.timestamp?
     return done();
   });
-}
+});
 
-module.exports.describeStartingValidation = function describeStartingValidation(life) {
-  it('current life should have required properties', function hasRequiredProperties(done) {
+describe('Life Model - Starting Validation', () => {
+	it('current life should have required properties', function hasRequiredProperties(done) {
     expect(life.starting).to.be.an('object');
     expect(life.starting).to.have.property('turn');
     expect(life.starting).to.have.property('event');
@@ -140,10 +149,16 @@ module.exports.describeStartingValidation = function describeStartingValidation(
     expect(life.starting.storage.total).to.be.at.least(life.starting.storage.available);
     return done();
   });
-}
+});
 
-module.exports.describeCurrentValidation = function describeCurrentValidation(life) {
-  it('current life should have required properties', function hasRequiredProperties(done) {
+describe('Life Model - Current Validation', () => {
+	before(() => {
+		// set up life
+		life = model.generateLife(config.PLAYER, config.LOCATION);
+		life.testing = true;
+  });
+
+	it('current life should have required properties', function hasRequiredProperties(done) {
     expect(life.current).to.be.an('object');
     expect(life.current).to.have.property('turn');
     expect(life.current).to.have.property('event');
@@ -250,35 +265,47 @@ module.exports.describeCurrentValidation = function describeCurrentValidation(li
     expect(life.current.storage.total).to.be.at.least(life.current.storage.available);
     return done();
   });
-}
+});
 
-module.exports.describeListingValidation = function describeListingValidation(life) {
-  it('listing should have required properties', function hasRequiredProperties(done) {
-    expect(life.listings).to.be.an('object');
-    expect(life.listings).to.have.property('market');
-    expect(life.listings).to.have.property('airport');
-    return done();
+describe('Life Model - Listing Validation', () => {
+	before(() => {
+		// set up life
+		life = model.generateLife(config.PLAYER, config.LOCATION);
+		life.testing = true;
   });
 
-  it('listing should have a valid market array', function hasValidMarket(done) {
-    expect(life.listings.market).to.be.an('array');
-    return done();
+	it('listing should have required properties', function hasRequiredProperties(done) {
+		expect(life.listings).to.be.an('object');
+		expect(life.listings).to.have.property('market');
+		expect(life.listings).to.have.property('airport');
+		return done();
+	});
+
+	it('listing should have a valid market array', function hasValidMarket(done) {
+		expect(life.listings.market).to.be.an('array');
+		return done();
+	});
+
+	it('listing should have a valid airport array', function hasValidAirport(done) {
+		expect(life.listings.market).to.be.an('array');
+		return done();
+	});
+});
+
+describe('Life Model - Actions Validation', () => {
+	before(() => {
+		// set up life
+		life = model.generateLife(config.PLAYER, config.LOCATION);
+		life.testing = true;
   });
 
-  it('listing should have a valid airport array', function hasValidAirport(done) {
-    expect(life.listings.market).to.be.an('array');
-    return done();
-  });
-}
+	it('actions should be an array', function hasValidActions(done) {
+	 expect(life.actions).to.be.an('array');
+	 return done();
+	});
 
-module.exports.describeActionsValidation = function describeActionsValidation(life) {
-  it('actions should be an array', function hasValidActions(done) {
-   expect(life.actions).to.be.an('array');
-   return done();
- });
-
- it('actions should be empty', function hasEmptyActions(done) {
-   expect(life.actions.length).to.equal(0);
-   return done();
- });
-}
+	it('actions should be empty', function hasEmptyActions(done) {
+	 expect(life.actions.length).to.equal(0);
+	 return done();
+	});
+});

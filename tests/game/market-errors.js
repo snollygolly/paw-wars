@@ -19,7 +19,7 @@ module.exports.describeBuyMarketErrors = function describeBuyMarketErrors(life) 
   it('market should refuse buy order if not enough storage', function refuseBuy(done) {
     let transaction = module.exports.makeTransaction("buy");
     transaction.units = config.GAME.market.starting_storage + 100;
-    let newLife = market.doMarketTransaction(life, transaction);
+    let newLife = market.doMarketTransaction(oldLife, transaction);
     // check for errors
     expect(newLife).to.have.property('error');
     return done();
@@ -28,7 +28,7 @@ module.exports.describeBuyMarketErrors = function describeBuyMarketErrors(life) 
   it('market should refuse buy order if not enough available', function refuseBuy(done) {
     let transaction = module.exports.makeTransaction("buy");
     transaction.units = oldListing.units + 100;
-    let newLife = market.doMarketTransaction(life, transaction);
+    let newLife = market.doMarketTransaction(oldLife, transaction);
     // check for errors
     expect(newLife).to.have.property('error');
     return done();
@@ -36,11 +36,28 @@ module.exports.describeBuyMarketErrors = function describeBuyMarketErrors(life) 
 
   it('market should refuse buy order if not enough cash', function refuseBuy(done) {
     let transaction = module.exports.makeTransaction("buy");
-    transaction.units = config.GAME.market.starting_storage - 1;
-    console.log(life);
-    let newLife = market.doMarketTransaction(life, transaction);
+    transaction.units = config.GAME.market.starting_storage;
+    oldLife.current.finance.cash = 1;
+    let newLife = market.doMarketTransaction(oldLife, transaction);
     // check for errors
-    console.log(newLife);
+    expect(newLife).to.have.property('error');
+    return done();
+  });
+}
+
+module.exports.describeSellMarketErrors = function describeSellMarketErrors(life) {
+  const oldLife = JSON.parse(JSON.stringify(life));
+  let oldListing = common.getObjFromID(config.ITEM.id, oldLife.listings.market);
+  let oldInventory = {
+    id: config.ITEM.id,
+    units: 0
+  }
+
+  it('market should refuse sell order if not enough inventory', function refuseSell(done) {
+    let transaction = module.exports.makeTransaction("sell");
+    transaction.units = config.GAME.market.starting_storage + 100;
+    let newLife = market.doMarketTransaction(oldLife, transaction);
+    // check for errors
     expect(newLife).to.have.property('error');
     return done();
   });

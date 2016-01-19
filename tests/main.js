@@ -18,7 +18,7 @@ module.exports.items = require('../models/game/items.json');
 module.exports.config = {
   UNITS: 10,
   AMOUNT: 500,
-  ITEM: module.exports.items[0],
+  ITEM: module.exports.items[8],
   PLAYER: {
     id: "testing"
   },
@@ -55,7 +55,9 @@ describe('Market - Transaction Validation (Buy)', () => {marketTest.describeBuyT
 life = module.exports.market.doMarketTransaction(life, marketTest.makeTransaction("buy"));
 describe('Market - Transaction Validation (Sell)', () => {marketTest.describeSellTransactionValidation(life)});
 // errors
+life = cycleLife();
 describe('Bank - Transaction Error Validation (Buy)', () => {marketTestErrors.describeBuyMarketErrors(life)});
+describe('Bank - Transaction Error Validation (Sell)', () => {marketTestErrors.describeSellMarketErrors(life)});
 
 // testing the bank
 life = cycleLife();

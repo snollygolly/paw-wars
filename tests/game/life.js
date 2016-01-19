@@ -7,8 +7,8 @@ const config = main.config
 const common = main.common;
 
 module.exports.describeBaseValidation = function describeBaseValidation(life) {
-  it('life should not be null', function isNotNull(done) {
-    expect(life).to.not.be.a('null');
+  it('life should not be undefined', function isNotNull(done) {
+    expect(life).to.not.be.an('undefined');
     return done();
   });
 

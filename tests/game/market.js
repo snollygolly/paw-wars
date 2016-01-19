@@ -35,7 +35,6 @@ module.exports.describeListingsValidation = function describeListingsValidation(
 }
 
 module.exports.describeBuyTransactionValidation = function describeBuyTransactionValidation(life) {
-  life = JSON.parse(JSON.stringify(life));
   const oldLife = JSON.parse(JSON.stringify(life));
   let oldListing = common.getObjFromID(config.ITEM.id, oldLife.listings.market);
   let oldInventory = {
@@ -119,7 +118,6 @@ module.exports.describeBuyTransactionValidation = function describeBuyTransactio
 }
 
 module.exports.describeSellTransactionValidation = function describeSellTransactionValidation(life) {
-  life = JSON.parse(JSON.stringify(life));
   let oldLife = JSON.parse(JSON.stringify(life));
   let oldListing = common.getObjFromID(config.ITEM.id, oldLife.listings.market);
   let oldInventory = {

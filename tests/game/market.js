@@ -9,6 +9,10 @@ const common = main.common;
 const market = main.market;
 
 module.exports.describeListingsValidation = function describeListingsValidation(life) {
+  expect(life).to.not.be.undefined;
+  expect(life).to.have.property('listings');
+  expect(life.listings).to.have.property('market');
+  expect(life.listings.market).to.be.an('array');
   for (let listing of life.listings.market){
     it('listing [' + listing.id + '] should have a valid market object', function hasValidMarketObj(done) {
       expect(listing).to.be.an('object');
@@ -38,7 +42,7 @@ module.exports.describeBuyTransactionValidation = function describeBuyTransactio
     id: config.ITEM.id,
     units: 0
   }
-  let transaction = module.exports.makeBuyTransaction();
+  let transaction = module.exports.makeTransaction("buy");
   let newLife = market.doMarketTransaction(life, transaction);
 
   it('market should accept a buy transaction', function acceptsMarketTransaction(done) {
@@ -122,7 +126,7 @@ module.exports.describeSellTransactionValidation = function describeSellTransact
     id: config.ITEM.id,
     units: config.UNITS
   }
-  let transaction = module.exports.makeSellTransaction();
+  let transaction = module.exports.makeTransaction("sell");
   let newLife = market.doMarketTransaction(life, transaction);
 
   it('market should accept a sell transaction', function acceptsMarketTransaction(done) {
@@ -198,19 +202,10 @@ module.exports.describeSellTransactionValidation = function describeSellTransact
   });
 }
 
-module.exports.makeBuyTransaction = function makeBuyTransaction(){
+module.exports.makeTransaction = function makeTransaction(type){
   return {
     id: "testing",
-    type: "buy",
-    item: config.ITEM.id,
-    units: config.UNITS
-  };
-}
-
-module.exports.makeSellTransaction = function makeSellTransaction(){
-  return {
-    id: "testing",
-    type: "sell",
+    type: type,
     item: config.ITEM.id,
     units: config.UNITS
   };

@@ -37,6 +37,7 @@ module.exports.describeAirportValidation = function describeAirportValidation(li
     });
   }
 }
+
 module.exports.describeFlightValidation = function describeFlightValidation(life) {
   life = JSON.parse(JSON.stringify(life));
   const oldLife = JSON.parse(JSON.stringify(life));

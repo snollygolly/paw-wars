@@ -2,7 +2,7 @@
 
 const expect = require('chai').expect;
 
-const main = require('./main');
+const main = require('./00-main');
 const config = main.config
 const common = main.common;
 const model = main.model;
@@ -11,7 +11,7 @@ const market = main.market;
 
 let life;
 
-describe('Life Model - Base Validation', () => {
+describe('Market - Listings Validation', () => {
 	before(() => {
 		// set up life
 		life = model.generateLife(config.PLAYER, config.LOCATION);

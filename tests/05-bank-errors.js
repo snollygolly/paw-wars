@@ -2,17 +2,28 @@
 
 const expect = require('chai').expect;
 
-const main = require('../main');
+const main = require('./00-main');
 const config = main.config
 const common = main.common;
+const model = main.model;
 
 const bank = main.bank;
 
-module.exports.describeBankDepositErrors = function describeBankDepositErrors(life) {
-  const oldLife = JSON.parse(JSON.stringify(life));
+let life;
 
-  it('bank should refuse deposit if not enough cash', function refuseDeposit(done) {
-    let transaction = module.exports.makeTransaction("deposit");
+describe('Bank - Transaction Error Validation (Deposit)', () => {
+	let oldLife;
+
+	before(() => {
+		// set up life
+		life = model.generateLife(config.PLAYER, config.LOCATION);
+		life.testing = true;
+
+		oldLife = JSON.parse(JSON.stringify(life));
+  });
+
+	it('bank should refuse deposit if not enough cash', function refuseDeposit(done) {
+    let transaction = makeTransaction("deposit");
     transaction.amount += config.GAME.bank.starting_cash;
     oldLife.current.finance.cash = 1;
     let newLife = bank.doBankTransaction(oldLife, transaction);
@@ -20,13 +31,21 @@ module.exports.describeBankDepositErrors = function describeBankDepositErrors(li
     expect(newLife).to.have.property('error');
     return done();
   });
-}
+});
 
-module.exports.describeBankWithdrawErrors = function describeBankWithdrawErrors(life) {
-  const oldLife = JSON.parse(JSON.stringify(life));
+describe('Bank - Transaction Error Validation (Withdraw)', () => {
+	let oldLife;
+
+	before(() => {
+		// set up life
+		life = model.generateLife(config.PLAYER, config.LOCATION);
+		life.testing = true;
+
+		oldLife = JSON.parse(JSON.stringify(life));
+  });
 
   it('bank should refuse withdraw if not enough savings', function refuseWithdraw(done) {
-    let transaction = module.exports.makeTransaction("withdraw");
+    let transaction = makeTransaction("withdraw");
     transaction.amount += config.GAME.bank.starting_cash;
     oldLife.current.finance.savings = 1;
     let newLife = bank.doBankTransaction(oldLife, transaction);
@@ -34,13 +53,21 @@ module.exports.describeBankWithdrawErrors = function describeBankWithdrawErrors(
     expect(newLife).to.have.property('error');
     return done();
   });
-}
+});
 
-module.exports.describeBankRepayErrors = function describeBankRepayErrors(life) {
-  const oldLife = JSON.parse(JSON.stringify(life));
+describe('Bank - Transaction Error Validation (Repay)', () => {
+	let oldLife;
 
-  it('bank should refuse deposit if not enough debt', function refuseRepay(done) {
-    let transaction = module.exports.makeTransaction("repay");
+	before(() => {
+		// set up life
+		life = model.generateLife(config.PLAYER, config.LOCATION);
+		life.testing = true;
+
+		oldLife = JSON.parse(JSON.stringify(life));
+  });
+
+	it('bank should refuse deposit if not enough debt', function refuseRepay(done) {
+    let transaction = makeTransaction("repay");
     oldLife.current.finance.debt = 1;
     let newLife = bank.doBankLending(oldLife, transaction);
     // check for errors
@@ -49,7 +76,7 @@ module.exports.describeBankRepayErrors = function describeBankRepayErrors(life) 
   });
 
   it('bank should refuse deposit if not enough cash', function refuseRepay(done) {
-    let transaction = module.exports.makeTransaction("repay");
+    let transaction = makeTransaction("repay");
     transaction.amount += config.GAME.bank.starting_cash;
     oldLife.current.finance.cash = 1;
     let newLife = bank.doBankLending(oldLife, transaction);
@@ -57,13 +84,21 @@ module.exports.describeBankRepayErrors = function describeBankRepayErrors(life) 
     expect(newLife).to.have.property('error');
     return done();
   });
-}
+});
 
-module.exports.describeBankBorrowErrors = function describeBankBorrowErrors(life) {
-  const oldLife = JSON.parse(JSON.stringify(life));
+describe('Bank - Transaction Error Validation (Borrow)', () => {
+	let oldLife;
 
-  it('bank should never refuse borrow', function refuseWithdraw(done) {
-    let transaction = module.exports.makeTransaction("borrow");
+	before(() => {
+		// set up life
+		life = model.generateLife(config.PLAYER, config.LOCATION);
+		life.testing = true;
+
+		oldLife = JSON.parse(JSON.stringify(life));
+  });
+
+	it('bank should never refuse borrow', function refuseWithdraw(done) {
+    let transaction = makeTransaction("borrow");
     transaction.amount += config.GAME.bank.starting_cash;
     oldLife.current.finance.cash = 1;
     let newLife = bank.doBankLending(oldLife, transaction);
@@ -71,9 +106,9 @@ module.exports.describeBankBorrowErrors = function describeBankBorrowErrors(life
     expect(newLife).to.not.have.property('error');
     return done();
   });
-}
+});
 
-module.exports.makeTransaction = function makeTransaction(type){
+function makeTransaction(type){
   return {
 		id: config.PLAYER.id,
 		type: type,

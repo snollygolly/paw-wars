@@ -2,4 +2,5 @@ language: node_js
 node_js:
  - "5.0"
  - "4.0"
-script: "mv config.json.example config.json"
+before_install:
+  - "mv config.json.example config.json"

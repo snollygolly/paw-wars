@@ -37,8 +37,8 @@ module.exports.describeAirportValidation = function describeAirportValidation(li
     });
   }
 }
+
 module.exports.describeFlightValidation = function describeFlightValidation(life) {
-  life = JSON.parse(JSON.stringify(life));
   const oldLife = JSON.parse(JSON.stringify(life));
   // old listing is actually the DESTINATION location object, but from the old life
   let oldListing = common.getObjFromID(config.LOCATION.destination.id, oldLife.listings.airport);

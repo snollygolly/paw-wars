@@ -9,7 +9,6 @@ const common = main.common;
 const market = main.market;
 
 module.exports.describeBuyMarketErrors = function describeBuyMarketErrors(life) {
-  life = JSON.parse(JSON.stringify(life));
   const oldLife = JSON.parse(JSON.stringify(life));
   let oldListing = common.getObjFromID(config.ITEM.id, oldLife.listings.market);
   let oldInventory = {

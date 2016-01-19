@@ -21,9 +21,10 @@ module.exports.saveAirportFly = function* saveAirportFly(id, flight){
 }
 
 module.exports.doAirportFly = function doAirportFly(life, flight){
+  let newLife = JSON.parse(JSON.stringify(life));
   // start to error check the transactions
   // first, see what they want to do, and see if the units are available
-  let listing = common.getObjFromID(flight.destination, life.listings.airport);
+  let listing = common.getObjFromID(flight.destination, newLife.listings.airport);
   let location = common.getObjFromID(flight.destination, places);
   if (listing === false){
     // they choose a bad destination
@@ -32,24 +33,24 @@ module.exports.doAirportFly = function doAirportFly(life, flight){
   // figure out the total price
   let totalPrice = listing.price;
   // check their money (keep in mind, savings doesn't count. dealers don't take checks)
-  if (totalPrice > life.current.finance.cash){
+  if (totalPrice > newLife.current.finance.cash){
     return {error: true, message: "Flight costs more than life can afford"};
   }
   // adjust the user's money
-  life.current.finance.cash = life.current.finance.cash - totalPrice;
+  newLife.current.finance.cash = newLife.current.finance.cash - totalPrice;
   // adjust their location
-  life.current.location = location;
+  newLife.current.location = location;
   // build the life action
-  life.actions.push({
-    turn: life.current.turn,
+  newLife.actions.push({
+    turn: newLife.current.turn,
     type: "airport",
     data: listing
   });
   // adjust the turn
-  life.current.turn += listing.flight_time;
-  life = model.changeTurn(life, life.current.turn);
-  //console.log("* doAirportFly:", life);
-  return life;
+  newLife.current.turn += listing.flight_time;
+  newLife = model.changeTurn(newLife, newLife.current.turn);
+  //console.log("* doAirportFly:", newLife);
+  return newLife;
 }
 
 module.exports.generateAirportListings = function generateAirportListings(life){

@@ -11,7 +11,8 @@
       "max": 0.90
     },
     "size_max": 50,
-    "size_affect": 1
+    "size_affect": 1,
+    "starting_storage": 100
   },
   "airport": {
     "base_price": 150,

@@ -67,7 +67,7 @@ module.exports.changeTurn = function changeTurn(life, turn){
   life.listings.airport = airport.generateAirportListings(life);
   life = bank.handleInterest(life);
   // TODO: add cop checks here
-  life = events.simulateEvents(life);
+  life = events.doSimulateEvents(life);
   life.current.turn = turn;
   return life;
 }

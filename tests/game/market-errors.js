@@ -33,6 +33,17 @@ module.exports.describeBuyMarketErrors = function describeBuyMarketErrors(life) 
     expect(newLife).to.have.property('error');
     return done();
   });
+
+  it('market should refuse buy order if not enough cash', function refuseBuy(done) {
+    let transaction = module.exports.makeTransaction("buy");
+    transaction.units = config.GAME.market.starting_storage - 1;
+    console.log(life);
+    let newLife = market.doMarketTransaction(life, transaction);
+    // check for errors
+    console.log(newLife);
+    expect(newLife).to.have.property('error');
+    return done();
+  });
 }
 
 module.exports.makeTransaction = function makeTransaction(type){

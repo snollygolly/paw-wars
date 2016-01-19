@@ -77,5 +77,7 @@ describe('Airport - Listings Validation', () => {airportTest.describeAirportVali
 describe('Airport - Transaction Validation (Flight)', () => {airportTest.describeFlightValidation(life)});
 
 function cycleLife(){
-  return module.exports.model.generateLife(module.exports.config.PLAYER, module.exports.config.LOCATION);
+  let lifeObj = module.exports.model.generateLife(module.exports.config.PLAYER, module.exports.config.LOCATION);
+  lifeObj.testing = true;
+  return lifeObj;
 }

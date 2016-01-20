@@ -40,6 +40,8 @@ module.exports.doAirportFly = function doAirportFly(life, flight){
   newLife.current.finance.cash = newLife.current.finance.cash - totalPrice;
   // adjust their location
   newLife.current.location = location;
+	// check them out of their last hotel
+	newLife.current.hotel = false;
   // build the life action
   newLife.actions.push({
     turn: newLife.current.turn,

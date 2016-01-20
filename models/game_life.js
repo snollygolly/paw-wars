@@ -90,7 +90,7 @@ module.exports.generateLife = function generateLife(player, parameters){
     id: player.id + "_" + Date.now(),
     starting: {
       turn: 1,
-      event: "You feel like this is the first day of the rest of your life.",
+      event: game.events.starting_message,
       location: {
         id: parameters.location.id,
         city: parameters.location.city,

@@ -37,16 +37,16 @@ module.exports.doMarketTransaction = function doMarketTransaction(life, transact
     newLife.current.inventory.push(inventory);
   }
   if (transaction.type == "buy"){
-    if (transaction.units > newLife.current.storage.available){
-      // they want more than we have
-      return {error: true, message: "Transaction buys more units than storage can hold"};
-    }
     if (transaction.units > listing.units){
       // they want more than we have
       return {error: true, message: "Transaction buys more units than available"};
     }
+    if (transaction.units > newLife.current.storage.available){
+      // they want more than we have
+      return {error: true, message: "Transaction buys more units than storage can hold"};
+    }
     // check their money (keep in mind, savings doesn't count. dealers don't take checks)
-    if (totalPrice > Number(newLife.current.finance.cash)){
+    if (totalPrice > newLife.current.finance.cash){
       return {error: true, message: "Transaction requests more units than life can afford"};
     }
     // adjust the user's money

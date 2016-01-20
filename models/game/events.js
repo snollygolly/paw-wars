@@ -13,18 +13,18 @@ module.exports.doSimulateEvents = function doSimulateEvents(life){
   // see if our roll is good enough for an event
   if (game.events.event_rate <= eventRoll || life.testing === true){
     // they didn't get an event
-    newLife.current.event = "Nothing of interest happened this turn.";
+    newLife.current.event = game.events.no_event_message;
     return newLife;
   }
   // pick a random number from the events
   let eventIndex = common.getRandomInt(0, (events.length - 1));
-  newLife = module.exports.simulateEvents(newLife, eventIndex);
+  let eventObj = events[eventIndex];
+  newLife = module.exports.simulateEvents(newLife, eventObj);
   return newLife;
 }
 
-module.exports.simulateEvents = function simulateEvents(life, eventIndex){
+module.exports.simulateEvents = function simulateEvents(life, eventObj){
   let newLife = JSON.parse(JSON.stringify(life));
-  let eventObj = events[eventIndex];
   // see what kind of event this is
   let adjustment;
   switch (eventObj.type){
@@ -109,6 +109,8 @@ function adjustCurrentInventory(life, adjustment){
   if (newUnits <= newLife.current.storage.available){
     // adjust the listing's stock
     inventory.units += newUnits;
+    // adjust the storage
+    newLife.current.storage.available -= newUnits;
     // insert it back into the inventory
     newLife.current.inventory = common.replaceObjFromArr(inventory, newLife.current.inventory);
   }else{

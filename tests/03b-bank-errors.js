@@ -46,7 +46,7 @@ describe('Bank - Transaction Error Validation (Withdraw)', () => {
 
   it('bank should refuse withdraw if not enough savings', function refuseWithdraw(done) {
     let transaction = makeTransaction("withdraw");
-    transaction.amount += config.GAME.bank.starting_cash;
+    transaction.amount += 10;
     oldLife.current.finance.savings = 1;
     let newLife = bank.doBankTransaction(oldLife, transaction);
     // check for errors
@@ -64,10 +64,13 @@ describe('Bank - Transaction Error Validation (Repay)', () => {
 		life.testing = true;
 
 		oldLife = JSON.parse(JSON.stringify(life));
+		let transaction = makeTransaction("deposit");
+		oldLife = bank.doBankTransaction(oldLife, transaction);
   });
 
 	it('bank should refuse deposit if not enough debt', function refuseRepay(done) {
     let transaction = makeTransaction("repay");
+		transaction.amount = 10;
     oldLife.current.finance.debt = 1;
     let newLife = bank.doBankLending(oldLife, transaction);
     // check for errors
@@ -77,8 +80,9 @@ describe('Bank - Transaction Error Validation (Repay)', () => {
 
   it('bank should refuse deposit if not enough cash', function refuseRepay(done) {
     let transaction = makeTransaction("repay");
-    transaction.amount += config.GAME.bank.starting_cash;
-    oldLife.current.finance.cash = 1;
+		transaction.amount = 10;
+		oldLife.current.finance.debt = config.GAME.bank.starting_cash;
+    oldLife.current.finance.savings = 1;
     let newLife = bank.doBankLending(oldLife, transaction);
     // check for errors
     expect(newLife).to.have.property('error');

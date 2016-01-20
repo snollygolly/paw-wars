@@ -71,11 +71,11 @@ module.exports.doBankLending = function doBankLending(life, transaction){
   // just do the math and see if it's possible after
   newLife.current.finance.savings -= transaction.amount;
   newLife.current.finance.debt -= transaction.amount;
-  if (newLife.current.finance.savings < 0){
-    return {error: true, message: "Insufficient savings"};
-  }
   if (newLife.current.finance.debt < 0){
     return {error: true, message: "Overpayment on loan"};
+  }
+  if (newLife.current.finance.savings < 0){
+    return {error: true, message: "Insufficient savings"};
   }
   // build the life action
   newLife.actions.push({

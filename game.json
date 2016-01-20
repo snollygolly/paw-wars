@@ -31,6 +31,8 @@
     "starting_debt": 10000
   },
   "events": {
-    "event_rate": 15
+    "event_rate": 15,
+    "starting_message": "You feel like this is the first day of the rest of your life.",
+    "no_event_message": "Nothing of interest happened this turn."
   }
 }

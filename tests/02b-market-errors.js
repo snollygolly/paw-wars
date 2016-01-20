@@ -31,7 +31,7 @@ describe('Market - Transaction Error Validation (Buy)', () => {
 
 	it('market should refuse buy order if not enough storage', function refuseBuy(done) {
 		let transaction = makeTransaction("buy");
-		transaction.units = config.GAME.market.starting_storage + 100;
+		oldLife.current.storage.available = 1;
 		let newLife = market.doMarketTransaction(oldLife, transaction);
 		// check for errors
 		expect(newLife).to.have.property('error');
@@ -40,6 +40,8 @@ describe('Market - Transaction Error Validation (Buy)', () => {
 
 	it('market should refuse buy order if not enough available', function refuseBuy(done) {
 		let transaction = makeTransaction("buy");
+		oldLife.current.storage.available = config.GAME.market.starting_storage;
+		oldLife.current.finance.cash = Math.round((oldListing.units + 100) * oldListing.price) + 10;
 		transaction.units = oldListing.units + 100;
 		let newLife = market.doMarketTransaction(oldLife, transaction);
 		// check for errors
@@ -49,7 +51,6 @@ describe('Market - Transaction Error Validation (Buy)', () => {
 
 	it('market should refuse buy order if not enough cash', function refuseBuy(done) {
 		let transaction = makeTransaction("buy");
-		transaction.units = config.GAME.market.starting_storage;
 		oldLife.current.finance.cash = 1;
 		let newLife = market.doMarketTransaction(oldLife, transaction);
 		// check for errors

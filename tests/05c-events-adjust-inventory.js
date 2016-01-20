@@ -110,3 +110,47 @@ describe('Events - Simulation Validation (Adjust Inventory)', () => {
 		return done();
 	});
 });
+
+describe('Events - Simulation Error Validation (Adjust Inventory)', () => {
+	let oldLife;
+	let newLife;
+	let eventObj = {
+    id: "testing",
+    type: "adjust_inventory",
+    descriptions: [
+      "This should have an item here -> {{item}}"
+    ],
+		parameters: {
+      units: {
+        min: 0.005,
+        max: 0.010
+      }
+    }
+  };
+
+	before(() => {
+		// set up life
+		life = model.generateLife(config.PLAYER, config.LOCATION);
+		life.testing = true;
+
+		oldLife = JSON.parse(JSON.stringify(life));
+		// get rid of their storage
+		oldLife.current.storage.available = 0;
+		newLife = events.simulateEvents(oldLife, eventObj);
+  });
+
+	it('event should refuse items if storage is full', function eventSimulation(done) {
+		let newAction = newLife.actions[0];
+		let newInventory = common.getObjFromID(newAction.data.item.id, newLife.current.inventory);
+		// make sure we didn't accidentally get one
+		expect(newInventory).to.be.an('object');
+		expect(newInventory.units).to.equal(0);
+		// make sure storage is unchanged
+		expect(newLife.current.storage.available).to.equal(0);
+		// the event[1] and the rejection[0]
+		expect(newLife.actions.length).to.equal(2);
+		expect(newAction.type).to.equal("event - failed (storage)");
+		return done();
+	});
+
+});

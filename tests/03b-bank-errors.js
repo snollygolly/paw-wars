@@ -84,7 +84,6 @@ describe('Bank - Transaction Error Validation (Repay)', () => {
 		oldLife.current.finance.debt = config.GAME.bank.starting_cash;
     oldLife.current.finance.savings = 1;
     let newLife = bank.doBankLending(oldLife, transaction);
-		console.log(newLife);
     // check for errors
     expect(newLife).to.have.property('error');
     return done();

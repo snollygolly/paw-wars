@@ -109,6 +109,8 @@ function adjustCurrentInventory(life, adjustment){
   if (newUnits <= newLife.current.storage.available){
     // adjust the listing's stock
     inventory.units += newUnits;
+    // adjust the storage
+    newLife.current.storage.available -= newUnits;
     // insert it back into the inventory
     newLife.current.inventory = common.replaceObjFromArr(inventory, newLife.current.inventory);
   }else{

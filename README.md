@@ -1,4 +1,4 @@
-# :smiley_cat: paw-wars [![Build Status](https://api.travis-ci.org/snollygolly/paw-wars.svg?branch=master)](https://travis-ci.org/snollygolly/paw-wars)
+# :smiley_cat: paw-wars [![Build Status](https://api.travis-ci.org/snollygolly/paw-wars.svg?branch=master)](https://travis-ci.org/snollygolly/paw-wars) [![Coverage Status](https://coveralls.io/repos/github/snollygolly/paw-wars/badge.svg?branch=master)](https://coveralls.io/github/snollygolly/paw-wars?branch=master)
 A modern take on [Drugwars](https://en.wikipedia.org/wiki/Drugwars) (Dopewars), but with cats.
 
 ## Prerequisites

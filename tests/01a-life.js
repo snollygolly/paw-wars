@@ -42,10 +42,11 @@ describe('Life Model - Base Validation', () => {
 });
 
 describe('Life Model - Starting Validation', () => {
-	it('current life should have required properties', function hasRequiredProperties(done) {
+	it('starting life should have required properties', function hasRequiredProperties(done) {
     expect(life.starting).to.be.an('object');
     expect(life.starting).to.have.property('turn');
     expect(life.starting).to.have.property('event');
+    expect(life.starting).to.have.property('hotel');
     expect(life.starting).to.have.property('finance');
     expect(life.starting).to.have.property('health');
     expect(life.starting).to.have.property('inventory');
@@ -54,17 +55,22 @@ describe('Life Model - Starting Validation', () => {
     return done();
   });
 
-  it('current life should have a valid turn', function hasValidTurn(done) {
+  it('starting life should have a valid turn', function hasValidTurn(done) {
     expect(life.starting.turn).to.be.a('number');
     return done();
   });
 
-  it('current life should have a valid event', function hasValidEvent(done) {
+  it('starting life should have a valid event', function hasValidEvent(done) {
     expect(life.starting.event).to.be.a('string');
     return done();
   });
 
-  it('current life should have a valid finance object', function hasValidFinance(done) {
+	it('starting life should have a hotel flag', function hasValidEvent(done) {
+		expect(life.starting.hotel).to.be.a('boolean');
+		return done();
+	});
+
+  it('starting life should have a valid finance object', function hasValidFinance(done) {
     expect(life.starting.finance).to.be.an('object');
     // cash
     expect(life.starting.finance).to.have.property('cash');
@@ -92,7 +98,7 @@ describe('Life Model - Starting Validation', () => {
     return done();
   });
 
-  it('current life should have a valid health object', function hasValidHealth(done) {
+  it('starting life should have a valid health object', function hasValidHealth(done) {
     expect(life.starting.health).to.be.an('object');
     expect(life.starting.health).to.have.property('points');
     expect(life.starting.health.points).to.be.a('number');
@@ -102,12 +108,12 @@ describe('Life Model - Starting Validation', () => {
     return done();
   });
 
-  it('current life should have a valid inventory array', function hasValidInventory(done) {
+  it('starting life should have a valid inventory array', function hasValidInventory(done) {
     expect(life.starting.inventory).to.be.an('array');
     return done();
   });
 
-  it('current life should have a valid location object', function hasValidLocation(done) {
+  it('starting life should have a valid location object', function hasValidLocation(done) {
     expect(life.starting.location).to.be.an('object');
     // city
     expect(life.starting.location).to.have.property('city');
@@ -133,7 +139,7 @@ describe('Life Model - Starting Validation', () => {
     return done();
   });
 
-  it('current life should have a valid storage object', function hasValidStorage(done) {
+  it('starting life should have a valid storage object', function hasValidStorage(done) {
     expect(life.starting.storage).to.be.an('object');
     // available
     expect(life.starting.storage).to.have.property('available');
@@ -162,6 +168,7 @@ describe('Life Model - Current Validation', () => {
     expect(life.current).to.be.an('object');
     expect(life.current).to.have.property('turn');
     expect(life.current).to.have.property('event');
+		expect(life.current).to.have.property('hotel');
     expect(life.current).to.have.property('finance');
     expect(life.current).to.have.property('health');
     expect(life.current).to.have.property('inventory');
@@ -179,6 +186,11 @@ describe('Life Model - Current Validation', () => {
     expect(life.current.event).to.be.a('string');
     return done();
   });
+
+	it('current life should have a hotel flag', function hasValidEvent(done) {
+		expect(life.current.hotel).to.be.a('boolean');
+		return done();
+	});
 
   it('current life should have a valid finance object', function hasValidFinance(done) {
     expect(life.current.finance).to.be.an('object');

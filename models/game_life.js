@@ -9,6 +9,7 @@ const market = require('./game/market');
 const airport = require('./game/airport');
 const bank = require('./game/bank');
 const events = require('./game/events');
+const hotel = require('./game/hotel');
 
 let connection;
 
@@ -66,8 +67,9 @@ module.exports.changeTurn = function changeTurn(life, turn){
   life.listings.market = market.generateMarketListings(life);
   life.listings.airport = airport.generateAirportListings(life);
   life = bank.handleInterest(life);
+	life = hotel.doHotelCheckIn(life);
   // TODO: add cop checks here
-  life = events.doSimulateEvents(life);
+	life = events.doSimulateEvents(life);
   life.current.turn = turn;
   return life;
 }
@@ -85,12 +87,16 @@ module.exports.saveBankTransaction = bank.saveBankTransaction;
 module.exports.saveBankLending = bank.saveBankLending;
 module.exports.generateBankListings = bank.generateBankListings;
 
+// hotel
+module.exports.saveHotelCheckIn = hotel.saveHotelCheckIn;
+
 module.exports.generateLife = function generateLife(player, parameters){
   let life = {
     id: player.id + "_" + Date.now(),
     starting: {
       turn: 1,
       event: game.events.starting_message,
+			hotel: true,
       location: {
         id: parameters.location.id,
         city: parameters.location.city,

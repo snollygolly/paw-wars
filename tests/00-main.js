@@ -9,6 +9,7 @@ module.exports.market = require('../models/game/market');
 module.exports.airport = require('../models/game/airport');
 module.exports.bank = require('../models/game/bank');
 module.exports.events = require('../models/game/events');
+module.exports.hotel = require('../models/game/hotel');
 // JSON data
 module.exports.places = require('../models/game/places.json');
 module.exports.items = require('../models/game/items.json');

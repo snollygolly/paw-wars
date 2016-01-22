@@ -38,6 +38,7 @@
   },
   "devDependencies": {
     "chai": "^3.4.1",
+    "eslint": "^1.10.3",
     "istanbul": "^0.4.2",
     "mocha": "^2.3.4",
     "shipit-cli": "^1.4.1",

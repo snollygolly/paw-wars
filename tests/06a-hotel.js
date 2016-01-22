@@ -51,4 +51,13 @@ describe('Hotel - Transaction Validation', () => {
 		expect(newLife.current.hotel).to.equal(false);
 		return done();
 	});
+
+	it('hotel should check out guests on turn change', function hotelValidation(done) {
+		let newLife = JSON.parse(JSON.stringify(life));
+		newLife = model.changeTurn(newLife, 2);
+		expect(newLife.current).to.have.property('hotel');
+		expect(newLife.current.hotel).to.be.a('boolean');
+		expect(newLife.current.hotel).to.equal(false);
+		return done();
+	});
 });

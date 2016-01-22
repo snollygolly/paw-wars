@@ -48,7 +48,6 @@
     "prefer-const": 1,
     "prefer-template": 1,
     "require-yield": 1,
-    "prefer-arrow-callback": 1,
     "arrow-spacing": 2,
     "generator-star-spacing": [2, "after"],
     "no-arrow-condition": 2,

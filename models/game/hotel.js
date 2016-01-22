@@ -23,7 +23,19 @@ module.exports.doHotelCheckIn = function doHotelCheckIn(life){
 	newLife.current.hotel = true;
 	newLife.actions.push({
 		turn: newLife.current.turn,
-		type: "hotel"
+		type: "hotel",
+		data: "check in"
+	})
+	return newLife;
+}
+
+module.exports.doHotelCheckOut = function doHotelCheckOut(life){
+	let newLife = JSON.parse(JSON.stringify(life));
+	newLife.current.hotel = false;
+	newLife.actions.push({
+		turn: newLife.current.turn,
+		type: "hotel",
+		data: "check out"
 	})
 	return newLife;
 }

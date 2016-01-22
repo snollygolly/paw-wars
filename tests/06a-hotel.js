@@ -25,3 +25,30 @@ describe('Hotel - Hotel Validation', () => {
 		return done();
 	});
 });
+
+describe('Hotel - Transaction Validation', () => {
+	before(() => {
+		// set up life
+		life = model.generateLife(config.PLAYER, config.LOCATION);
+		life.testing = true;
+		life.current.hotel = false;
+  });
+
+	it('hotel should check in guests when called', function hotelValidation(done) {
+		let newLife = JSON.parse(JSON.stringify(life));
+		newLife = hotel.doHotelCheckIn(newLife);
+		expect(newLife.current).to.have.property('hotel');
+		expect(newLife.current.hotel).to.be.a('boolean');
+		expect(newLife.current.hotel).to.equal(true);
+		return done();
+	});
+
+	it('hotel should check out guests when called', function hotelValidation(done) {
+		let newLife = JSON.parse(JSON.stringify(life));
+		newLife = hotel.doHotelCheckOut(newLife);
+		expect(newLife.current).to.have.property('hotel');
+		expect(newLife.current.hotel).to.be.a('boolean');
+		expect(newLife.current.hotel).to.equal(false);
+		return done();
+	});
+});

@@ -142,3 +142,7 @@ hbs.registerHelper('format_currency', function(amount, opts) {
 hbs.registerHelper('format_percent', function(percent, opts) {
   return (percent * 100);
 });
+
+hbs.registerHelper('plural', function(word, amount, opts) {
+  return (amount === 1) ? word : `${word}s`;
+});

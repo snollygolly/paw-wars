@@ -56,8 +56,6 @@ module.exports.simulateEvents = function simulateEvents(life, eventObj) {
 		};
 		newLife = adjustCurrentCash(newLife, adjustment);
 		break;
-	default:
-		return false;
 	}
 	// write the description
 	newLife.current.event = makeDescription(eventObj, adjustment);

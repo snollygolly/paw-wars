@@ -15,7 +15,6 @@
   "rules": {
     "comma-dangle": 2,
     "no-underscore-dangle": 0,
-    "default-case": 1,
     "guard-for-in": 2,
     "no-else-return": 2,
     "no-self-compare": 2,

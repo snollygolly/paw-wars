@@ -10,6 +10,7 @@ const airport = require("./game/airport");
 const bank = require("./game/bank");
 const events = require("./game/events");
 const hotel = require("./game/hotel");
+const police = require("./game/police");
 
 let connection;
 
@@ -67,6 +68,7 @@ module.exports.changeTurn = function changeTurn(life, turn) {
 	life.listings.airport = airport.generateAirportListings(life);
 	life = bank.handleInterest(life);
 	life = hotel.doHotelCheckOut(life);
+	life = police.doSimulateEncounter(life);
 	// TODO: add cop checks here
 	life = events.doSimulateEvents(life);
 	life.current.turn = turn;

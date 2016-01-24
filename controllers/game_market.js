@@ -54,6 +54,9 @@ module.exports.transaction = function* transaction() {
 	if (!life) {
 		throw new Error("No life found / marketController:transaction");
 	}
+	if (life.current.hotel === false) {
+		return this.body = {error: true, message: "Must be checked into a hotel first"};
+	}
 	const parameters = this.request.body;
 	if (!parameters) {
 		return this.body = {error: true, message: "Missing parameter object"};

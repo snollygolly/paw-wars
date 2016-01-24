@@ -1,4 +1,8 @@
 {
+	"person": {
+		"starting_hp": 100,
+		"max_hp": 100
+	},
   "market":{
     "base_price": 250,
     "base_units": 1000,
@@ -37,6 +41,8 @@
   },
 	"police": {
 		"starting_heat": 0,
-		"heat_rate": 1
+		"heat_rate": 1,
+		"heat_cap": 100,
+		"total_officers": 4
 	}
 }

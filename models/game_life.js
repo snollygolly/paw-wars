@@ -95,6 +95,12 @@ module.exports.generateLife = function generateLife(player, parameters) {
 		starting: {
 			turn: 1,
 			event: game.events.starting_message,
+			police: {
+				heat: game.police.starting_heat,
+				rate: game.police.heat_rate,
+				awareness: {},
+				encounter: null
+			},
 			hotel: true,
 			location: {
 				id: parameters.location.id,
@@ -118,12 +124,6 @@ module.exports.generateLife = function generateLife(player, parameters) {
 			storage: {
 				available: game.market.starting_storage,
 				total: game.market.starting_storage
-			},
-			police: {
-				heat: game.police.starting_heat,
-				rate: game.police.heat_rate,
-				awareness: {},
-				encounter: null
 			}
 		},
 		current: {},

@@ -46,6 +46,7 @@ describe("Life Model - Starting Validation", () => {
 		expect(life.starting).to.be.an("object");
 		expect(life.starting).to.have.property("turn");
 		expect(life.starting).to.have.property("event");
+		expect(life.starting).to.have.property("police");
 		expect(life.starting).to.have.property("hotel");
 		expect(life.starting).to.have.property("finance");
 		expect(life.starting).to.have.property("health");
@@ -62,6 +63,15 @@ describe("Life Model - Starting Validation", () => {
 
 	it("starting life should have a valid event", (done) => {
 		expect(life.starting.event).to.be.a("string");
+		return done();
+	});
+
+	it("starting life should have a valid police object", (done) => {
+		expect(life.starting.police).to.be.an("object");
+		expect(life.starting.police).to.have.property("heat");
+		expect(life.starting.police).to.have.property("rate");
+		expect(life.starting.police).to.have.property("awareness");
+		expect(life.starting.police).to.have.property("encounter");
 		return done();
 	});
 
@@ -168,6 +178,7 @@ describe("Life Model - Current Validation", () => {
 		expect(life.current).to.be.an("object");
 		expect(life.current).to.have.property("turn");
 		expect(life.current).to.have.property("event");
+		expect(life.current).to.have.property("police");
 		expect(life.current).to.have.property("hotel");
 		expect(life.current).to.have.property("finance");
 		expect(life.current).to.have.property("health");
@@ -184,6 +195,15 @@ describe("Life Model - Current Validation", () => {
 
 	it("current life should have a valid event", (done) => {
 		expect(life.current.event).to.be.a("string");
+		return done();
+	});
+
+	it("current life should have a valid police object", (done) => {
+		expect(life.current.police).to.be.an("object");
+		expect(life.current.police).to.have.property("heat");
+		expect(life.current.police).to.have.property("rate");
+		expect(life.current.police).to.have.property("awareness");
+		expect(life.current.police).to.have.property("encounter");
 		return done();
 	});
 

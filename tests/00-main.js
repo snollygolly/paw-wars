@@ -10,6 +10,8 @@ module.exports.airport = require("../models/game/airport");
 module.exports.bank = require("../models/game/bank");
 module.exports.events = require("../models/game/events");
 module.exports.hotel = require("../models/game/hotel");
+module.exports.police = null;
+// module.exports.police = require("../models/game/police");
 // JSON data
 module.exports.places = require("../models/game/places.json");
 module.exports.items = require("../models/game/items.json");

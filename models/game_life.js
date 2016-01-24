@@ -118,6 +118,12 @@ module.exports.generateLife = function generateLife(player, parameters) {
 			storage: {
 				available: game.market.starting_storage,
 				total: game.market.starting_storage
+			},
+			police: {
+				heat: game.police.starting_heat,
+				rate: game.police.heat_rate,
+				awareness: {},
+				encounter: null
 			}
 		},
 		current: {},
@@ -127,6 +133,8 @@ module.exports.generateLife = function generateLife(player, parameters) {
 		},
 		actions: []
 	};
+	// adjust the police awareness for the current location here, for the linter
+	life.starting.police.awareness[parameters.location.country] = game.police.starting_heat;
 	// we just created life.	let that dwell on you for a little bit.
 	// this is where it all starts.
 	life.current = life.starting;

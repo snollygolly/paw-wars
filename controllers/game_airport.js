@@ -18,6 +18,9 @@ module.exports.index = function* index() {
 	if (!life) {
 		throw new Error("No life found / airportController:index");
 	}
+	if (life.current.hotel === false) {
+		throw new Error("Must be checked into a hotel first / airportController:index");
+	}
 	let i = 0;
 	while (i < places.length) {
 		// loop through items and prices, merge them together
@@ -60,8 +63,12 @@ module.exports.fly = function* fly() {
 		return this.body = {error: true, message: "Missing parameters"};
 	}
 	if (life.id != parameters.id) {
-		return this.body = {error: "Bad ID"};
+		return this.body = {error: true, message: "Bad ID"};
 	}
+	if (life.current.hotel === false) {
+		return this.body = {error: true, message: "Must be checked into a hotel first"};
+	}
+
 	// TODO: destination verification
 	// we've passed checks at this point
 	const flight = {

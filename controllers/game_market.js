@@ -18,6 +18,9 @@ module.exports.index = function* index() {
 	if (!life) {
 		throw new Error("No life found / marketController:index");
 	}
+	if (life.current.hotel === false) {
+		throw new Error("Must be checked into a hotel first / marketController:index");
+	}
 	let i = 0;
 	while (i < items.length) {
 		// loop through items and prices, merge them together

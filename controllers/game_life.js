@@ -36,7 +36,9 @@ module.exports.create = function* create() {
 		player = {};
 		player.id = "99999";
 	}
-	life = this.session.life;
+	if (life) {
+		throw new Error("Can't start a new game when one is in progress / lifeController:create");
+	}
 	// handle location parsing
 	const location = getLocationObj(this.request.body.location);
 	// TODO: don't create a new life if this player already has one

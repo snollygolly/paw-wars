@@ -18,6 +18,9 @@ module.exports.index = function* index() {
 	if (!life) {
 		throw new Error("No life found / bankController:index");
 	}
+	if (life.current.hotel === false) {
+		throw new Error("Must be checked into a hotel first / bankController:index");
+	}
 	yield this.render("game_bank", {
 		title: config.site.name,
 		player: player,
@@ -36,6 +39,9 @@ module.exports.transaction = function* transaction() {
 	life = this.session.life;
 	if (!life) {
 		throw new Error("No life found / bankController:transaction");
+	}
+	if (life.current.hotel === false) {
+		return this.body = {error: true, message: "Must be checked into a hotel first"};
 	}
 	let parameters;
 	// figure out which type of transaction they want to be doing here
@@ -56,7 +62,7 @@ module.exports.transaction = function* transaction() {
 	}
 	// is this the right life ID?
 	if (life.id != parameters.id) {
-		return this.body = {error: "Bad ID"};
+		return this.body = {error: true, message: "Bad ID"};
 	}
 	// we've passed checks at this point
 	const transaction = {
@@ -84,6 +90,9 @@ module.exports.lending = function* lending() {
 	life = this.session.life;
 	if (!life) {
 		throw new Error("No life found / bankController:lending");
+	}
+	if (life.current.hotel === false) {
+		return this.body = {error: true, message: "Must be checked into a hotel first"};
 	}
 	let parameters;
 	// figure out which type of transaction they want to be doing here

@@ -33,6 +33,9 @@ describe("Police - Starting State", () => {
 		expect(life.current.police.awareness[life.current.location.country]).to.equal(config.GAME.police.starting_heat);
 		// encounter
 		expect(life.current.police.encounter).to.be.a("null");
+		// history
+		expect(life.current.police.history).to.be.an("array");
+		expect(life.current.police.history.length).to.equal(0);
 		return done();
 	});
 });

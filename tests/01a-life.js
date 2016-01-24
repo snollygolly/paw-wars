@@ -72,6 +72,7 @@ describe("Life Model - Starting Validation", () => {
 		expect(life.starting.police).to.have.property("rate");
 		expect(life.starting.police).to.have.property("awareness");
 		expect(life.starting.police).to.have.property("encounter");
+		expect(life.starting.police).to.have.property("history");
 		return done();
 	});
 
@@ -204,6 +205,7 @@ describe("Life Model - Current Validation", () => {
 		expect(life.current.police).to.have.property("rate");
 		expect(life.current.police).to.have.property("awareness");
 		expect(life.current.police).to.have.property("encounter");
+		expect(life.current.police).to.have.property("history");
 		return done();
 	});
 

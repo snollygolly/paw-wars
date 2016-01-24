@@ -99,7 +99,8 @@ module.exports.generateLife = function generateLife(player, parameters) {
 				heat: game.police.starting_heat,
 				rate: game.police.heat_rate,
 				awareness: {},
-				encounter: null
+				encounter: null,
+				history: []
 			},
 			hotel: true,
 			location: {

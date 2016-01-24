@@ -35,7 +35,8 @@ module.exports.startEncounter = function simulateEncounter(life) {
 		id: Date.now(),
 		officers: totalOfficers,
 		total_hp: totalOfficers * game.person.starting_hp,
-		mode: "discovery"
+		mode: "discovery",
+		history: []
 	};
 	newLife.current.police.encounter = encounter;
 	newLife = simulateEncounter(newLife);
@@ -50,6 +51,9 @@ module.exports.simulateEncounter = function simulateEncounter(life) {
 		// discovery is the phase where the officer is trying to figure out what's going on
 		// the officer will ask questions and may ask to search
 		discovery: doDiscoveryMode,
+		// investigation mode is where you've denied the officer permissions to search and
+		// he's seeing if he has probably cause to conduct a search anyway
+		investigation: doInvestigationMode,
 		// searching is the phaser where the officer is actively searching your storage
 		// you either consented during discovery, or the officer is claiming probable cause
 		searching: doSearchingMode,
@@ -59,13 +63,21 @@ module.exports.simulateEncounter = function simulateEncounter(life) {
 		// you're in the back of a cop car, not much to do about it now
 		custody: doCustodyMode,
 		// you're free to leave, those cops don't have anything on you!
-		released: doReleasedMode
+		released: doReleasedMode,
+		// fighting is when you've decided to shoot at the officer and he's now engaged in combat with you
+		fighting: doFightingMode,
+		// chasing is when you've attempted to flee and the officer is giving chase
+		chasing: doChasingMode
 	};
 	newLife.current.police = handleEncounter[life.current.police.encounter](newLife.current.police);
 	// console.log("* simulateEncounter:", newLife);
 	return newLife;
 
 	function doDiscoveryMode(police) {
+		return police;
+	}
+
+	function doInvestigationMode(police) {
 		return police;
 	}
 

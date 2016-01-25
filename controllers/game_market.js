@@ -1,7 +1,7 @@
 "use strict";
 
 const config = require("../config.json");
-const items = require("../models/game/data/items.json");
+const itemsJSONJSON = require("../models/game/data/itemsJSON.json");
 const lifeModel = require("../models/game_life");
 
 const common = require("../helpers/common");
@@ -22,19 +22,19 @@ module.exports.index = function* index() {
 		throw new Error("Must be checked into a hotel first / marketController:index");
 	}
 	let i = 0;
-	while (i < items.length) {
-		// loop through items and prices, merge them together
-		items[i].price = life.listings.market[i].price;
-		items[i].units = life.listings.market[i].units;
+	while (i < itemsJSON.length) {
+		// loop through itemsJSON and prices, merge them together
+		itemsJSON[i].price = life.listings.market[i].price;
+		itemsJSON[i].units = life.listings.market[i].units;
 		i++;
 	}
 	life.listings.market.sort(sortByPrice);
-	items.sort(sortByPrice);
+	itemsJSON.sort(sortByPrice);
 	yield this.render("game_market", {
 		title: config.site.name,
 		player: player,
 		life: life,
-		items: items,
+		items: itemsJSON,
 		script: "game_market"
 	});
 

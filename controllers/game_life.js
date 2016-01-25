@@ -2,7 +2,7 @@
 
 const config = require("../config.json");
 const game = require("../game.json");
-const places = require("../models/game/data/places.json");
+const placesJSON = require("../models/game/data/places.json");
 const lifeModel = require("../models/game_life");
 
 let player = null;
@@ -23,7 +23,7 @@ module.exports.play = function* play() {
 		title: config.site.name,
 		player: player,
 		life: life,
-		places: places
+		places: placesJSON
 	});
 };
 
@@ -48,7 +48,7 @@ module.exports.create = function* create() {
 };
 
 function getLocationObj(id) {
-	for (const place of places) {
+	for (const place of placesJSON) {
 		if (place.id === id) {
 			// it's a match
 			return place;

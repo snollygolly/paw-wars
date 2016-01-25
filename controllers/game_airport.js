@@ -1,7 +1,7 @@
 "use strict";
 
 const config = require("../config.json");
-const places = require("../models/game/data/places.json");
+const placesJSON = require("../models/game/data/places.json");
 const lifeModel = require("../models/game_life");
 
 const common = require("../helpers/common");
@@ -22,20 +22,20 @@ module.exports.index = function* index() {
 		throw new Error("Must be checked into a hotel first / airportController:index");
 	}
 	let i = 0;
-	while (i < places.length) {
+	while (i < placesJSON.length) {
 		// loop through items and prices, merge them together
-		places[i].flight_number = life.listings.airport[i].flight_number;
-		places[i].price = life.listings.airport[i].price;
-		places[i].flight_time = life.listings.airport[i].flight_time;
+		placesJSON[i].flight_number = life.listings.airport[i].flight_number;
+		placesJSON[i].price = life.listings.airport[i].price;
+		placesJSON[i].flight_time = life.listings.airport[i].flight_time;
 		i++;
 	}
 	life.listings.airport.sort(sortByTurns);
-	places.sort(sortByTurns);
+	placesJSON.sort(sortByTurns);
 	yield this.render("game_airport", {
 		title: config.site.name,
 		player: (player === null) ? null : player,
 		life: life,
-		places: places,
+		places: placesJSON,
 		script: "game_airport"
 	});
 

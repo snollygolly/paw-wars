@@ -1,7 +1,7 @@
 "use strict";
 
 const game = require("../../game.json");
-const items = require("./data/items.json");
+const itemsJSON = require("./data/items.json");
 const eventsJSON = require("./data/events.json");
 const common = require("../../helpers/common");
 const model = require("../game_life.js");
@@ -33,7 +33,7 @@ module.exports.simulateEvents = function simulateEvents(life, eventObj) {
 		// start building the adjustment object
 		adjustment = {
 			type: eventObj.type,
-			item: items[common.getRandomInt(0, (items.length - 1))],
+			item: itemsJSON[common.getRandomInt(0, (itemsJSON.length - 1))],
 			price: common.getRandomArbitrary(eventObj.parameters.price.min, eventObj.parameters.price.max),
 			units: common.getRandomArbitrary(eventObj.parameters.units.min, eventObj.parameters.units.max)
 		};
@@ -43,7 +43,7 @@ module.exports.simulateEvents = function simulateEvents(life, eventObj) {
 		// start building the adjustment object
 		adjustment = {
 			type: eventObj.type,
-			item: items[common.getRandomInt(0, (items.length - 1))],
+			item: itemsJSON[common.getRandomInt(0, (itemsJSON.length - 1))],
 			units: common.getRandomArbitrary(eventObj.parameters.units.min, eventObj.parameters.units.max)
 		};
 		newLife = adjustCurrentInventory(newLife, adjustment);

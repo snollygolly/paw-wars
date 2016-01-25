@@ -1,7 +1,7 @@
 "use strict";
 
 const game = require("../../game.json");
-const items = require("./data/items.json");
+const itemsJSON = require("./data/items.json");
 const common = require("../../helpers/common");
 const model = require("../game_life.js");
 
@@ -87,7 +87,7 @@ module.exports.generateMarketListings = function generateMarketListings(life) {
 	// generates the prices and units for the market
 	const priceArr = [];
 	// loop through each items to set prices and qty
-	for (const item of items) {
+	for (const item of itemsJSON) {
 		const priceObj = {
 			id: item.id
 		};

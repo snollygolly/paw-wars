@@ -1,7 +1,7 @@
 "use strict";
 
 const game = require("../../game.json");
-const places = require("./data/places.json");
+const placesJSON = require("./data/places.json");
 const common = require("../../helpers/common");
 const model = require("../game_life.js");
 
@@ -25,7 +25,7 @@ module.exports.doAirportFly = function doAirportFly(life, flight) {
 	// start to error check the transactions
 	// first, see what they want to do, and see if the units are available
 	const listing = common.getObjFromID(flight.destination, newLife.listings.airport);
-	const location = common.getObjFromID(flight.destination, places);
+	const location = common.getObjFromID(flight.destination, placesJSON);
 	if (listing === false) {
 		// they choose a bad destination
 		return {error: true, message: "Flight to invalid destination"};
@@ -60,7 +60,7 @@ module.exports.generateAirportListings = function generateAirportListings(life) 
 	// loop through each items to set prices and qty
 	const priceArr = [];
 	const location = life.current.location;
-	for (const place of places) {
+	for (const place of placesJSON) {
 		const priceObj = {
 			id: place.id,
 			size: place.size

@@ -8,6 +8,7 @@ const common = main.common;
 const model = main.model;
 
 const police = main.police;
+const policeJSON = main.policeJSON;
 
 let life;
 
@@ -80,4 +81,28 @@ describe("Police - Creating Encounter", () => {
 		expect(policeObj.encounter.choices).to.be.an("array");
 		return done();
 	});
+});
+
+describe("Police - Simulating Encounter (Peaceful, Passive)", () => {
+	before(() => {
+		// set up life
+		life = model.generateLife(config.PLAYER, config.LOCATION);
+		life.testing = true;
+		// adding some heat
+		life.current.police.heat = config.GAME.police.heat_cap / 2;
+		life = police.startEncounter(life);
+	});
+
+	it("encounter should go into discovery mode", (done) => {
+		const policeObj = life.current.police;
+		expect(policeObj.encounter.mode).to.equal("discovery");
+		return done();
+	});
+
+	it("encounter should explain what is happening in simple", (done) => {
+		const policeObj = life.current.police;
+		expect(policeObj.encounter.message.simple).to.equal(policeJSON.messages.discovery.simple);
+		return done();
+	});
+
 });

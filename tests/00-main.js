@@ -12,9 +12,9 @@ module.exports.events = require("../models/game/events");
 module.exports.hotel = require("../models/game/hotel");
 module.exports.police = require("../models/game/police");
 // JSON data
-module.exports.places = require("../models/game/places.json");
-module.exports.items = require("../models/game/items.json");
-module.exports.policeJSON = require("../models/game/police.json");
+module.exports.places = require("../models/game/data/places.json");
+module.exports.items = require("../models/game/data/items.json");
+module.exports.policeJSON = require("../models/game/data/police.json");
 // for setting testing values
 module.exports.config = {
 	UNITS: 10,

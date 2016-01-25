@@ -1,7 +1,7 @@
 "use strict";
 
 const game = require("../../game.json");
-const places = require("./places.json");
+const places = require("./data/places.json");
 const common = require("../../helpers/common");
 const model = require("../game_life.js");
 

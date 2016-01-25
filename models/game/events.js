@@ -1,8 +1,8 @@
 "use strict";
 
 const game = require("../../game.json");
-const items = require("./items.json");
-const events = require("./events.json");
+const items = require("./data/items.json");
+const eventsJSON = require("./data/events.json");
 const common = require("../../helpers/common");
 const model = require("../game_life.js");
 
@@ -17,8 +17,8 @@ module.exports.doSimulateEvents = function doSimulateEvents(life) {
 		return newLife;
 	}
 	// pick a random number from the events
-	const eventIndex = common.getRandomInt(0, (events.length - 1));
-	const eventObj = events[eventIndex];
+	const eventIndex = common.getRandomInt(0, (eventsJSON.length - 1));
+	const eventObj = eventsJSON[eventIndex];
 	newLife = module.exports.simulateEvents(newLife, eventObj);
 	return newLife;
 };

@@ -1,11 +1,10 @@
 "use strict";
 
 const game = require("../../game.json");
-const items = require("./items.json");
-const events = require("./events.json");
+const items = require("./data/items.json");
 const common = require("../../helpers/common");
 const model = require("../game_life.js");
-const policeJSON = require("./police.json");
+const policeJSON = require("./data/police.json");
 
 module.exports.doSimulateEncounter = function doSimulateEncounter(life) {
 	let newLife = JSON.parse(JSON.stringify(life));

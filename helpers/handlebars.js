@@ -2,7 +2,6 @@
 
 const hbs = require("koa-hbs");
 const config = require("../config.json");
-const items = require("../models/game/items.json");
 
 hbs.registerHelper("if_eq", function if_eq(a, b, opts) {
 	if (a == b) {

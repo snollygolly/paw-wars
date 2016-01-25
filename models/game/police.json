@@ -1,130 +1,90 @@
 {
-	"discovery": {
-		"messages": {
-			"main": "On your way to the hotel, you're stopped by Officer Barks.  He gets out of his car and walks over to yours.  You roll down the window and say 'Yes Officer?'.  He says 'I hope you're having a nice day.  I stopped you because we've had some reports of suspicious cats in the area.  Do you mind if I take a look around your storage really quick?'"
+	"messages":{
+		"discovery":{
+			"full": "On your way to the hotel, you're stopped by Officer Barks.  He gets out of his car and walks over to yours.  You roll down the window and say 'Yes Officer?'.  He says 'I hope you're having a nice day.  I stopped you because we've had some reports of suspicious cats in the area.  Do you mind if I take a look around your storage really quick?'",
+			"simple": "Officer Bark wants to search your storage."
 		},
-		"prompt": "Officer Bark wants to search your storage.",
-		"choices": [
-			{
-				"id": "permit-search",
-				"message": "Give consent to the search"
-			},
-			{
-				"id": "deny-search",
-				"message": "Don't give consent to the search"
-			}
-		]
+		"investigation":{
+			"full": "You tell Officer Bark that you don't consent to searches.  He takes his flashlight and shines it at your storage while asking you 'You don't have anything you're not supposed to, do you?'",
+			"simple": "Officer Bark is asking if you're carrying anything illegal."
+		},
+		"investigation_successful":{
+			"full": "You tell Officer Bark that you're a law abiding cat, but he doesn't buy it.  He says 'I see something that looks illegal, I'm going to have to look around'",
+			"simple": "Officer Bark is telling you that he has probable cause to search your vehicle."
+		},
+		"investigation_failure":{
+			"full": "You tell Officer Bark that you're a law abiding cat, and he seems to believe you.  He says 'Well everything looks to be in order, you can be on your way now.'",
+			"simple": "Officer Bark is telling you that you're free to leave."
+		},
+		"search":{
+			"full": "You tell Officer Bark that it's perfectly fine if he looks around.  He says 'I appreciate that, if you'd just stand over here please' while gesturing towards his vehicle.",
+			"simple": "Officer Bark is asking you to stand by his vehicle while he searches your storage."
+		},
+		"search_successful":{
+			"full": "Officer Bark performs a cursory search of your storage, and eventually comes back from your storage with something in his hands.  He says 'I found some illegal items while searching your car, I'm afraid you're under arrest.'",
+			"simple": "Officer Bark is attempting to take you into custody."
+		},
+		"search_failure":{
+			"full": "Officer Bark performs a cursory search of your storage, and when he finishes, he comes back to you and says 'Well, I didn't find anything illegal, so you're free to leave'",
+			"simple": "Officer Bark is telling you that you're free to leave."
+		},
+		"detain":{
+			"full": "Officer Bark loads you into his squad car.  You're going downtown.",
+			"simple": "You're going to jail."
+		},
+		"release":{
+			"full": "Officer Bark leaves in his squad car, and you let out a sign of relief.",
+			"simple": "You're going on your way"
+		},
+		"escape":{
+			"full": "You look back and it looks like you've escaped!",
+			"simple": "You escaped Officer Bark"
+		}
 	},
-	"investigation": {
-		"messages": {
-			"deny-search": "You tell Officer Bark that you don't consent to searches.  He takes his flashlight and shines it at your storage while asking you 'You don't have anything you're not supposed to, do you?'"
+	"choices":{
+		"permit_search":{
+			"id": "permit_search",
+			"full": "Give consent to the search"
 		},
-		"prompt": "Officer Bark is asking if you're carrying anything illegal.",
-		"choices": [
-			{
-				"id": "admit-guilt",
-				"message": "Yes, I have illegal items"
-			},
-			{
-				"id": "deny-guilt",
-				"message": "No, I don't have anything illegal"
-			}
-		]
-	},
-	"investigation-successful": {
-		"messages": {
-			"deny-guilt": "You tell Officer Bark that you're a law abiding cat, but he doesn't buy it.  He says 'I see something that looks illegal, I'm going to have to look around'"
+		"deny_search":{
+			"id": "deny_search",
+			"full": "Don't give consent to the search"
 		},
-		"prompt": "Officer Bark is telling you that he has probable cause to search your vehicle.",
-		"choices": [
-			{
-				"id": "comply-search",
-				"message": "Of course Officer"
-			}
-		]
-	},
-	"investigation-failure": {
-		"messages": {
-			"deny-guilt": "You tell Officer Bark that you're a law abiding cat, and he seems to believe you.  He says 'Well everything looks to be in order, you can be on your way now.'"
+		"admit_guilt":{
+			"id": "admit_guilt",
+			"full": "Yes, I have illegal items"
 		},
-		"prompt": "Officer Bark is telling you that you're free to leave",
-		"choices": [
-			{
-				"id": "comply-released",
-				"message": "Thank you Officer"
-			}
-		]
-	},
-	"search": {
-		"messages": {
-			"allow-search": "You tell Officer Bark that it's perfectly fine if he looks around.  He says 'I appreciate that, if you'd just stand over here please' while gesturing towards his vehicle."
+		"deny_guilt":{
+			"id": "deny_guilt",
+			"full": "No, I don't have anything illegal"
 		},
-		"prompt": "Officer Bark is asking you to stand by his vehicle while he searches your storage.",
-		"choices": [
-			{
-				"id": "comply-search",
-				"message": "Of course Officer"
-			}
-		]
-	},
-	"search-successful": {
-		"messages": {
-			"comply-search": "Officer Bark performs a cursory search of your storage, and eventually comes back from your storage with something in his hands.  He says 'I found some illegal items while searching your car, I'm afraid you're under arrest.'"
+		"comply_search":{
+			"id": "comply_search",
+			"full": "Of course Officer"
 		},
-		"prompt": "Officer Bark is attempting to take you into custody.",
-		"choices": [
-			{
-				"id": "comply-detain",
-				"message": "I understand"
-			}
-		]
-	},
-	"search-failure": {
-		"messages": {
-			"comply-search": "Officer Bark performs a cursory search of your storage, and when he finishes, he comes back to you and says 'Well, I didn't find anything illegal, so you're free to leave'"
+		"comply_released":{
+			"id": "comply_released",
+			"full": "Thank you Officer"
 		},
-		"prompt": "Officer Bark is telling you that you're free to leave.",
-		"choices": [
-			{
-				"id": "comply-released",
-				"message": "Thank you Officer"
-			}
-		]
-	},
-	"detain": {
-		"messages": {
-			"comply-detain": "Officer Bark loads you into his squad car.  You're going downtown."
+		"comply_detain":{
+			"id": "comply_detain",
+			"full": "I understand"
 		},
-		"prompt": "You're going to jail.",
-		"choices": [
-			{
-				"id": "end",
-				"message": "End"
-			}
-		]
-	},
-	"release": {
-		"messages": {
-			"comply-release": "Officer Bark leaves in his squad car, and you let out a sign of relief."
+		"hiss": {
+			"id": "hiss",
+			"full": "Hiss!"
 		},
-		"prompt": "You're going on your way",
-		"choices": [
-			{
-				"id": "end",
-				"message": "End"
-			}
-		]
-	},
-	"escape": {
-		"messages": {
-			"run": "You look back and it looks like you've escaped!"
+		"attack": {
+			"id": "attack",
+			"full": "Attack!"
 		},
-		"prompt": "You escaped Officer Bark",
-		"choices": [
-			{
-				"id": "end",
-				"message": "End"
-			}
-		]
+		"run": {
+			"id": "run",
+			"full": "Run!"
+		},
+		"end":{
+			"id": "end",
+			"full": "End"
+		}
 	}
 }

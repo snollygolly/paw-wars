@@ -19,23 +19,65 @@ describe("Police - Starting State", () => {
 	});
 
 	it("current police state should match config values", (done) => {
+		const policeObj = life.current.police;
 		// heat
-		expect(life.current.police.heat).to.be.a("number");
-		expect(life.current.police.heat).to.equal(config.GAME.police.starting_heat);
+		expect(policeObj.heat).to.be.a("number");
+		expect(policeObj.heat).to.equal(config.GAME.police.starting_heat);
 		// rate
-		expect(life.current.police.rate).to.be.a("number");
-		expect(life.current.police.rate).to.equal(config.GAME.police.heat_rate);
+		expect(policeObj.rate).to.be.a("number");
+		expect(policeObj.rate).to.equal(config.GAME.police.heat_rate);
 		// awareness
-		expect(life.current.police.awareness).to.be.an("object");
+		expect(policeObj.awareness).to.be.an("object");
 		// current awareness value
-		expect(life.current.police.awareness).to.have.property(life.current.location.country);
-		expect(life.current.police.awareness[life.current.location.country]).to.be.a("number");
-		expect(life.current.police.awareness[life.current.location.country]).to.equal(config.GAME.police.starting_heat);
+		expect(policeObj.awareness).to.have.property(life.current.location.country);
+		expect(policeObj.awareness[life.current.location.country]).to.be.a("number");
+		expect(policeObj.awareness[life.current.location.country]).to.equal(config.GAME.police.starting_heat);
 		// encounter
-		expect(life.current.police.encounter).to.be.a("null");
+		expect(policeObj.encounter).to.be.a("null");
 		// history
-		expect(life.current.police.history).to.be.an("array");
-		expect(life.current.police.history.length).to.equal(0);
+		expect(policeObj.history).to.be.an("array");
+		expect(policeObj.history.length).to.equal(0);
+		return done();
+	});
+});
+
+describe("Police - Creating Encounter", () => {
+	before(() => {
+		// set up life
+		life = model.generateLife(config.PLAYER, config.LOCATION);
+		life.testing = true;
+		// adding some heat
+		life.current.police.heat = config.GAME.police.heat_cap / 2;
+		life = police.startEncounter(life);
+	});
+
+	it("current encounter should have officers", (done) => {
+		const policeObj = life.current.police;
+		expect(policeObj.encounter.officers).to.be.at.least(1);
+		expect(policeObj.encounter.officers).to.be.at.most(config.GAME.police.total_officers);
+		return done();
+	});
+
+	it("current encounter should have correct officer hp", (done) => {
+		const policeObj = life.current.police;
+		expect(policeObj.encounter.total_hp).to.be.at.least(config.GAME.person.starting_hp);
+		expect(policeObj.encounter.total_hp).to.equal(policeObj.encounter.officers * config.GAME.person.starting_hp);
+		return done();
+	});
+
+	it("current encounter should have a message", (done) => {
+		const policeObj = life.current.police;
+		expect(policeObj.encounter).to.have.property("message");
+		expect(policeObj.encounter.message).to.be.an("object");
+		expect(policeObj.encounter.message.full).to.be.a("string");
+		expect(policeObj.encounter.message.simple).to.be.a("string");
+		return done();
+	});
+
+	it("current encounter should have choices", (done) => {
+		const policeObj = life.current.police;
+		expect(policeObj.encounter).to.have.property("choices");
+		expect(policeObj.encounter.choices).to.be.an("array");
 		return done();
 	});
 });

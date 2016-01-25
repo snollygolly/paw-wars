@@ -5,6 +5,7 @@ const items = require("./items.json");
 const events = require("./events.json");
 const common = require("../../helpers/common");
 const model = require("../game_life.js");
+const policeJSON = require("./police.json");
 
 module.exports.doSimulateEncounter = function doSimulateEncounter(life) {
 	let newLife = JSON.parse(JSON.stringify(life));
@@ -22,9 +23,9 @@ module.exports.doSimulateEncounter = function doSimulateEncounter(life) {
 	return newLife;
 };
 
-module.exports.startEncounter = function simulateEncounter(life) {
+module.exports.startEncounter = function startEncounter(life) {
 	let newLife = JSON.parse(JSON.stringify(life));
-	const totalHeat = getTotalheat(life);
+	const totalHeat = getTotalHeat(life);
 	const totalOfficers = Math.ceil(totalHeat / (game.police.heat_cap / game.police.total_officers)) - 1;
 	// if we don't need any officers, we don't need an event
 	if (totalOfficers === 0) {
@@ -39,8 +40,8 @@ module.exports.startEncounter = function simulateEncounter(life) {
 		history: []
 	};
 	newLife.current.police.encounter = encounter;
-	newLife = simulateEncounter(newLife);
-	// console.log("* simulateEncounter:", newLife);
+	newLife = module.exports.simulateEncounter(newLife);
+	// console.log("* startEncounter:", newLife);
 	return newLife;
 };
 
@@ -69,11 +70,24 @@ module.exports.simulateEncounter = function simulateEncounter(life) {
 		// chasing is when you've attempted to flee and the officer is giving chase
 		chasing: doChasingMode
 	};
-	newLife.current.police = handleEncounter[life.current.police.encounter](newLife.current.police);
+	newLife.current.police = handleEncounter[life.current.police.encounter.mode](newLife.current.police);
 	// console.log("* simulateEncounter:", newLife);
 	return newLife;
 
 	function doDiscoveryMode(police) {
+		police.encounter.message = policeJSON.messages.discovery;
+		police.encounter.choices = [
+			policeJSON.choices.permit_search,
+			policeJSON.choices.deny_search,
+			policeJSON.choices.hiss,
+			policeJSON.choices.attack,
+			policeJSON.choices.run
+		];
+		const history = {
+			id: police.encounter.id,
+			encounter: police.encounter
+		};
+		police.history.push(history);
 		return police;
 	}
 
@@ -94,6 +108,14 @@ module.exports.simulateEncounter = function simulateEncounter(life) {
 	}
 
 	function doReleasedMode(police) {
+		return police;
+	}
+
+	function doFightingMode(police) {
+		return police;
+	}
+
+	function doChasingMode(police) {
 		return police;
 	}
 };

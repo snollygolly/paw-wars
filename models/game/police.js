@@ -34,8 +34,7 @@ module.exports.startEncounter = function startEncounter(life) {
 		id: Date.now(),
 		officers: totalOfficers,
 		total_hp: totalOfficers * game.person.starting_hp,
-		mode: "discovery",
-		history: []
+		mode: "discovery"
 	};
 	newLife.current.police.encounter = encounter;
 	newLife = module.exports.simulateEncounter(newLife);
@@ -66,31 +65,80 @@ module.exports.simulateEncounter = function simulateEncounter(life) {
 		// fighting is when you've decided to shoot at the officer and he's now engaged in combat with you
 		fighting: doFightingMode,
 		// chasing is when you've attempted to flee and the officer is giving chase
-		chasing: doChasingMode
+		chasing: doChasingMode,
+		// and when we're all done...
+		end: doEndMode
 	};
 	newLife.current.police = handleEncounter[life.current.police.encounter.mode](newLife.current.police);
 	// console.log("* simulateEncounter:", newLife);
 	return newLife;
 
 	function doDiscoveryMode(police) {
-		police.encounter.message = policeJSON.messages.discovery;
-		police.encounter.choices = [
-			policeJSON.choices.permit_search,
-			policeJSON.choices.deny_search,
-			policeJSON.choices.hiss,
-			policeJSON.choices.attack,
-			policeJSON.choices.run
-		];
-		const history = {
-			id: police.encounter.id,
-			encounter: police.encounter
+		// handle initial actions
+		if (!police.encounter.action) {
+			// the player hasn't had a chance to reply yet
+			police.encounter.message = policeJSON.messages.discovery;
+			police.encounter.choices = [
+				policeJSON.choices.permit_search,
+				policeJSON.choices.deny_search,
+				policeJSON.choices.hiss,
+				policeJSON.choices.attack,
+				policeJSON.choices.run
+			];
+			const history = {
+				id: police.encounter.id,
+				encounter: police.encounter
+			};
+			police.history.push(history);
+			return police;
+		}
+		// set up reply actions
+		const actionObj  = {
+			"permit_search": (police) => {
+				police = changeModes(police, "searching");
+				return handleEncounter[police.encounter.mode](police);
+			},
+			"deny_search": (police) => {
+				police = changeModes(police, "investigation");
+				return handleEncounter[police.encounter.mode](police);
+			}
 		};
-		police.history.push(history);
-		return police;
+		return actionObj[police.encounter.action](police);
 	}
 
 	function doInvestigationMode(police) {
-		return police;
+		// handle initial actions
+		if (!police.encounter.action) {
+			// the player hasn't had a chance to reply yet
+			police.encounter.message = policeJSON.messages.investigation;
+			police.encounter.choices = [
+				policeJSON.choices.admit_guilt,
+				policeJSON.choices.deny_guilt,
+				policeJSON.choices.hiss,
+				policeJSON.choices.attack,
+				policeJSON.choices.run
+			];
+			const history = {
+				id: police.encounter.id,
+				encounter: police.encounter
+			};
+			police.history.push(history);
+			return police;
+		}
+		// set up reply actions
+		const actionObj  = {
+			"admit_guilt": (police) => {
+				// TODO: do a check to see if they are even carrying anything
+				police = changeModes(police, "detain");
+				return handleEncounter[police.encounter.mode](police);
+			},
+			"deny_guilt": (police) => {
+				// TODO: roll to see if the cop has probable cause
+				police = changeModes(police, "end");
+				return handleEncounter[police.encounter.mode](police);
+			}
+		};
+		return actionObj[police.encounter.action](police);
 	}
 
 	function doSearchingMode(police) {
@@ -116,6 +164,11 @@ module.exports.simulateEncounter = function simulateEncounter(life) {
 	function doChasingMode(police) {
 		return police;
 	}
+
+	function doEndMode(police) {
+		console.log("end mode hit");
+		return police;
+	}
 };
 
 function getTotalHeat(life) {
@@ -129,4 +182,10 @@ function getAwarenessHeat(life) {
 		heat += life.current.police.awareness[life.current.location.country];
 	}
 	return heat;
+}
+
+function changeModes(police, mode) {
+	delete police.encounter.action;
+	police.encounter.mode = mode;
+	return police;
 }

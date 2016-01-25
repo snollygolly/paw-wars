@@ -101,8 +101,58 @@ describe("Police - Simulating Encounter (Peaceful, Passive)", () => {
 
 	it("encounter should explain what is happening in simple", (done) => {
 		const policeObj = life.current.police;
+		expect(policeObj.encounter.message.simple).to.be.a("string");
 		expect(policeObj.encounter.message.simple).to.equal(policeJSON.messages.discovery.simple);
 		return done();
 	});
 
+	it("encounter should present choices", (done) => {
+		const policeObj = life.current.police;
+		expect(policeObj.encounter.choices.length).to.be.at.least(1);
+		return done();
+	});
+});
+
+describe("Police - Simulating Encounter (Peaceful, Assertive)", () => {
+	before(() => {
+		// set up life
+		life = model.generateLife(config.PLAYER, config.LOCATION);
+		life.testing = true;
+		// adding some heat
+		life.current.police.heat = config.GAME.police.heat_cap / 2;
+		life = police.startEncounter(life);
+	});
+
+	it("encounter should go into discovery mode", (done) => {
+		const policeObj = life.current.police;
+		expect(policeObj.encounter.mode).to.equal("discovery");
+		return done();
+	});
+
+	it("encounter should explain what is happening in simple", (done) => {
+		const policeObj = life.current.police;
+		expect(policeObj.encounter.message.simple).to.be.a("string");
+		expect(policeObj.encounter.message.simple).to.equal(policeJSON.messages.discovery.simple);
+		return done();
+	});
+
+	it("encounter should present choices", (done) => {
+		const policeObj = life.current.police;
+		expect(policeObj.encounter.choices.length).to.be.at.least(1);
+		return done();
+	});
+
+	it("encounter mode should be 'investigation' after 'deny_search'", (done) => {
+		let policeObj = life.current.police;
+		// set our action
+		policeObj.encounter.action = "deny_search";
+		// swap out the police object
+		life.current.police = policeObj;
+		// simulate the encounter
+		life = police.simulateEncounter(life);
+		// set back police object
+		policeObj = life.current.police;
+		expect(policeObj.encounter.mode).to.equal("investigation");
+		return done();
+	});
 });

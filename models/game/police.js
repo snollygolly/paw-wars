@@ -69,11 +69,12 @@ module.exports.simulateEncounter = function simulateEncounter(life) {
 		// and when we're all done...
 		end: doEndMode
 	};
-	newLife.current.police = handleEncounter[life.current.police.encounter.mode](newLife.current.police);
+	newLife.current.police = handleEncounter[life.current.police.encounter.mode](newLife);
 	// console.log("* simulateEncounter:", newLife);
 	return newLife;
 
-	function doDiscoveryMode(police) {
+	function doDiscoveryMode(lifeObj) {
+		let police = lifeObj.current.police;
 		// handle initial actions
 		if (!police.encounter.action) {
 			// the player hasn't had a chance to reply yet
@@ -94,19 +95,22 @@ module.exports.simulateEncounter = function simulateEncounter(life) {
 		}
 		// set up reply actions
 		const actionObj  = {
-			"permit_search": (police) => {
-				police = changeModes(police, "searching");
-				return handleEncounter[police.encounter.mode](police);
+			"permit_search": (policeObj) => {
+				policeObj = changeModes(policeObj, "searching");
+				lifeObj.current.police = policeObj;
+				return handleEncounter[policeObj.encounter.mode](lifeObj);
 			},
-			"deny_search": (police) => {
-				police = changeModes(police, "investigation");
-				return handleEncounter[police.encounter.mode](police);
+			"deny_search": (policeObj) => {
+				policeObj = changeModes(policeObj, "investigation");
+				lifeObj.current.police = policeObj;
+				return handleEncounter[policeObj.encounter.mode](lifeObj);
 			}
 		};
 		return actionObj[police.encounter.action](police);
 	}
 
-	function doInvestigationMode(police) {
+	function doInvestigationMode(lifeObj) {
+		let police = lifeObj.current.police;
 		// handle initial actions
 		if (!police.encounter.action) {
 			// the player hasn't had a chance to reply yet
@@ -127,15 +131,17 @@ module.exports.simulateEncounter = function simulateEncounter(life) {
 		}
 		// set up reply actions
 		const actionObj  = {
-			"admit_guilt": (police) => {
+			"admit_guilt": (policeObj) => {
 				// TODO: do a check to see if they are even carrying anything
-				police = changeModes(police, "detain");
-				return handleEncounter[police.encounter.mode](police);
+				policeObj = changeModes(policeObj, "detain");
+				lifeObj.current.police = policeObj;
+				return handleEncounter[policeObj.encounter.mode](lifeObj);
 			},
-			"deny_guilt": (police) => {
+			"deny_guilt": (policeObj) => {
 				// TODO: roll to see if the cop has probable cause
-				police = changeModes(police, "end");
-				return handleEncounter[police.encounter.mode](police);
+				policeObj = changeModes(policeObj, "end");
+				lifeObj.current.police = policeObj;
+				return handleEncounter[policeObj.encounter.mode](lifeObj);
 			}
 		};
 		return actionObj[police.encounter.action](police);

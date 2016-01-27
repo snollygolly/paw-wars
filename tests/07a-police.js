@@ -83,7 +83,7 @@ describe("Police - Creating Encounter", () => {
 	});
 });
 
-describe("Police - Simulating Encounter (Peaceful, Passive)", () => {
+describe("Police - Simulating Encounter (Peaceful, Passive, Clean)", () => {
 	before(() => {
 		// set up life
 		life = model.generateLife(config.PLAYER, config.LOCATION);
@@ -111,9 +111,23 @@ describe("Police - Simulating Encounter (Peaceful, Passive)", () => {
 		expect(policeObj.encounter.choices.length).to.be.at.least(1);
 		return done();
 	});
+
+	it("encounter mode should be 'searching' after 'allow_search'", (done) => {
+		let policeObj = life.current.police;
+		// set our action
+		policeObj.encounter.action = "permit_search";
+		// swap out the police object
+		life.current.police = policeObj;
+		// simulate the encounter
+		life = police.simulateEncounter(life);
+		// set back police object
+		policeObj = life.current.police;
+		expect(policeObj.encounter.mode).to.equal("searching");
+		return done();
+	});
 });
 
-describe("Police - Simulating Encounter (Peaceful, Assertive)", () => {
+describe("Police - Simulating Encounter (Peaceful, Assertive, Clean)", () => {
 	before(() => {
 		// set up life
 		life = model.generateLife(config.PLAYER, config.LOCATION);

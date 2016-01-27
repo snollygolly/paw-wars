@@ -132,8 +132,13 @@ module.exports.simulateEncounter = function simulateEncounter(life) {
 		// set up reply actions
 		const actionObj  = {
 			"admit_guilt": (policeObj) => {
-				// TODO: do a check to see if they are even carrying anything
-				policeObj = changeModes(policeObj, "detain");
+				if (lifeObj.current.storage.available === lifeObj.current.storage.total) {
+					// they aren't carrying anything
+					policeObj = changeModes(policeObj, "released");
+				} else {
+					policeObj = changeModes(policeObj, "detain");
+				}
+
 				lifeObj.current.police = policeObj;
 				return handleEncounter[policeObj.encounter.mode](lifeObj);
 			},
@@ -147,8 +152,40 @@ module.exports.simulateEncounter = function simulateEncounter(life) {
 		return actionObj[police.encounter.action](police);
 	}
 
-	function doSearchingMode(police) {
-		return police;
+	function doSearchingMode(lifeObj) {
+		let police = lifeObj.current.police;
+		// handle initial actions
+		if (!police.encounter.action) {
+			// the player hasn't had a chance to reply yet
+			police.encounter.message = policeJSON.messages.search;
+			police.encounter.choices = [
+				policeJSON.choices.comply_search,
+				policeJSON.choices.hiss,
+				policeJSON.choices.attack,
+				policeJSON.choices.run
+			];
+			const history = {
+				id: police.encounter.id,
+				encounter: police.encounter
+			};
+			police.history.push(history);
+			return police;
+		}
+		// set up reply actions
+		const actionObj  = {
+			"comply_search": (policeObj) => {
+				if (lifeObj.current.storage.available === lifeObj.current.storage.total) {
+					// they aren't carrying anything
+					policeObj = changeModes(policeObj, "released");
+				}else{
+					// TODO: roll here to see if they find what you're carrying
+					policeObj = changeModes(policeObj, "detain");
+				}
+				lifeObj.current.police = policeObj;
+				return handleEncounter[policeObj.encounter.mode](lifeObj);
+			}
+		};
+		return actionObj[police.encounter.action](police);
 	}
 
 	function doDetainMode(police) {

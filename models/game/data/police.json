@@ -16,8 +16,12 @@
 			"full": "You tell Officer Bark that you're a law abiding cat, and he seems to believe you.  He says 'Well everything looks to be in order, you can be on your way now.'",
 			"simple": "Officer Bark is telling you that you're free to leave."
 		},
-		"search":{
+		"search_consent":{
 			"full": "You tell Officer Bark that it's perfectly fine if he looks around.  He says 'I appreciate that, if you'd just stand over here please' while gesturing towards his vehicle.",
+			"simple": "Officer Bark is asking you to stand by his vehicle while he searches your storage."
+		},
+		"search_probable_cause":{
+			"full": "Officer Barks says 'I'm going to need you to stand over here please' while gesturing towards his vehicle.  Since he saw something illegal in your storage, now he has probably cause to search.",
 			"simple": "Officer Bark is asking you to stand by his vehicle while he searches your storage."
 		},
 		"search_successful":{

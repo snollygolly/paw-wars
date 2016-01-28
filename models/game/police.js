@@ -157,7 +157,7 @@ module.exports.simulateEncounter = function simulateEncounter(life) {
 		// handle initial actions
 		if (!police.encounter.action) {
 			// the player hasn't had a chance to reply yet
-			police.encounter.message = policeJSON.messages.search;
+			police.encounter.message = policeJSON.messages.search_consent;
 			police.encounter.choices = [
 				policeJSON.choices.comply_search,
 				policeJSON.choices.hiss,

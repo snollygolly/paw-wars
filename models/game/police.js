@@ -74,6 +74,7 @@ module.exports.simulateEncounter = function simulateEncounter(life) {
 	return newLife;
 
 	function doDiscoveryMode(lifeObj) {
+		// *** You are getting pulled over
 		let police = lifeObj.current.police;
 		// handle initial actions
 		if (!police.encounter.action) {
@@ -96,11 +97,13 @@ module.exports.simulateEncounter = function simulateEncounter(life) {
 		// set up reply actions
 		const actionObj  = {
 			"permit_search": (policeObj) => {
+				// *** You are giving consent for the search
 				policeObj = changeModes(policeObj, "searching");
 				lifeObj.current.police = policeObj;
-				return handleEncounter[policeObj.encounter.mode](lifeObj);
+				return handleEncounter[policeObj.encounter.mode](lifeObj, "consent");
 			},
 			"deny_search": (policeObj) => {
+				// *** You are not giving consent for the search
 				policeObj = changeModes(policeObj, "investigation");
 				lifeObj.current.police = policeObj;
 				return handleEncounter[policeObj.encounter.mode](lifeObj);
@@ -110,6 +113,7 @@ module.exports.simulateEncounter = function simulateEncounter(life) {
 	}
 
 	function doInvestigationMode(lifeObj) {
+		// *** Police are looking around after you refused consent
 		let police = lifeObj.current.police;
 		// handle initial actions
 		if (!police.encounter.action) {
@@ -132,6 +136,7 @@ module.exports.simulateEncounter = function simulateEncounter(life) {
 		// set up reply actions
 		const actionObj  = {
 			"admit_guilt": (policeObj) => {
+				// *** You've admitted that you are guilty of a crime
 				if (lifeObj.current.storage.available === lifeObj.current.storage.total) {
 					// they aren't carrying anything
 					policeObj = changeModes(policeObj, "released");
@@ -143,6 +148,7 @@ module.exports.simulateEncounter = function simulateEncounter(life) {
 				return handleEncounter[policeObj.encounter.mode](lifeObj);
 			},
 			"deny_guilt": (policeObj) => {
+				// *** You are denying any wrongdoing
 				// TODO: roll to see if the cop has probable cause
 				policeObj = changeModes(policeObj, "end");
 				lifeObj.current.police = policeObj;
@@ -152,12 +158,19 @@ module.exports.simulateEncounter = function simulateEncounter(life) {
 		return actionObj[police.encounter.action](police);
 	}
 
-	function doSearchingMode(lifeObj) {
+	function doSearchingMode(lifeObj, method) {
+		// *** The police are searching your car, either because you let them, or they have PC
 		let police = lifeObj.current.police;
+		// handle the message change between a probable cause search and a consent search
+		const allMessages = {
+			consent: policeJSON.messages.search_consent,
+			probable_cause: policeJSON.messages.search_probable_cause
+		};
+		const searchMessage = allMessages[method];
 		// handle initial actions
 		if (!police.encounter.action) {
 			// the player hasn't had a chance to reply yet
-			police.encounter.message = policeJSON.messages.search_consent;
+			police.encounter.message = searchMessage;
 			police.encounter.choices = [
 				policeJSON.choices.comply_search,
 				policeJSON.choices.hiss,
@@ -174,6 +187,7 @@ module.exports.simulateEncounter = function simulateEncounter(life) {
 		// set up reply actions
 		const actionObj  = {
 			"comply_search": (policeObj) => {
+				// *** You do not resist the officer during his search
 				if (lifeObj.current.storage.available === lifeObj.current.storage.total) {
 					// they aren't carrying anything
 					policeObj = changeModes(policeObj, "released");
@@ -189,26 +203,32 @@ module.exports.simulateEncounter = function simulateEncounter(life) {
 	}
 
 	function doDetainMode(police) {
+		// *** You are being detained, this is your last chance
 		return police;
 	}
 
 	function doCustodyMode(police) {
+		// *** You are being taken into custody and can no longer escape
 		return police;
 	}
 
 	function doReleasedMode(police) {
+		// *** You are free to leave
 		return police;
 	}
 
 	function doFightingMode(police) {
+		// *** You are engaged in violence with the police
 		return police;
 	}
 
 	function doChasingMode(police) {
+		// *** You are running and the police are actively pursuing you
 		return police;
 	}
 
 	function doEndMode(police) {
+		// *** Tally results and allow player to proceed
 		console.log("end mode hit");
 		return police;
 	}

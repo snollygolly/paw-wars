@@ -75,7 +75,7 @@ module.exports.simulateEncounter = function simulateEncounter(life) {
 
 	function doDiscoveryMode(lifeObj) {
 		// *** You are getting pulled over
-		let police = lifeObj.current.police;
+		const police = lifeObj.current.police;
 		// handle initial actions
 		if (!police.encounter.action) {
 			// the player hasn't had a chance to reply yet
@@ -114,7 +114,7 @@ module.exports.simulateEncounter = function simulateEncounter(life) {
 
 	function doInvestigationMode(lifeObj) {
 		// *** Police are looking around after you refused consent
-		let police = lifeObj.current.police;
+		const police = lifeObj.current.police;
 		// handle initial actions
 		if (!police.encounter.action) {
 			// the player hasn't had a chance to reply yet
@@ -160,7 +160,7 @@ module.exports.simulateEncounter = function simulateEncounter(life) {
 
 	function doSearchingMode(lifeObj, method) {
 		// *** The police are searching your car, either because you let them, or they have PC
-		let police = lifeObj.current.police;
+		const police = lifeObj.current.police;
 		// handle the message change between a probable cause search and a consent search
 		const allMessages = {
 			consent: policeJSON.messages.search_consent,
@@ -188,21 +188,33 @@ module.exports.simulateEncounter = function simulateEncounter(life) {
 		const actionObj  = {
 			"comply_search": (policeObj) => {
 				// *** You do not resist the officer during his search
+				let reason;
 				if (lifeObj.current.storage.available === lifeObj.current.storage.total) {
 					// they aren't carrying anything
 					policeObj = changeModes(policeObj, "released");
-				}else{
-					// TODO: roll here to see if they find what you're carrying
-					policeObj = changeModes(policeObj, "detain");
+					reason = "search_failure";
+				} else {
+					// roll here to see if they find what you're carrying
+					const roll = common.getRandomArbitrary(0, 1);
+					// TODO: weight this, more used storage, higher chance of them finding it
+					if (roll >= game.police.search_proficiency) {
+						// they found your stash...man
+						policeObj = changeModes(policeObj, "detain");
+						reason = "search_success";
+					} else {
+						// you somehow didn't get caught
+						policeObj = changeModes(policeObj, "released");
+						reason = "search_failure";
+					}
 				}
 				lifeObj.current.police = policeObj;
-				return handleEncounter[policeObj.encounter.mode](lifeObj);
+				return handleEncounter[policeObj.encounter.mode](lifeObj, reason);
 			}
 		};
 		return actionObj[police.encounter.action](police);
 	}
 
-	function doDetainMode(police) {
+	function doDetainMode(police, method) {
 		// *** You are being detained, this is your last chance
 		return police;
 	}
@@ -212,8 +224,8 @@ module.exports.simulateEncounter = function simulateEncounter(life) {
 		return police;
 	}
 
-	function doReleasedMode(police) {
-		// *** You are free to leave
+	function doReleasedMode(police, method) {
+		// *** You are free to leave (for different reasons)
 		return police;
 	}
 

@@ -146,7 +146,7 @@ module.exports.simulateEncounter = function simulateEncounter(life) {
 					return changeModes(policeObj, "released");
 				}
 				// you have SOMETHING, let's roll to see if he sees it
-				const roll = common.getRandomArbitrary(0, 1);
+				const roll = rollDice(0, 1, policeObj.meta);
 				// TODO: weight this, more used storage, higher chance of them finding it
 				if (roll >= game.police.investigation_proficiency) {
 					// they see something suspect (probable cause)
@@ -196,7 +196,7 @@ module.exports.simulateEncounter = function simulateEncounter(life) {
 					return changeModes(policeObj, "released");
 				}
 				// roll here to see if they find what you're carrying
-				const roll = common.getRandomArbitrary(0, 1);
+				const roll = rollDice(0, 1, policeObj.meta);
 				// TODO: weight this, more used storage, higher chance of them finding it
 				if (roll >= game.police.search_proficiency) {
 					// they found your stash...man
@@ -260,4 +260,14 @@ function changeModes(police, mode) {
 	delete police.encounter.action;
 	police.encounter.mode = mode;
 	return police;
+}
+
+function rollDice(min, max, luck) {
+	luck = luck !== undefined ? luck : "none";
+	const luckObj = {
+		"lucky": min,
+		"unlucky": max,
+		"none": common.getRandomArbitrary(0, 1)
+	};
+	return luckObj[luck];
 }

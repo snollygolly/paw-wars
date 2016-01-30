@@ -44,6 +44,7 @@
 		"heat_rate": 1,
 		"heat_cap": 100,
 		"total_officers": 4,
-		"search_proficiency": 0.50
+		"search_proficiency": 0.50,
+		"investigation_proficiency": 0.50
 	}
 }

@@ -113,16 +113,18 @@ describe("Police - Simulating Encounter (Peaceful, Passive, Clean)", () => {
 	});
 
 	it("encounter mode should be 'searching' after 'allow_search'", (done) => {
-		let policeObj = life.current.police;
-		// set our action
-		policeObj.encounter.action = "permit_search";
-		// swap out the police object
-		life.current.police = policeObj;
 		// simulate the encounter
-		life = police.simulateEncounter(life);
-		// set back police object
-		policeObj = life.current.police;
+		life = simulateAction("permit_search", life);
+		const policeObj = life.current.police;
 		expect(policeObj.encounter.mode).to.equal("searching");
+		return done();
+	});
+
+	it("encounter mode should be 'released' after 'comply_search'", (done) => {
+		// simulate the encounter
+		life = simulateAction("comply_search", life);
+		const policeObj = life.current.police;
+		expect(policeObj.encounter.mode).to.equal("released");
 		return done();
 	});
 });
@@ -157,16 +159,25 @@ describe("Police - Simulating Encounter (Peaceful, Assertive, Clean)", () => {
 	});
 
 	it("encounter mode should be 'investigation' after 'deny_search'", (done) => {
-		let policeObj = life.current.police;
-		// set our action
-		policeObj.encounter.action = "deny_search";
-		// swap out the police object
-		life.current.police = policeObj;
 		// simulate the encounter
-		life = police.simulateEncounter(life);
-		// set back police object
-		policeObj = life.current.police;
+		life = simulateAction("deny_search", life);
+		const policeObj = life.current.police;
 		expect(policeObj.encounter.mode).to.equal("investigation");
 		return done();
 	});
+
+	it("encounter mode should be 'released' after 'deny_guilt'", (done) => {
+		// simulate the encounter
+		life = simulateAction("deny_guilt", life);
+		const policeObj = life.current.police;
+		expect(policeObj.encounter.mode).to.equal("released");
+		return done();
+	});
 });
+
+function simulateAction(action, lifeObj) {
+	// set our action
+	lifeObj.current.police.encounter.action = action;
+	// simulate the encounter
+	return police.simulateEncounter(lifeObj);
+}

@@ -56,7 +56,16 @@ describe("Police - Simulating Encounter (Peaceful, Passive, Dirty, Unlucky)", ()
 		life.current.police.meta = "unlucky";
 		life = simulateAction("comply_search", life);
 		const policeObj = life.current.police;
-		expect(policeObj.encounter.mode).to.equal("detain");
+		expect(policeObj.encounter.mode).to.equal("detained");
+		return done();
+	});
+
+	it("encounter should end after 'comply_detain'", (done) => {
+		// simulate the encounter
+		life.current.police.meta = "unlucky";
+		life = simulateAction("comply_detain", life);
+		const policeObj = life.current.police;
+		expect(policeObj.encounter.mode).to.equal("end");
 		return done();
 	});
 });

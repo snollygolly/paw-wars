@@ -57,9 +57,7 @@ module.exports.simulateEncounter = function simulateEncounter(life) {
 		searching: doSearchingMode,
 		// the officer found something, or caught you shooting at him, or something
 		// it's not good, you're about to go to jail
-		detain: doDetainMode,
-		// you're in the back of a cop car, not much to do about it now
-		custody: doCustodyMode,
+		detained: doDetainMode,
 		// you're free to leave, those cops don't have anything on you!
 		released: doReleasedMode,
 		// fighting is when you've decided to shoot at the officer and he's now engaged in combat with you
@@ -201,7 +199,7 @@ module.exports.simulateEncounter = function simulateEncounter(life) {
 				if (roll >= game.police.search_proficiency) {
 					// they found your stash...man
 					policeObj.encounter.reason = "search_success";
-					return changeModes(policeObj, "detain");
+					return changeModes(policeObj, "detained");
 				}
 				// you somehow didn't get caught
 				policeObj.encounter.reason = "search_failure";
@@ -211,14 +209,36 @@ module.exports.simulateEncounter = function simulateEncounter(life) {
 		return actionObj[police.encounter.action](police);
 	}
 
-	function doDetainMode(police, reason) {
+	function doDetainMode(lifeObj, reason) {
 		// *** You are being detained, this is your last chance
-		return police;
-	}
-
-	function doCustodyMode(police) {
-		// *** You are being taken into custody and can no longer escape
-		return police;
+		const police = lifeObj.current.police;
+		// handle the message change between a probable cause search and a consent search
+		const allMessages = {
+			search_success: policeJSON.messages.search_successful
+		};
+		const detainMessage = allMessages[reason];
+		// handle initial actions
+		if (!police.encounter.action) {
+			// the player hasn't had a chance to reply yet
+			police.encounter.message = detainMessage;
+			police.encounter.choices = [
+				policeJSON.choices.comply_detain
+			];
+			const history = {
+				id: police.encounter.id,
+				encounter: police.encounter
+			};
+			police.history.push(history);
+			return police;
+		}
+		// set up reply actions
+		const actionObj  = {
+			"comply_detain": (policeObj) => {
+				// *** You do not resist the officer during his search
+				return changeModes(policeObj, "end");
+			}
+		};
+		return actionObj[police.encounter.action](police);
 	}
 
 	function doReleasedMode(police, reason) {

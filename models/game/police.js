@@ -229,7 +229,10 @@ module.exports.simulateEncounter = function simulateEncounter(life) {
 			// the player hasn't had a chance to reply yet
 			police.encounter.message = detainMessage;
 			police.encounter.choices = [
-				policeJSON.choices.comply_detain
+				policeJSON.choices.comply_detain,
+				policeJSON.choices.hiss,
+				policeJSON.choices.attack,
+				policeJSON.choices.run
 			];
 			const history = {
 				id: police.encounter.id,

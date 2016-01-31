@@ -22,14 +22,13 @@ describe("Police - Simulating Encounter (Peaceful, Assertive, Clean)", () => {
 		life = police.startEncounter(life);
 	});
 
-
 	it("encounter should go into discovery mode", (done) => {
 		const policeObj = life.current.police;
 		expect(policeObj.encounter.mode).to.equal("discovery");
 		return done();
 	});
 
-	it("encounter should explain what is happening in simple", (done) => {
+	it("encounter should explain what is happening", (done) => {
 		const policeObj = life.current.police;
 		expect(policeObj.encounter.message.simple).to.be.a("string");
 		expect(policeObj.encounter.message.simple).to.equal(policeJSON.messages.discovery.simple);
@@ -89,7 +88,7 @@ describe("Police - Simulating Encounter (Peaceful, Assertive, Clean)", () => {
 		return done();
 	});
 
-	it("encounter should end", (done) => {
+	it("encounter mode should be 'end'", (done) => {
 		const policeObj = life.current.police;
 		expect(policeObj.encounter.mode).to.equal("end");
 		return done();

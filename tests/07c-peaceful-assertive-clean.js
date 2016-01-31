@@ -49,11 +49,11 @@ describe("Police - Simulating Encounter (Peaceful, Assertive, Clean)", () => {
 		return done();
 	});
 
-	it("encounter mode should be 'released' after 'deny_guilt'", (done) => {
+	it("encounter should end after 'deny_guilt'", (done) => {
 		// simulate the encounter
 		life = simulateAction("deny_guilt", life);
 		const policeObj = life.current.police;
-		expect(policeObj.encounter.mode).to.equal("released");
+		expect(policeObj.encounter.mode).to.equal("end");
 		return done();
 	});
 });

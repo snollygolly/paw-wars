@@ -58,8 +58,6 @@ module.exports.simulateEncounter = function simulateEncounter(life) {
 		// the officer found something, or caught you shooting at him, or something
 		// it's not good, you're about to go to jail
 		detained: doDetainMode,
-		// you're free to leave, those cops don't have anything on you!
-		released: doReleasedMode,
 		// fighting is when you've decided to shoot at the officer and he's now engaged in combat with you
 		fighting: doFightingMode,
 		// chasing is when you've attempted to flee and the officer is giving chase
@@ -133,15 +131,18 @@ module.exports.simulateEncounter = function simulateEncounter(life) {
 				// *** You've admitted that you are guilty of a crime
 				if (lifeObj.current.storage.available === lifeObj.current.storage.total) {
 					// they aren't carrying anything
-					return changeModes(policeObj, "released");
+					policeObj.encounter.reason = "crazy_person";
+					return changeModes(policeObj, "end");
 				}
+				policeObj.encounter.reason = "admit_guilt";
 				return changeModes(policeObj, "detain");
 			},
 			"deny_guilt": (policeObj) => {
 				// *** You are denying any wrongdoing
 				if (lifeObj.current.storage.available === lifeObj.current.storage.total) {
 					// they aren't carrying anything
-					return changeModes(policeObj, "released");
+					policeObj.encounter.reason = "not_guilty";
+					return changeModes(policeObj, "end");
 				}
 				// you have SOMETHING, let's roll to see if he sees it
 				const roll = rollDice(0, 1, policeObj.meta);
@@ -151,13 +152,15 @@ module.exports.simulateEncounter = function simulateEncounter(life) {
 					return changeModes(policeObj, "searching");
 				}
 				// they don't see anything, so you're free to leave
-				return changeModes(policeObj, "released");
+				policeObj.encounter.reason = "not_guilty";
+				return changeModes(policeObj, "end");
 			}
 		};
 		return actionObj[police.encounter.action](police);
 	}
 
-	function doSearchingMode(lifeObj, reason) {
+	function doSearchingMode(lifeObj) {
+		const reason = policeObj.encounter.reason;
 		// *** The police are searching your car, either because you let them, or they have PC
 		const police = lifeObj.current.police;
 		// handle the message change between a probable cause search and a consent search
@@ -191,7 +194,7 @@ module.exports.simulateEncounter = function simulateEncounter(life) {
 				if (lifeObj.current.storage.available === lifeObj.current.storage.total) {
 					// they aren't carrying anything
 					policeObj.encounter.reason = "search_failure";
-					return changeModes(policeObj, "released");
+					return changeModes(policeObj, "end");
 				}
 				// roll here to see if they find what you're carrying
 				const roll = rollDice(0, 1, policeObj.meta);
@@ -203,7 +206,7 @@ module.exports.simulateEncounter = function simulateEncounter(life) {
 				}
 				// you somehow didn't get caught
 				policeObj.encounter.reason = "search_failure";
-				return changeModes(policeObj, "released");
+				return changeModes(policeObj, "end");
 			}
 		};
 		return actionObj[police.encounter.action](police);
@@ -235,15 +238,11 @@ module.exports.simulateEncounter = function simulateEncounter(life) {
 		const actionObj  = {
 			"comply_detain": (policeObj) => {
 				// *** You do not resist the officer during his search
+				policeObj.encounter.reason = "comply_detain";
 				return changeModes(policeObj, "end");
 			}
 		};
 		return actionObj[police.encounter.action](police);
-	}
-
-	function doReleasedMode(police, reason) {
-		// *** You are free to leave (for different reasons)
-		return police;
 	}
 
 	function doFightingMode(police) {
@@ -256,7 +255,7 @@ module.exports.simulateEncounter = function simulateEncounter(life) {
 		return police;
 	}
 
-	function doEndMode(police) {
+	function doEndMode(lifeObj, reason) {
 		// *** Tally results and allow player to proceed
 		console.log("end mode hit");
 		return police;

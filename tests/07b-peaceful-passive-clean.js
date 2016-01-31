@@ -49,11 +49,25 @@ describe("Police - Simulating Encounter (Peaceful, Passive, Clean)", () => {
 		return done();
 	});
 
-	it("encounter mode should be 'released' after 'comply_search'", (done) => {
+	it("encounter should explain what is happening in simple", (done) => {
+		const policeObj = life.current.police;
+		console.log(policeObj.encounter.message.simple);
+		expect(policeObj.encounter.message.simple).to.be.a("string");
+		expect(policeObj.encounter.message.simple).to.equal(policeJSON.messages.search_consent.simple);
+		return done();
+	});
+
+	it("encounter should present choices", (done) => {
+		const policeObj = life.current.police;
+		expect(policeObj.encounter.choices.length).to.be.at.least(1);
+		return done();
+	});
+
+	it("encounter should end after 'comply_search'", (done) => {
 		// simulate the encounter
 		life = simulateAction("comply_search", life);
 		const policeObj = life.current.police;
-		expect(policeObj.encounter.mode).to.equal("released");
+		expect(policeObj.encounter.mode).to.equal("end");
 		return done();
 	});
 });

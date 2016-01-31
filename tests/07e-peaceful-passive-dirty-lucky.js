@@ -51,12 +51,12 @@ describe("Police - Simulating Encounter (Peaceful, Passive, Dirty, Lucky)", () =
 		return done();
 	});
 
-	it("encounter mode should be 'released' after 'comply_search'", (done) => {
+	it("encounter should end after 'comply_search'", (done) => {
 		// simulate the encounter
 		life.current.police.meta = "lucky";
 		life = simulateAction("comply_search", life);
 		const policeObj = life.current.police;
-		expect(policeObj.encounter.mode).to.equal("released");
+		expect(policeObj.encounter.mode).to.equal("end");
 		return done();
 	});
 });

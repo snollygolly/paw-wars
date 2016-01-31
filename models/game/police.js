@@ -142,7 +142,7 @@ module.exports.simulateEncounter = function simulateEncounter(life) {
 				// *** You are denying any wrongdoing
 				if (lifeObj.current.storage.available === lifeObj.current.storage.total) {
 					// they aren't carrying anything
-					policeObj.encounter.reason = "not_guilty";
+					policeObj.encounter.reason = "investigation_failure";
 					return changeModes(policeObj, "end");
 				}
 				// you have SOMETHING, let's roll to see if he sees it
@@ -154,7 +154,7 @@ module.exports.simulateEncounter = function simulateEncounter(life) {
 					return changeModes(policeObj, "searching");
 				}
 				// they don't see anything, so you're free to leave
-				policeObj.encounter.reason = "not_guilty";
+				policeObj.encounter.reason = "investigation_failure";
 				return changeModes(policeObj, "end");
 			}
 		};

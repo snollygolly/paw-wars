@@ -32,11 +32,6 @@ describe("Police - Simulating Encounter (Peaceful, Passive, Clean)", () => {
 		const policeObj = life.current.police;
 		expect(policeObj.encounter.message.simple).to.be.a("string");
 		expect(policeObj.encounter.message.simple).to.equal(policeJSON.messages.discovery.simple);
-		return done();
-	});
-
-	it("encounter should explain what is happening in full", (done) => {
-		const policeObj = life.current.police;
 		expect(policeObj.encounter.message.full).to.be.a("string");
 		expect(policeObj.encounter.message.full).to.equal(policeJSON.messages.discovery.full);
 		return done();
@@ -80,11 +75,6 @@ describe("Police - Simulating Encounter (Peaceful, Passive, Clean)", () => {
 		const policeObj = life.current.police;
 		expect(policeObj.encounter.message.simple).to.be.a("string");
 		expect(policeObj.encounter.message.simple).to.equal(policeJSON.messages.search_consent.simple);
-		return done();
-	});
-
-	it("encounter should explain what is happening in full", (done) => {
-		const policeObj = life.current.police;
 		expect(policeObj.encounter.message.full).to.be.a("string");
 		expect(policeObj.encounter.message.full).to.equal(policeJSON.messages.search_consent.full);
 		return done();

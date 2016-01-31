@@ -22,6 +22,7 @@ describe("Police - Simulating Encounter (Peaceful, Assertive, Clean)", () => {
 		life = police.startEncounter(life);
 	});
 
+
 	it("encounter should go into discovery mode", (done) => {
 		const policeObj = life.current.police;
 		expect(policeObj.encounter.mode).to.equal("discovery");
@@ -32,28 +33,71 @@ describe("Police - Simulating Encounter (Peaceful, Assertive, Clean)", () => {
 		const policeObj = life.current.police;
 		expect(policeObj.encounter.message.simple).to.be.a("string");
 		expect(policeObj.encounter.message.simple).to.equal(policeJSON.messages.discovery.simple);
+		expect(policeObj.encounter.message.full).to.be.a("string");
+		expect(policeObj.encounter.message.full).to.equal(policeJSON.messages.discovery.full);
 		return done();
 	});
 
 	it("encounter should present choices", (done) => {
 		const policeObj = life.current.police;
-		expect(policeObj.encounter.choices.length).to.be.at.least(1);
+		expect(policeObj.encounter.choices.length).to.be.at.least(4);
 		return done();
 	});
 
-	it("encounter mode should be 'investigation' after 'deny_search'", (done) => {
+	it("encounter should accept the 'deny_search' action", (done) => {
 		// simulate the encounter
 		life = simulateAction("deny_search", life);
+		const policeObj = life.current.police;
+		expect(policeObj.encounter.mode).to.be.a("string");
+		return done();
+	});
+
+	it("encounter mode should be 'investigation'", (done) => {
 		const policeObj = life.current.police;
 		expect(policeObj.encounter.mode).to.equal("investigation");
 		return done();
 	});
 
-	it("encounter should end after 'deny_guilt'", (done) => {
+	it("encounter should start 'investigation' mode", (done) => {
+		// simulate the encounter
+		life = police.simulateEncounter(life);
+		const policeObj = life.current.police;
+		expect(policeObj.encounter.mode).to.equal("investigation");
+		return done();
+	});
+
+	it("encounter should explain what is happening", (done) => {
+		const policeObj = life.current.police;
+		expect(policeObj.encounter.message.simple).to.be.a("string");
+		expect(policeObj.encounter.message.simple).to.equal(policeJSON.messages.investigation.simple);
+		expect(policeObj.encounter.message.full).to.be.a("string");
+		expect(policeObj.encounter.message.full).to.equal(policeJSON.messages.investigation.full);
+		return done();
+	});
+
+	it("encounter should present choices", (done) => {
+		const policeObj = life.current.police;
+		expect(policeObj.encounter.choices.length).to.be.at.least(4);
+		return done();
+	});
+
+	it("encounter should accept the 'deny_guilt' action", (done) => {
 		// simulate the encounter
 		life = simulateAction("deny_guilt", life);
 		const policeObj = life.current.police;
+		expect(policeObj.encounter.mode).to.be.a("string");
+		return done();
+	});
+
+	it("encounter should end", (done) => {
+		const policeObj = life.current.police;
 		expect(policeObj.encounter.mode).to.equal("end");
+		return done();
+	});
+
+	it("encounter reason should be 'investigation_failure'", (done) => {
+		const policeObj = life.current.police;
+		expect(policeObj.encounter.reason).to.equal("investigation_failure");
 		return done();
 	});
 });

@@ -68,7 +68,7 @@ describe("Police - Simulating Encounter (Peaceful, Passive, Clean)", () => {
 		return done();
 	});
 
-	it("encounter should go into 'searching' mode", (done) => {
+	it("encounter should start 'searching' mode", (done) => {
 		// simulate the encounter
 		life = police.simulateEncounter(life);
 		const policeObj = life.current.police;

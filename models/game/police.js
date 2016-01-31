@@ -57,7 +57,7 @@ module.exports.simulateEncounter = function simulateEncounter(life) {
 		searching: doSearchingMode,
 		// the officer found something, or caught you shooting at him, or something
 		// it's not good, you're about to go to jail
-		detained: doDetainMode,
+		detained: doDetainedMode,
 		// fighting is when you've decided to shoot at the officer and he's now engaged in combat with you
 		fighting: doFightingMode,
 		// chasing is when you've attempted to flee and the officer is giving chase
@@ -94,6 +94,7 @@ module.exports.simulateEncounter = function simulateEncounter(life) {
 		const actionObj  = {
 			"permit_search": (policeObj) => {
 				// *** You are giving consent for the search
+				policeObj.encounter.reason = "consent";
 				return changeModes(policeObj, "searching");
 			},
 			"deny_search": (policeObj) => {
@@ -149,6 +150,7 @@ module.exports.simulateEncounter = function simulateEncounter(life) {
 				// TODO: weight this, more used storage, higher chance of them finding it
 				if (roll >= game.police.investigation_proficiency) {
 					// they see something suspect (probable cause)
+					policeObj.encounter.reason = "probable_cause";
 					return changeModes(policeObj, "searching");
 				}
 				// they don't see anything, so you're free to leave
@@ -160,7 +162,7 @@ module.exports.simulateEncounter = function simulateEncounter(life) {
 	}
 
 	function doSearchingMode(lifeObj) {
-		const reason = policeObj.encounter.reason;
+		const reason = lifeObj.current.police.encounter.reason;
 		// *** The police are searching your car, either because you let them, or they have PC
 		const police = lifeObj.current.police;
 		// handle the message change between a probable cause search and a consent search
@@ -212,12 +214,14 @@ module.exports.simulateEncounter = function simulateEncounter(life) {
 		return actionObj[police.encounter.action](police);
 	}
 
-	function doDetainMode(lifeObj, reason) {
+	function doDetainedMode(lifeObj) {
+		const reason = lifeObj.current.police.encounter.reason;
 		// *** You are being detained, this is your last chance
 		const police = lifeObj.current.police;
 		// handle the message change between a probable cause search and a consent search
 		const allMessages = {
-			search_success: policeJSON.messages.search_successful
+			search_success: policeJSON.messages.search_successful,
+			admit_guilt: policeJSON.messages.admit_guilt
 		};
 		const detainMessage = allMessages[reason];
 		// handle initial actions
@@ -276,7 +280,9 @@ function getAwarenessHeat(life) {
 }
 
 function changeModes(police, mode) {
+	// get rid of the action if there is one
 	delete police.encounter.action;
+	// set the mode
 	police.encounter.mode = mode;
 	return police;
 }

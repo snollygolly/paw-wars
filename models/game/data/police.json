@@ -32,6 +32,10 @@
 			"full": "Officer Bark performs a cursory search of your storage, and when he finishes, he comes back to you and says 'Well, I didn't find anything illegal, so you're free to leave'",
 			"simple": "Officer Bark is telling you that you're free to leave."
 		},
+		"admit_guilt":{
+			"full": "You tell Officer Bark that you are in possession of some contraband in hopes that he'll go easy on you.  He says that he appreciates your honesty, but he's still going to have to take you to jail.",
+			"simple": "You're going to jail."
+		},
 		"detain":{
 			"full": "Officer Bark loads you into his squad car.  You're going downtown.",
 			"simple": "You're going to jail."

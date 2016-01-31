@@ -57,9 +57,9 @@ describe("Police - Simulating Encounter (Peaceful, Passive, Clean)", () => {
 		return done();
 	});
 
-	it("encounter reason should be 'consent'", (done) => {
+	it("encounter reason should be 'search_consent'", (done) => {
 		const policeObj = life.current.police;
-		expect(policeObj.encounter.reason).to.equal("consent");
+		expect(policeObj.encounter.reason).to.equal("search_consent");
 		return done();
 	});
 

@@ -72,29 +72,15 @@ module.exports.simulateEncounter = function simulateEncounter(life) {
 	function doDiscoveryMode(lifeObj) {
 		// *** You are getting pulled over
 		const police = lifeObj.current.police;
-		// handle initial actions
 		if (!police.encounter.action) {
-			// the player hasn't had a chance to reply yet
-			police.encounter.message = policeJSON.messages.discovery;
-			police.encounter.choices = [
-				policeJSON.choices.permit_search,
-				policeJSON.choices.deny_search,
-				policeJSON.choices.hiss,
-				policeJSON.choices.attack,
-				policeJSON.choices.run
-			];
-			const history = {
-				id: police.encounter.id,
-				encounter: police.encounter
-			};
-			police.history.push(history);
-			return police;
+			// this is their first encounter in this mode
+			return updateEncounter("discovery", ["permit_search", "deny_search"], police);
 		}
 		// set up reply actions
 		const actionObj  = {
 			"permit_search": (policeObj) => {
 				// *** You are giving consent for the search
-				policeObj.encounter.reason = "consent";
+				policeObj.encounter.reason = "search_consent";
 				return changeModes(policeObj, "searching");
 			},
 			"deny_search": (policeObj) => {
@@ -106,25 +92,11 @@ module.exports.simulateEncounter = function simulateEncounter(life) {
 	}
 
 	function doInvestigationMode(lifeObj) {
-		// *** Police are looking around after you refused consent
 		const police = lifeObj.current.police;
-		// handle initial actions
+		// *** Police are looking around after you refused consent
 		if (!police.encounter.action) {
-			// the player hasn't had a chance to reply yet
-			police.encounter.message = policeJSON.messages.investigation;
-			police.encounter.choices = [
-				policeJSON.choices.admit_guilt,
-				policeJSON.choices.deny_guilt,
-				policeJSON.choices.hiss,
-				policeJSON.choices.attack,
-				policeJSON.choices.run
-			];
-			const history = {
-				id: police.encounter.id,
-				encounter: police.encounter
-			};
-			police.history.push(history);
-			return police;
+			// this is their first encounter in this mode
+			return updateEncounter("investigation", ["admit_guilt", "deny_guilt"], police);
 		}
 		// set up reply actions
 		const actionObj  = {
@@ -162,31 +134,12 @@ module.exports.simulateEncounter = function simulateEncounter(life) {
 	}
 
 	function doSearchingMode(lifeObj) {
-		const reason = lifeObj.current.police.encounter.reason;
 		// *** The police are searching your car, either because you let them, or they have PC
 		const police = lifeObj.current.police;
-		// handle the message change between a probable cause search and a consent search
-		const allMessages = {
-			consent: policeJSON.messages.search_consent,
-			probable_cause: policeJSON.messages.search_probable_cause
-		};
-		const searchMessage = allMessages[reason];
-		// handle initial actions
-		if (!police.encounter.action) {
-			// the player hasn't had a chance to reply yet
-			police.encounter.message = searchMessage;
-			police.encounter.choices = [
-				policeJSON.choices.comply_search,
-				policeJSON.choices.hiss,
-				policeJSON.choices.attack,
-				policeJSON.choices.run
-			];
-			const history = {
-				id: police.encounter.id,
-				encounter: police.encounter
-			};
-			police.history.push(history);
-			return police;
+		const reason = police.encounter.reason;
+		if (!lifeObj.current.police.encounter.action) {
+			// this is their first encounter in this mode
+			return updateEncounter(reason, ["comply_search"], police);
 		}
 		// set up reply actions
 		const actionObj  = {
@@ -203,7 +156,7 @@ module.exports.simulateEncounter = function simulateEncounter(life) {
 				// TODO: weight this, more used storage, higher chance of them finding it
 				if (roll >= game.police.search_proficiency) {
 					// they found your stash...man
-					policeObj.encounter.reason = "search_success";
+					policeObj.encounter.reason = "search_successful";
 					return changeModes(policeObj, "detained");
 				}
 				// you somehow didn't get caught
@@ -215,31 +168,12 @@ module.exports.simulateEncounter = function simulateEncounter(life) {
 	}
 
 	function doDetainedMode(lifeObj) {
-		const reason = lifeObj.current.police.encounter.reason;
 		// *** You are being detained, this is your last chance
 		const police = lifeObj.current.police;
-		// handle the message change between a probable cause search and a consent search
-		const allMessages = {
-			search_success: policeJSON.messages.search_successful,
-			admit_guilt: policeJSON.messages.admit_guilt
-		};
-		const detainMessage = allMessages[reason];
-		// handle initial actions
+		const reason = police.encounter.reason;
 		if (!police.encounter.action) {
-			// the player hasn't had a chance to reply yet
-			police.encounter.message = detainMessage;
-			police.encounter.choices = [
-				policeJSON.choices.comply_detain,
-				policeJSON.choices.hiss,
-				policeJSON.choices.attack,
-				policeJSON.choices.run
-			];
-			const history = {
-				id: police.encounter.id,
-				encounter: police.encounter
-			};
-			police.history.push(history);
-			return police;
+			// this is their first encounter in this mode
+			return updateEncounter(reason, ["comply_detain"], police);
 		}
 		// set up reply actions
 		const actionObj  = {
@@ -298,4 +232,20 @@ function rollDice(min, max, luck) {
 		"none": common.getRandomArbitrary(0, 1)
 	};
 	return luckObj[luck];
+}
+
+function updateEncounter(action, choices, policeObj) {
+	policeObj.encounter.message = policeJSON.messages[action];
+	policeObj.encounter.choices = [
+		policeJSON.choices.hiss,
+		policeJSON.choices.attack,
+		policeJSON.choices.run
+	];
+	policeObj.encounter.choices = policeObj.encounter.choices.concat(choices);
+	const history = {
+		id: policeObj.encounter.id,
+		encounter: policeObj.encounter
+	};
+	policeObj.history.push(history);
+	return policeObj;
 }

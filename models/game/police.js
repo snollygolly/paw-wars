@@ -93,13 +93,13 @@ module.exports.simulateEncounter = function simulateEncounter(life) {
 			// TODO: replace this with some kind of check for death, probably a setter
 			lifeObj.current.health.points -= game.police.attack_base_damage * 2;
 			lifeObj.current.police.encounter.reason = "hiss_failure";
-			// change the mods
+			// change the modes
 			lifeObj = changeModes(lifeObj, "fighting");
 			return lifeObj;
 		}
 		// they succeeded with the roll and have been released
 		lifeObj.current.police.encounter.reason = "hiss_success";
-		// change the mods
+		// change the modes
 		lifeObj = changeModes(lifeObj, "end");
 		return lifeObj;
 	}

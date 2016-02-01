@@ -153,7 +153,7 @@ module.exports.simulateEncounter = function simulateEncounter(life) {
 					return changeModes(actionLifeObj, "end");
 				}
 				actionLifeObj.current.police.encounter.reason = "admit_guilt";
-				return changeModes(actionLifeObj, "detain");
+				return changeModes(actionLifeObj, "detained");
 			},
 			"deny_guilt": (actionLifeObj) => {
 				// *** You are denying any wrongdoing

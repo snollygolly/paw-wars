@@ -57,9 +57,9 @@ describe("Police - Simulating Encounter (Hiss, Unlucky)", () => {
 		return done();
 	});
 
-	it("encounter mode should be 'fighting'", (done) => {
+	it("encounter mode should be 'detained'", (done) => {
 		const policeObj = life.current.police;
-		expect(policeObj.encounter.mode).to.equal("fighting");
+		expect(policeObj.encounter.mode).to.equal("detained");
 		return done();
 	});
 

@@ -58,8 +58,6 @@ module.exports.simulateEncounter = function simulateEncounter(life) {
 		// the officer found something, or caught you shooting at him, or something
 		// it's not good, you're about to go to jail
 		detained: doDetainedMode,
-		// fighting is when you've decided to shoot at the officer and he's now engaged in combat with you
-		fighting: doFightingMode,
 		// and when we're all done...
 		end: doEndMode
 	};
@@ -92,7 +90,7 @@ module.exports.simulateEncounter = function simulateEncounter(life) {
 			lifeObj.current.health.points -= game.police.base_damage * 2;
 			lifeObj.current.police.encounter.reason = "hiss_failure";
 			// change the modes
-			lifeObj = changeModes(lifeObj, "fighting");
+			lifeObj = changeModes(lifeObj, "detained");
 			return lifeObj;
 		}
 		// they succeeded with the roll and have been released
@@ -264,11 +262,6 @@ module.exports.simulateEncounter = function simulateEncounter(life) {
 			}
 		};
 		return actionObj[police.encounter.action](lifeObj);
-	}
-
-	function doFightingMode(lifeObj) {
-		// *** You are engaged in violence with the police
-		return lifeObj;
 	}
 
 	function doEndMode(lifeObj, reason) {

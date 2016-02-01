@@ -45,6 +45,9 @@
 		"heat_cap": 100,
 		"total_officers": 4,
 		"search_proficiency": 0.50,
-		"investigation_proficiency": 0.50
+		"investigation_proficiency": 0.50,
+		"hiss_success_rate": 0.15,
+		"run_success_rate": 0.30,
+		"attack_base_damage": 10
 	}
 }

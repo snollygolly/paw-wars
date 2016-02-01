@@ -52,7 +52,7 @@ module.exports.simulateEncounter = function simulateEncounter(life) {
 		// investigation mode is where you've denied the officer permissions to search and
 		// he's seeing if he has probably cause to conduct a search anyway
 		investigation: doInvestigationMode,
-		// searching is the phaser where the officer is actively searching your storage
+		// searching is the phase where the officer is actively searching your storage
 		// you either consented during discovery, or the officer is claiming probable cause
 		searching: doSearchingMode,
 		// the officer found something, or caught you shooting at him, or something
@@ -65,30 +65,75 @@ module.exports.simulateEncounter = function simulateEncounter(life) {
 		// and when we're all done...
 		end: doEndMode
 	};
-	newLife.current.police = handleEncounter[life.current.police.encounter.mode](newLife);
-	// console.log("* simulateEncounter:", newLife);
-	return newLife;
+	// set up the default actions
+	const handleActions = {
+		// you hiss at the officer, it doesn't usually work in your favor
+		hiss: doHissAction,
+		// you run from the officer, it sometimes works
+		run: doRunAction,
+		// you attempt to fight the officer, works, but depends on the situation
+		fight: doFightAction
+	};
+	// set up the default action
+	const handleDefaultAction = handleActions[life.current.police.encounter.action];
+	// check to see if it's one of the defaults
+	if (typeof(handleDefaultAction) !== "undefined") {
+		// if it is, let's do that instead of whatever else we were going to do
+		return handleDefaultAction(newLife);
+	}
+	// if they didn't hit a default action, check modes
+	return handleEncounter[life.current.police.encounter.mode](newLife);
+
+	function doHissAction(lifeObj) {
+		// *** You have just hissed at the officer
+		const police = lifeObj.current.police;
+		const roll = rollDice(0, 1, police.meta);
+		if (roll >= game.police.hiss_success_rate) {
+			// they failed the roll, and have enraged the officer
+			// TODO: replace this with some kind of check for death, probably a setter
+			lifeObj.current.health.points -= game.police.attack_base_damage * 2;
+			lifeObj.current.police.encounter.reason = "hiss_failure";
+			// change the mods
+			lifeObj = changeModes(lifeObj, "fighting");
+			return lifeObj;
+		}
+		// they succeeded with the roll and have been released
+		lifeObj.current.police.encounter.reason = "hiss_success";
+		// change the mods
+		lifeObj = changeModes(lifeObj, "end");
+		return lifeObj;
+	}
+
+	function doRunAction(lifeObj) {
+		// *** You have just ran from the officer
+
+	}
+
+	function doFightAction(lifeObj) {
+		// *** You have just attacked the officer
+
+	}
 
 	function doDiscoveryMode(lifeObj) {
 		// *** You are getting pulled over
 		const police = lifeObj.current.police;
 		if (!police.encounter.action) {
 			// this is their first encounter in this mode
-			return updateEncounter("discovery", ["permit_search", "deny_search"], police);
+			return updateEncounter("discovery", ["permit_search", "deny_search"], lifeObj);
 		}
 		// set up reply actions
 		const actionObj  = {
-			"permit_search": (policeObj) => {
+			"permit_search": (actionLifeObj) => {
 				// *** You are giving consent for the search
-				policeObj.encounter.reason = "search_consent";
-				return changeModes(policeObj, "searching");
+				actionLifeObj.current.police.encounter.reason = "search_consent";
+				return changeModes(actionLifeObj, "searching");
 			},
-			"deny_search": (policeObj) => {
+			"deny_search": (actionLifeObj) => {
 				// *** You are not giving consent for the search
-				return changeModes(policeObj, "investigation");
+				return changeModes(actionLifeObj, "investigation");
 			}
 		};
-		return actionObj[police.encounter.action](police);
+		return actionObj[police.encounter.action](lifeObj);
 	}
 
 	function doInvestigationMode(lifeObj) {
@@ -96,75 +141,74 @@ module.exports.simulateEncounter = function simulateEncounter(life) {
 		// *** Police are looking around after you refused consent
 		if (!police.encounter.action) {
 			// this is their first encounter in this mode
-			return updateEncounter("investigation", ["admit_guilt", "deny_guilt"], police);
+			return updateEncounter("investigation", ["admit_guilt", "deny_guilt"], lifeObj);
 		}
 		// set up reply actions
 		const actionObj  = {
-			"admit_guilt": (policeObj) => {
+			"admit_guilt": (actionLifeObj) => {
 				// *** You've admitted that you are guilty of a crime
 				if (lifeObj.current.storage.available === lifeObj.current.storage.total) {
 					// they aren't carrying anything
-					policeObj.encounter.reason = "crazy_person";
-					return changeModes(policeObj, "end");
+					actionLifeObj.current.police.encounter.reason = "crazy_person";
+					return changeModes(actionLifeObj, "end");
 				}
-				policeObj.encounter.reason = "admit_guilt";
-				return changeModes(policeObj, "detain");
+				actionLifeObj.current.police.encounter.reason = "admit_guilt";
+				return changeModes(actionLifeObj, "detain");
 			},
-			"deny_guilt": (policeObj) => {
+			"deny_guilt": (actionLifeObj) => {
 				// *** You are denying any wrongdoing
 				if (lifeObj.current.storage.available === lifeObj.current.storage.total) {
 					// they aren't carrying anything
-					policeObj.encounter.reason = "investigation_failure";
-					return changeModes(policeObj, "end");
+					actionLifeObj.current.police.encounter.reason = "investigation_failure";
+					return changeModes(actionLifeObj, "end");
 				}
 				// you have SOMETHING, let's roll to see if he sees it
-				const roll = rollDice(0, 1, policeObj.meta);
+				const roll = rollDice(0, 1, actionLifeObj.current.police.meta);
 				// TODO: weight this, more used storage, higher chance of them finding it
 				if (roll >= game.police.investigation_proficiency) {
 					// they see something suspect (probable cause)
-					policeObj.encounter.reason = "search_probable_cause";
-					return changeModes(policeObj, "searching");
+					actionLifeObj.current.police.encounter.reason = "search_probable_cause";
+					return changeModes(actionLifeObj, "searching");
 				}
 				// they don't see anything, so you're free to leave
-				policeObj.encounter.reason = "investigation_failure";
-				return changeModes(policeObj, "end");
+				actionLifeObj.current.police.encounter.reason = "investigation_failure";
+				return changeModes(actionLifeObj, "end");
 			}
 		};
-		return actionObj[police.encounter.action](police);
+		return actionObj[police.encounter.action](lifeObj);
 	}
 
 	function doSearchingMode(lifeObj) {
 		// *** The police are searching your car, either because you let them, or they have PC
 		const police = lifeObj.current.police;
 		const reason = police.encounter.reason;
-		if (!lifeObj.current.police.encounter.action) {
+		if (!police.encounter.action) {
 			// this is their first encounter in this mode
-			return updateEncounter(reason, ["comply_search"], police);
+			return updateEncounter(reason, ["comply_search"], lifeObj);
 		}
 		// set up reply actions
 		const actionObj  = {
-			"comply_search": (policeObj) => {
+			"comply_search": (actionLifeObj) => {
 				// *** You do not resist the officer during his search
-				let reason;
 				if (lifeObj.current.storage.available === lifeObj.current.storage.total) {
 					// they aren't carrying anything
-					policeObj.encounter.reason = "search_failure";
-					return changeModes(policeObj, "end");
+					lifeObj.current.police.encounter.reason = "search_failure";
+					return changeModes(actionLifeObj, "end");
 				}
 				// roll here to see if they find what you're carrying
-				const roll = rollDice(0, 1, policeObj.meta);
+				const roll = rollDice(0, 1, lifeObj.current.police.meta);
 				// TODO: weight this, more used storage, higher chance of them finding it
 				if (roll >= game.police.search_proficiency) {
 					// they found your stash...man
-					policeObj.encounter.reason = "search_successful";
-					return changeModes(policeObj, "detained");
+					lifeObj.current.police.encounter.reason = "search_successful";
+					return changeModes(actionLifeObj, "detained");
 				}
 				// you somehow didn't get caught
-				policeObj.encounter.reason = "search_failure";
-				return changeModes(policeObj, "end");
+				lifeObj.current.police.encounter.reason = "search_failure";
+				return changeModes(actionLifeObj, "end");
 			}
 		};
-		return actionObj[police.encounter.action](police);
+		return actionObj[police.encounter.action](lifeObj);
 	}
 
 	function doDetainedMode(lifeObj) {
@@ -173,33 +217,33 @@ module.exports.simulateEncounter = function simulateEncounter(life) {
 		const reason = police.encounter.reason;
 		if (!police.encounter.action) {
 			// this is their first encounter in this mode
-			return updateEncounter(reason, ["comply_detain"], police);
+			return updateEncounter(reason, ["comply_detain"], lifeObj);
 		}
 		// set up reply actions
 		const actionObj  = {
-			"comply_detain": (policeObj) => {
+			"comply_detain": (actionLifeObj) => {
 				// *** You do not resist the officer during his search
-				policeObj.encounter.reason = "comply_detain";
-				return changeModes(policeObj, "end");
+				actionLifeObj.current.police.encounter.reason = "comply_detain";
+				return changeModes(actionLifeObj, "end");
 			}
 		};
-		return actionObj[police.encounter.action](police);
+		return actionObj[police.encounter.action](lifeObj);
 	}
 
-	function doFightingMode(police) {
+	function doFightingMode(lifeObj) {
 		// *** You are engaged in violence with the police
-		return police;
+		return lifeObj;
 	}
 
-	function doChasingMode(police) {
+	function doChasingMode(lifeObj) {
 		// *** You are running and the police are actively pursuing you
-		return police;
+		return lifeObj;
 	}
 
 	function doEndMode(lifeObj, reason) {
 		// *** Tally results and allow player to proceed
 		console.log("end mode hit");
-		return police;
+		return lifeObj;
 	}
 };
 
@@ -216,7 +260,12 @@ function getAwarenessHeat(life) {
 	return heat;
 }
 
-function changeModes(police, mode) {
+function changeModes(lifeObj, mode) {
+	lifeObj.current.police = doChangeModes(lifeObj.current.police, mode);
+	return lifeObj;
+}
+
+function doChangeModes(police, mode) {
 	// get rid of the action if there is one
 	delete police.encounter.action;
 	// set the mode
@@ -225,7 +274,7 @@ function changeModes(police, mode) {
 }
 
 function rollDice(min, max, luck) {
-	luck = luck !== undefined ? luck : "none";
+	luck = typeof(luck) !== "undefined" ? luck : "none";
 	const luckObj = {
 		"lucky": min,
 		"unlucky": max,
@@ -234,18 +283,18 @@ function rollDice(min, max, luck) {
 	return luckObj[luck];
 }
 
-function updateEncounter(action, choices, policeObj) {
-	policeObj.encounter.message = policeJSON.messages[action];
-	policeObj.encounter.choices = [
-		policeJSON.choices.hiss,
-		policeJSON.choices.attack,
-		policeJSON.choices.run
+function updateEncounter(action, choices, lifeObj) {
+	lifeObj.current.police.encounter.message = policeJSON.messages[action];
+	lifeObj.current.police.encounter.choices = [
+		policeJSON.choices.hiss.id,
+		policeJSON.choices.attack.id,
+		policeJSON.choices.run.id
 	];
-	policeObj.encounter.choices = policeObj.encounter.choices.concat(choices);
+	lifeObj.current.police.encounter.choices = lifeObj.current.police.encounter.choices.concat(choices);
 	const history = {
-		id: policeObj.encounter.id,
-		encounter: policeObj.encounter
+		id: lifeObj.current.police.encounter.id,
+		encounter: lifeObj.current.police.encounter
 	};
-	policeObj.history.push(history);
-	return policeObj;
+	lifeObj.current.police.history.push(history);
+	return lifeObj;
 }

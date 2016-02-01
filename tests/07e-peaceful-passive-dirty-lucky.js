@@ -88,9 +88,14 @@ describe("Police - Simulating Encounter (Peaceful, Passive, Dirty, Lucky)", () =
 		return done();
 	});
 
+	it("encounter should be lucky", (done) => {
+		life.current.police.meta = "lucky";
+		expect(life.current.police.meta).to.equal("lucky");
+		return done();
+	});
+
 	it("encounter should accept the 'comply_search' action", (done) => {
 		// simulate the encounter
-		life.current.police.meta = "lucky";
 		life = simulateAction("comply_search", life);
 		const policeObj = life.current.police;
 		expect(policeObj.encounter.mode).to.be.a("string");

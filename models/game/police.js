@@ -122,7 +122,7 @@ module.exports.simulateEncounter = function simulateEncounter(life) {
 				// TODO: weight this, more used storage, higher chance of them finding it
 				if (roll >= game.police.investigation_proficiency) {
 					// they see something suspect (probable cause)
-					policeObj.encounter.reason = "probable_cause";
+					policeObj.encounter.reason = "search_probable_cause";
 					return changeModes(policeObj, "searching");
 				}
 				// they don't see anything, so you're free to leave

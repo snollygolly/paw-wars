@@ -70,7 +70,7 @@ describe("Police - Simulating Encounter (Run, Unlucky)", () => {
 	});
 
 	it("encounter should reduce health", (done) => {
-		const newDamage = config.GAME.police.attack_base_damage;
+		const newDamage = config.GAME.police.base_damage;
 		const newHealth = config.GAME.person.starting_hp - newDamage;
 		expect(life.current.health.points).to.equal(newHealth);
 		return done();

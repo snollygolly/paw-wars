@@ -89,7 +89,7 @@ module.exports.simulateEncounter = function simulateEncounter(life) {
 		if (roll >= game.police.hiss_success_rate) {
 			// they failed the roll, and have enraged the officer
 			// TODO: replace this with some kind of check for death, probably a setter
-			lifeObj.current.health.points -= game.police.attack_base_damage * 2;
+			lifeObj.current.health.points -= game.police.base_damage * 2;
 			lifeObj.current.police.encounter.reason = "hiss_failure";
 			// change the modes
 			lifeObj = changeModes(lifeObj, "fighting");
@@ -109,7 +109,7 @@ module.exports.simulateEncounter = function simulateEncounter(life) {
 		if (roll >= game.police.run_success_rate) {
 			// they failed the roll, and are not escaping the officer
 			// TODO: replace this with some kind of check for death, probably a setter
-			lifeObj.current.health.points -= game.police.attack_base_damage;
+			lifeObj.current.health.points -= game.police.base_damage;
 			lifeObj.current.police.encounter.reason = "run_failure";
 			// change the modes
 			lifeObj = changeModes(lifeObj, "detained");
@@ -124,7 +124,30 @@ module.exports.simulateEncounter = function simulateEncounter(life) {
 
 	function doFightAction(lifeObj) {
 		// *** You have just attacked the officer
+		const police = lifeObj.current.police;
+		// for testing, min == win, max == lose
+		const playerRoll = rollDice(0, 1, police.meta_player);
+		const policeRoll = rollDice(0, 1, police.meta_police);
+		// who much damage the entity is dealing this turn
+		const playerDamage = doAttack("player", playerRoll);
+		const policeDamage = doAttack("police", policeRoll);
+		// see who is smaller, player or police
+		// TODO: make who goes first actually matter
+		lifeObj.current.police.encounter.reason = (playerRoll < policeRoll) ? "fight_success" : "fight_failure";
+		// TODO: death check here
+		police.encounter.total_hp -= playerDamage;
+		// TODO: death check here
+		lifeObj.current.health.points -= policeDamage;
+		// change the modes
+		lifeObj = changeModes(lifeObj, "detained");
+		return lifeObj;
 
+		function doAttack(entity, roll) {
+			if (roll <= game.police[`accuracy_${entity}_base`]) {
+				return game.police.base_damage;
+			}
+			return 0;
+		}
 	}
 
 	function doDiscoveryMode(lifeObj) {
@@ -282,11 +305,20 @@ function doChangeModes(police, mode) {
 }
 
 function rollDice(min, max, luck) {
-	luck = typeof(luck) !== "undefined" ? luck : "none";
+	if (typeof(luck) == "undefined") {
+		if (max < min) {
+			// if the order is backwards, we need it that way for testing, fix it
+			const newMin = max;
+			const newMax = min;
+			max = newMax;
+			min = newMin;
+		}
+		luck = "none";
+	}
 	const luckObj = {
 		"lucky": min,
 		"unlucky": max,
-		"none": common.getRandomArbitrary(0, 1)
+		"none": common.getRandomArbitrary(min, max)
 	};
 	return luckObj[luck];
 }

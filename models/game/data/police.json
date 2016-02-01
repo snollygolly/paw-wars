@@ -63,6 +63,14 @@
 		"run_failure":{
 			"full": "You make a break for it and run as fast as you can.  Jumping and weaving, trying to lose Officer Bark.  You take a sharp corner and try to hide behind a wall, feel a tug on your tail as you do.  You try to escape, but it's too late, he's got you.",
 			"simple": "You're going to jail."
+		},
+		"fight_success":{
+			"full": "You attack Officer Bark, and as you pull your gun out, he pulls out his too.  Luckily you get the jump on him.",
+			"simple": "You're going to jail."
+		},
+		"fight_failure":{
+			"full": "You attack Officer Bark, and as you pull your gun out, he pulls out his too.  He's too fast though, he gets the jump on you.",
+			"simple": "You're going to jail."
 		}
 	},
 	"choices":{

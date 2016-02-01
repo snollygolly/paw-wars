@@ -60,8 +60,6 @@ module.exports.simulateEncounter = function simulateEncounter(life) {
 		detained: doDetainedMode,
 		// fighting is when you've decided to shoot at the officer and he's now engaged in combat with you
 		fighting: doFightingMode,
-		// chasing is when you've attempted to flee and the officer is giving chase
-		chasing: doChasingMode,
 		// and when we're all done...
 		end: doEndMode
 	};
@@ -106,7 +104,22 @@ module.exports.simulateEncounter = function simulateEncounter(life) {
 
 	function doRunAction(lifeObj) {
 		// *** You have just ran from the officer
-
+		const police = lifeObj.current.police;
+		const roll = rollDice(0, 1, police.meta);
+		if (roll >= game.police.run_success_rate) {
+			// they failed the roll, and are not escaping the officer
+			// TODO: replace this with some kind of check for death, probably a setter
+			lifeObj.current.health.points -= game.police.attack_base_damage;
+			lifeObj.current.police.encounter.reason = "run_failure";
+			// change the modes
+			lifeObj = changeModes(lifeObj, "detained");
+			return lifeObj;
+		}
+		// they succeeded with the roll and have been released
+		lifeObj.current.police.encounter.reason = "run_success";
+		// change the modes
+		lifeObj = changeModes(lifeObj, "end");
+		return lifeObj;
 	}
 
 	function doFightAction(lifeObj) {
@@ -235,11 +248,6 @@ module.exports.simulateEncounter = function simulateEncounter(life) {
 		return lifeObj;
 	}
 
-	function doChasingMode(lifeObj) {
-		// *** You are running and the police are actively pursuing you
-		return lifeObj;
-	}
-
 	function doEndMode(lifeObj, reason) {
 		// *** Tally results and allow player to proceed
 		console.log("end mode hit");
@@ -287,7 +295,7 @@ function updateEncounter(action, choices, lifeObj) {
 	lifeObj.current.police.encounter.message = policeJSON.messages[action];
 	lifeObj.current.police.encounter.choices = [
 		policeJSON.choices.hiss.id,
-		policeJSON.choices.attack.id,
+		policeJSON.choices.fight.id,
 		policeJSON.choices.run.id
 	];
 	lifeObj.current.police.encounter.choices = lifeObj.current.police.encounter.choices.concat(choices);

@@ -42,19 +42,27 @@
 		},
 		"release":{
 			"full": "Officer Bark leaves in his squad car, and you let out a sign of relief.",
-			"simple": "You're going on your way"
+			"simple": "You're going on your way."
 		},
 		"escape":{
 			"full": "You look back and it looks like you've escaped!",
-			"simple": "You escaped Officer Bark"
+			"simple": "You escaped Officer Bark."
 		},
 		"hiss_success":{
 			"full": "You hiss at Officer Bark and he stops dead in his tracks, looks at you, and runs in the other direction as fast as he can.",
-			"simple": "You scared Officer Bark off"
+			"simple": "You scared Officer Bark off."
 		},
 		"hiss_failure":{
 			"full": "You hiss at Officer Bark and he stops dead in his tracks, looks at you, and lunges directly at you, thrashing his teeth as he moves.  He bites you swiftly and does a good amount of damage to you.",
-			"simple": "You anger Officer Bark"
+			"simple": "You anger Officer Bark."
+		},
+		"run_success":{
+			"full": "You make a break for it and run as fast as you can.  Jumping and weaving, trying to lose Officer Bark.  You take a sharp corner and hide behind a wall, he runs past you into the distance.",
+			"simple": "You escaped Officer Bark."
+		},
+		"run_failure":{
+			"full": "You make a break for it and run as fast as you can.  Jumping and weaving, trying to lose Officer Bark.  You take a sharp corner and try to hide behind a wall, feel a tug on your tail as you do.  You try to escape, but it's too late, he's got you.",
+			"simple": "You're going to jail."
 		}
 	},
 	"choices":{
@@ -90,9 +98,9 @@
 			"id": "hiss",
 			"full": "Hiss!"
 		},
-		"attack": {
-			"id": "attack",
-			"full": "Attack!"
+		"fight": {
+			"id": "fight",
+			"full": "Fight!"
 		},
 		"run": {
 			"id": "run",

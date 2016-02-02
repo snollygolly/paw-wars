@@ -36,13 +36,13 @@
 			"full": "You tell Officer Bark that you are in possession of some contraband in hopes that he'll go easy on you.  He says that he appreciates your honesty, but he's still going to have to take you to jail.",
 			"simple": "You're going to jail."
 		},
-		"detain":{
+		"comply_detain":{
 			"full": "Officer Bark loads you into his squad car.  You're going downtown.",
 			"simple": "You're going to jail."
 		},
-		"release":{
-			"full": "Officer Bark leaves in his squad car, and you let out a sign of relief.",
-			"simple": "You're going on your way."
+		"crazy_person":{
+			"full": "'What kind of crazy person tells a police officer that they have drugs when they don't? Officer Bark asks.  He lets you go while giving you a suspicious look.",
+			"simple": "You're free to go"
 		},
 		"escape":{
 			"full": "You look back and it looks like you've escaped!",
@@ -71,6 +71,10 @@
 		"fight_failure":{
 			"full": "You attack Officer Bark, and as you pull your gun out, he pulls out his too.  He's too fast though, he gets the jump on you.",
 			"simple": "You're going to jail."
+		},
+		"dead":{
+			"full": "Everything goes dark, and you hear a voice call from beyond 'Judgement is near'.  You tell it to stop being so dramatic and walk in the direction of the voice.",
+			"simple": "You've died."
 		}
 	},
 	"choices":{

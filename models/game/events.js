@@ -11,7 +11,7 @@ module.exports.doSimulateEvents = function doSimulateEvents(life) {
 	// see if we even get an event
 	const roll = rollDice(0, 1, life.current.event_meta);
 	// see if our roll is good enough for an event
-	if (game.events.event_rate <= roll) {
+	if (game.events.event_rate <= roll || life.testing === true) {
 		// they didn't get an event
 		newLife.current.event = game.events.no_event_message;
 		return newLife;

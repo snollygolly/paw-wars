@@ -106,6 +106,43 @@ describe("Police - Simulating Encounter (Peaceful, Assertive, Dirty, Lucky)", ()
 		expect(policeObj.encounter.reason).to.equal("investigation_failure");
 		return done();
 	});
+
+	it("encounter should start 'end' mode", (done) => {
+		// simulate the encounter
+		life = police.simulateEncounter(life);
+		const policeObj = life.current.police;
+		expect(policeObj.encounter.mode).to.equal("end");
+		return done();
+	});
+
+	it("encounter should explain what is happening", (done) => {
+		const policeObj = life.current.police;
+		expect(policeObj.encounter.message.simple).to.be.a("string");
+		expect(policeObj.encounter.message.simple).to.equal(policeJSON.messages.investigation_failure.simple);
+		expect(policeObj.encounter.message.full).to.be.a("string");
+		expect(policeObj.encounter.message.full).to.equal(policeJSON.messages.investigation_failure.full);
+		return done();
+	});
+
+	it("encounter should present a choice", (done) => {
+		const policeObj = life.current.police;
+		expect(policeObj.encounter.choices.length).to.equal(1);
+		return done();
+	});
+
+	it("encounter should accept the 'continue' action", (done) => {
+		// simulate the encounter
+		life = simulateAction("continue", life);
+		const policeObj = life.current.police;
+		expect(policeObj).to.be.an("object");
+		return done();
+	});
+
+	it("encounter should be gone", (done) => {
+		const policeObj = life.current.police;
+		expect(policeObj.encounter).to.be.a("null");
+		return done();
+	});
 });
 
 function simulateAction(action, lifeObj) {

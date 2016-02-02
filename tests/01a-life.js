@@ -24,6 +24,7 @@ describe("Life Model - Base Validation", () => {
 	it("life should have required properties", (done) => {
 		expect(life).to.be.an("object");
 		expect(life).to.have.property("id");
+		expect(life).to.have.property("alive");
 		expect(life).to.have.property("starting");
 		expect(life).to.have.property("current");
 		expect(life).to.have.property("listings");
@@ -37,6 +38,12 @@ describe("Life Model - Base Validation", () => {
 		expect(idArr.length).to.equal(2);
 		expect(idArr[0]).to.equal(config.PLAYER.id);
 		// TODO: expect().to.be.a.timestamp?
+		return done();
+	});
+
+	it("life should be alive", (done) => {
+		expect(life.alive).to.be.a("boolean");
+		expect(life.alive).to.equal(true);
 		return done();
 	});
 });

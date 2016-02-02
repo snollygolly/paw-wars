@@ -86,8 +86,15 @@ module.exports.simulateEncounter = function simulateEncounter(life) {
 		const roll = rollDice(0, 1, police.meta);
 		if (roll >= game.police.hiss_success_rate) {
 			// they failed the roll, and have enraged the officer
-			// TODO: replace this with some kind of check for death, probably a setter
 			lifeObj.current.health.points -= game.police.base_damage * 2;
+			// death check
+			if (lifeObj.current.health.points <= 0) {
+				// they are dead :(
+				lifeObj.current.police.encounter.reason = "dead";
+				// change the modes
+				lifeObj = changeModes(lifeObj, "end");
+				return lifeObj;
+			}
 			lifeObj.current.police.encounter.reason = "hiss_failure";
 			// change the modes
 			lifeObj = changeModes(lifeObj, "detained");
@@ -106,8 +113,15 @@ module.exports.simulateEncounter = function simulateEncounter(life) {
 		const roll = rollDice(0, 1, police.meta);
 		if (roll >= game.police.run_success_rate) {
 			// they failed the roll, and are not escaping the officer
-			// TODO: replace this with some kind of check for death, probably a setter
 			lifeObj.current.health.points -= game.police.base_damage;
+			// death check
+			if (lifeObj.current.health.points <= 0) {
+				// they are dead :(
+				lifeObj.current.police.encounter.reason = "dead";
+				// change the modes
+				lifeObj = changeModes(lifeObj, "end");
+				return lifeObj;
+			}
 			lifeObj.current.police.encounter.reason = "run_failure";
 			// change the modes
 			lifeObj = changeModes(lifeObj, "detained");
@@ -134,8 +148,22 @@ module.exports.simulateEncounter = function simulateEncounter(life) {
 		lifeObj.current.police.encounter.reason = (playerRoll < policeRoll) ? "fight_success" : "fight_failure";
 		// TODO: death check here
 		police.encounter.total_hp -= playerDamage;
-		// TODO: death check here
+		if (police.encounter.total_hp <= 0) {
+			// you killed all the police
+			lifeObj.current.police.encounter.reason = "fight_success";
+			// change the modes
+			lifeObj = changeModes(lifeObj, "end");
+			return lifeObj;
+		}
 		lifeObj.current.health.points -= policeDamage;
+		// player death check
+		if (lifeObj.current.health.points <= 0) {
+			// they are dead :(
+			lifeObj.current.police.encounter.reason = "dead";
+			// change the modes
+			lifeObj = changeModes(lifeObj, "end");
+			return lifeObj;
+		}
 		// change the modes
 		lifeObj = changeModes(lifeObj, "detained");
 		return lifeObj;

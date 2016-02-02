@@ -75,6 +75,12 @@ module.exports.changeTurn = function changeTurn(life, turn) {
 	return life;
 };
 
+module.exports.triggerDeath = function triggerDeath(life) {
+	// TODO: some death related stuff happens here
+	life.alive = false;
+	return life;
+};
+
 // market
 module.exports.saveMarketTransaction = market.saveMarketTransaction;
 module.exports.generateMarketListings = market.generateMarketListings;
@@ -94,6 +100,7 @@ module.exports.saveHotelCheckIn = hotel.saveHotelCheckIn;
 module.exports.generateLife = function generateLife(player, parameters) {
 	const life = {
 		id: `${player.id}_${Date.now()}`,
+		alive: true,
 		starting: {
 			turn: 1,
 			event: game.events.starting_message,

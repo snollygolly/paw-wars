@@ -114,9 +114,9 @@
 			"id": "run",
 			"full": "Run!"
 		},
-		"end":{
-			"id": "end",
-			"full": "End"
+		"continue":{
+			"id": "continue",
+			"full": "Continue"
 		}
 	}
 }

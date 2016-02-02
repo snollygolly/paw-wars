@@ -292,10 +292,31 @@ module.exports.simulateEncounter = function simulateEncounter(life) {
 		return actionObj[police.encounter.action](lifeObj);
 	}
 
-	function doEndMode(lifeObj, reason) {
+	function doEndMode(lifeObj) {
 		// *** Tally results and allow player to proceed
-		console.log("end mode hit");
-		return lifeObj;
+		const police = lifeObj.current.police;
+		const reason = police.encounter.reason;
+		if (!police.encounter.action) {
+			// this is their first encounter in this mode
+			return updateEncounter(reason, ["continue"], lifeObj);
+		}
+		// set up reply actions
+		const actionObj  = {
+			"continue": (actionLifeObj) => {
+				// *** This is the end of the encounter
+				// add the encounter/history to the actions array
+				lifeObj.actions.push({
+					turn: lifeObj.current.turn,
+					type: "police",
+					data: lifeObj.current.police
+				});
+				// reset the actual values
+				lifeObj.current.police.encounter = null;
+				lifeObj.current.police.history = [];
+				return lifeObj;
+			}
+		};
+		return actionObj[police.encounter.action](lifeObj);
 	}
 };
 
@@ -346,12 +367,17 @@ function rollDice(min, max, luck) {
 
 function updateEncounter(action, choices, lifeObj) {
 	lifeObj.current.police.encounter.message = policeJSON.messages[action];
-	lifeObj.current.police.encounter.choices = [
-		policeJSON.choices.hiss.id,
-		policeJSON.choices.fight.id,
-		policeJSON.choices.run.id
-	];
-	lifeObj.current.police.encounter.choices = lifeObj.current.police.encounter.choices.concat(choices);
+	// we don't need these stock choices if this is the end
+	if (lifeObj.current.police.encounter.mode != "end") {
+		lifeObj.current.police.encounter.choices = [
+			policeJSON.choices.hiss.id,
+			policeJSON.choices.fight.id,
+			policeJSON.choices.run.id
+		];
+		lifeObj.current.police.encounter.choices = lifeObj.current.police.encounter.choices.concat(choices);
+	} else {
+		lifeObj.current.police.encounter.choices = choices;
+	}
 	const history = {
 		id: lifeObj.current.police.encounter.id,
 		encounter: lifeObj.current.police.encounter

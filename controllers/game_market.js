@@ -1,7 +1,7 @@
 "use strict";
 
 const config = require("../config.json");
-const itemsJSONJSON = require("../models/game/data/itemsJSON.json");
+const itemsJSON = require("../models/game/data/items.json");
 const lifeModel = require("../models/game_life");
 
 const common = require("../helpers/common");

@@ -1,9 +1,15 @@
 <div class="container">
-  {{> hud}}
-  <div>
-    <h1>Police</h1>
-    <br>
-      
+	{{> hud}}
+	<div>
+		<h1>Police</h1>
+		<br>
+		<div id="police-messages">
+			<p id="police-messages-full"></p>
+			<p id="police-messages-simple"></p>
+		</div>
 
-  </div>
+		<div class="list-group">
+			<button class="list-group-item police-choice" data-action="choice">Choice</button>
+		</div>
+	</div>
 </div><!-- /.container -->

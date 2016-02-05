@@ -3,16 +3,26 @@
 	<div>
 		<h1>Hotel</h1>
 		<br>
-			<p>{{life.current.event}}</p>
-			<p>You are currently in <strong>{{life.current.location.city}}, {{life.current.location.country}} - {{life.current.location.continent}}</strong> and you're <strong>{{life.current.turn}}</strong> {{plural 'turn' life.current.turn}} old and you are feeling	<strong>{{life_health_description life.current.health.points}}</strong> with <strong>{{life.current.health.points}}</strong> health {{plural 'point' life.current.health.points}}.</p>
+			{{#if police}}
+				<p>Police!</p>
+				<p>As you arrive at the hotel, you see the police arrive behind you.</p>
 
-		<p>Feel free to stay here and relax as long as you need.	When you're ready, choose one of these places to go.</p>
+				<div class="list-group">
+					<a href="/game/police" class="list-group-item">Police</a>
+				</div>
+			{{else}}
+				<p>{{life.current.event}}</p>
+				<p>You are currently in <strong>{{life.current.location.city}}, {{life.current.location.country}} - {{life.current.location.continent}}</strong> and you're <strong>{{life.current.turn}}</strong> {{plural 'turn' life.current.turn}} old and you are feeling	<strong>{{life_health_description life.current.health.points}}</strong> with <strong>{{life.current.health.points}}</strong> health {{plural 'point' life.current.health.points}}.</p>
 
-		<div class="list-group">
-			<a href="/game/market" class="list-group-item">Market</a>
-			<a href="/game/airport" class="list-group-item">Airport</a>
-			<a href="/game/bank" class="list-group-item">Bank</a>
-		</div>
+				<p>Feel free to stay here and relax as long as you need.	When you're ready, choose one of these places to go.</p>
+
+				<div class="list-group">
+					<a href="/game/market" class="list-group-item">Market</a>
+					<a href="/game/airport" class="list-group-item">Airport</a>
+					<a href="/game/bank" class="list-group-item">Bank</a>
+				</div>
+			{{/if}}
+
 
 	</div>
 </div><!-- /.container -->

@@ -69,7 +69,6 @@ module.exports.changeTurn = function changeTurn(life, turn) {
 	life = bank.handleInterest(life);
 	life = hotel.doHotelCheckOut(life);
 	life = police.doSimulateEncounter(life);
-	// TODO: add cop checks here
 	life = events.doSimulateEvents(life);
 	life.current.turn = turn;
 	return life;
@@ -96,6 +95,11 @@ module.exports.generateBankListings = bank.generateBankListings;
 
 // hotel
 module.exports.saveHotelCheckIn = hotel.saveHotelCheckIn;
+
+// police
+module.exports.doSimulateEncounter = police.doSimulateEncounter;
+module.exports.startEncounter = police.startEncounter;
+module.exports.simulateEncounter = police.simulateEncounter;
 
 module.exports.generateLife = function generateLife(player, parameters) {
 	const life = {

@@ -13,14 +13,22 @@ module.exports.index = function* index() {
 		player = this.session.passport.user;
 		// TODO: add an else in here to redirect, but it's too much of pain atm
 	}
+	let police;
 	life = this.session.life;
-	// check the user in
-	life = yield lifeModel.saveHotelCheckIn(life.id);
+	if (life.current.police.encounter !== null) {
+		// there's an active police encounter, alert them
+		police = true;
+	} else {
+		// check the user in
+		life = yield lifeModel.saveHotelCheckIn(life.id);
+		police = false;
+	}
 	// save the life back to the session
 	this.session.life = life;
 	yield this.render("game_hotel", {
 		title: config.site.name,
 		player: player,
-		life: life
+		life: life,
+		police: police
 	});
 };

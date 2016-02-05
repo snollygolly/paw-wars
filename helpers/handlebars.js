@@ -142,5 +142,10 @@ hbs.registerHelper("plural", function plural(word, amount, opts) {
 });
 
 hbs.registerHelper("stringify", function stringify(obj, opts) {
-	return JSON.stringify(obj, null, 2);
+	if (opts === "pretty") {
+		return JSON.stringify(obj, null, 2);
+	}
+	const json = JSON.stringify(obj);
+	// replace single quotes
+	return json.replace(/'/g, "&#39;");
 });

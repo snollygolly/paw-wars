@@ -12,11 +12,11 @@ module.exports.doSimulateEncounter = function doSimulateEncounter(life) {
 	// calculate our encounter rate for our location
 	const encounterRate = getTotalHeat(newLife);
 	// see if our roll is good enough for an encounter
-	if (encounterRate <= eventRoll || life.testing === true) {
-		// they didn't get an encounter
-		newLife.current.police.encounter = null;
-		return newLife;
-	}
+	// if (encounterRate <= eventRoll || life.testing === true) {
+	// 	// they didn't get an encounter
+	// 	newLife.current.police.encounter = null;
+	// 	return newLife;
+	// }
 	newLife = module.exports.startEncounter(newLife);
 	return newLife;
 };
@@ -367,16 +367,18 @@ function rollDice(min, max, luck) {
 
 function updateEncounter(action, choices, lifeObj) {
 	lifeObj.current.police.encounter.message = policeJSON.messages[action];
+	lifeObj.current.police.encounter.choices = [];
+	for (const choice of choices) {
+		lifeObj.current.police.encounter.choices.push(policeJSON.choices[choice]);
+	}
 	// we don't need these stock choices if this is the end
 	if (lifeObj.current.police.encounter.mode != "end") {
-		lifeObj.current.police.encounter.choices = [
-			policeJSON.choices.hiss.id,
-			policeJSON.choices.fight.id,
-			policeJSON.choices.run.id
-		];
-		lifeObj.current.police.encounter.choices = lifeObj.current.police.encounter.choices.concat(choices);
-	} else {
-		lifeObj.current.police.encounter.choices = choices;
+		// add the default choices
+		lifeObj.current.police.encounter.choices = lifeObj.current.police.encounter.choices.concat([
+			policeJSON.choices.hiss,
+			policeJSON.choices.fight,
+			policeJSON.choices.run
+		]);
 	}
 	const history = {
 		id: lifeObj.current.police.encounter.id,

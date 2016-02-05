@@ -1,15 +1,18 @@
 <div class="container">
 	{{> hud}}
 	<div>
-		<h1>Police</h1>
+		<h1>Police Encounter</h1>
 		<br>
 		<div id="police-messages">
 			<p id="police-messages-full"></p>
 			<p id="police-messages-simple"></p>
 		</div>
 
-		<div class="list-group">
-			<button class="list-group-item police-choice" data-action="choice">Choice</button>
+		<div id="police-choices-group" class="list-group">
+
 		</div>
 	</div>
+	<script type="text/javascript">
+		var life = '{{{stringify life}}}';
+	</script>
 </div><!-- /.container -->

@@ -140,3 +140,7 @@ hbs.registerHelper("format_percent", function format_percent(percent, opts) {
 hbs.registerHelper("plural", function plural(word, amount, opts) {
 	return (amount === 1) ? word : `${word}s`;
 });
+
+hbs.registerHelper("stringify", function stringify(obj, opts) {
+	return JSON.stringify(obj, null, 2);
+});

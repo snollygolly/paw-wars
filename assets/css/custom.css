@@ -14,3 +14,7 @@ body {
 #main-container {
   padding-top: 50px;
 }
+
+#debug {
+  margin-top: 25px;
+}

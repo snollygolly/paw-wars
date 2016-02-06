@@ -1,3 +1,40 @@
 <div id="hud">
-	<p>You currently have $<strong id="hud-cash">{{life.current.finance.cash}}</strong> in cash and <strong id="hud-storage">{{life.current.storage.available}}/{{life.current.storage.total}}</strong> units of storage available.</p>
+	<table class="table table-sm table-inverse">
+		<thead>
+			<tr>
+				<th id="hud-turn" data-toggle="tooltip" data-placement="top" title="Turn">
+					Turn <span id="hud-turn-value">{{life.current.turn}}</span>
+				</th>
+
+				<th id="hud-hp">
+					<i class="fa fa-heart"></i>
+					<span id="hud-hp-value">{{life.current.health.points}}</span>
+					<span class="text-muted">/</span>
+					<span class="text-muted" id="hud-hp-total-value">100</span>
+				</th>
+
+				<th id="hud-cash">
+					<i class="fa fa-money"></i>
+					<span id="hud-cash-value">{{life.current.finance.cash}}</span>
+				</th>
+
+				<th id="hud-savings">
+					<i class="fa fa-bank"></i>
+					<span id="hud-savings-value">{{life.current.finance.savings}}</span>
+				</th>
+
+				<th id="hud-debt">
+					<i class="fa fa-credit-card"></i>
+					-<span id="hud-debt-value">{{life.current.finance.debt}}</span>
+				</th>
+
+				<th id="hud-storage">
+					<i class="fa fa-briefcase"></i>
+					<span id="hud-stroage-value">{{life.current.storage.available}}</span>
+					<span class="text-muted">/</span>
+					<span class="text-muted" id="hud-storage-total-value">{{life.current.storage.total}}</span>
+				</th>
+			</tr>
+		</thead>
+	</table>
 </div>

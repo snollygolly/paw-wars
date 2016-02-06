@@ -54,9 +54,8 @@ module.exports.encounter = function* encounter() {
 		return this.body = {error: "Bad ID"};
 	}
 	// we've passed checks at this point
-	life.current.police.encounter.action = parameters.action;
 	// simulate the encounter
-	life = yield lifeModel.simulateEncounter(life);
+	life = yield lifeModel.saveEncounter(life.id, parameters.action);
 	if (life.error) {
 		// something went wrong during the process
 		return this.body = {error: true, message: life.message};

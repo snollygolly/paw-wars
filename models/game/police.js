@@ -42,6 +42,22 @@ module.exports.startEncounter = function startEncounter(life) {
 	return newLife;
 };
 
+module.exports.saveEncounter = function* saveEncounter(id, action) {
+	// get the latest copy from the database
+	let life = yield model.getLife(id);
+	life.current.police.encounter.action = action;
+	// run all the transaction logic against it and get it back
+	life = module.exports.simulateEncounter(life);
+	// check for errors
+	if (life.error === true) {
+		// exit early
+		return life;
+	}
+	// now replace it in the DB
+	life = yield model.replaceLife(life);
+	return life;
+};
+
 module.exports.simulateEncounter = function simulateEncounter(life) {
 	const newLife = JSON.parse(JSON.stringify(life));
 	// see where we're at in the encounter

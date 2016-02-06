@@ -99,6 +99,7 @@ module.exports.saveHotelCheckIn = hotel.saveHotelCheckIn;
 // police
 module.exports.doSimulateEncounter = police.doSimulateEncounter;
 module.exports.startEncounter = police.startEncounter;
+module.exports.saveEncounter = police.saveEncounter;
 module.exports.simulateEncounter = police.simulateEncounter;
 
 module.exports.generateLife = function generateLife(player, parameters) {

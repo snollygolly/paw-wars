@@ -100,11 +100,11 @@
 		},
 		"comply_released":{
 			"id": "comply_released",
-			"full": "Thank you Officer"
+			"full": "Thank the Officer and leave"
 		},
 		"comply_detain":{
 			"id": "comply_detain",
-			"full": "I understand"
+			"full": "Surrender to the Officer"
 		},
 		"hiss": {
 			"id": "hiss",

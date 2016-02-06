@@ -335,6 +335,7 @@ function getAwarenessHeat(life) {
 
 function changeModes(lifeObj, mode) {
 	lifeObj.current.police = doChangeModes(lifeObj.current.police, mode);
+	lifeObj = module.exports.simulateEncounter(lifeObj);
 	return lifeObj;
 }
 

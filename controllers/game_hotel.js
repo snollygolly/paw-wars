@@ -13,8 +13,11 @@ module.exports.index = function* index() {
 		player = this.session.passport.user;
 		// TODO: add an else in here to redirect, but it's too much of pain atm
 	}
-	let police;
 	life = this.session.life;
+	if (!life) {
+		throw new Error("No life found / hotelController:index");
+	}
+	let police;
 	if (life.current.police.encounter !== null) {
 		// there's an active police encounter, alert them
 		police = true;

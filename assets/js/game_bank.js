@@ -86,8 +86,7 @@ function updateDispay(life){
   // this is what you should use for updating all market status after getting
   // a life object back from the request
   // update the hud
-  $("#hud-cash").html(life.current.finance.cash);
-  $("#hud-storage").html(life.current.storage.available + "/" + life.current.storage.total);
+  updateHUD(life);
   // update all the buttons with maxes
   $("#bank-deposit-btn").data("max",  life.current.finance.cash);
   $("#bank-withdraw-btn").data("max", life.current.finance.savings);
@@ -101,4 +100,14 @@ function displayAlert(type, message){
   alert = '<div class="alert alert-' + type + ' alert-dismissible" role="alert">';
   alert += '<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>' + message + '</div>';
   $("#alert-container").html(alert);
+}
+
+function updateHUD(lifeObj) {
+  $("#hud-turn-value").html(lifeObj.current.turn);
+  $("#hud-hp-value").html(lifeObj.current.health.points);
+  $("#hud-cash-value").html(lifeObj.current.finance.cash);
+  $("#hud-savings-value").html(lifeObj.current.finance.savings);
+  $("#hud-debt-value").html(lifeObj.current.finance.debt);
+  $("#hud-storage-value").html(lifeObj.current.storage.available);
+  $("#hud-storage-total-value").html(lifeObj.current.storage.total);
 }

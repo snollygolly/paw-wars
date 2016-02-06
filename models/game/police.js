@@ -12,11 +12,11 @@ module.exports.doSimulateEncounter = function doSimulateEncounter(life) {
 	// calculate our encounter rate for our location
 	const encounterRate = getTotalHeat(newLife);
 	// see if our roll is good enough for an encounter
-	// if (encounterRate <= eventRoll || life.testing === true) {
-	// 	// they didn't get an encounter
-	// 	newLife.current.police.encounter = null;
-	// 	return newLife;
-	// }
+	if (encounterRate <= eventRoll || life.testing === true) {
+		// they didn't get an encounter
+		newLife.current.police.encounter = null;
+		return newLife;
+	}
 	newLife = module.exports.startEncounter(newLife);
 	return newLife;
 };

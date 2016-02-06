@@ -12,9 +12,7 @@
 				</div>
 			{{else}}
 				<p>{{life.current.event}}</p>
-				<p>You are currently in <strong>{{life.current.location.city}}, {{life.current.location.country}} - {{life.current.location.continent}}</strong> and you're <strong>{{life.current.turn}}</strong> {{plural 'turn' life.current.turn}} old and you are feeling	<strong>{{life_health_description life.current.health.points}}</strong> with <strong>{{life.current.health.points}}</strong> health {{plural 'point' life.current.health.points}}.</p>
-
-				<p>Feel free to stay here and relax as long as you need.	When you're ready, choose one of these places to go.</p>
+				<p>You are currently in <strong>{{life.current.location.city}}</strong> and you're feeling <strong>{{life_health_description life.current.health.points}}</strong>.  You can relax here and contemplate your next move as long as you'd like.  When you're ready, choose somewhere to go.</p>
 
 				<div class="list-group">
 					<a href="/game/market" class="list-group-item">Market</a>

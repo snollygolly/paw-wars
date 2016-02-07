@@ -13,12 +13,15 @@ const policeJSON = main.policeJSON;
 let life;
 
 describe("Police - Simulating Encounter (Peaceful, Assertive, Clean)", () => {
+	let oldLife;
+
 	before(() => {
 		// set up life
 		life = model.generateLife(config.PLAYER, config.LOCATION);
-		life.testing = true;
 		// adding some heat
 		life.current.police.heat = config.GAME.police.heat_cap / 2;
+		life.testing = true;
+		oldLife = JSON.parse(JSON.stringify(life));
 		life = police.startEncounter(life);
 	});
 
@@ -53,7 +56,7 @@ describe("Police - Simulating Encounter (Peaceful, Assertive, Clean)", () => {
 
 	it("encounter should update the player heat", (done) => {
 		// set up
-		const newHeat = life.current.police.heat + config.GAME.police.heat_rate;
+		const newHeat = oldLife.current.police.heat + config.GAME.police.heat_rate;
 		// make sure the cash updated after the buy
 		expect(life.current.police.heat).to.be.a("number");
 		expect(life.current.police.heat).to.be.at.least(0);

@@ -103,6 +103,8 @@ module.exports.simulateEncounter = function simulateEncounter(life) {
 		if (roll >= game.police.hiss_success_rate) {
 			// they failed the roll, and have enraged the officer
 			lifeObj.current.health.points -= game.police.base_damage * 2;
+			// increase heat
+			lifeObj.current.police.heat += game.police.heat_rate;
 			// death check
 			if (lifeObj.current.health.points <= 0) {
 				// they are dead :(
@@ -130,6 +132,8 @@ module.exports.simulateEncounter = function simulateEncounter(life) {
 		if (roll >= game.police.run_success_rate) {
 			// they failed the roll, and are not escaping the officer
 			lifeObj.current.health.points -= game.police.base_damage;
+			// increase heat
+			lifeObj.current.police.heat += game.police.heat_rate;
 			// death check
 			if (lifeObj.current.health.points <= 0) {
 				// they are dead :(
@@ -162,6 +166,8 @@ module.exports.simulateEncounter = function simulateEncounter(life) {
 		// see who is smaller, player or police
 		// TODO: make who goes first actually matter
 		lifeObj.current.police.encounter.reason = (playerRoll < policeRoll) ? "fight_success" : "fight_failure";
+		// increase heat
+		lifeObj.current.police.heat += (game.police.heat_rate * 2);
 		// TODO: death check here
 		police.encounter.total_hp -= playerDamage;
 		if (police.encounter.total_hp <= 0) {
@@ -208,6 +214,8 @@ module.exports.simulateEncounter = function simulateEncounter(life) {
 			},
 			"deny_search": (actionLifeObj) => {
 				// *** You are not giving consent for the search
+				// increase heat
+				actionLifeObj.current.police.heat += game.police.heat_rate;
 				return changeModes(actionLifeObj, "investigation");
 			}
 		};
@@ -301,6 +309,8 @@ module.exports.simulateEncounter = function simulateEncounter(life) {
 		const actionObj  = {
 			"comply_detain": (actionLifeObj) => {
 				// *** You do not resist the officer during his search
+				// increase heat
+				actionLifeObj.current.police.heat += game.police.heat_rate;
 				actionLifeObj.current.police.encounter.reason = "comply_detain";
 				return changeModes(actionLifeObj, "end");
 			}

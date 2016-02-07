@@ -4,3 +4,6 @@ node_js:
  - "4.2.4"
 before_install:
   - "mv config.json.example config.json"
+script:
+  - "npm test"
+  - "./node_modules/.bin/eslint ."

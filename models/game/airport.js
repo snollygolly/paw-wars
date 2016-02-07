@@ -100,7 +100,6 @@ module.exports.generateAirportListings = function generateAirportListings(life) 
 	function findFlightTime(current, future) {
 		let flightTime = 0;
 		if (current.city != future.city) {flightTime++;}
-		if (current.country != future.country) {flightTime++;}
 		if (current.continent != future.continent) {flightTime++;}
 		return flightTime;
 	}

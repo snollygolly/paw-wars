@@ -30,12 +30,17 @@ module.exports.index = function* index() {
 		i++;
 	}
 	life.listings.airport.sort(sortByTurns);
-	placesJSON.sort(sortByTurns);
+	// remove the home entry
+	life.listings.airport.shift();
+	const sortedPlacesJSON = JSON.parse(JSON.stringify(placesJSON)).sort(placesJSON);
+	sortedPlacesJSON.sort(sortByTurns);
+	// remove the home entry
+	sortedPlacesJSON.shift();
 	yield this.render("game_airport", {
 		title: config.site.name,
 		player: (player === null) ? null : player,
 		life: life,
-		places: placesJSON,
+		places: sortedPlacesJSON,
 		script: "game_airport"
 	});
 

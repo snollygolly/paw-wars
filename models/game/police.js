@@ -235,6 +235,8 @@ module.exports.simulateEncounter = function simulateEncounter(life) {
 				// *** You've admitted that you are guilty of a crime
 				if (lifeObj.current.storage.available === lifeObj.current.storage.total) {
 					// they aren't carrying anything
+					// increase heat
+					lifeObj.current.police.heat += game.police.heat_rate;
 					actionLifeObj.current.police.encounter.reason = "crazy_person";
 					return changeModes(actionLifeObj, "end");
 				}

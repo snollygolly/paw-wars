@@ -62,6 +62,7 @@ describe("Police - Simulating Encounter (Peaceful, Assertive, Clean)", () => {
 		expect(life.current.police.heat).to.be.at.least(0);
 		expect(life.current.police.heat).to.equal(newHeat);
 		expect(common.isWholeNumber(life.current.police.heat)).to.be.true;
+		oldLife.current.police.heat += config.GAME.police.heat_rate;
 		return done();
 	});
 

@@ -18,3 +18,7 @@ body {
 #debug {
   margin-top: 25px;
 }
+
+.hud-center {
+  text-align: center;
+}

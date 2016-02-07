@@ -1,40 +1,58 @@
-<div id="hud">
+<div id="hud" class="table-responsive">
 	<table class="table table-sm table-inverse">
 		<thead>
 			<tr>
-				<th id="hud-turn" data-toggle="tooltip" data-placement="top" title="Turn">
-					Turn <span id="hud-turn-value">{{life.current.turn}}</span>
+				<th id="hud-turn" class="hud-center">
+					Turn
 				</th>
 
-				<th id="hud-hp">
+				<th id="hud-hp" class="hud-center">
 					<i class="fa fa-heart"></i>
-					<span id="hud-hp-value">{{life.current.health.points}}</span>
-					<span class="text-muted">/</span>
-					<span class="text-muted" id="hud-hp-total-value">100</span>
 				</th>
 
-				<th id="hud-cash">
+				<th id="hud-cash" class="hud-center">
 					<i class="fa fa-money"></i>
-					<span id="hud-cash-value">{{life.current.finance.cash}}</span>
 				</th>
 
-				<th id="hud-savings">
-					<i class="fa fa-bank"></i>
-					<span id="hud-savings-value">{{life.current.finance.savings}}</span>
-				</th>
-
-				<th id="hud-debt">
+				<th id="hud-savings" class="hud-center">
 					<i class="fa fa-credit-card"></i>
-					-<span id="hud-debt-value">{{life.current.finance.debt}}</span>
 				</th>
 
-				<th id="hud-storage">
+				<th id="hud-debt" class="hud-center">
+					<i class="fa fa-bank"></i>
+				</th>
+
+				<th id="hud-storage" class="hud-center">
 					<i class="fa fa-briefcase"></i>
-					<span id="hud-storage-value">{{life.current.storage.available}}</span>
-					<span class="text-muted">/</span>
-					<span class="text-muted" id="hud-storage-total-value">{{life.current.storage.total}}</span>
 				</th>
 			</tr>
 		</thead>
+		<tbody>
+			<tr>
+				<td class="hud-center">
+					<span id="hud-turn-value">{{life.current.turn}}</span>
+				</td>
+
+				<td class="hud-center">
+					<span id="hud-hp-value">{{life.current.health.points}}</span><span class="text-muted">/</span><span class="text-muted" id="hud-hp-total-value">100</span>
+				</td>
+
+				<td class="hud-center">
+					<span id="hud-cash-value">{{life.current.finance.cash}}</span>
+				</td>
+
+				<td class="hud-center">
+					<span id="hud-savings-value">{{life.current.finance.savings}}</span>
+				</td>
+
+				<td class="hud-center">
+					-<span id="hud-debt-value">{{life.current.finance.debt}}</span>
+				</td>
+
+				<td class="hud-center">
+					<span id="hud-storage-value">{{life.current.storage.available}}</span><span class="text-muted">/</span><span class="text-muted" id="hud-storage-total-value">{{life.current.storage.total}}</span>
+				</td>
+			</tr>
+		</tbody>
 	</table>
 </div>

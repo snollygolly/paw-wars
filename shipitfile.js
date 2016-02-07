@@ -9,7 +9,7 @@ module.exports = function (shipit) {
     default: {
       workspace: 'tmp',
       deployTo: config.deploy.path,
-      repositoryUrl: 'https://github.com/snollygolly/koa-starter.git',
+      repositoryUrl: 'https://github.com/snollygolly/paw-wars.git',
       ignores: ['.git', 'node_modules'],
       rsync: ['--del'],
       keepReleases: 2,
@@ -28,7 +28,7 @@ module.exports = function (shipit) {
 
   // this task starts the server in a screen with a name set in the config
   shipit.blTask('start_screen', function () {
-    return shipit.remote(pathStr + " && cd " + currentPath + " && screen -S " + config.deploy.screen + " -d -m npm start");
+    return shipit.remote(pathStr + " && cd " + currentPath + " && screen -S " + config.deploy.screen + " -d -m npm run production");
   });
 
   // this task starts the server directly in the shipit output.  use this instead of start_screen if you're having problems

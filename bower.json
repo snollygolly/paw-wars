@@ -29,5 +29,8 @@
     "tether": "~1.1.1",
     "font-awesome": "~4.5.0",
     "bootstrap-social": "~4.12.0"
+  },
+  "resolutions": {
+    "bootstrap": "v4.0.0-alpha.2"
   }
 }

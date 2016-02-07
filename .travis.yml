@@ -6,4 +6,3 @@ before_install:
   - "mv config.json.example config.json"
 script:
   - "npm test"
-  - "./node_modules/.bin/eslint ."

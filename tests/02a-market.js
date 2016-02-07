@@ -128,7 +128,7 @@ describe("Market - Transaction Validation (Buy)", () => {
 		} else {
 			oldLife.current.police.awareness[currentCountry] = 0;
 		}
-		const newAwareness = oldAwareness + 1;
+		const newAwareness = oldAwareness + config.GAME.police.heat_rate;
 		// make sure the cash updated after the buy
 		expect(newLife.current.police.awareness[currentCountry]).to.be.a("number");
 		expect(newLife.current.police.awareness[currentCountry]).to.be.at.least(0);
@@ -246,7 +246,7 @@ describe("Market - Transaction Validation (Sell)", (done) => {
 		} else {
 			oldLife.current.police.awareness[currentCountry] = 0;
 		}
-		const newAwareness = oldAwareness + 1;
+		const newAwareness = oldAwareness + config.GAME.police.heat_rate;
 		// make sure the cash updated after the buy
 		expect(newLife.current.police.awareness[currentCountry]).to.be.a("number");
 		expect(newLife.current.police.awareness[currentCountry]).to.be.at.least(0);

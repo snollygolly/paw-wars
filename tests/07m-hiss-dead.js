@@ -45,7 +45,7 @@ describe("Police - Simulating Encounter (Hiss, Dead)", () => {
 		return done();
 	});
 
-	it("encounter should be lucky", (done) => {
+	it("encounter should be unlucky", (done) => {
 		life.current.police.meta = "unlucky";
 		expect(life.current.police.meta).to.equal("unlucky");
 		return done();
@@ -56,6 +56,17 @@ describe("Police - Simulating Encounter (Hiss, Dead)", () => {
 		life = simulateAction("hiss", life);
 		const policeObj = life.current.police;
 		expect(policeObj.encounter.mode).to.be.a("string");
+		return done();
+	});
+
+	it("encounter should update the player heat", (done) => {
+		// set up
+		const newHeat = life.current.police.heat + config.GAME.police.heat_rate;
+		// make sure the cash updated after the buy
+		expect(life.current.police.heat).to.be.a("number");
+		expect(life.current.police.heat).to.be.at.least(0);
+		expect(life.current.police.heat).to.equal(newHeat);
+		expect(common.isWholeNumber(life.current.police.heat)).to.be.true;
 		return done();
 	});
 

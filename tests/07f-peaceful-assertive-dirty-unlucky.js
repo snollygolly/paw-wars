@@ -52,6 +52,17 @@ describe("Police - Simulating Encounter (Peaceful, Assertive, Dirty, Unlucky)", 
 		return done();
 	});
 
+	it("market should update the player heat", (done) => {
+		// set up
+		const newHeat = life.current.police.heat + config.GAME.police.heat_rate;
+		// make sure the cash updated after the buy
+		expect(life.current.police.heat).to.be.a("number");
+		expect(life.current.police.heat).to.be.at.least(0);
+		expect(life.current.police.heat).to.equal(newHeat);
+		expect(common.isWholeNumber(life.current.police.heat)).to.be.true;
+		return done();
+	});
+
 	it("encounter mode should be 'investigation'", (done) => {
 		const policeObj = life.current.police;
 		expect(policeObj.encounter.mode).to.equal("investigation");
@@ -184,6 +195,17 @@ describe("Police - Simulating Encounter (Peaceful, Assertive, Dirty, Unlucky)", 
 		life = simulateAction("comply_detain", life);
 		const policeObj = life.current.police;
 		expect(policeObj.encounter.mode).to.be.a("string");
+		return done();
+	});
+
+	it("encounter should update the player heat", (done) => {
+		// set up
+		const newHeat = life.current.police.heat + config.GAME.police.heat_rate;
+		// make sure the cash updated after the buy
+		expect(life.current.police.heat).to.be.a("number");
+		expect(life.current.police.heat).to.be.at.least(0);
+		expect(life.current.police.heat).to.equal(newHeat);
+		expect(common.isWholeNumber(life.current.police.heat)).to.be.true;
 		return done();
 	});
 

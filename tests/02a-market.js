@@ -119,6 +119,24 @@ describe("Market - Transaction Validation (Buy)", () => {
 		return done();
 	});
 
+	it("market should update the player awareness", (done) => {
+		// set up
+		const currentCountry = oldLife.current.location.country;
+		let oldAwareness = 0;
+		if (oldLife.current.police.awareness[currentCountry]) {
+			oldAwareness += oldLife.current.police.awareness[currentCountry];
+		} else {
+			oldLife.current.police.awareness[currentCountry] = 0;
+		}
+		const newAwareness = oldAwareness + 1;
+		// make sure the cash updated after the buy
+		expect(newLife.current.police.awareness[currentCountry]).to.be.a("number");
+		expect(newLife.current.police.awareness[currentCountry]).to.be.at.least(0);
+		expect(newLife.current.police.awareness[currentCountry]).to.equal(newAwareness);
+		expect(common.isWholeNumber(newLife.current.police.awareness[currentCountry])).to.be.true;
+		return done();
+	});
+
 	it("market should update the player actions", (done) => {
 		// set up
 		const newAction = newLife.actions.pop();
@@ -216,6 +234,24 @@ describe("Market - Transaction Validation (Sell)", (done) => {
 		expect(newLife.current.storage.available).to.be.at.least(0);
 		expect(newLife.current.storage.available).to.equal(newStorage);
 		expect(common.isWholeNumber(newLife.current.storage.available)).to.be.true;
+		return done();
+	});
+
+	it("market should update the player awareness", (done) => {
+		// set up
+		const currentCountry = oldLife.current.location.country;
+		let oldAwareness = 0;
+		if (oldLife.current.police.awareness[currentCountry]) {
+			oldAwareness += oldLife.current.police.awareness[currentCountry];
+		} else {
+			oldLife.current.police.awareness[currentCountry] = 0;
+		}
+		const newAwareness = oldAwareness + 1;
+		// make sure the cash updated after the buy
+		expect(newLife.current.police.awareness[currentCountry]).to.be.a("number");
+		expect(newLife.current.police.awareness[currentCountry]).to.be.at.least(0);
+		expect(newLife.current.police.awareness[currentCountry]).to.equal(newAwareness);
+		expect(common.isWholeNumber(newLife.current.police.awareness[currentCountry])).to.be.true;
 		return done();
 	});
 

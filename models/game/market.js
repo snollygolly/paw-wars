@@ -74,6 +74,11 @@ module.exports.doMarketTransaction = function doMarketTransaction(life, transact
 	// save it back to the array
 	newLife.listings.market = common.replaceObjFromArr(listing, newLife.listings.market);
 	newLife.current.inventory = common.replaceObjFromArr(inventory, newLife.current.inventory);
+	// add heat for this transaction
+	if (!newLife.current.police.awareness[newLife.current.location.country]) {
+		newLife.current.police.awareness[newLife.current.location.country] = 0;
+	}
+	newLife.current.police.awareness[newLife.current.location.country] += game.police.heat_rate;
 	newLife.actions.push({
 		turn: life.current.turn,
 		type: "market",

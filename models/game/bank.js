@@ -87,9 +87,13 @@ module.exports.doBankLending = function doBankLending(life, transaction) {
 	return newLife;
 };
 
-module.exports.handleInterest = function handleInterest(life) {
+module.exports.handleInterest = function handleInterest(life, turns) {
 	const newLife = JSON.parse(JSON.stringify(life));
-	newLife.current.finance.debt += Math.round(newLife.current.finance.debt * newLife.current.finance.debt_interest);
-	newLife.current.finance.savings += Math.round(newLife.current.finance.savings * newLife.current.finance.savings_interest);
+	let i = 0;
+	while (i < turns) {
+		newLife.current.finance.debt += Math.round(newLife.current.finance.debt * newLife.current.finance.debt_interest);
+		newLife.current.finance.savings += Math.round(newLife.current.finance.savings * newLife.current.finance.savings_interest);
+		i++;
+	}
 	return newLife;
 };

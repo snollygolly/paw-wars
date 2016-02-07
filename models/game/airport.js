@@ -48,9 +48,7 @@ module.exports.doAirportFly = function doAirportFly(life, flight) {
 		type: "airport",
 		data: listing
 	});
-	// adjust the turn
-	newLife.current.turn += listing.flight_time;
-	newLife = model.changeTurn(newLife, newLife.current.turn);
+	newLife = model.changeTurn(newLife, listing.flight_time);
 	// console.log("* doAirportFly:", newLife);
 	return newLife;
 };

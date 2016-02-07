@@ -63,14 +63,14 @@ module.exports.replaceLife = function* replaceLife(life) {
 	return result.changes[0].new_val;
 };
 
-module.exports.changeTurn = function changeTurn(life, turn) {
+module.exports.changeTurn = function changeTurn(life, turns) {
 	life.listings.market = market.generateMarketListings(life);
 	life.listings.airport = airport.generateAirportListings(life);
-	life = bank.handleInterest(life);
+	life = bank.handleInterest(life, turns);
 	life = hotel.doHotelCheckOut(life);
 	life = police.doSimulateEncounter(life);
 	life = events.doSimulateEvents(life);
-	life.current.turn = turn;
+	life.current.turn += turns;
 	return life;
 };
 

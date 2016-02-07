@@ -54,7 +54,7 @@ describe("Hotel - Transaction Validation", () => {
 
 	it("hotel should check out guests on turn change", (done) => {
 		let newLife = JSON.parse(JSON.stringify(life));
-		newLife = model.changeTurn(newLife, 2);
+		newLife = model.changeTurn(newLife, 1);
 		expect(newLife.current).to.have.property("hotel");
 		expect(newLife.current.hotel).to.be.a("boolean");
 		expect(newLife.current.hotel).to.equal(false);

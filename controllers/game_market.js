@@ -29,12 +29,12 @@ module.exports.index = function* index() {
 		i++;
 	}
 	life.listings.market.sort(sortByPrice);
-	itemsJSON.sort(sortByPrice);
+	const sortedItemJSON = JSON.parse(JSON.stringify(itemsJSON)).sort(sortByPrice);
 	yield this.render("game_market", {
 		title: config.site.name,
 		player: player,
 		life: life,
-		items: itemsJSON,
+		items: sortedItemJSON,
 		script: "game_market"
 	});
 

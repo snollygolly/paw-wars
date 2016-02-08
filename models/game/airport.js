@@ -58,16 +58,24 @@ module.exports.generateAirportListings = function generateAirportListings(life) 
 	// loop through each items to set prices and qty
 	const priceArr = [];
 	const location = life.current.location;
-	for (const place of placesJSON) {
+	const listingMulti = (life.current.location.size * game.market.size_affect) / game.market.size_max;
+	const listingLength = Math.ceil(listingMulti * placesJSON.length);
+	// remove random amounts
+	const prunedPlacesJSON = common.randomShrinkArr(placesJSON, listingLength);
+	for (const place of prunedPlacesJSON) {
 		const priceObj = {
 			id: place.id,
-			size: place.size
+			size: place.size,
+			name: place.name,
+			city: place.city,
+			country: place.country,
+			continent: place.continent
 		};
 		priceObj.flight_number = generateFlightNumber();
 		// generate price for flights
 		// TODO: factor in continents into pricing and probably travel time
 		// generate a multiplier for how much size affects price
-		const multi = (1 - (priceObj.size / game.airport.size_max)) * game.airport.size_affect;
+		const multi = 1 - (place.size * game.market.size_affect) / game.market.size_max;
 		// take whatever the min is, take the abs (we don't want negative numbers), multi the multiplier
 		const priceFloor = multi * Math.abs(game.airport.price_variance.min);
 		// use this to boost the base price of all price generation (larger size = less price)

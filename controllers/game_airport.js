@@ -21,15 +21,16 @@ module.exports.index = function* index() {
 	if (life.current.hotel === false) {
 		throw new Error("Must be checked into a hotel first / airportController:index");
 	}
-	life.listings.airport.sort(sortByTurns);
+	const lifeObj = JSON.parse(JSON.stringify(life));
+	lifeObj.listings.airport.sort(sortByTurns);
 	// remove the home entry
-	life.listings.airport.shift();
+	lifeObj.listings.airport.shift();
 	// sort by price
-	life.listings.airport.sort(sortByPrice);
+	lifeObj.listings.airport.sort(sortByPrice);
 	yield this.render("game_airport", {
 		title: config.site.name,
 		player: (player === null) ? null : player,
-		life: life,
+		life: lifeObj,
 		script: "game_airport"
 	});
 

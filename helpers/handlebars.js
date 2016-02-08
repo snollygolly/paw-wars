@@ -159,7 +159,6 @@ hbs.registerHelper("get_deal_indication", function stringify(id, price, opts) {
 	const startingStr = "This is ";
 	const endingStr = " buy.";
 	let modStr = "";
-	console.log(opts);
 	if (game.features.deal_indication_price_mod === true) {
 		modStr += `<br>($${Math.round(basePrice - price)} profit per unit)`;
 	}

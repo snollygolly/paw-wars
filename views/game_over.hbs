@@ -1,0 +1,12 @@
+<div class="container">
+	<div>
+		<h1>Game Over</h1>
+		<br>
+		<p>Game over, you are dead.</p>
+		<ul class="list-group">
+			<li class="list-group-item">Total Turns: <strong>{{past_life.current.turn}}</strong></li>
+		  <li class="list-group-item">Total Liquid Assets: <strong>{{math past_life.current.finance.cash "+" past_life.current.finance.savings}}</strong></li>
+		  <li class="list-group-item">Total Debt: <strong>{{past_life.current.finance.debt}}</strong></li>
+		</ul>
+	</div>
+</div><!-- /.container -->

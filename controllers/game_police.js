@@ -17,6 +17,9 @@ module.exports.index = function* index() {
 	if (!life) {
 		throw new Error("No life found / policeController:index");
 	}
+	if (life.alive === false) {
+		throw new Error("You're dead and can't do things / policeController:index");
+	}
 	if (life.current.police.encounter === null) {
 		throw new Error("Must have an encounter started / policeController:index");
 	}
@@ -40,6 +43,9 @@ module.exports.encounter = function* encounter() {
 	if (!life) {
 		throw new Error("No life found / policeController:encounter");
 	}
+	if (life.alive === false) {
+		return this.body = {error: true, message: "You're dead and can't do things"};
+	}
 	if (life.current.police.encounter === null) {
 		return this.body = {error: true, message: "Must have an encounter started"};
 	}
@@ -59,6 +65,10 @@ module.exports.encounter = function* encounter() {
 	if (life.error) {
 		// something went wrong during the process
 		return this.body = {error: true, message: life.message};
+	}
+	if (life.current.police.encounter.reason == "dead") {
+		// they died :(
+		life.alive = false;
 	}
 	// update the session
 	this.session.life = life;

@@ -36,6 +36,7 @@ module.exports.create = function* create() {
 		player = {};
 		player.id = "99999";
 	}
+	life = this.session.life;
 	if (life) {
 		throw new Error("Can't start a new game when one is in progress / lifeController:create");
 	}
@@ -45,6 +46,23 @@ module.exports.create = function* create() {
 	life = yield lifeModel.createLife(player, {location: location});
 	this.session.life = life;
 	return this.redirect("/game/hotel");
+};
+
+module.exports.end = function* end() {
+	if (this.isAuthenticated()) {
+		player = this.session.passport.user;
+		// TODO: add an else in here to redirect, but it's too much of pain atm
+	}
+	life = this.session.life;
+	if (!life) {
+		throw new Error("Can't end a life without a life / lifeController:end");
+	}
+	delete this.session.life;
+	yield this.render("game_over", {
+		title: config.site.name,
+		player: player,
+		past_life: life
+	});
 };
 
 function getLocationObj(id) {

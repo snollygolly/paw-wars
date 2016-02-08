@@ -54,6 +54,6 @@
 	},
 	"features": {
 		"deal_indication": true,
-		"deal_indication_price_mod": true
+		"deal_indication_price_mod": false
 	}
 }

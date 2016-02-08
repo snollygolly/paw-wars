@@ -17,6 +17,9 @@ module.exports.index = function* index() {
 	if (!life) {
 		throw new Error("No life found / hotelController:index");
 	}
+	if (life.alive === false) {
+		throw new Error("You're dead and can't do things / hotelController:index");
+	}
 	let police;
 	if (life.current.police.encounter !== null) {
 		// there's an active police encounter, alert them

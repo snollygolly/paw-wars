@@ -27,7 +27,9 @@ routes.get("/account", main.account);
 // game routes (these will be replaced by controllers)
 routes.get("/play", game_life.play);
 routes.post("/game/life", game_life.create);
+routes.get("/game/over", game_life.end);
 
+// hotel routes
 routes.get("/game/hotel", game_hotel.index);
 
 // market routes

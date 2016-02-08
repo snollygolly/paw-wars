@@ -17,6 +17,9 @@ module.exports.index = function* index() {
 	if (!life) {
 		throw new Error("No life found / bankController:index");
 	}
+	if (life.alive === false) {
+		throw new Error("You're dead and can't do things / bankController:index");
+	}
 	if (life.current.hotel === false) {
 		throw new Error("Must be checked into a hotel first / bankController:index");
 	}
@@ -38,6 +41,9 @@ module.exports.transaction = function* transaction() {
 	life = this.session.life;
 	if (!life) {
 		throw new Error("No life found / bankController:transaction");
+	}
+	if (life.alive === false) {
+		return this.body = {error: true, message: "You're dead and can't do things"};
 	}
 	if (life.current.hotel === false) {
 		return this.body = {error: true, message: "Must be checked into a hotel first"};
@@ -89,6 +95,9 @@ module.exports.lending = function* lending() {
 	life = this.session.life;
 	if (!life) {
 		throw new Error("No life found / bankController:lending");
+	}
+	if (life.alive === false) {
+		return this.body = {error: true, message: "You're dead and can't do things"};
 	}
 	if (life.current.hotel === false) {
 		return this.body = {error: true, message: "Must be checked into a hotel first"};

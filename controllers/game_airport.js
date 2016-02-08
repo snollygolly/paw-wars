@@ -18,6 +18,9 @@ module.exports.index = function* index() {
 	if (!life) {
 		throw new Error("No life found / airportController:index");
 	}
+	if (life.alive === false) {
+		throw new Error("You're dead and can't do things / airportController:index");
+	}
 	if (life.current.hotel === false) {
 		throw new Error("Must be checked into a hotel first / airportController:index");
 	}
@@ -54,6 +57,12 @@ module.exports.fly = function* fly() {
 	if (!life) {
 		throw new Error("No life found / airportController:fly");
 	}
+	if (life.alive === false) {
+		return this.body = {error: true, message: "You're dead and can't do things"};
+	}
+	if (life.current.hotel === false) {
+		return this.body = {error: true, message: "Must be checked into a hotel first"};
+	}
 	const parameters = this.request.body;
 	if (!parameters) {
 		return this.body = {error: true, message: "Missing parameter object"};
@@ -64,10 +73,6 @@ module.exports.fly = function* fly() {
 	if (life.id != parameters.id) {
 		return this.body = {error: true, message: "Bad ID"};
 	}
-	if (life.current.hotel === false) {
-		return this.body = {error: true, message: "Must be checked into a hotel first"};
-	}
-
 	// TODO: destination verification
 	// we've passed checks at this point
 	const flight = {

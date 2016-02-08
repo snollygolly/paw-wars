@@ -19,6 +19,9 @@ module.exports.index = function* index() {
 	if (!life) {
 		throw new Error("No life found / marketController:index");
 	}
+	if (life.alive === false) {
+		throw new Error("You're dead and can't do things / marketController:index");
+	}
 	if (life.current.hotel === false) {
 		throw new Error("Must be checked into a hotel first / marketController:index");
 	}
@@ -46,6 +49,9 @@ module.exports.transaction = function* transaction() {
 	life = this.session.life;
 	if (!life) {
 		throw new Error("No life found / marketController:transaction");
+	}
+	if (life.alive === false) {
+		return this.body = {error: true, message: "You're dead and can't do things"};
 	}
 	if (life.current.hotel === false) {
 		return this.body = {error: true, message: "Must be checked into a hotel first"};

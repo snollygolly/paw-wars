@@ -9,6 +9,11 @@ $(document).ready(function() {
 
   $(document).on("click", ".police-choice", function (e) {
     disableAll();
+    if (life.alive === false) {
+      // they died
+      window.location.replace("/game/over");
+      return;
+    }
     var selectedChoice = $(e.target).data("id");
     var action = {
       id: life.id,

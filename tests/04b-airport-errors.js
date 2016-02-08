@@ -14,6 +14,7 @@ let life;
 describe("Airport - Transaction Error Validation (Flight)", () => {
 	let oldLife;
 	let oldListing;
+	let locationID;
 
 	before(() => {
 		// set up life
@@ -21,7 +22,8 @@ describe("Airport - Transaction Error Validation (Flight)", () => {
 		life.testing = true;
 
 		oldLife = JSON.parse(JSON.stringify(life));
-		oldListing = common.getObjFromID(config.LOCATION.destination.id, oldLife.listings.airport);
+		locationID = oldLife.listings.airport[0].id;
+		oldListing = common.getObjFromID(locationID, oldLife.listings.airport);
 	});
 
 	it("airport should refuse flight if destination is invalid", (done) => {
@@ -39,7 +41,7 @@ describe("Airport - Transaction Error Validation (Flight)", () => {
 	it("airport should refuse flight if not enough cash", (done) => {
 		const flight = {
 			id: config.PLAYER.id,
-			destination: config.LOCATION.destination.id
+			destination: locationID
 		};
 		// this should be invalid
 		oldLife.current.finance.cash = 1;

@@ -56,6 +56,7 @@ describe("Airport - Transaction Validation (Flight)", () => {
 	let oldListing;
 	let flight;
 	let newLife;
+	let locationID;
 
 	before(() => {
 		// set up life
@@ -63,10 +64,11 @@ describe("Airport - Transaction Validation (Flight)", () => {
 		life.testing = true;
 
 		oldLife = JSON.parse(JSON.stringify(life));
-		oldListing = common.getObjFromID(config.LOCATION.destination.id, oldLife.listings.airport);
+		locationID = oldLife.listings.airport[0].id;
+		oldListing = common.getObjFromID(locationID, oldLife.listings.airport);
 		flight = {
 			id: config.PLAYER.id,
-			destination: config.LOCATION.destination.id
+			destination: locationID
 		};
 		newLife = airport.doAirportFly(life, flight);
 	});

@@ -51,5 +51,9 @@
 		"accuracy_player_base": 0.50,
 		"accuracy_police_base": 0.50,
 		"base_damage": 10
+	},
+	"features": {
+		"deal_indication": true,
+		"deal_indication_price_mod": true
 	}
 }

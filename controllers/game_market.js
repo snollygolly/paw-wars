@@ -3,6 +3,7 @@
 const config = require("../config.json");
 const itemsJSON = require("../models/game/data/items.json");
 const lifeModel = require("../models/game_life");
+const game = require("../game.json");
 
 const common = require("../helpers/common");
 
@@ -26,6 +27,7 @@ module.exports.index = function* index() {
 		title: config.site.name,
 		player: player,
 		life: life,
+		features: game.features,
 		script: "game_market"
 	});
 

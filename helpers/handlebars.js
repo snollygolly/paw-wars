@@ -2,6 +2,9 @@
 
 const hbs = require("koa-hbs");
 const config = require("../config.json");
+const game = require("../game.json");
+const common = require("./common");
+const items = require("../models/game/data/items.json");
 
 hbs.registerHelper("if_eq", function if_eq(a, b, opts) {
 	if (a == b) {
@@ -148,4 +151,46 @@ hbs.registerHelper("stringify", function stringify(obj, opts) {
 	const json = JSON.stringify(obj);
 	// replace single quotes
 	return json.replace(/'/g, "&#39;");
+});
+
+hbs.registerHelper("get_deal_indication", function stringify(id, price, opts) {
+	const itemObj = common.getObjFromID(id, items);
+	const basePrice = game.market.base_price * (itemObj.rarity / 100);
+	const startingStr = "This is ";
+	const endingStr = " buy.";
+	let modStr = "";
+	console.log(opts);
+	if (game.features.deal_indication_price_mod === true) {
+		modStr += `<br>($${Math.round(basePrice - price)} profit per unit)`;
+	}
+	// check for really bad deal
+	if (price >= (basePrice * 1.45)) {
+		return `${startingStr}an amazingly bad${endingStr}${modStr}`;
+	}
+	if (price >= (basePrice * 1.30)) {
+		return `${startingStr}a pretty bad${endingStr}${modStr}`;
+	}
+	if (price >= (basePrice * 1.15)) {
+		return `${startingStr}a bad${endingStr}${modStr}`;
+	}
+	if (price >= (basePrice * 0.85)) {
+		return `${startingStr}an alright${endingStr}${modStr}`;
+	}
+	if (price >= (basePrice * 0.70)) {
+		return `${startingStr}a good${endingStr}${modStr}`;
+	}
+	if (price >= (basePrice * 0.55)) {
+		return `${startingStr}a pretty good${endingStr}${modStr}`;
+	}
+	if (price >= (basePrice * 0.40)) {
+		return `${startingStr}an amazingly good${endingStr}${modStr}`;
+	}
+	// to catch the left overs
+	if (price > basePrice) {
+		return `${startingStr}the worst${endingStr}${modStr}`;
+	}
+	if (price < basePrice) {
+		return `${startingStr}the best${endingStr}${modStr}`;
+	}
+	return `${startingStr}an unknown${endingStr}${modStr}`;
 });

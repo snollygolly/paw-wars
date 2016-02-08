@@ -19,7 +19,7 @@ module.exports.index = function* index() {
 	}
 	life = lifeModel.checkDeath(life);
 	if (life.alive === false) {
-		throw new Error("You're dead and can't do things / bankController:index");
+		return this.redirect("/game/over");
 	}
 	if (life.current.hotel === false) {
 		throw new Error("Must be checked into a hotel first / bankController:index");

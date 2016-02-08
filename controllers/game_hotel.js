@@ -19,7 +19,7 @@ module.exports.index = function* index() {
 	}
 	life = lifeModel.checkDeath(life);
 	if (life.alive === false) {
-		throw new Error("You're dead and can't do things / hotelController:index");
+		return this.redirect("/game/over");
 	}
 	let police;
 	if (life.current.police.encounter !== null) {

@@ -46,7 +46,7 @@ module.exports.encounter = function* encounter() {
 	}
 	life = lifeModel.checkDeath(life);
 	if (life.alive === false) {
-		return this.body = {error: true, message: "You're dead and can't do things"};
+		return this.redirect("/game/over");
 	}
 	if (life.current.police.encounter === null) {
 		return this.body = {error: true, message: "Must have an encounter started"};

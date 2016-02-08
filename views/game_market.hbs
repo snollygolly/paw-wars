@@ -12,11 +12,15 @@
 				<div class="card text-xs-center transaction-listing" data-id="{{id}}">
 					<div class="card-block">
 						<h4 class="card-title">{{name}}</h4>
-						<p class="card-text"><small class="text-muted"><span class="transaction-listing-units">{{units}}</span> available @ ${{price}} per unit</small></p>
-						{{#if_eq ../features.deal_indication true}}
-							<p class="card-text"><small class="text-muted">{{{get_deal_indication id price}}}</small></p>
-						{{/if_eq}}
+						<p class="card-text">
+							<small class="text-muted"><span class="transaction-listing-units">{{units}}</span> available @ ${{price}} per unit</small>
+							{{#if_eq ../features.deal_indication true}}
+								<br/><small class="text-muted">{{{get_deal_indication id price}}}</small>
+							{{/if_eq}}
+						</p>
 						<p class="card-text">{{description}}</p>
+					</div>
+					<div class="card-footer card-button-footer">
 						<button class="btn btn-success transaction-buy-btn" data-type="buy" data-id="{{id}}" data-name="{{name}}" data-units="{{units}}" data-price="{{price}}" data-toggle="modal" data-target="#transaction-modal">Buy</button>
 						<button class="btn btn-danger transaction-sell-btn" data-type="sell" data-id="{{id}}" data-name="{{name}}" data-units="{{life_inventory id ../life.current.inventory}}" data-price="{{price}}" data-toggle="modal" data-target="#transaction-modal">Sell</button>
 					</div>

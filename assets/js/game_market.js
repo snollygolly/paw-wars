@@ -1,4 +1,9 @@
 $( document ).ready(function() {
+  resizeCards();
+
+  $(window).on('resize', function() {
+    resizeCards();
+  });
 
   $('#transaction-modal').on('show.bs.modal', function (event) {
     resetModal();
@@ -11,7 +16,7 @@ $( document ).ready(function() {
     var units = button.data('units');
     var price = button.data('price');
     // get the modal object
-    var modal = $(this)
+    var modal = $(this);
     // start populating it with values
     modal.find('#transaction-title').text(titleType + " " + name);
     // see what type of button to show/type
@@ -149,4 +154,21 @@ function updateHUD(lifeObj) {
   $("#hud-debt-value").html(lifeObj.current.finance.debt);
   $("#hud-storage-value").html(lifeObj.current.storage.available);
   $("#hud-storage-total-value").html(lifeObj.current.storage.total);
+}
+
+function resizeCards() {
+  var maxHeight = -1;
+    
+  $('.card > .card-block').each(function(index, card) {
+    $(card).height('');
+    var currentHeight = $(card).height();
+
+    if (currentHeight > maxHeight) {
+      maxHeight = currentHeight;
+    }
+  });
+
+  $('.card > .card-block').each(function(index, card) {
+    $(card).height(maxHeight);
+  });
 }

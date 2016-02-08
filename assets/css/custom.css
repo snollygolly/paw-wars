@@ -2,23 +2,35 @@ html {
   position: relative;
   min-height: 100%;
 }
+
 body {
   /* Margin bottom by footer height */
   margin-bottom: 50px;
   padding-top: 50px;
 }
+
 .template-heading {
   padding: 40px 15px;
+}
+
+#hud table {
+	table-layout: fixed;
+}
+
+.hud-center {
+  text-align: center;
 }
 
 #main-container {
   padding-top: 50px;
 }
 
-#debug {
-  margin-top: 25px;
+.card .card-button-footer {
+	background: transparent;
+	border: 0 none;
+	padding-top: 0;
 }
 
-.hud-center {
-  text-align: center;
+#debug {
+  margin-top: 25px;
 }

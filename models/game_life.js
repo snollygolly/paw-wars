@@ -74,9 +74,22 @@ module.exports.changeTurn = function changeTurn(life, turns) {
 	return life;
 };
 
-module.exports.triggerDeath = function triggerDeath(life) {
-	// TODO: some death related stuff happens here
-	life.alive = false;
+module.exports.checkDeath = function checkDeath(life) {
+	const lifeFinance = life.current.finance;
+	// * Pity Death
+	if (lifeFinance.cash == 0 && lifeFinance.savings == 0) {
+		// flat broke
+		if (lifeFinance.debt > (game.bank.starting_debt * 3)) {
+			// in debt
+			life.alive = false;
+		}
+	}
+	// * Dead Death
+	const lifeHealth = life.current.health;
+	if (lifeHealth.points <= 0) {
+		// you're dead
+		life.alive = false;
+	}
 	return life;
 };
 

@@ -18,6 +18,7 @@ module.exports.index = function* index() {
 	if (!life) {
 		throw new Error("No life found / airportController:index");
 	}
+	life = lifeModel.checkDeath(life);
 	if (life.alive === false) {
 		throw new Error("You're dead and can't do things / airportController:index");
 	}
@@ -57,6 +58,7 @@ module.exports.fly = function* fly() {
 	if (!life) {
 		throw new Error("No life found / airportController:fly");
 	}
+	life = lifeModel.checkDeath(life);
 	if (life.alive === false) {
 		return this.body = {error: true, message: "You're dead and can't do things"};
 	}

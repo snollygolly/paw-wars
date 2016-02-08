@@ -17,6 +17,7 @@ module.exports.index = function* index() {
 	if (!life) {
 		throw new Error("No life found / hotelController:index");
 	}
+	life = lifeModel.checkDeath(life);
 	if (life.alive === false) {
 		throw new Error("You're dead and can't do things / hotelController:index");
 	}

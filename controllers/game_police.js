@@ -17,6 +17,7 @@ module.exports.index = function* index() {
 	if (!life) {
 		throw new Error("No life found / policeController:index");
 	}
+	life = lifeModel.checkDeath(life);
 	if (life.alive === false) {
 		throw new Error("You're dead and can't do things / policeController:index");
 	}
@@ -43,6 +44,7 @@ module.exports.encounter = function* encounter() {
 	if (!life) {
 		throw new Error("No life found / policeController:encounter");
 	}
+	life = lifeModel.checkDeath(life);
 	if (life.alive === false) {
 		return this.body = {error: true, message: "You're dead and can't do things"};
 	}

@@ -17,6 +17,7 @@ module.exports.index = function* index() {
 	if (!life) {
 		throw new Error("No life found / bankController:index");
 	}
+	life = lifeModel.checkDeath(life);
 	if (life.alive === false) {
 		throw new Error("You're dead and can't do things / bankController:index");
 	}
@@ -42,6 +43,7 @@ module.exports.transaction = function* transaction() {
 	if (!life) {
 		throw new Error("No life found / bankController:transaction");
 	}
+	life = lifeModel.checkDeath(life);
 	if (life.alive === false) {
 		return this.body = {error: true, message: "You're dead and can't do things"};
 	}
@@ -96,6 +98,7 @@ module.exports.lending = function* lending() {
 	if (!life) {
 		throw new Error("No life found / bankController:lending");
 	}
+	life = lifeModel.checkDeath(life);
 	if (life.alive === false) {
 		return this.body = {error: true, message: "You're dead and can't do things"};
 	}

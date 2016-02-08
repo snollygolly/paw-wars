@@ -19,6 +19,7 @@ module.exports.index = function* index() {
 	if (!life) {
 		throw new Error("No life found / marketController:index");
 	}
+	life = lifeModel.checkDeath(life);
 	if (life.alive === false) {
 		throw new Error("You're dead and can't do things / marketController:index");
 	}
@@ -50,6 +51,7 @@ module.exports.transaction = function* transaction() {
 	if (!life) {
 		throw new Error("No life found / marketController:transaction");
 	}
+	life = lifeModel.checkDeath(life);
 	if (life.alive === false) {
 		return this.body = {error: true, message: "You're dead and can't do things"};
 	}

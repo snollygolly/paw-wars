@@ -2,7 +2,7 @@ $(document).ready(function() {
   try {
     life = JSON.parse(life);
   } catch (e) {
-    console.err(e);
+    console.error(e);
   }
   // when the document loads, first thing, refresh the encounter
   refreshEncounter(life);

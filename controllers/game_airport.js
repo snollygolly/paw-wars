@@ -24,6 +24,8 @@ module.exports.index = function* index() {
 	life.listings.airport.sort(sortByTurns);
 	// remove the home entry
 	life.listings.airport.shift();
+	// sort by price
+	life.listings.airport.sort(sortByPrice);
 	yield this.render("game_airport", {
 		title: config.site.name,
 		player: (player === null) ? null : player,
@@ -33,6 +35,10 @@ module.exports.index = function* index() {
 
 	function sortByTurns(a, b) {
 		return Number(a.flight_time) - Number(b.flight_time);
+	}
+
+	function sortByPrice(a, b) {
+		return Number(a.price) - Number(b.price);
 	}
 };
 

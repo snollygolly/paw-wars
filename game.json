@@ -1,4 +1,5 @@
 {
+	"turns": 30,
 	"person": {
 		"starting_hp": 100,
 		"max_hp": 100

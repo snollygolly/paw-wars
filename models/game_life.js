@@ -90,6 +90,13 @@ module.exports.checkDeath = function checkDeath(life) {
 		// you're dead
 		life.alive = false;
 	}
+	// * Turn Death
+	if (game.turns != 0) {
+		if (life.current.turn >= game.turns) {
+			// you're dead
+			life.alive = false;
+		}
+	}
 	return life;
 };
 

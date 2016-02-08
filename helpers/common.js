@@ -34,3 +34,11 @@ module.exports.isWholeNumber = function isWholeNumber(num) {
 	}
 	return false;
 };
+
+module.exports.randomShrinkArr = function randomShrinkArr(arr, newSize) {
+	const returnArr = arr.slice();
+	while (returnArr.length > newSize) {
+		returnArr.splice(module.exports.getRandomInt(0, (returnArr.length - 1)), 1);
+	}
+	return returnArr;
+};

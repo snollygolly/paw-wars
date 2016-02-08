@@ -21,20 +21,11 @@ module.exports.index = function* index() {
 	if (life.current.hotel === false) {
 		throw new Error("Must be checked into a hotel first / marketController:index");
 	}
-	let i = 0;
-	while (i < itemsJSON.length) {
-		// loop through itemsJSON and prices, merge them together
-		itemsJSON[i].price = life.listings.market[i].price;
-		itemsJSON[i].units = life.listings.market[i].units;
-		i++;
-	}
 	life.listings.market.sort(sortByPrice);
-	const sortedItemJSON = JSON.parse(JSON.stringify(itemsJSON)).sort(sortByPrice);
 	yield this.render("game_market", {
 		title: config.site.name,
 		player: player,
 		life: life,
-		items: sortedItemJSON,
 		script: "game_market"
 	});
 

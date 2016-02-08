@@ -19,7 +19,6 @@ module.exports.policeJSON = require("../models/game/data/police.json");
 module.exports.config = {
 	UNITS: 10,
 	AMOUNT: 500,
-	ITEM: module.exports.itemsJSON[8],
 	PLAYER: {
 		id: "testing"
 	},

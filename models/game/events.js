@@ -25,6 +25,7 @@ module.exports.doSimulateEvents = function doSimulateEvents(life) {
 
 module.exports.simulateEvents = function simulateEvents(life, eventObj) {
 	let newLife = JSON.parse(JSON.stringify(life));
+	const newListing = newLife.listings.market;
 	// see what kind of event this is
 	let adjustment;
 	switch (eventObj.type) {
@@ -33,7 +34,7 @@ module.exports.simulateEvents = function simulateEvents(life, eventObj) {
 		// start building the adjustment object
 		adjustment = {
 			type: eventObj.type,
-			item: itemsJSON[common.getRandomInt(0, (itemsJSON.length - 1))],
+			item: newListing[common.getRandomInt(0, (newListing.length - 1))],
 			price: common.getRandomArbitrary(eventObj.parameters.price.min, eventObj.parameters.price.max),
 			units: common.getRandomArbitrary(eventObj.parameters.units.min, eventObj.parameters.units.max)
 		};
@@ -43,7 +44,7 @@ module.exports.simulateEvents = function simulateEvents(life, eventObj) {
 		// start building the adjustment object
 		adjustment = {
 			type: eventObj.type,
-			item: itemsJSON[common.getRandomInt(0, (itemsJSON.length - 1))],
+			item: newListing[common.getRandomInt(0, (newListing.length - 1))],
 			units: common.getRandomArbitrary(eventObj.parameters.units.min, eventObj.parameters.units.max)
 		};
 		newLife = adjustCurrentInventory(newLife, adjustment);

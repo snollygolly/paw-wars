@@ -91,30 +91,36 @@ module.exports.doMarketTransaction = function doMarketTransaction(life, transact
 module.exports.generateMarketListings = function generateMarketListings(life) {
 	// generates the prices and units for the market
 	const priceArr = [];
+	// set the listing multiplier to show how many listings
+	const multi = 1 - (life.current.location.size * game.market.size_affect) / game.market.size_max;
+	const listingMulti = (life.current.location.size * game.market.size_affect) / game.market.size_max;
+	const listingLength = Math.ceil(listingMulti * itemsJSON.length);
+	// remove random amounts
+	const prunedItemsJSON = common.randomShrinkArr(itemsJSON, listingLength);
+	// generate price min/max
+	const priceMin = multi * game.market.price_variance.min;
+	const priceMax = multi * game.market.price_variance.max;
+	// generate unit min/max
+	const unitMin = multi * game.market.unit_variance.min;
+	const unitMax = multi * game.market.unit_variance.max;
 	// loop through each items to set prices and qty
-	for (const item of itemsJSON) {
+	for (const item of prunedItemsJSON) {
 		const priceObj = {
-			id: item.id
+			id: item.id,
+			name: item.name,
+			description: item.description,
+			rarity: item.rarity
 		};
 		// get the mod percentage we're going to use to indicate price and qty available
 		const modPerc = item.rarity / 100;
 		// generate some random numbers for price and qty
 		// TODO: handle variations in price here, they may follow trends?
-		// generate a multiplier for how much size affects price
-		const multi = (1 - (life.current.location.size / game.market.size_max)) * game.market.size_affect;
-		// generate a low end
-		const priceMin = multi * game.market.price_variance.min;
-		// generate a high end
-		const priceMax = multi * game.market.price_variance.max;
+		// generate price variance
 		const priceVariance = common.getRandomArbitrary(priceMin, priceMax);
 		const modBasePrice = (game.market.base_price * priceVariance) + game.market.base_price;
-		// generate a low end
-		const unitMin = multi * game.market.unit_variance.min;
-		// generate a high end
-		const unitMax = multi * game.market.unit_variance.max;
+		// generate unit variance
 		const unitVariance = common.getRandomArbitrary(unitMin, unitMax);
 		const modBaseUnits = (game.market.base_units * unitVariance) + game.market.base_units;
-
 		// calculate and set price
 		const price = Math.round(modPerc * modBasePrice);
 		priceObj.price = price;

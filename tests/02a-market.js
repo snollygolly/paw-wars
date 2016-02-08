@@ -49,6 +49,7 @@ describe("Market - Transaction Validation (Buy)", () => {
 	let oldInventory;
 	let transaction;
 	let newLife;
+	let itemID;
 
 	before(() => {
 		// set up life
@@ -56,12 +57,13 @@ describe("Market - Transaction Validation (Buy)", () => {
 		life.testing = true;
 
 		oldLife = JSON.parse(JSON.stringify(life));
-		oldListing = common.getObjFromID(config.ITEM.id, oldLife.listings.market);
+		itemID = oldLife.listings.market[0].id;
+		oldListing = common.getObjFromID(itemID, oldLife.listings.market);
 		oldInventory = {
-			id: config.ITEM.id,
+			id: itemID,
 			units: 0
 		};
-		transaction = makeTransaction("buy");
+		transaction = makeTransaction("buy", itemID);
 		newLife = market.doMarketTransaction(life, transaction);
 	});
 
@@ -73,7 +75,7 @@ describe("Market - Transaction Validation (Buy)", () => {
 
 	it("market should update the listing units", (done) => {
 		// set up
-		const newListing = common.getObjFromID(config.ITEM.id, newLife.listings.market);
+		const newListing = common.getObjFromID(itemID, newLife.listings.market);
 		const newUnits = oldListing.units - config.UNITS;
 		// make sure the listing updated after the buy
 		expect(newListing).to.have.property("units");
@@ -86,7 +88,7 @@ describe("Market - Transaction Validation (Buy)", () => {
 
 	it("market should update the player inventory", (done) => {
 		// set up
-		const newInventory = common.getObjFromID(config.ITEM.id, newLife.current.inventory);
+		const newInventory = common.getObjFromID(itemID, newLife.current.inventory);
 		const newUnits = oldInventory.units + config.UNITS;
 		// make sure the listing updated after the buy
 		expect(newInventory).to.have.property("units");
@@ -162,6 +164,7 @@ describe("Market - Transaction Validation (Sell)", (done) => {
 	let oldInventory;
 	let transaction;
 	let newLife;
+	let itemID;
 
 	before(() => {
 		// set up life
@@ -169,17 +172,19 @@ describe("Market - Transaction Validation (Sell)", (done) => {
 		life.testing = true;
 
 		oldLife = JSON.parse(JSON.stringify(life));
+		itemID = oldLife.listings.market[0].id;
+		oldListing = common.getObjFromID(itemID, oldLife.listings.market);
 		// start to set up a buy transaction first
-		transaction = makeTransaction("buy");
+		transaction = makeTransaction("buy", itemID);
 		oldLife = market.doMarketTransaction(life, transaction);
 		// set up listings
-		oldListing = common.getObjFromID(config.ITEM.id, oldLife.listings.market);
+
 		oldInventory = {
-			id: config.ITEM.id,
+			id: itemID,
 			units: config.UNITS
 		};
 		// do the sell and check start the tests
-		transaction = makeTransaction("sell");
+		transaction = makeTransaction("sell", itemID);
 		newLife = market.doMarketTransaction(oldLife, transaction);
 	});
 
@@ -191,8 +196,8 @@ describe("Market - Transaction Validation (Sell)", (done) => {
 
 	it("market should update the listing units", (done) => {
 		// set up
-		const newListing = common.getObjFromID(config.ITEM.id, newLife.listings.market);
-		const newUnits = oldListing.units + config.UNITS;
+		const newListing = common.getObjFromID(itemID, newLife.listings.market);
+		const newUnits = oldListing.units;
 		// make sure the listing updated after the buy
 		expect(newListing).to.have.property("units");
 		expect(newListing.units).to.be.a("number");
@@ -204,7 +209,7 @@ describe("Market - Transaction Validation (Sell)", (done) => {
 
 	it("market should update the player inventory", (done) => {
 		// set up
-		const newInventory = common.getObjFromID(config.ITEM.id, newLife.current.inventory);
+		const newInventory = common.getObjFromID(itemID, newLife.current.inventory);
 		const newUnits = oldInventory.units - config.UNITS;
 		// make sure the listing updated after the buy
 		expect(newInventory).to.have.property("units");
@@ -274,11 +279,11 @@ describe("Market - Transaction Validation (Sell)", (done) => {
 	});
 });
 
-function makeTransaction(type) {
+function makeTransaction(type, itemID) {
 	return {
 		id: "testing",
 		type: type,
-		item: config.ITEM.id,
+		item: itemID,
 		units: config.UNITS
 	};
 }

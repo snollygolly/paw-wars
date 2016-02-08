@@ -15,6 +15,7 @@ describe("Market - Transaction Error Validation (Buy)", () => {
 	let oldLife;
 	let oldListing;
 	let oldInventory;
+	let itemID;
 
 	before(() => {
 		// set up life
@@ -22,15 +23,16 @@ describe("Market - Transaction Error Validation (Buy)", () => {
 		life.testing = true;
 
 		oldLife = JSON.parse(JSON.stringify(life));
-		oldListing = common.getObjFromID(config.ITEM.id, oldLife.listings.market);
+		itemID = oldLife.listings.market[0].id;
+		oldListing = common.getObjFromID(itemID, oldLife.listings.market);
 		oldInventory = {
-			id: config.ITEM.id,
+			id: itemID,
 			units: 0
 		};
 	});
 
 	it("market should refuse buy order if not enough storage", (done) => {
-		const transaction = makeTransaction("buy");
+		const transaction = makeTransaction("buy", itemID);
 		oldLife.current.storage.available = 1;
 		const newLife = market.doMarketTransaction(oldLife, transaction);
 		// check for errors
@@ -39,7 +41,7 @@ describe("Market - Transaction Error Validation (Buy)", () => {
 	});
 
 	it("market should refuse buy order if not enough available", (done) => {
-		const transaction = makeTransaction("buy");
+		const transaction = makeTransaction("buy", itemID);
 		oldLife.current.storage.available = config.GAME.market.starting_storage;
 		oldLife.current.finance.cash = Math.round((oldListing.units + 100) * oldListing.price) + 10;
 		transaction.units = oldListing.units + 100;
@@ -50,7 +52,7 @@ describe("Market - Transaction Error Validation (Buy)", () => {
 	});
 
 	it("market should refuse buy order if not enough cash", (done) => {
-		const transaction = makeTransaction("buy");
+		const transaction = makeTransaction("buy", itemID);
 		oldLife.current.finance.cash = 1;
 		const newLife = market.doMarketTransaction(oldLife, transaction);
 		// check for errors
@@ -63,6 +65,7 @@ describe("Market - Transaction Error Validation (Buy)", () => {
 	let oldLife;
 	let oldListing;
 	let oldInventory;
+	let itemID;
 
 	before(() => {
 		// set up life
@@ -70,15 +73,16 @@ describe("Market - Transaction Error Validation (Buy)", () => {
 		life.testing = true;
 
 		oldLife = JSON.parse(JSON.stringify(life));
-		oldListing = common.getObjFromID(config.ITEM.id, oldLife.listings.market);
+		itemID = oldLife.listings.market[0].id;
+		oldListing = common.getObjFromID(itemID, oldLife.listings.market);
 		oldInventory = {
-			id: config.ITEM.id,
+			id: itemID,
 			units: 0
 		};
 	});
 
 	it("market should refuse sell order if not enough inventory", (done) => {
-		const transaction = makeTransaction("sell");
+		const transaction = makeTransaction("sell", itemID);
 		transaction.units = config.GAME.market.starting_storage + 100;
 		const newLife = market.doMarketTransaction(oldLife, transaction);
 		// check for errors
@@ -87,11 +91,11 @@ describe("Market - Transaction Error Validation (Buy)", () => {
 	});
 });
 
-function makeTransaction(type) {
+function makeTransaction(type, itemID) {
 	return {
 		id: "testing",
 		type: type,
-		item: config.ITEM.id,
+		item: itemID,
 		units: config.UNITS
 	};
 }

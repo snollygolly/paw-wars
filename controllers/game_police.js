@@ -25,7 +25,7 @@ module.exports.index = function* index() {
 		throw new Error("Must have an encounter started / policeController:index");
 	}
 
-	yield this.render("game_police", {
+	yield this.render("game/police", {
 		title: config.site.name,
 		player: player,
 		life: life,

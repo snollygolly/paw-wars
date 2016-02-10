@@ -24,7 +24,7 @@ module.exports.index = function* index() {
 	if (life.current.hotel === false) {
 		throw new Error("Must be checked into a hotel first / bankController:index");
 	}
-	yield this.render("game_bank", {
+	yield this.render("game/bank", {
 		title: config.site.name,
 		player: player,
 		life: life,

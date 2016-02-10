@@ -18,7 +18,7 @@ module.exports.play = function* play() {
 	if (life) {
 		throw new Error("Can't start a new game when one is in progress / lifeController:play");
 	}
-	yield this.render("game_life", {
+	yield this.render("game/life", {
 		game: game,
 		title: config.site.name,
 		player: player,
@@ -58,7 +58,7 @@ module.exports.end = function* end() {
 		throw new Error("Can't end a life without a life / lifeController:end");
 	}
 	delete this.session.life;
-	yield this.render("game_over", {
+	yield this.render("game/game_over", {
 		title: config.site.name,
 		player: player,
 		past_life: life

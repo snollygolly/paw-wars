@@ -27,7 +27,7 @@ module.exports.index = function* index() {
 		throw new Error("Must be checked into a hotel first / marketController:index");
 	}
 	life.listings.market.sort(sortByPrice);
-	yield this.render("game_market", {
+	yield this.render("game/market", {
 		title: config.site.name,
 		player: player,
 		life: life,

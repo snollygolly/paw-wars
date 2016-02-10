@@ -7,7 +7,8 @@ const marked = require("marked");
 const config = require("../config.json");
 const game = require("../game.json");
 const common = require("./common");
-const items = require("../models/game/data/items.json");
+const itemsJSON = require("../models/game/data/items.json");
+const placesJSON = require("../models/game/data/places.json");
 
 hbs.registerHelper("if_eq", function if_eq(a, b, opts) {
 	if (a == b) {
@@ -142,7 +143,7 @@ hbs.registerHelper("stringify", function stringify(obj, opts) {
 });
 
 hbs.registerHelper("get_deal_indication", function stringify(id, price, opts) {
-	const itemObj = common.getObjFromID(id, items);
+	const itemObj = common.getObjFromID(id, itemsJSON);
 	const basePrice = game.market.base_price * (itemObj.rarity / 100);
 	const startingStr = "This is ";
 	const endingStr = " buy.";
@@ -209,7 +210,9 @@ hbs.registerHelper("md_partial", function md_partial(partial, opts) {
 			minus: "-",
 			times: "*",
 			divided: "/"
-		}
+		},
+		items: itemsJSON,
+		places: placesJSON
 	};
 	const rawFile = fs.readFileSync(`views/manual/${partial}.md`, "utf8");
 	const parsedFile = marked(rawFile);

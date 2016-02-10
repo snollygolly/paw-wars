@@ -28,7 +28,6 @@ module.exports.index = function* index() {
 	}
 	life.listings.market.sort(sortByPrice);
 	yield this.render("game/market", {
-		title: config.site.name,
 		player: player,
 		life: life,
 		features: game.features,

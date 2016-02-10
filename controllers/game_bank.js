@@ -25,7 +25,6 @@ module.exports.index = function* index() {
 		throw new Error("Must be checked into a hotel first / bankController:index");
 	}
 	yield this.render("game/bank", {
-		title: config.site.name,
 		player: player,
 		life: life,
 		script: "game_bank"

@@ -5,7 +5,6 @@ const game = require("../game.json");
 
 module.exports.index = function* index() {
 	yield this.render("manual/index", {
-		title: config.site.name,
 		game: game
 	});
 };

@@ -33,7 +33,6 @@ module.exports.index = function* index() {
 	// save the life back to the session
 	this.session.life = life;
 	yield this.render("game/hotel", {
-		title: config.site.name,
 		player: player,
 		life: life,
 		police: police

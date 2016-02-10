@@ -12,7 +12,6 @@ module.exports.index = function* index() {
 	}
 	life = this.session.life;
 	yield this.render("index", {
-		title: config.site.name,
 		player: player,
 		life: life
 	});
@@ -24,7 +23,6 @@ module.exports.account = function* account() {
 	}
 	life = this.session.life;
 	yield this.render("account", {
-		title: config.site.name,
 		player: player,
 		life: life
 	});

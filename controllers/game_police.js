@@ -26,7 +26,6 @@ module.exports.index = function* index() {
 	}
 
 	yield this.render("game/police", {
-		title: config.site.name,
 		player: player,
 		life: life,
 		script: "game_police"

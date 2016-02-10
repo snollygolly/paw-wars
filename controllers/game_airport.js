@@ -32,7 +32,6 @@ module.exports.index = function* index() {
 	// sort by price
 	lifeObj.listings.airport.sort(sortByPrice);
 	yield this.render("game/airport", {
-		title: config.site.name,
 		player: (player === null) ? null : player,
 		life: lifeObj,
 		script: "game_airport"

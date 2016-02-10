@@ -20,7 +20,6 @@ module.exports.play = function* play() {
 	}
 	yield this.render("game/life", {
 		game: game,
-		title: config.site.name,
 		player: player,
 		life: life,
 		places: placesJSON

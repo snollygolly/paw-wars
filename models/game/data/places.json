@@ -5,7 +5,11 @@
     "city": "Dallas",
     "country": "United States of America",
     "continent": "North America",
-    "size": 7
+    "size": 7,
+    "coordinates": {
+      "latitude": 32.848308,
+      "longitude": -96.851550
+    }
   },
   {
     "id": "LAX",
@@ -13,7 +17,11 @@
     "city": "Los Angeles",
     "country": "United States of America",
     "continent": "North America",
-    "size": 18
+    "size": 18,
+    "coordinates": {
+      "latitude": 33.941589,
+      "longitude": -118.408541
+    }
   },
   {
     "id": "JFK",
@@ -21,7 +29,11 @@
     "city": "New York City",
     "country": "United States of America",
     "continent": "North America",
-    "size": 24
+    "size": 24,
+    "coordinates": {
+      "latitude": 40.6413111,
+      "longitude": -73.7781391
+    }
   },
   {
     "id": "MEX",
@@ -29,7 +41,11 @@
     "city": "Mexico City",
     "country": "Mexico",
     "continent": "North America",
-    "size": 20
+    "size": 20,
+    "coordinates": {
+      "latitude": 19.4360762,
+      "longitude": -99.074097
+    }
   },
   {
     "id": "YYZ",
@@ -37,7 +53,11 @@
     "city": "Toronto",
     "country": "Canada",
     "continent": "North America",
-    "size": 6
+    "size": 6,
+    "coordinates": {
+      "latitude": 43.6777176,
+      "longitude": -79.6270084
+    }
   },
   {
     "id": "BOG",
@@ -45,7 +65,11 @@
     "city": "Bogota",
     "country": "Colombia",
     "continent": "South America",
-    "size": 10
+    "size": 10,
+    "coordinates": {
+      "latitude": 4.6989653,
+      "longitude": -74.1437703
+    }
   },
   {
     "id": "SDU",
@@ -53,7 +77,11 @@
     "city": "Rio de Janeiro",
     "country": "Brazil",
     "continent": "South America",
-    "size": 12
+    "size": 12,
+    "coordinates": {
+      "latitude": -22.9111438,
+      "longitude": -43.1670642
+    }
   },
   {
     "id": "LIM",
@@ -61,7 +89,11 @@
     "city": "Lima",
     "country": "Peru",
     "continent": "South America",
-    "size": 10
+    "size": 10,
+    "coordinates": {
+      "latitude": -12.0240527,
+      "longitude": -77.1142247
+    }
   },
   {
     "id": "SCL",
@@ -69,7 +101,11 @@
     "city": "Santiago",
     "country": "Chile",
     "continent": "South America",
-    "size": 7
+    "size": 7,
+    "coordinates": {
+      "latitude": -33.3967262,
+      "longitude": -70.7957537
+    }
   },
   {
     "id": "LHR",
@@ -77,7 +113,11 @@
     "city": "London",
     "country": "England",
     "continent": "Europe",
-    "size": 14
+    "size": 14,
+    "coordinates": {
+      "latitude": 51.4700223,
+      "longitude": -0.4564842
+    }
   },
   {
     "id": "CDG",
@@ -85,7 +125,11 @@
     "city": "Paris",
     "country": "France",
     "continent": "Europe",
-    "size": 12
+    "size": 12,
+    "coordinates": {
+      "latitude": 49.0096906,
+      "longitude": 2.5457358
+    }
   },
   {
     "id": "IST",
@@ -93,7 +137,11 @@
     "city": "Istanbul",
     "country": "Turkey",
     "continent": "Europe",
-    "size": 14
+    "size": 14,
+    "coordinates": {
+      "latitude": 40.9829888,
+      "longitude": 28.8082538
+    }
   },
   {
     "id": "SVO",
@@ -101,7 +149,11 @@
     "city": "Moscow",
     "country": "Russia",
     "continent": "Europe",
-    "size": 17
+    "size": 17,
+    "coordinates": {
+      "latitude": 55.9736482,
+      "longitude": 37.4103142
+    }
   },
   {
     "id": "AMS",
@@ -109,7 +161,11 @@
     "city": "Amsterdam",
     "country": "Netherlands",
     "continent": "Europe",
-    "size": 3
+    "size": 3,
+    "coordinates": {
+      "latitude": 52.3255264,
+      "longitude": 4.6872439
+    }
   },
   {
     "id": "MAD",
@@ -117,7 +173,11 @@
     "city": "Madrid",
     "country": "Spain",
     "continent": "Europe",
-    "size": 6
+    "size": 6,
+    "coordinates": {
+      "latitude": 40.4839361,
+      "longitude": -3.5701402
+    }
   },
   {
     "id": "HND",
@@ -125,7 +185,11 @@
     "city": "Tokyo",
     "country": "Japan",
     "continent": "Asia",
-    "size": 38
+    "size": 38,
+    "coordinates": {
+      "latitude": 35.5493932,
+      "longitude": 139.7776499
+    }
   },
   {
     "id": "KHI",
@@ -133,7 +197,11 @@
     "city": "Karachi",
     "country": "Pakistan",
     "continent": "Asia",
-    "size": 24
+    "size": 24,
+    "coordinates": {
+      "latitude": 24.900457,
+      "longitude": 67.1659709
+    }
   },
   {
     "id": "ICN",
@@ -141,7 +209,11 @@
     "city": "Seoul",
     "country": "South Korea",
     "continent": "Asia",
-    "size": 26
+    "size": 26,
+    "coordinates": {
+      "latitude": 37.4601908,
+      "longitude": 126.438507
+    }
   },
   {
     "id": "PVG",
@@ -149,7 +221,11 @@
     "city": "Shanghai",
     "country": "China",
     "continent": "Asia",
-    "size": 34
+    "size": 34,
+    "coordinates": {
+      "latitude": 31.1443439,
+      "longitude": 121.8060843
+    }
   },
   {
     "id": "DEL",
@@ -157,7 +233,11 @@
     "city": "New Delhi",
     "country": "India",
     "continent": "Asia",
-    "size": 22
+    "size": 22,
+    "coordinates": {
+      "latitude": 28.5561624,
+      "longitude": 77.0977691
+    }
   },
   {
     "id": "MNL",
@@ -165,7 +245,11 @@
     "city": "Manila",
     "country": "Philippines",
     "continent": "Asia",
-    "size": 12
+    "size": 12,
+    "coordinates": {
+      "latitude": 14.5122739,
+      "longitude": 121.0143193
+    }
   },
   {
     "id": "CGK",
@@ -173,7 +257,11 @@
     "city": "Jakarta",
     "country": "Indonesia",
     "continent": "Asia",
-    "size": 10
+    "size": 10,
+    "coordinates": {
+      "latitude": -6.1204706,
+      "longitude": 106.6579084
+    }
   },
   {
     "id": "LOS",
@@ -181,7 +269,11 @@
     "city": "Lagos",
     "country": "Nigeria",
     "continent": "Africa",
-    "size": 25
+    "size": 25,
+    "coordinates": {
+      "latitude": 6.5818185,
+      "longitude": 3.3189461
+    }
   },
   {
     "id": "CAI",
@@ -189,7 +281,11 @@
     "city": "Cairo",
     "country": "Egypt",
     "continent": "Africa",
-    "size": 20
+    "size": 20,
+    "coordinates": {
+      "latitude": 30.111389,
+      "longitude": 31.4117003
+    }
   },
   {
     "id": "JNB",
@@ -197,7 +293,11 @@
     "city": "Johannesburg",
     "country": "South Africa",
     "continent": "Africa",
-    "size": 4
+    "size": 4,
+    "coordinates": {
+      "latitude": -26.1366728,
+      "longitude": 28.2389572
+    }
   },
   {
     "id": "SYD",
@@ -205,7 +305,11 @@
     "city": "Sydney",
     "country": "Australia",
     "continent": "Australia",
-    "size": 5
+    "size": 5,
+    "coordinates": {
+      "latitude": -33.9399228,
+      "longitude": 151.1730877
+    }
   },
   {
     "id": "MEL",
@@ -213,7 +317,11 @@
     "city": "Melbourne",
     "country": "Australia",
     "continent": "Australia",
-    "size": 4
+    "size": 4,
+    "coordinates": {
+      "latitude": -37.6690123,
+      "longitude": 144.8388386
+    }
   },
   {
     "id": "BNE",
@@ -221,6 +329,10 @@
     "city": "Brisbane",
     "country": "Australia",
     "continent": "Australia",
-    "size": 2
+    "size": 2,
+    "coordinates": {
+      "latitude": -27.3942144,
+      "longitude": 153.1196416
+    }
   }
 ]

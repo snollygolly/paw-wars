@@ -11,6 +11,7 @@ module.exports.bank = require("../models/game/bank");
 module.exports.events = require("../models/game/events");
 module.exports.hotel = require("../models/game/hotel");
 module.exports.police = require("../models/game/police");
+module.exports.vendors = {};
 // JSON data
 module.exports.placesJSON = require("../models/game/data/places.json");
 module.exports.itemsJSON = require("../models/game/data/items.json");

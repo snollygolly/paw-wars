@@ -53,6 +53,27 @@
 		"accuracy_police_base": 0.50,
 		"base_damage": 10
 	},
+	"vendors": {
+		"base_price": 250,
+		"storage": {
+			"always_on": false,
+			"frequency": 0.10,
+			"stock": 4,
+			"pricing": {
+				"times_base": 10,
+				"increase_rate": 5.00
+			}
+		},
+		"weapon": {
+			"always_on": false,
+			"frequency": 0.10,
+			"stock": 2,
+			"pricing": {
+				"times_base": 20,
+				"increase_rate": 10
+			}
+		}
+	},
 	"features": {
 		"deal_indication": true,
 		"deal_indication_price_mod": false

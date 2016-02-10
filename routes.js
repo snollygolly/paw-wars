@@ -9,6 +9,7 @@ const Router = require("koa-router");
 const routes = new Router();
 
 const main = require("./controllers/main.js");
+const manual = require("./controllers/manual.js");
 
 const game_hotel = require("./controllers/game_hotel.js");
 const game_bank = require("./controllers/game_bank.js");
@@ -28,6 +29,9 @@ routes.get("/account", main.account);
 routes.get("/play", game_life.play);
 routes.post("/game/life", game_life.create);
 routes.get("/game/over", game_life.end);
+
+// manual routes
+routes.get("/manual", manual.index);
 
 // hotel routes
 routes.get("/game/hotel", game_hotel.index);

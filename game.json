@@ -4,42 +4,45 @@
 		"starting_hp": 100,
 		"max_hp": 100
 	},
-  "market":{
-    "base_price": 250,
-    "base_units": 1000,
-    "price_variance": {
-      "min": -0.75,
-      "max": 0.75
-    },
-    "unit_variance": {
-      "min": -0.90,
-      "max": 0.90
-    },
-    "size_max": 50,
-    "size_affect": 1,
-    "starting_storage": 100
-  },
-  "airport": {
-    "base_price": 150,
-    "price_variance": {
-      "min": -0.75,
-      "max": 0.25
-    },
-    "size_max": 50,
-    "size_affect": 1
-  },
-  "bank": {
-    "debt_interest": 0.03,
-    "savings_interest": 0.01,
-    "starting_cash": 10000,
-    "starting_savings": 0,
-    "starting_debt": 10000
-  },
-  "events": {
-    "event_rate": 0.15,
-    "starting_message": "You feel like this is the first day of the rest of your life.",
-    "no_event_message": "Nothing of interest happened this turn."
-  },
+	"market":{
+		"base_price": 250,
+		"base_units": 1000,
+		"price_variance": {
+			"min": -0.75,
+			"max": 0.75
+		},
+		"unit_variance": {
+			"min": -0.90,
+			"max": 0.90
+		},
+		"size_max": 50,
+		"size_affect": 1,
+		"starting_storage": 100
+	},
+	"airport": {
+		"base_price": 150,
+		"price_variance": {
+			"min": -0.75,
+			"max": 0.25
+		},
+		"size_max": 50,
+		"size_affect": 1,
+		"turns_per_hour": 0.125,
+		"plane_speed_m_per_h": 400000,
+		"flat_flight": false
+	},
+	"bank": {
+		"debt_interest": 0.03,
+		"savings_interest": 0.01,
+		"starting_cash": 10000,
+		"starting_savings": 0,
+		"starting_debt": 10000
+	},
+	"events": {
+		"event_rate": 0.15,
+		"starting_message": "You feel like this is the first day of the rest of your life.",
+		"no_event_message": "Nothing of interest happened this turn."
+	},
 	"police": {
 		"starting_heat": 0,
 		"heat_rate": 1,

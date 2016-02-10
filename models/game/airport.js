@@ -106,6 +106,10 @@ module.exports.generateAirportListings = function generateAirportListings(life) 
 	}
 
 	function findFlightTime(current, future) {
+		if (game.airport.flat_flight === true) {
+			// they want flat flight times (classic paw wars)
+			return 1;
+		}
 		Number.prototype.toRadians = function toRadians() {
 			return this * Math.PI / 180;
 		};
@@ -128,9 +132,9 @@ module.exports.generateAirportListings = function generateAirportListings(life) 
 
 		// Now that we have the distance, I utilize a shabby guess to calculate time
 		// to get there. In meters
-		const planeSpeedInMetersPerHour = 400000;
+		const planeSpeedInMetersPerHour = game.airport.plane_speed_m_per_h;
 		const hours = distance / planeSpeedInMetersPerHour;
-		const turnsPerHour = 0.125;
+		const turnsPerHour = game.airport.turns_per_hour;
 
 		return Math.ceil(hours * turnsPerHour);
 	}

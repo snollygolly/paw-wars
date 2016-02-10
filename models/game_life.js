@@ -159,6 +159,16 @@ module.exports.generateLife = function generateLife(player, parameters) {
 			storage: {
 				available: game.market.starting_storage,
 				total: game.market.starting_storage
+			},
+			vendors: {
+				storage: {
+					on: game.vendors.storage.always_on,
+					stock: []
+				},
+				weapons: {
+					on: game.vendors.weapons.always_on,
+					stock: []
+				}
 			}
 		},
 		current: {},

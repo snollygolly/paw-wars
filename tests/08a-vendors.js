@@ -25,25 +25,17 @@ describe("Vendors - Starting State", () => {
 		expect(vendorObj).to.be.a("object");
 		expect(vendorObj).to.have.property("storage");
 		expect(vendorObj.storage).to.have.property("on");
-		expect(vendorObj.storage).to.have.property("base_price");
 		expect(vendorObj.storage).to.have.property("stock");
 		expect(vendorObj.storage.on).to.be.a("boolean");
 		expect(vendorObj.storage.on).to.equal(config.GAME.vendors.storage.always_on);
-		expect(vendorObj.storage.base_price).to.be.a("number");
-		modBasePrice = config.GAME.vendors.storage.pricing.times_base * config.game.vendors.base_price;
-		expect(vendorObj.storage.base_price).to.equal(modBasePrice);
-		expect(vendorObj.storage.stock).to.equal(config.GAME.vendors.storage.stock);
+		expect(vendorObj.storage.stock).to.be.an("array");
 		// weapons vendor
 		expect(vendorObj).to.have.property("weapons");
 		expect(vendorObj.weapons).to.have.property("on");
-		expect(vendorObj.weapons).to.have.property("base_price");
 		expect(vendorObj.weapons).to.have.property("stock");
 		expect(vendorObj.weapons.on).to.be.a("boolean");
 		expect(vendorObj.weapons.on).to.equal(config.GAME.vendors.weapons.always_on);
-		expect(vendorObj.weapons.base_price).to.be.a("number");
-		modBasePrice = config.GAME.vendors.weapons.pricing.times_base * config.game.vendors.base_price;
-		expect(vendorObj.weapons.base_price).to.equal(modBasePrice);
-		expect(vendorObj.weapons.stock).to.equal(config.GAME.vendors.weapons.stock);
+		expect(vendorObj.weapons.stock).to.be.an("array");
 		return done();
 	});
 });

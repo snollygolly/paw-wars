@@ -55,6 +55,7 @@
 	},
 	"vendors": {
 		"base_price": 250,
+		"enabled": ["storage", "weapon"],
 		"storage": {
 			"always_on": false,
 			"frequency": 0.10,
@@ -64,7 +65,7 @@
 				"increase_rate": 5.00
 			}
 		},
-		"weapon": {
+		"weapons": {
 			"always_on": false,
 			"frequency": 0.10,
 			"stock": 2,

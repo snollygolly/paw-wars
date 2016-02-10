@@ -11,6 +11,7 @@ Places are defined as destinations you can travel to.  Each place is unique, and
 * Country: This is the country this place is in.
 * Continent: This is the continent this place is in.
 * Size: This is how many millions of people live in this metro area.
+* Lat/Long: This is the latitude and longitude for this specific airport.
 
 {{#each places}}
 
@@ -21,6 +22,8 @@ Places are defined as destinations you can travel to.  Each place is unique, and
 * Country: {{country}}
 * Continent: {{continent}}
 * Size: {{size}}
+* Latitude: {{coordinates.latitude}}
+* Longitude: {{coordinates.longitude}}
 
 {{/each}}
 

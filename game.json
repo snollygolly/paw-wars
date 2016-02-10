@@ -71,7 +71,7 @@
 			"stock": 2,
 			"pricing": {
 				"times_base": 20,
-				"increase_rate": 10
+				"increase_rate": 10.00
 			}
 		}
 	},

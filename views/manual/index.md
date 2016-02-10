@@ -7,6 +7,7 @@ __{{config.site.name}}__ is a game that takes place in a world where dogs are th
 
 ## Table Of Contents
 * [How To Play](/manual/how_to_play)
+* [Hotel](/manual/hotel)
 * [Market](/manual/market)
 * [Airport](/manual/airport)
 * [Bank](/manual/bank)

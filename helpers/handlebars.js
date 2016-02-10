@@ -1,6 +1,9 @@
 "use strict";
 
+const fs = require("fs");
 const hbs = require("koa-hbs");
+const Handlebars = require("handlebars");
+const marked = require("marked");
 const config = require("../config.json");
 const game = require("../game.json");
 const common = require("./common");
@@ -192,4 +195,15 @@ hbs.registerHelper("get_deal_indication", function stringify(id, price, opts) {
 		return `${startingStr}the best${endingStr}${modStr}`;
 	}
 	return `${startingStr}an unknown${endingStr}${modStr}`;
+});
+
+hbs.registerHelper("md_partial", function md_partial(partial, opts) {
+	const data = {
+		game: game,
+		config: config
+	};
+	const rawFile = fs.readFileSync(`views/manual/${partial}.md`, "utf8");
+	const parsedFile = marked(rawFile);
+	const template = Handlebars.compile(parsedFile);
+	return template(data);
 });

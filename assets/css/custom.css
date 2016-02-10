@@ -13,6 +13,14 @@ body {
   padding: 40px 15px;
 }
 
+.manual-heading {
+  padding: 40px 15px;
+}
+
+.manual-heading a{
+  text-decoration: none;
+}
+
 #hud table {
 	table-layout: fixed;
 }

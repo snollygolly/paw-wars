@@ -65,21 +65,6 @@ hbs.registerHelper("if_cond", function if_cond(a, operator, b, options) {
 	}
 });
 
-hbs.registerHelper("math", function math(lvalue, operator, rvalue, options) {
-	lvalue = parseFloat(lvalue);
-	rvalue = parseFloat(rvalue);
-
-	switch (operator) {
-
-	case "+": return lvalue + rvalue;
-	case "-": return lvalue - rvalue;
-	case "*": return lvalue * rvalue;
-	case "/": return lvalue / rvalue;
-	case "%": return lvalue % rvalue;
-	default: return false;
-	}
-});
-
 hbs.registerHelper("copyright_year", function copyright_year(opts) {
 	return new Date().getFullYear();
 });
@@ -197,13 +182,38 @@ hbs.registerHelper("get_deal_indication", function stringify(id, price, opts) {
 	return `${startingStr}an unknown${endingStr}${modStr}`;
 });
 
+
+hbs.registerHelper("math", math);
+Handlebars.registerHelper("math", math);
+
+function math(lvalue, operator, rvalue, options) {
+	lvalue = parseFloat(lvalue);
+	rvalue = parseFloat(rvalue);
+
+	switch (operator) {
+
+	case "+": return lvalue + rvalue;
+	case "-": return lvalue - rvalue;
+	case "*": return lvalue * rvalue;
+	case "/": return lvalue / rvalue;
+	default: return false;
+	}
+}
+
 hbs.registerHelper("md_partial", function md_partial(partial, opts) {
 	const data = {
 		game: game,
-		config: config
+		config: config,
+		math: {
+			plus: "+",
+			minus: "-",
+			times: "*",
+			divided: "/"
+		}
 	};
 	const rawFile = fs.readFileSync(`views/manual/${partial}.md`, "utf8");
 	const parsedFile = marked(rawFile);
 	const template = Handlebars.compile(parsedFile);
-	return template(data);
+	const final = template(data);
+	return final;
 });

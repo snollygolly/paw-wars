@@ -1,4 +1,4 @@
-# {{config.site.name}}: The Definitive Guide
+# [{{config.site.name}}: The Definitive Guide](/manual)
 
 ---
 

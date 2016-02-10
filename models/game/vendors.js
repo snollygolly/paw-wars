@@ -24,10 +24,10 @@ module.exports.saveVendorTransaction = function* saveVendorTransaction(vendor, i
 };
 
 module.exports.doVendorTransaction = function doVendorTransaction(vendor, life, transaction) {
-	const newLife = JSON.parse(JSON.stringify(life));
+	let newLife = JSON.parse(JSON.stringify(life));
 	// start to error check the transactions
 	// first, see what they want to do, and see if the units are available
-
+	newLife = vendors[vendor].doVendorTransaction(newLife, transaction);
 	newLife.actions.push({
 		turn: life.current.turn,
 		type: "vendor",
@@ -39,7 +39,5 @@ module.exports.doVendorTransaction = function doVendorTransaction(vendor, life, 
 
 module.exports.generateVendorListings = function generateVendorListings(vendor, life) {
 	// generates the prices and units for the vendor
-	const priceArr = [];
-
-	return priceArr;
+	return vendors[vendor].generateVendorListings(life);
 };

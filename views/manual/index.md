@@ -12,3 +12,5 @@ __{{config.site.name}}__ is a game that takes place in a world where dogs are th
 * [Bank](/manual/bank)
 * [Events](/manual/events)
 * [Police](/manual/police)
+* [Items](/manual/items)
+* [Places](/manual/places)

@@ -106,9 +106,32 @@ module.exports.generateAirportListings = function generateAirportListings(life) 
 	}
 
 	function findFlightTime(current, future) {
-		let flightTime = 0;
-		if (current.city != future.city) {flightTime++;}
-		if (current.continent != future.continent) {flightTime++;}
-		return flightTime;
+		Number.prototype.toRadians = function toRadians() {
+			return this * Math.PI / 180;
+		};
+
+		// Utilize the Haversine formula to calculate the shortest distance over the
+		// earth's surface.
+		const R = 6371000;
+		const radiansLat1 = current.coordinates.latitude.toRadians();
+		const radiansLat2 = future.coordinates.latitude.toRadians();
+		const deltaLat = (future.coordinates.latitude - current.coordinates.latitude).toRadians();
+		const deltaLon = (future.coordinates.longitude - current.coordinates.longitude).toRadians();
+
+		const a = Math.sin(deltaLat / 2) * Math.sin(deltaLat / 2) +
+			Math.cos(radiansLat1) * Math.cos(radiansLat2) *
+			Math.sin(deltaLon / 2) * Math.sin(deltaLon / 2);
+		const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+
+		// Now we have the distance!
+		const distance = R * c;
+
+		// Now that we have the distance, I utilize a shabby guess to calculate time
+		// to get there. In meters
+		const planeSpeedInMetersPerHour = 400000;
+		const hours = distance / planeSpeedInMetersPerHour;
+		const turnsPerHour = 0.125;
+
+		return Math.ceil(hours * turnsPerHour);
 	}
 };

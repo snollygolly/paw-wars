@@ -142,7 +142,8 @@ module.exports.generateLife = function generateLife(player, parameters) {
 				city: parameters.location.city,
 				country: parameters.location.country,
 				continent: parameters.location.continent,
-				size: parameters.location.size
+				size: parameters.location.size,
+				coordinates: parameters.location.coordinates
 			},
 			health: {
 				points: 100,

@@ -42,8 +42,8 @@ app.use(serve("./assets"));
 // load up the handlebars middlewear
 app.use(hbs.middleware({
 	viewPath: `${__dirname}/views`,
-	layoutsPath: `${__dirname}/views/layouts`,
-	partialsPath: `${__dirname}/views/partials`,
+	layoutsPath: `${__dirname}/views/_layouts`,
+	partialsPath: `${__dirname}/views/_partials`,
 	defaultLayout: "main"
 }));
 

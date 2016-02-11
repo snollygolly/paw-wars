@@ -102,14 +102,10 @@ module.exports.generateMarketListings = function generateMarketListings(life, tu
 	if (life.current.inventory.length > 0) {
 		while (index < turnsSpent) {
 			for (const item of life.current.inventory) {
-				for (const itemJSON of itemsJSON) {
-					if (item.id === itemJSON.id) {
-						// Exit out of this inner loop, since we got what we wanted,
-						// and push the dupe to the array.
-						paddingJSON.push(itemJSON);
-						index++;
-						break;
-					}
+				const itemJSON = common.getObjFromID(item.id, itemsJSON);
+				if (itemJSON) {
+					paddingJSON.push(itemJSON);
+					index++;
 				}
 			}
 		}

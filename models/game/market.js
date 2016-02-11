@@ -88,15 +88,52 @@ module.exports.doMarketTransaction = function doMarketTransaction(life, transact
 	return newLife;
 };
 
-module.exports.generateMarketListings = function generateMarketListings(life) {
+module.exports.generateMarketListings = function generateMarketListings(life, turnsSpent) {
 	// generates the prices and units for the market
 	const priceArr = [];
 	// set the listing multiplier to show how many listings
 	const multi = 1 - (life.current.location.size * game.market.size_affect) / game.market.size_max;
 	const listingMulti = (life.current.location.size * game.market.size_affect) / game.market.size_max;
 	const listingLength = Math.ceil(listingMulti * itemsJSON.length);
-	// remove random amounts
-	const prunedItemsJSON = common.randomShrinkArr(itemsJSON, listingLength);
+	// To help improve balance a bit, the more turns are spent in one setting, the
+	// more likely you are to come across items you already have in your inventory
+	let paddingJSON = [];
+	let index = 0;
+	if (life.current.inventory.length > 0) {
+		while (index < turnsSpent) {
+			for (const item of life.current.inventory) {
+				const itemJSON = common.getObjFromID(item.id, itemsJSON);
+				if (itemJSON) {
+					paddingJSON.push(itemJSON);
+					index++;
+				}
+			}
+		}
+	}
+
+	paddingJSON = paddingJSON.concat(itemsJSON);
+	// remove random amounts off the padded JSON.
+	let prunedItemsJSON = common.randomShrinkArr(paddingJSON, listingLength);
+	// Now we need to remove duplicates and compare to ensure enough items made it
+	// on the list.
+	const itemsExisting = {};
+	prunedItemsJSON = prunedItemsJSON.filter(function filterItems(item) {
+		// Don't like ternaries, but they work well in filter functions.
+		return itemsExisting.hasOwnProperty(item.id) ? false : (itemsExisting[item.id] = true);
+	});
+	// If there aren't enough items in the array, we need to grab from the item
+	// list, filtered to not have any of the existing items in them. It's...
+	// exhausting.
+	if (prunedItemsJSON.length < listingLength) {
+		let filteredItemsJSON = itemsJSON.filter(function filterItems(item) {
+			return !prunedItemsJSON.some(function someItems(prunedItem) {
+				return prunedItem.id === item.id;
+			});
+		});
+		filteredItemsJSON = common.randomShrinkArr(filteredItemsJSON, listingLength - prunedItemsJSON.length);
+		prunedItemsJSON = prunedItemsJSON.concat(filteredItemsJSON);
+	}
+
 	// generate price min/max
 	const priceMin = multi * game.market.price_variance.min;
 	const priceMax = multi * game.market.price_variance.max;

@@ -64,7 +64,7 @@ module.exports.replaceLife = function* replaceLife(life) {
 };
 
 module.exports.changeTurn = function changeTurn(life, turns) {
-	life.listings.market = market.generateMarketListings(life);
+	life.listings.market = market.generateMarketListings(life, turns);
 	life.listings.airport = airport.generateAirportListings(life);
 	life = bank.handleInterest(life, turns);
 	life = hotel.doHotelCheckOut(life);

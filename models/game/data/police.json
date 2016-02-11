@@ -1,80 +1,80 @@
 {
 	"messages":{
 		"discovery":{
-			"full": "On your way to the hotel, you're stopped by Officer Barks.  He gets out of his car and walks over to yours.  You roll down the window and say 'Yes Officer?'.  He says 'I hope you're having a nice day.  I stopped you because we've had some reports of suspicious cats in the area.  Do you mind if I take a look around your storage really quick?'",
-			"simple": "Officer Bark wants to search your storage."
+			"full": "While driving to the hotel you are pulled over by Officer Barks. He gets out of his car and approaches as you roll down your window. 'I hope you are having a nice day,' Officer Barks greets you. 'I stopped you because we have had some reports of suspicious cats in the area. Do you mind if I search your car for any illegal items?'",
+			"simple": "Officer Barks wants to search your storage"
 		},
 		"investigation":{
-			"full": "You tell Officer Bark that you don't consent to searches.  He takes his flashlight and shines it at your storage while asking you 'You don't have anything you're not supposed to, do you?'",
-			"simple": "Officer Bark is asking if you're carrying anything illegal."
+			"full": "You tell Officer Barks that you don't believe there is any reason to allow him to search. He looks around your car and says, 'you don't have anything you aren't supposed to, do you?'",
+			"simple": "Officer Barks wants to know if you have any illegal items"
 		},
 		"investigation_successful":{
-			"full": "You tell Officer Bark that you're a law abiding cat, but he doesn't buy it.  He says 'I see something that looks illegal, I'm going to have to look around'",
-			"simple": "Officer Bark is telling you that he has probable cause to search your vehicle."
+			"full": "You tell Officer Barks that you are a law abiding cat. Officer Barks takes several long sniffs. 'I detect something that you shouldn't have. I will need to search your car.'",
+			"simple": "Officer Barks is going to search your car"
 		},
 		"investigation_failure":{
-			"full": "You tell Officer Bark that you're a law abiding cat, and he seems to believe you.  He says 'Well everything looks to be in order, you can be on your way now.'",
-			"simple": "Officer Bark is telling you that you're free to leave."
+			"full": "You tell Officer Barks that you are a law abiding cat. He takes one more look and sniff around your car and says, 'everything appears to be in order here. Have a nice day.'",
+			"simple": "Officer Barks is letting you leave"
 		},
 		"search_consent":{
-			"full": "You tell Officer Bark that it's perfectly fine if he looks around.  He says 'I appreciate that, if you'd just stand over here please' while gesturing towards his vehicle.",
-			"simple": "Officer Bark is asking you to stand by his vehicle while he searches your storage."
+			"full": "You tell Officer Barks that he is allowed to look through your car. You step out of the driver's seat and follow him back to his vehicle.",
+			"simple": "Officer Barks is searching your vehicle"
 		},
 		"search_probable_cause":{
-			"full": "Officer Barks says 'I'm going to need you to stand over here please' while gesturing towards his vehicle.  Since he saw something illegal in your storage, now he has probably cause to search.",
-			"simple": "Officer Bark is asking you to stand by his vehicle while he searches your storage."
+			"full": "Officer Barks looks into your back seat. 'It looks like you are in possesion of some illegal items,' he says. 'I will need to search your car.' Officer Barks opens your door and gestures for you to get out",
+			"simple": "Officer Barks believes he has spotted some illegal items and wants to search your car"
 		},
 		"search_successful":{
-			"full": "Officer Bark performs a cursory search of your storage, and eventually comes back from your storage with something in his hands.  He says 'I found some illegal items while searching your car, I'm afraid you're under arrest.'",
-			"simple": "Officer Bark is attempting to take you into custody."
+			"full": ": Officer Barks performs a search of your car. He comes back with something in his hands. 'I found this in your car,' he says. 'You are under arrest for illegal possession.'",
+			"simple": "Officer Barks is going to take you into custody"
 		},
 		"search_failure":{
-			"full": "Officer Bark performs a cursory search of your storage, and when he finishes, he comes back to you and says 'Well, I didn't find anything illegal, so you're free to leave'",
-			"simple": "Officer Bark is telling you that you're free to leave."
+			"full": "Officer Barks performs a search of your car. He comes back with nothing. 'It looks like you were telling the truth,' he says. 'You are free to leave.'",
+			"simple": "Officer Barks is letting you leave"
 		},
 		"admit_guilt":{
-			"full": "You tell Officer Bark that you are in possession of some contraband in hopes that he'll go easy on you.  He says that he appreciates your honesty, but he's still going to have to take you to jail.",
-			"simple": "You're going to jail."
+			"full": "You tell Officer Barks that you are in possession of some illegal items in the hope that he will go easy on you. 'I appreciate your honesty,' he says as he opens your door. 'Step out of the vehicle. You are under arrest.'",
+			"simple": "You are going to jail"
 		},
 		"comply_detain":{
-			"full": "Officer Bark loads you into his squad car.  You're going downtown.",
-			"simple": "You're going to jail."
+			"full": "Officer Barks places you under arrest and puts you in his car.",
+			"simple": "You are going to jail."
 		},
 		"crazy_person":{
-			"full": "'What kind of crazy person tells a police officer that they have drugs when they don't? Officer Bark asks.  He lets you go while giving you a suspicious look.",
-			"simple": "You're free to go"
+			"full": "'What kind of crazy person tells an officer they have something illegal when they don't?' Officer Barks asks. He shakes his head and walks back to his car before driving off.",
+			"simple": "Officer Barks is letting you go"
 		},
 		"escape":{
-			"full": "You look back and it looks like you've escaped!",
-			"simple": "You escaped Officer Bark."
+			"full": "You look back and no longer see Officer Barks or any other officers behind you",
+			"simple": "You have evaded the police"
 		},
 		"hiss_success":{
-			"full": "You hiss at Officer Bark and he stops dead in his tracks, looks at you, and runs in the other direction as fast as he can.",
-			"simple": "You scared Officer Bark off."
+			"full": "You hiss and show your teeth to Officer Barks. He stops dead in his tracks and runs away from you.",
+			"simple": "You scared Officer Barks away"
 		},
 		"hiss_failure":{
-			"full": "You hiss at Officer Bark and he stops dead in his tracks, looks at you, and lunges directly at you, thrashing his teeth as he moves.  He bites you swiftly and does a good amount of damage to you.",
-			"simple": "You anger Officer Bark."
+			"full": "You hiss and show your teeth to Officer Barks. He replies with a loud bark of his own and a hard bite in response.",
+			"simple": "You have angered Officer Barks"
 		},
 		"run_success":{
-			"full": "You make a break for it and run as fast as you can.  Jumping and weaving, trying to lose Officer Bark.  You take a sharp corner and hide behind a wall, he runs past you into the distance.",
-			"simple": "You escaped Officer Bark."
+			"full": "You get on all fours and make a run for it. Traveling down alleys and side streets you attempt to lose Officer Barks. You take a sharp corner and hide behind a trash can as Officer Barks rounds the same corner. He runs past you undetected.",
+			"simple": "You escaped Officer Barks"
 		},
 		"run_failure":{
-			"full": "You make a break for it and run as fast as you can.  Jumping and weaving, trying to lose Officer Bark.  You take a sharp corner and try to hide behind a wall, feel a tug on your tail as you do.  You try to escape, but it's too late, he's got you.",
-			"simple": "You're going to jail."
+			"full": "You get on all fours and make a run for it. Traveling down alleys and side streets you attempt to lose Officer Barks. You take a sharp corner and hide behind a trash can as Officer Barks rounds the same corner. He approaches the trash can and grabs you by the scruff of your neck.",
+			"simple": "You are going to jail"
 		},
 		"fight_success":{
-			"full": "You attack Officer Bark, and as you pull your gun out, he pulls out his too.  Luckily you get the jump on him.",
-			"simple": "You're going to jail."
+			"full": "You attack Officer Barks. You are able to surprise him and gain the advantage. Several bites and scratches later you are able to flee from Officer Barks",
+			"simple": "You escaped Officer Barks"
 		},
 		"fight_failure":{
-			"full": "You attack Officer Bark, and as you pull your gun out, he pulls out his too.  He's too fast though, he gets the jump on you.",
-			"simple": "You're going to jail."
+			"full": "You attack Officer Barks. You attempt to scratch and bite at him, but Officer Barks retaliates with a hard bite of his own.",
+			"simple": "You are going to jail."
 		},
 		"dead":{
-			"full": "Everything goes dark, and you hear a voice call from beyond 'Judgement is near'.  You tell it to stop being so dramatic and walk in the direction of the voice.",
-			"simple": "You've died."
+			"full": "Everything goes quiet and dark. The next thing you hear is a voice asking ,'have you been a good kitty?'",
+			"simple": "You have died"
 		}
 	},
 	"choices":{
@@ -96,7 +96,7 @@
 		},
 		"comply_search":{
 			"id": "comply_search",
-			"full": "Of course Officer"
+			"full": "Of course, Officer"
 		},
 		"comply_released":{
 			"id": "comply_released",

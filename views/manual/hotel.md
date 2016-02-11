@@ -3,9 +3,14 @@
 ---
 
 ## Hotel
-The Hotel is the first place you see when you start playing the game.  You can think of it as your base of operations (or your cat tree, whichever works for you).  The [Market](/manual/market), [Airport](/manual/airport), [Bank](/manual/bank), and more are all available via the Hotel.  You can go to these places directly, but you MUST visit the hotel directly after landing for any of those locations to allow you to do business there.  This is called "checking in" internally.
+The Hotel is the first place you see when you start playing the game.  You can think of it as your base of operations or cat tree (whichever works for you).  The [Market](/manual/market), [Airport](/manual/airport), [Bank](/manual/bank), and more are all available from your Hotel.  You can go to these places after checking into your Hotel at each new location you visit.
 
-From the main Hotel page, you can see where you are, how you're feeling, and also see information about any random [Events](/manual/events) that happened this turn.  [Police](/manual/police) interactions are also encountered from the Hotel page.
+From the Hotel page you can:
+See your current location 
+Find out how you are feeling
+View information about any random [Events](/manual/events) that happened this turn 
+
+[Police](/manual/police) interactions are also encountered from the Hotel page.
 
 ---
 

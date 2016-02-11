@@ -2,7 +2,7 @@
 	"messages":{
 		"discovery":{
 			"full": "While driving to the hotel you are pulled over by Officer Barks. He gets out of his car and approaches as you roll down your window. 'I hope you are having a nice day,' Officer Barks greets you. 'I stopped you because we have had some reports of suspicious cats in the area. Do you mind if I search your car for any illegal items?'",
-			"simple": "Officer Barks wants to search your storage"
+			"simple": "Officer Barks wants to search your car"
 		},
 		"investigation":{
 			"full": "You tell Officer Barks that you don't believe there is any reason to allow him to search. He looks around your car and says, 'you don't have anything you aren't supposed to, do you?'",

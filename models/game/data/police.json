@@ -1,35 +1,35 @@
 {
 	"messages":{
 		"discovery":{
-			"full": "While driving to the hotel you are pulled over by Officer Barks. He gets out of his car and approaches as you roll down your window. 'I hope you are having a nice day,' Officer Barks greets you. 'I stopped you because we have had some reports of suspicious cats in the area. Do you mind if I search your car for any illegal items?'",
-			"simple": "Officer Barks wants to search your car"
+			"full": "While driving to the hotel you are pulled over by Officer Barks. He gets out of his car and approaches as you roll down your window. 'I hope you are having a nice day,' Officer Barks greets you. 'I stopped you because we have had some reports of suspicious cats in the area. Do you mind if I search your storage for any illegal items?'",
+			"simple": "Officer Barks wants to search your storage"
 		},
 		"investigation":{
-			"full": "You tell Officer Barks that you don't believe there is any reason to allow him to search. He looks around your car and says, 'you don't have anything you aren't supposed to, do you?'",
+			"full": "You tell Officer Barks that you don't believe there is any reason to allow him to search. He looks around your storage and says, 'you don't have anything you aren't supposed to, do you?'",
 			"simple": "Officer Barks wants to know if you have any illegal items"
 		},
 		"investigation_successful":{
-			"full": "You tell Officer Barks that you are a law abiding cat. Officer Barks takes several long sniffs. 'I detect something that you shouldn't have. I will need to search your car.'",
-			"simple": "Officer Barks is going to search your car"
+			"full": "You tell Officer Barks that you are a law abiding cat. Officer Barks takes several long sniffs. 'I detect something that you shouldn't have. I will need to search your storage.'",
+			"simple": "Officer Barks is going to search your storage"
 		},
 		"investigation_failure":{
-			"full": "You tell Officer Barks that you are a law abiding cat. He takes one more look and sniff around your car and says, 'everything appears to be in order here. Have a nice day.'",
+			"full": "You tell Officer Barks that you are a law abiding cat. He takes one more look and sniff around your storage and says, 'everything appears to be in order here. Have a nice day.'",
 			"simple": "Officer Barks is letting you leave"
 		},
 		"search_consent":{
-			"full": "You tell Officer Barks that he is allowed to look through your car. You step out of the driver's seat and follow him back to his vehicle.",
+			"full": "You tell Officer Barks that he is allowed to look through your storage. You step out of the driver's seat and follow him back to his vehicle.",
 			"simple": "Officer Barks is searching your vehicle"
 		},
 		"search_probable_cause":{
-			"full": "Officer Barks looks into your back seat. 'It looks like you are in possesion of some illegal items,' he says. 'I will need to search your car.' Officer Barks opens your door and gestures for you to get out",
-			"simple": "Officer Barks believes he has spotted some illegal items and wants to search your car"
+			"full": "Officer Barks looks into your back seat. 'It looks like you are in possesion of some illegal items,' he says. 'I will need to search your storage.' Officer Barks opens your door and gestures for you to get out",
+			"simple": "Officer Barks believes he has spotted some illegal items and wants to search your storage"
 		},
 		"search_successful":{
-			"full": ": Officer Barks performs a search of your car. He comes back with something in his hands. 'I found this in your car,' he says. 'You are under arrest for illegal possession.'",
+			"full": "Officer Barks performs a search of your storage. He comes back with something in his hands. 'I found this in your storage,' he says. 'You are under arrest for illegal possession.'",
 			"simple": "Officer Barks is going to take you into custody"
 		},
 		"search_failure":{
-			"full": "Officer Barks performs a search of your car. He comes back with nothing. 'It looks like you were telling the truth,' he says. 'You are free to leave.'",
+			"full": "Officer Barks performs a search of your storage. He comes back with nothing. 'It looks like you were telling the truth,' he says. 'You are free to leave.'",
 			"simple": "Officer Barks is letting you leave"
 		},
 		"admit_guilt":{

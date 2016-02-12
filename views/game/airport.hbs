@@ -3,27 +3,33 @@
 	<div>
 		<h1>Airport</h1>
 		<br>
-		<p>Here's a listing of where you can fly right now and how much it will cost you</p>
+		<p>Here's a listing of where you can fly right now and how much it will cost you. Click on a listing to buy a ticket and fly away from this crazy town.</p>
 		<div id="alert-container"></div>
 		<br>
-		{{#each life.listings.airport}}
-		<div class="card text-xs-center" data-id="{{id}}">
-			<div class="card-block">
-				<p class="card-title"><strong>{{name}}</strong></p>
-				<p class="card-text"><small class="text-muted">{{city}}, {{country}} - {{continent}}</small></p>
-				<p class="card-text">
-					Flight: <strong>{{flight_number}}</strong><br>
-					Service To: <strong>{{id}}</strong><br>
-					Price: <strong>${{price}}</strong>
-				</p>
-				<button class="btn btn-primary" id="transport-buy-btn" data-id="{{id}}" data-name="{{name}}" data-price="{{price}}" data-city="{{city}}" data-flight-number="{{flight_number}}" data-flight-time="{{flight_time}}" data-toggle="modal" data-target="#transport-modal">Book Flight</button>
-			</div>
-			<div class="card-footer text-muted">
-				Flight Time: <strong>{{flight_time}}</strong> {{plural 'turn' flight_time}}
-			</div>
-		</div>
-		{{/each}}
-
+		<table class="table table-inverse">
+			<thead>
+				<tr>
+					<th>AIRPORT</th>
+					<th>FLIGHT</th>
+					<th>DEST</th>
+					<th>PRICE</th>
+					<th>TURNS</th>
+					<th>LOCATION</th>
+				</tr>
+			</thead>
+			<tbody>
+			{{#each life.listings.airport}}
+				<tr class="transport-buy" id="transport-buy-btn" data-id="{{id}}" data-name="{{name}}" data-price="{{price}}" data-city="{{city}}" data-flight-number="{{flight_number}}" data-flight-time="{{flight_time}}" data-toggle="modal" data-target="#transport-modal">
+					<td><tt>{{name}}</tt></td>
+					<td><tt>{{flight_number}}</tt></td>
+					<td><tt>{{id}}</tt></td>
+					<td><tt>${{price}}</tt></td>
+					<td><tt><strong>{{flight_time}}</strong></tt></td>
+					<td><tt>{{city}}, {{country}}</tt></td>
+				</tr>
+			{{/each}}
+			</tbody>
+		</table>
 	</div>
 </div><!-- /.container -->
 

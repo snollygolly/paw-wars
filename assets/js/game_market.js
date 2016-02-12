@@ -15,6 +15,7 @@ $( document ).ready(function() {
     var name = button.data('name');
     var units = button.data('units');
     var price = button.data('price');
+    var availableStorage = $('#transaction-modal').data('available-storage');
     // get the modal object
     var modal = $(this);
     // start populating it with values
@@ -32,7 +33,7 @@ $( document ).ready(function() {
     $('#transaction-units').attr('max', units);
     $('#transaction-units').data('price', price);
     $('#transaction-units-label').html("How many units would you like to " + type + "? " + ((type == "buy") ? "They" : "You") + " have <strong>" + units + "</strong> in stock.");
-    $('#transaction-confirm-message').html(titleType + "ing <strong id=\"transaction-units-msg\">0</strong> of this item will " + ((type == "buy") ? "cost" : "make") + " you <strong id=\"transaction-price-msg\">$0</strong>.<br>You have $<strong id=\"transaction-cash-msg\">" + cash + "</strong> on you.");
+    $('#transaction-confirm-message').html(titleType + "ing <strong id=\"transaction-units-msg\">0</strong> of this item will " + ((type == "buy") ? "cost" : "make") + " you <strong id=\"transaction-price-msg\">$0</strong>.<br>You have $<strong id=\"transaction-cash-msg\">" + cash + "</strong> on you.<br>You have storage space for <strong id=\"transaction-storage-msg\">" + availableStorage + "</strong> more item" + (availableStorage !== 1 ? "s" : "") + ".");
   });
 
   $('#transaction-units').on('input', function(e){
@@ -83,6 +84,7 @@ function updateUnits(life){
   // update the hud
   updateHUD(life);
   $('#transaction-modal').data('cash', life.current.finance.cash);
+  $('#transaction-modal').data('available-storage', life.current.storage.available);
   // update units and prices for all item cards
   var i = 0;
   var listings = life.listings.market;

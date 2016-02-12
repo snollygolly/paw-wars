@@ -23,6 +23,8 @@ $( document ).ready(function() {
     // start populating it with values
     $('#transaction-title').html(friendlyType + ": " + type);
     $('#transaction-amount-label').html("How much do you want to " + type + "?");
+    $('#transaction-all-btn').data('max', max);
+    $('#transaction-amount').val(0);
     var confirmButton = $('#transaction-confirm-btn');
     // start populating the button with data
     confirmButton.data('id', id);
@@ -30,9 +32,14 @@ $( document ).ready(function() {
     confirmButton.data('type', type);
   });
 
+  $('#transaction-all-btn').on('click', function(e) {
+    var max = $(e.target).data('max');
+    $('#transaction-amount').val(max);
+  });
+
   $('#transaction-amount').on('input', function(e){
-    var currentUnits = $(event.target).val();
-    var currentPrice = ($(event.target).data('price') * currentUnits).toFixed(2);
+    var currentUnits = $(e.target).val();
+    var currentPrice = ($(e.target).data('price') * currentUnits).toFixed(2);
   });
 
   $('#transaction-confirm-btn').on('click', function(e){

@@ -35,6 +35,8 @@
 				<fieldset class="form-group">
 					<label id="transaction-amount-label" for="transaction-amount"></label>
 					<input type="number" class="form-control" id="transaction-amount" min="0" max="0" value="0" pattern="\d*">
+					<br />
+					<button type="button" id="transaction-all-btn" class="btn btn-success" data-max="{{life.current.finance.savings}}">All Available</button>
 				</fieldset>
 				<p id="transaction-confirm-message"></p>
 			</div>

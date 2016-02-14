@@ -24,17 +24,17 @@ describe("Vendors - Starting State", () => {
 		// storage vendor
 		expect(vendorObj).to.be.a("object");
 		expect(vendorObj).to.have.property("storage");
-		expect(vendorObj.storage).to.have.property("on");
+		expect(vendorObj.storage).to.have.property("open");
 		expect(vendorObj.storage).to.have.property("stock");
-		expect(vendorObj.storage.on).to.be.a("boolean");
-		expect(vendorObj.storage.on).to.equal(config.GAME.vendors.storage.always_on);
+		expect(vendorObj.storage.open).to.be.a("boolean");
+		expect(vendorObj.storage.open).to.equal(config.GAME.vendors.storage.always_open);
 		expect(vendorObj.storage.stock).to.be.an("array");
 		// weapons vendor
 		expect(vendorObj).to.have.property("weapons");
-		expect(vendorObj.weapons).to.have.property("on");
+		expect(vendorObj.weapons).to.have.property("open");
 		expect(vendorObj.weapons).to.have.property("stock");
-		expect(vendorObj.weapons.on).to.be.a("boolean");
-		expect(vendorObj.weapons.on).to.equal(config.GAME.vendors.weapons.always_on);
+		expect(vendorObj.weapons.open).to.be.a("boolean");
+		expect(vendorObj.weapons.open).to.equal(config.GAME.vendors.weapons.always_open);
 		expect(vendorObj.weapons.stock).to.be.an("array");
 		return done();
 	});

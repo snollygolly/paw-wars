@@ -163,11 +163,11 @@ module.exports.generateLife = function generateLife(player, parameters) {
 			},
 			vendors: {
 				storage: {
-					on: game.vendors.storage.always_on,
+					open: game.vendors.storage.always_open,
 					stock: []
 				},
 				weapons: {
-					on: game.vendors.weapons.always_on,
+					open: game.vendors.weapons.always_open,
 					stock: []
 				}
 			}

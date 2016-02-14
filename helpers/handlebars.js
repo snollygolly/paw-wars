@@ -142,6 +142,10 @@ hbs.registerHelper("stringify", function stringify(obj, opts) {
 	return json.replace(/'/g, "&#39;");
 });
 
+hbs.registerHelper("show_negative", function show_negative(amount, opts) {
+	return (amount > 0) ? "-" : "";
+});
+
 hbs.registerHelper("get_deal_indication", function stringify(id, price, opts) {
 	const itemObj = common.getObjFromID(id, itemsJSON);
 	const basePrice = game.market.base_price * (itemObj.rarity / 100);
@@ -182,7 +186,6 @@ hbs.registerHelper("get_deal_indication", function stringify(id, price, opts) {
 	}
 	return `${startingStr}an unknown${endingStr}${modStr}`;
 });
-
 
 hbs.registerHelper("math", math);
 Handlebars.registerHelper("math", math);

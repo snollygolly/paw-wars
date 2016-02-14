@@ -4,6 +4,7 @@ const game = require("../../game.json");
 const common = require("../../helpers/common");
 const model = require("../game_life.js");
 const policeJSON = require("./data/police.json");
+const deathsJSON = require("./data/deaths.json");
 
 module.exports.doSimulateEncounter = function doSimulateEncounter(life) {
 	let newLife = JSON.parse(JSON.stringify(life));
@@ -109,6 +110,8 @@ module.exports.simulateEncounter = function simulateEncounter(life) {
 			if (lifeObj.current.health.points <= 0) {
 				// they are dead :(
 				lifeObj.current.police.encounter.reason = "dead";
+				// give them a eulogy
+				lifeObj.eulogy = deathsJSON.hissed;
 				// change the modes
 				lifeObj = changeModes(lifeObj, "end");
 				return lifeObj;
@@ -138,6 +141,8 @@ module.exports.simulateEncounter = function simulateEncounter(life) {
 			if (lifeObj.current.health.points <= 0) {
 				// they are dead :(
 				lifeObj.current.police.encounter.reason = "dead";
+				// give them a eulogy
+				lifeObj.eulogy = deathsJSON.running;
 				// change the modes
 				lifeObj = changeModes(lifeObj, "end");
 				return lifeObj;
@@ -182,6 +187,8 @@ module.exports.simulateEncounter = function simulateEncounter(life) {
 		if (lifeObj.current.health.points <= 0) {
 			// they are dead :(
 			lifeObj.current.police.encounter.reason = "dead";
+			// give them a eulogy
+			lifeObj.eulogy = deathsJSON.shot;
 			// change the modes
 			lifeObj = changeModes(lifeObj, "end");
 			return lifeObj;

@@ -3,6 +3,7 @@
 const config = require("../config.json");
 const game = require("../game.json");
 const placesJSON = require("../models/game/data/places.json");
+const deathsJSON = require("../models/game/data/deaths.json");
 const lifeModel = require("../models/game_life");
 
 let player = null;
@@ -55,6 +56,10 @@ module.exports.end = function* end() {
 	life = this.session.life;
 	if (!life) {
 		throw new Error("Can't end a life without a life / lifeController:end");
+	}
+	// check to see if they don't have a eulogy
+	if (!life.eulogy) {
+		life.eulogy = deathsJSON.stopped;
 	}
 	delete this.session.life;
 	yield this.render("game/game_over", {

@@ -2,11 +2,12 @@
 	<div>
 		<h1>Game Over</h1>
 		<br>
-		<p>{{#if past_life.alive}}You hang up your criminal hat for good.{{else}}You died doing what you loved.  Breaking the law.{{/if}}</p>
+		<p>{{past_life.eulogy.simple}}</p>
 		<ul class="list-group">
 			<li class="list-group-item">Total Turns: <strong>{{past_life.current.turn}}</strong></li>
 		  <li class="list-group-item">Total Liquid Assets: <strong>{{math past_life.current.finance.cash "+" past_life.current.finance.savings}}</strong></li>
 		  <li class="list-group-item">Total Debt: <strong>{{past_life.current.finance.debt}}</strong></li>
 		</ul>
+		<small class="text-muted">People will say {{past_life.eulogy.full}}</small>
 	</div>
 </div><!-- /.container -->

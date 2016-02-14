@@ -82,6 +82,8 @@ module.exports.checkDeath = function checkDeath(life) {
 		if (lifeFinance.debt > (game.bank.starting_debt * 3)) {
 			// in debt
 			life.alive = false;
+			// give them a eulogy
+			life.eulogy = deathsJSON.bankrupt;
 		}
 	}
 	// * Dead Death
@@ -95,6 +97,8 @@ module.exports.checkDeath = function checkDeath(life) {
 		if (life.current.turn >= game.turns) {
 			// you're dead
 			life.alive = false;
+			// give them a eulogy
+			lifeObj.eulogy = deathsJSON.old_age;
 		}
 	}
 	return life;

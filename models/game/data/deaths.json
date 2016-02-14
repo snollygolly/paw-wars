@@ -1,0 +1,26 @@
+{
+	"old_age": {
+		"full": "you died of old age",
+		"simple": "Your game ended because you reached the end of your turn limit."
+	},
+	"shot": {
+		"full": "you died in a shootout with police",
+		"simple": "Your game ended because you were shot during a police encounter."
+	},
+	"running": {
+		"full": "you died running away from the police",
+		"simple": "Your game ended because you were shot while runing from a police encounter."
+	},
+	"hissed": {
+		"full": "you died hissing at the police",
+		"simple": "Your game ended because you hissed at the police and were attacked."
+	},
+	"bankrupt": {
+		"full": "you died with nothing to your name, and a mountain of debt",
+		"simple": "Your game ended because you had very little cash and more debt than you could overcome."
+	},
+	"stopped": {
+		"full": "you retired from the game because you weren't very good at it",
+		"simple": "Your game ended because you gave up."
+	}
+}

@@ -104,6 +104,18 @@ module.exports.checkDeath = function checkDeath(life) {
 	return life;
 };
 
+module.exports.getScore = function getScore(life) {
+	const totalCash = life.current.finance.cash;
+	const totalAssets = life.current.finance.savings - life.current.finance.debt;
+	const totalTurns = life.current.turn;
+	// sort of just a rough pass at things
+	// money in the bank is harder to get than money in hand
+	// more turns = better/harder?
+	// cash is a little easier to get, doesn't require as much forethought
+	const score = Math.round((totalAssets * totalTurns) + totalCash);
+	return score;
+};
+
 // market
 module.exports.saveMarketTransaction = market.saveMarketTransaction;
 module.exports.generateMarketListings = market.generateMarketListings;

@@ -61,6 +61,7 @@ module.exports.end = function* end() {
 	if (!life.eulogy) {
 		life.eulogy = deathsJSON.stopped;
 	}
+	life.score = lifeModel.getScore(life);
 	delete this.session.life;
 	yield this.render("game/game_over", {
 		title: config.site.name,

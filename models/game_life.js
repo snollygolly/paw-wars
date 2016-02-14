@@ -108,11 +108,13 @@ module.exports.getScore = function getScore(life) {
 	const totalCash = life.current.finance.cash;
 	const totalAssets = life.current.finance.savings - life.current.finance.debt;
 	const totalTurns = life.current.turn;
+	const totalStash = life.current.storage.total - life.current.storage.available;
 	// sort of just a rough pass at things
 	// money in the bank is harder to get than money in hand
 	// more turns = better/harder?
 	// cash is a little easier to get, doesn't require as much forethought
-	const score = Math.round((totalAssets * totalTurns) + totalCash);
+	// storage that's taken should count for SOMETHING, although not much
+	const score = Math.round((totalAssets * totalTurns) + totalCash + totalStash);
 	return score;
 };
 

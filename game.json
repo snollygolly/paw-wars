@@ -64,17 +64,17 @@
 			"frequency": 0.10,
 			"stock": 4,
 			"pricing": {
-				"times_base": 10,
-				"increase_rate": 5.00
+				"times_base": 5,
+				"increase_rate": 2.00
 			}
 		},
 		"weapons": {
 			"start_open": false,
 			"frequency": 0.10,
-			"stock": 2,
+			"stock": 3,
 			"pricing": {
-				"times_base": 20,
-				"increase_rate": 10.00
+				"times_base": 10,
+				"increase_rate": 5.00
 			}
 		}
 	},

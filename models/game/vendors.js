@@ -37,6 +37,23 @@ module.exports.doVendorTransaction = function doVendorTransaction(vendor, life, 
 	return newLife;
 };
 
+module.exports.doGenerateVendorListings = function doGenerateVendorListings(vendor, life) {
+	const newLife = JSON.parse(JSON.stringify(life));
+	// see if we even get an event
+	const roll = rollDice(0, 1, life.current[`vendor_${vendor}_meta`]);
+	// see if our roll is good enough for an event
+	if (game.vendors[vendor].frequency <= roll || life.testing === true) {
+		// they didn't get an event
+		newLife.current.vendors[vendor] = {};
+		newLife.current.vendors[vendor].open = false;
+		newLife.current.vendors[vendor].stock = [];
+		return newLife;
+	}
+	// this vendor is open
+	newLife.current.vendors[vendor] = module.exports.generateVendorListings(vendor, newLife);
+	return newLife;
+};
+
 module.exports.generateVendorListings = function generateVendorListings(vendor, life) {
 	// generates the prices and units for the vendor
 	return vendors[vendor].generateVendorListings(life);

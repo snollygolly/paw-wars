@@ -25,9 +25,22 @@ module.exports.generateVendorListings = function generateVendorListings(life) {
 
 function fillStock(lifeObj) {
 	const stockArr = [];
+	// make some shorthand versions of props
+	const basePrice = game.vendors.base_price * game.vendors.storage.pricing.times_base;
+	const increaseRate = game.vendors.storage.pricing.increase_rate;
+	// TODO: add code to increase the base price as we aquire more storage
+	let lastPrice = basePrice;
 	let i = 0;
+	// add one item for stock count
 	while (i < game.vendors.storage.stock) {
-		stockArr.push({});
+		const stockObj = {
+			units: 10,
+			name: "units of storage",
+			price: (lastPrice * increaseRate),
+			meta: null
+		};
+		lastPrice = stockObj.price;
+		stockArr.push(stockObj);
 		i++;
 	}
 	return stockArr;

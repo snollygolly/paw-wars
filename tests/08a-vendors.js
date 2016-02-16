@@ -100,5 +100,14 @@ describe("Vendors - Generate Vendor Listings (Open)", () => {
 			expect(vendorObj[vendor].stock.length).to.equal(config.GAME.vendors[vendor].stock);
 			return done();
 		});
+
+		it(`current vendor [${vendor}] stock should have all properties`, (done) => {
+			for (const stock of vendorObj[vendor].stock) {
+				expect(stock).to.have.property("units");
+				expect(stock).to.have.property("name");
+				expect(stock).to.have.property("price");
+			}
+			return done();
+		});
 	}
 });

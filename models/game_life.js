@@ -7,6 +7,7 @@ const r = require("rethinkdb");
 
 const market = require("./game/market");
 const airport = require("./game/airport");
+const vendors = require("./game/vendors");
 const bank = require("./game/bank");
 const events = require("./game/events");
 const hotel = require("./game/hotel");
@@ -66,6 +67,11 @@ module.exports.replaceLife = function* replaceLife(life) {
 module.exports.changeTurn = function changeTurn(life, turns) {
 	life.listings.market = market.generateMarketListings(life, turns);
 	life.listings.airport = airport.generateAirportListings(life);
+	// generate vendor listings for each enabled vendor
+	life.listings.vendors = {};
+	for (const vendor of game.vendors.enabled) {
+		life.listings.vendors[vendor] = vendors.generateVendorListings(vendor, life);
+	}
 	life = bank.handleInterest(life, turns);
 	life = hotel.doHotelCheckOut(life);
 	life = police.doSimulateEncounter(life);
@@ -194,7 +200,7 @@ module.exports.generateLife = function generateLife(player, parameters) {
 	for (const vendor of game.vendors.enabled) {
 		// create an empty object for this vendor
 		life.starting.vendors[vendor] = {};
-		life.starting.vendors[vendor].open = game.vendors[vendor].always_open;
+		life.starting.vendors[vendor].open = game.vendors[vendor].start_open;
 		life.starting.vendors[vendor].stock = [];
 	}
 	// we just created life.	let that dwell on you for a little bit.

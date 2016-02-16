@@ -60,7 +60,7 @@
 		"base_price": 250,
 		"enabled": ["storage", "weapons"],
 		"storage": {
-			"always_open": false,
+			"start_open": false,
 			"frequency": 0.10,
 			"stock": 4,
 			"pricing": {
@@ -69,7 +69,7 @@
 			}
 		},
 		"weapons": {
-			"always_open": false,
+			"start_open": false,
 			"frequency": 0.10,
 			"stock": 2,
 			"pricing": {

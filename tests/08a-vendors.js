@@ -23,19 +23,15 @@ describe("Vendors - Starting State", () => {
 		let modBasePrice;
 		// storage vendor
 		expect(vendorObj).to.be.a("object");
-		expect(vendorObj).to.have.property("storage");
-		expect(vendorObj.storage).to.have.property("open");
-		expect(vendorObj.storage).to.have.property("stock");
-		expect(vendorObj.storage.open).to.be.a("boolean");
-		expect(vendorObj.storage.open).to.equal(config.GAME.vendors.storage.always_open);
-		expect(vendorObj.storage.stock).to.be.an("array");
-		// weapons vendor
-		expect(vendorObj).to.have.property("weapons");
-		expect(vendorObj.weapons).to.have.property("open");
-		expect(vendorObj.weapons).to.have.property("stock");
-		expect(vendorObj.weapons.open).to.be.a("boolean");
-		expect(vendorObj.weapons.open).to.equal(config.GAME.vendors.weapons.always_open);
-		expect(vendorObj.weapons.stock).to.be.an("array");
+		// loop through vendors
+		for (const vendor of config.GAME.vendors.enabled) {
+			expect(vendorObj).to.have.property(vendor);
+			expect(vendorObj[vendor]).to.have.property("open");
+			expect(vendorObj[vendor]).to.have.property("stock");
+			expect(vendorObj[vendor].open).to.be.a("boolean");
+			expect(vendorObj[vendor].open).to.equal(config.GAME.vendors[vendor].always_open);
+			expect(vendorObj[vendor].stock).to.be.an("array");
+		}
 		return done();
 	});
 });

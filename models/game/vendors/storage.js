@@ -13,9 +13,22 @@ module.exports.doVendorTransaction = function doVendorTransaction(vendor, life, 
 	return newLife;
 };
 
-module.exports.generateVendorListings = function generateVendorListings(vendor, life) {
+module.exports.generateVendorListings = function generateVendorListings(life) {
 	// generates the prices and units for the vendor
-	const priceArr = [];
+	const listingObj = {
+		open: true,
+		stock: fillStock(life)
+	};
 
-	return priceArr;
+	return listingObj;
 };
+
+function fillStock(lifeObj) {
+	const stockArr = [];
+	let i = 0;
+	while (i < game.vendors.storage.stock) {
+		stockArr.push({});
+		i++;
+	}
+	return stockArr;
+}

@@ -40,7 +40,7 @@ module.exports.doVendorTransaction = function doVendorTransaction(vendor, life, 
 module.exports.generateVendorListings = function generateVendorListings(vendor, life) {
 	const newLife = JSON.parse(JSON.stringify(life));
 	// see if we even get an event
-	const roll = common.rollDice(0, 1, life.current[`vendor_${vendor}_meta`]);
+	const roll = common.rollDice(0, 1, life.current.vendor_meta);
 	// see if our roll is good enough for an event
 	if (game.vendors[vendor].frequency <= roll || life.testing === true) {
 		// the vendor is closed

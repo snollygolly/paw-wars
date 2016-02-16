@@ -53,13 +53,17 @@ describe("Vendors - Generate Vendor Listings (Closed)", () => {
 	before(() => {
 		// set up life
 		life = model.generateLife(config.PLAYER, config.LOCATION);
-		life.testing = true;
-		// change the turn to re-roll the "open" prop
-		life = model.changeTurn(life, 1);
-		vendorObj = life.current.vendors;
+		life.current.vendor_meta = "unlucky";
+		vendorObj = {};
 	});
 
 	for (const vendor of config.GAME.vendors.enabled) {
+		it(`current vendor [${vendor}] should create listing`, (done) => {
+			vendorObj[vendor] = vendors.generateVendorListings(vendor, life);
+			expect(vendorObj[vendor]).to.be.an("object");
+			return done();
+		});
+
 		it(`current vendor [${vendor}] should be closed`, (done) => {
 			expect(vendorObj[vendor].open).to.equal(false);
 			return done();
@@ -76,13 +80,17 @@ describe("Vendors - Generate Vendor Listings (Open)", () => {
 	before(() => {
 		// set up life
 		life = model.generateLife(config.PLAYER, config.LOCATION);
-		life.testing = true;
-		// change the turn to re-roll the "open" prop
-		life = model.changeTurn(life, 1);
-		vendorObj = life.current.vendors;
+		life.current.vendor_meta = "lucky";
+		vendorObj = {};
 	});
 
 	for (const vendor of config.GAME.vendors.enabled) {
+		it(`current vendor [${vendor}] should create listing`, (done) => {
+			vendorObj[vendor] = vendors.generateVendorListings(vendor, life);
+			expect(vendorObj[vendor]).to.be.an("object");
+			return done();
+		});
+
 		it(`current vendor [${vendor}] should be open`, (done) => {
 			expect(vendorObj[vendor].open).to.equal(true);
 			return done();

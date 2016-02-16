@@ -179,16 +179,7 @@ module.exports.generateLife = function generateLife(player, parameters) {
 				available: game.market.starting_storage,
 				total: game.market.starting_storage
 			},
-			vendors: {
-				storage: {
-					open: game.vendors.storage.always_open,
-					stock: []
-				},
-				weapons: {
-					open: game.vendors.weapons.always_open,
-					stock: []
-				}
-			}
+			vendors: {}
 		},
 		current: {},
 		listings: {
@@ -199,6 +190,13 @@ module.exports.generateLife = function generateLife(player, parameters) {
 	};
 	// adjust the police awareness for the current location here, for the linter
 	life.starting.police.awareness[parameters.location.country] = game.police.starting_heat;
+	// fill out vendors from the list of enabled vendors
+	for (const vendor of game.vendors.enabled) {
+		// create an empty object for this vendor
+		life.starting.vendors[vendor] = {};
+		life.starting.vendors[vendor].open = game.vendors[vendor].always_open;
+		life.starting.vendors[vendor].stock = [];
+	}
 	// we just created life.	let that dwell on you for a little bit.
 	// this is where it all starts.
 	life.current = life.starting;

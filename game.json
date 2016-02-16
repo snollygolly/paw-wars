@@ -58,7 +58,7 @@
 	},
 	"vendors": {
 		"base_price": 250,
-		"enabled": ["storage", "weapon"],
+		"enabled": ["storage", "weapons"],
 		"storage": {
 			"always_open": false,
 			"frequency": 0.10,

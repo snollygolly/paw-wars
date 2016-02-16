@@ -42,3 +42,22 @@ module.exports.randomShrinkArr = function randomShrinkArr(arr, newSize) {
 	}
 	return returnArr;
 };
+
+module.exports.rollDice = function rollDice(min, max, luck) {
+	if (typeof(luck) == "undefined") {
+		if (max < min) {
+			// if the order is backwards, we need it that way for testing, fix it
+			const newMin = max;
+			const newMax = min;
+			max = newMax;
+			min = newMin;
+		}
+		luck = "none";
+	}
+	const luckObj = {
+		"lucky": min,
+		"unlucky": max,
+		"none": module.exports.getRandomArbitrary(min, max)
+	};
+	return luckObj[luck];
+};

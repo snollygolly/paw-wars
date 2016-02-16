@@ -9,7 +9,7 @@ const model = require("../game_life.js");
 module.exports.doSimulateEvents = function doSimulateEvents(life) {
 	let newLife = JSON.parse(JSON.stringify(life));
 	// see if we even get an event
-	const roll = rollDice(0, 1, life.current.event_meta);
+	const roll = common.rollDice(0, 1, life.current.event_meta);
 	// see if our roll is good enough for an event
 	if (game.events.event_rate <= roll || life.testing === true) {
 		// they didn't get an event
@@ -135,16 +135,4 @@ function adjustCurrentCash(life, adjustment) {
 	// adjust the user's cash
 	newLife.current.finance.cash += Math.round(adjustment.amount * game.market.base_price);
 	return newLife;
-}
-
-function rollDice(min, max, luck) {
-	if (typeof(luck) == "undefined") {
-		luck = "none";
-	}
-	const luckObj = {
-		"lucky": min,
-		"unlucky": max,
-		"none": common.getRandomArbitrary(min, max)
-	};
-	return luckObj[luck];
 }

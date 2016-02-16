@@ -100,7 +100,7 @@ module.exports.simulateEncounter = function simulateEncounter(life) {
 	function doHissAction(lifeObj) {
 		// *** You have just hissed at the officer
 		const police = lifeObj.current.police;
-		const roll = rollDice(0, 1, police.meta);
+		const roll = common.rollDice(0, 1, police.meta);
 		if (roll >= game.police.hiss_success_rate) {
 			// they failed the roll, and have enraged the officer
 			lifeObj.current.health.points -= game.police.base_damage * 2;
@@ -131,7 +131,7 @@ module.exports.simulateEncounter = function simulateEncounter(life) {
 	function doRunAction(lifeObj) {
 		// *** You have just ran from the officer
 		const police = lifeObj.current.police;
-		const roll = rollDice(0, 1, police.meta);
+		const roll = common.rollDice(0, 1, police.meta);
 		if (roll >= game.police.run_success_rate) {
 			// they failed the roll, and are not escaping the officer
 			lifeObj.current.health.points -= game.police.base_damage;
@@ -163,8 +163,8 @@ module.exports.simulateEncounter = function simulateEncounter(life) {
 		// *** You have just attacked the officer
 		const police = lifeObj.current.police;
 		// for testing, min == win, max == lose
-		const playerRoll = rollDice(0, 1, police.meta_player);
-		const policeRoll = rollDice(0, 1, police.meta_police);
+		const playerRoll = common.rollDice(0, 1, police.meta_player);
+		const policeRoll = common.rollDice(0, 1, police.meta_police);
 		// who much damage the entity is dealing this turn
 		const playerDamage = doAttack("player", playerRoll);
 		const policeDamage = doAttack("police", policeRoll);
@@ -258,7 +258,7 @@ module.exports.simulateEncounter = function simulateEncounter(life) {
 					return changeModes(actionLifeObj, "end");
 				}
 				// you have SOMETHING, let's roll to see if he sees it
-				const roll = rollDice(0, 1, actionLifeObj.current.police.meta);
+				const roll = common.rollDice(0, 1, actionLifeObj.current.police.meta);
 				// TODO: weight this, more used storage, higher chance of them finding it
 				if (roll >= game.police.investigation_proficiency) {
 					// they see something suspect (probable cause)
@@ -291,7 +291,7 @@ module.exports.simulateEncounter = function simulateEncounter(life) {
 					return changeModes(actionLifeObj, "end");
 				}
 				// roll here to see if they find what you're carrying
-				const roll = rollDice(0, 1, lifeObj.current.police.meta);
+				const roll = common.rollDice(0, 1, lifeObj.current.police.meta);
 				// TODO: weight this, more used storage, higher chance of them finding it
 				if (roll >= game.police.search_proficiency) {
 					// they found your stash...man
@@ -380,25 +380,6 @@ function doChangeModes(police, mode) {
 	// set the mode
 	police.encounter.mode = mode;
 	return police;
-}
-
-function rollDice(min, max, luck) {
-	if (typeof(luck) == "undefined") {
-		if (max < min) {
-			// if the order is backwards, we need it that way for testing, fix it
-			const newMin = max;
-			const newMax = min;
-			max = newMax;
-			min = newMin;
-		}
-		luck = "none";
-	}
-	const luckObj = {
-		"lucky": min,
-		"unlucky": max,
-		"none": common.getRandomArbitrary(min, max)
-	};
-	return luckObj[luck];
 }
 
 function updateEncounter(action, choices, lifeObj) {

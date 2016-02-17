@@ -18,7 +18,6 @@ describe("Vendors - Starting State", () => {
 		life = model.generateLife(config.PLAYER, config.LOCATION);
 		life.testing = true;
 		vendorObj = life.listings.vendors;
-		console.log(vendorObj);
 	});
 
 	for (const vendor of config.GAME.vendors.enabled) {

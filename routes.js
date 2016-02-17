@@ -13,6 +13,7 @@ const manual = require("./controllers/manual.js");
 
 const game_hotel = require("./controllers/game_hotel.js");
 const game_bank = require("./controllers/game_bank.js");
+const game_vendors = require("./controllers/game_vendors.js");
 const game_market = require("./controllers/game_market.js");
 const game_airport = require("./controllers/game_airport.js");
 const game_police = require("./controllers/game_police.js");
@@ -55,6 +56,9 @@ routes.post("/game/bank/loans", game_bank.lending);
 // police routes
 routes.get("/game/police", game_police.index);
 routes.post("/game/police/encounter", game_police.encounter);
+
+// vendor routes
+routes.get("/game/vendors", game_vendors.index);
 
 // for passport
 routes.get("/login", function* get() {

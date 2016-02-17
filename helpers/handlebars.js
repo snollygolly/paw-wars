@@ -223,3 +223,11 @@ hbs.registerHelper("md_partial", function md_partial(partial, opts) {
 	const final = template(data);
 	return final;
 });
+
+hbs.registerHelper("log", function log(variable, opts) {
+	console.log(`hbs`, variable, opts);
+	if (opts == "JSON") {
+		return JSON.stringify(variable);
+	}
+	return variable;
+});

@@ -1,0 +1,20 @@
+<div class="container">
+	{{> hud}}
+	<div>
+		<h1>Vendors</h1>
+		<br>
+			{{#each life.listings.vendors}}
+
+				<p>The <strong>{{@key}}</strong> vendor is currently <strong>{{#if this.open}}open{{else}}closed{{/if}}</strong>
+
+				{{#if this.open}}
+					<div class="list-group">
+						{{#each this.stock}}
+							<button class="list-group-item">Buy <strong>{{this.units}} {{this.name}}</strong> for <strong>${{this.price}}</strong></button>
+						{{/each}}
+					</div>
+				{{/if}}
+				<br>
+			{{/each}}
+	</div>
+</div><!-- /.container -->

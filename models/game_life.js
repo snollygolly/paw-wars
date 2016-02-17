@@ -184,13 +184,13 @@ module.exports.generateLife = function generateLife(player, parameters) {
 			storage: {
 				available: game.market.starting_storage,
 				total: game.market.starting_storage
-			},
-			vendors: {}
+			}
 		},
 		current: {},
 		listings: {
 			market: [],
-			airport: []
+			airport: [],
+			vendors: {}
 		},
 		actions: []
 	};
@@ -198,10 +198,15 @@ module.exports.generateLife = function generateLife(player, parameters) {
 	life.starting.police.awareness[parameters.location.country] = game.police.starting_heat;
 	// fill out vendors from the list of enabled vendors
 	for (const vendor of game.vendors.enabled) {
-		// create an empty object for this vendor
-		life.starting.vendors[vendor] = {};
-		life.starting.vendors[vendor].open = game.vendors[vendor].start_open;
-		life.starting.vendors[vendor].stock = [];
+		if (game.vendors[vendor].start_open === true) {
+			// they are open, generate listings
+			life.listings.vendors[vendor] = vendors.generateVendorListings(vendor, life);
+		} else {
+			// create an empty object for this vendor
+			life.listings.vendors[vendor] = {};
+			life.listings.vendors[vendor].open = game.vendors[vendor].start_open;
+			life.listings.vendors[vendor].stock = [];
+		}
 	}
 	// we just created life.	let that dwell on you for a little bit.
 	// this is where it all starts.

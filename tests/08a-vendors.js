@@ -17,7 +17,8 @@ describe("Vendors - Starting State", () => {
 		// set up life
 		life = model.generateLife(config.PLAYER, config.LOCATION);
 		life.testing = true;
-		vendorObj = life.current.vendors;
+		vendorObj = life.listings.vendors;
+		console.log(vendorObj);
 	});
 
 	for (const vendor of config.GAME.vendors.enabled) {
@@ -53,6 +54,8 @@ describe("Vendors - Generate Vendor Listings (Closed)", () => {
 	before(() => {
 		// set up life
 		life = model.generateLife(config.PLAYER, config.LOCATION);
+		// being in testing mode will guarantee no vendors are open
+		life.testing = true;
 		life.current.vendor_meta = "unlucky";
 		vendorObj = {};
 	});

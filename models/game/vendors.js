@@ -42,7 +42,7 @@ module.exports.generateVendorListings = function generateVendorListings(vendor, 
 	// see if we even get an event
 	const roll = common.rollDice(0, 1, life.current.vendor_meta);
 	// see if our roll is good enough for an event
-	if (game.vendors[vendor].frequency <= roll || life.testing === true) {
+	if ((game.vendors[vendor].frequency <= roll && game.vendors[vendor].start_open === false) || life.testing === true) {
 		// the vendor is closed
 		return {
 			open: false,

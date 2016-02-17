@@ -37,7 +37,10 @@ function fillStock(lifeObj) {
 			units: 1,
 			name: makeScaryNamedGuns(),
 			price: (lastPrice * increaseRate),
-			meta: (i + 1) * game.police.base_damage
+			meta: {
+				name: "Weapon Damage",
+				value: (i + 1) * game.police.base_damage
+			}
 		};
 		lastPrice = stockObj.price;
 		stockArr.push(stockObj);

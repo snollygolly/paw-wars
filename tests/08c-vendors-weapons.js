@@ -48,7 +48,8 @@ describe("Vendors [Weapons] - Generate Stock", () => {
 		let i = 0;
 		for (const stock of vendorObj.stock) {
 			i++;
-			expect(stock.meta).to.equal(i * config.GAME.police.base_damage);
+			expect(stock.meta.name).to.equal("Weapon Damage");
+			expect(stock.meta.value).to.equal(i * config.GAME.police.base_damage);
 		}
 		return done();
 	});

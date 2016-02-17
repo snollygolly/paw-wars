@@ -21,19 +21,19 @@ describe("Vendors [Weapons] - Generate Stock", () => {
 		vendorObj = vendors.generateVendorListings(vendor, life);
 	});
 
-	it("storage vendor should create listing", (done) => {
+	it("weapons vendor should create listing", (done) => {
 		expect(vendorObj).to.be.an("object");
 		return done();
 	});
 
-	it("storage stock should have the right number of units", (done) => {
+	it("weapons stock should have the right number of units", (done) => {
 		for (const stock of vendorObj.stock) {
 			expect(stock.units).to.equal(config.GAME.vendors.weapons.units);
 		}
 		return done();
 	});
 
-	it("storage stock should be priced correctly", (done) => {
+	it("weapons stock should be priced correctly", (done) => {
 		const basePrice = config.GAME.vendors.base_price * config.GAME.vendors.weapons.pricing.times_base;
 		const increaseRate = config.GAME.vendors.weapons.pricing.increase_rate;
 		let lastPrice = basePrice;

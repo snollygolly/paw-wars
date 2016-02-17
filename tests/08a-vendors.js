@@ -106,6 +106,7 @@ describe("Vendors - Generate Vendor Listings (Open)", () => {
 				expect(stock).to.have.property("units");
 				expect(stock).to.have.property("name");
 				expect(stock).to.have.property("price");
+				expect(stock).to.have.property("meta");
 			}
 			return done();
 		});

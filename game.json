@@ -63,6 +63,7 @@
 			"start_open": false,
 			"frequency": 0.10,
 			"stock": 4,
+			"units": 10,
 			"pricing": {
 				"times_base": 5,
 				"increase_rate": 2.00
@@ -72,6 +73,7 @@
 			"start_open": false,
 			"frequency": 0.10,
 			"stock": 3,
+			"units": 1,
 			"pricing": {
 				"times_base": 10,
 				"increase_rate": 5.00

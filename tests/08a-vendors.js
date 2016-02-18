@@ -11,6 +11,7 @@ const vendors = main.vendors;
 
 let life;
 let vendorObj;
+let transaction;
 
 describe("Vendors - Starting State", () => {
 	before(() => {
@@ -110,6 +111,29 @@ describe("Vendors - Generate Vendor Listings (Open)", () => {
 				expect(stock).to.have.property("price");
 				expect(stock).to.have.property("meta");
 			}
+			return done();
+		});
+	}
+});
+
+describe("Vendors - Handle Vendor Transaction", () => {
+	before(() => {
+		// set up life
+		life = model.generateLife(config.PLAYER, config.LOCATION);
+		life.current.vendor_meta = "lucky";
+		vendorObj = {};
+		transaction = {
+			id: "testing",
+			type: "buy",
+			index: 0
+		};
+	});
+
+	for (const vendor of config.GAME.vendors.enabled) {
+		it(`current vendor [${vendor}] should accept transaction`, (done) => {
+			const newLife = vendors.doVendorTransaction(vendor, life, transaction);
+			expect(newLife).to.be.an("object");
+			expect(newLife).to.not.have.property("error");
 			return done();
 		});
 	}

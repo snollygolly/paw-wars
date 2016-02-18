@@ -72,7 +72,7 @@ describe("Vendors [Storage] - Handle Transaction", () => {
 		newLife = vendors.doVendorTransaction("storage", oldLife, transaction);
 	});
 
-	it(`storage vendor increase all storage`, (done) => {
+	it(`storage vendor should increase all storage`, (done) => {
 		const newAvailable = oldLife.current.storage.available + config.GAME.vendors.storage.units;
 		const newTotal = oldLife.current.storage.total + config.GAME.vendors.storage.units;
 		// available storage
@@ -84,7 +84,7 @@ describe("Vendors [Storage] - Handle Transaction", () => {
 		return done();
 	});
 
-	it(`storage vendor decrease cash`, (done) => {
+	it(`storage vendor should decrease cash`, (done) => {
 		const newCash = oldLife.current.finance.cash - oldLife.listings.vendors["storage"].stock[0].price;
 		// cash on hand
 		expect(newLife.current.finance.cash).to.equal(newCash);

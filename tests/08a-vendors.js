@@ -121,6 +121,7 @@ describe("Vendors - Handle Vendor Transaction", () => {
 		// set up life
 		life = model.generateLife(config.PLAYER, config.LOCATION);
 		life.current.vendor_meta = "lucky";
+		// give the player some extra cash
 		vendorObj = {};
 		transaction = {
 			id: "testing",
@@ -131,6 +132,8 @@ describe("Vendors - Handle Vendor Transaction", () => {
 
 	for (const vendor of config.GAME.vendors.enabled) {
 		it(`current vendor [${vendor}] should accept transaction`, (done) => {
+			// otherwise they won't have enough to buy this and that's a different test
+			life.current.finance.cash += life.listings.vendors[vendor].stock[0].price;
 			const newLife = vendors.doVendorTransaction(vendor, life, transaction);
 			expect(newLife).to.be.an("object");
 			expect(newLife).to.not.have.property("error");

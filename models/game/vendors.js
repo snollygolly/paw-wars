@@ -26,7 +26,20 @@ module.exports.saveVendorTransaction = function* saveVendorTransaction(vendor, i
 module.exports.doVendorTransaction = function doVendorTransaction(vendor, life, transaction) {
 	let newLife = JSON.parse(JSON.stringify(life));
 	// start to error check the transactions
-	// first, see what they want to do, and see if the units are available
+	const stock = newLife.listings.vendors[vendor].stock;
+	// check to make sure the transaction looks right
+	// are they open?
+	if (newLife.listings.vendors[vendor].open === false) {
+		return {error: true, message: "This vendor isn't open"};
+	}
+	// does this transaction index exist in the listing?
+	if (transaction.index >= stock.length) {
+		return {error: true, message: "Transaction requests item that doesn't exist"};
+	}
+	// check their money (keep in mind, savings doesn't count. dealers don't take checks)
+	if (stock[transaction.index].price > newLife.current.finance.cash) {
+		return {error: true, message: "Transaction requests more units than life can afford"};
+	}
 	newLife = vendors[vendor].doVendorTransaction(newLife, transaction);
 	newLife.actions.push({
 		turn: life.current.turn,

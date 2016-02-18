@@ -6,9 +6,13 @@ const model = require("../../game_life.js");
 
 module.exports.doVendorTransaction = function doVendorTransaction(life, transaction) {
 	const newLife = JSON.parse(JSON.stringify(life));
-	// start to error check the transactions
-	// first, see what they want to do, and see if the units are available
-
+	// remove sold mod from stock
+	const newMod = newLife.listings.vendors["storage"].stock.splice(transaction.index, 1)[0];
+	// take the money from them
+	newLife.current.finance.cash -= newMod.price;
+	// increase the player storage (both props)
+	newLife.current.storage.available += newMod.units;
+	newLife.current.storage.total += newMod.units;
 	// console.log("* doVendorTransaction:", life);
 	return newLife;
 };

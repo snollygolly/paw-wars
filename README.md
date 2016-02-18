@@ -1,5 +1,5 @@
 # :smiley_cat: paw-wars [![Build Status](https://api.travis-ci.org/snollygolly/paw-wars.svg?branch=master)](https://travis-ci.org/snollygolly/paw-wars)
-A modern take on [Drugwars](https://en.wikipedia.org/wiki/Drugwars) (Dopewars), but with cats.
+A spiritual successor to [Drugwars](https://en.wikipedia.org/wiki/Drugwars), but with cats.
 
 ## Prerequisites
 * [Node.js](https://nodejs.org/en/) (Version 5 and up recommended)

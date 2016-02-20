@@ -36,8 +36,8 @@ $( document ).ready(function() {
 		}).done(function(result) {
 			if (result.error === false){
 				updateHUD(result.life);
+				updateListings(transaction);
 				displayAlert("success", "You have successfully bought " + $(e.target).data('name'));
-				// TODO: remove this item from the vendor list, by data index maybe?
 			}else{
 				displayAlert("warning", "Oh no!	Something has gone wrong (" + result.message + ")");
 			}
@@ -48,3 +48,17 @@ $( document ).ready(function() {
 		});
 	});
 });
+
+function updateListings(transaction) {
+	var i = 0
+	$(".list-group .vendor-" + transaction.vendor + "-listing").each(function(index) {
+		if (i === transaction.index) {
+			$(this).remove();
+			// so the while doesn't trigger again
+			transaction.index = -1;
+		} else {
+			$(this).data('index', i);
+			i++;
+		}
+	});
+}

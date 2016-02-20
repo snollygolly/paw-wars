@@ -146,6 +146,9 @@ module.exports.startEncounter = police.startEncounter;
 module.exports.saveEncounter = police.saveEncounter;
 module.exports.simulateEncounter = police.simulateEncounter;
 
+// vendors
+module.exports.saveVendorTransaction = vendors.saveVendorTransaction;
+
 module.exports.generateLife = function generateLife(player, parameters) {
 	const life = {
 		id: `${player.id}_${Date.now()}`,

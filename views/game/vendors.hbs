@@ -3,6 +3,8 @@
 	<div>
 		<h1>Vendors</h1>
 		<br>
+		<div id="alert-container"></div>
+		<br>
 			{{#each life.listings.vendors}}
 
 				<p>The <strong>{{@key}}</strong> vendor is currently <strong>{{#if this.open}}open{{else}}closed{{/if}}</strong>
@@ -10,7 +12,7 @@
 				{{#if this.open}}
 					<div class="list-group">
 						{{#each this.stock}}
-							<button class="list-group-item" data-type="buy" data-index="{{@index}}" data-name="{{this.units}} {{this.name}}" data-price="{{this.price}}" data-toggle="modal" data-target="#vendor-modal">Buy <strong>{{this.units}} {{this.name}}</strong> for <strong>${{this.price}}</strong></button>
+							<button class="list-group-item" data-type="buy" data-index="{{@index}}" data-name="{{this.units}} {{this.name}}" data-price="{{this.price}}" data-vendor="{{@key}}" data-toggle="modal" data-target="#vendor-modal">Buy <strong>{{this.units}} {{this.name}}</strong> for <strong>${{this.price}}</strong></button>
 						{{/each}}
 					</div>
 				{{/if}}

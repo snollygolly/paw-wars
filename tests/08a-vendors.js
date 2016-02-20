@@ -132,7 +132,9 @@ describe("Vendors - Handle Vendor Transaction", () => {
 
 	for (const vendor of config.GAME.vendors.enabled) {
 		it(`current vendor [${vendor}] should accept transaction`, (done) => {
-			// otherwise they won't have enough to buy this and that's a different test
+			// generate listings to fill stock of closed vendors
+			life.listings.vendors[vendor] = vendors.generateVendorListings(vendor, life);
+			// give them some money so they can buy the items
 			life.current.finance.cash += life.listings.vendors[vendor].stock[0].price;
 			const newLife = vendors.doVendorTransaction(vendor, life, transaction);
 			expect(newLife).to.be.an("object");

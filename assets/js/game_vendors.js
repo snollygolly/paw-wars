@@ -7,6 +7,7 @@ $( document ).ready(function() {
 		var name = button.data('name');
 		var index = button.data('index');
 		var price = button.data('price');
+		var vendor = button.data('vendor');
 		// get the modal object
 		var modal = $(this)
 		// start populating it with values
@@ -17,13 +18,15 @@ $( document ).ready(function() {
 		confirmButton.data('name', name);
 		confirmButton.data('index', index);
 		confirmButton.data('price', price);
+		confirmButton.data('vendor', vendor);
 	});
 
 	$('#vendor-confirm-buy-btn').on('click', function(e){
 		var transaction = {
 			id: $(e.target).data('life-id'),
 			type: "buy",
-			index: $(e.target).data('index')
+			index: $(e.target).data('index'),
+			vendor: $(e.target).data('vendor')
 		};
 		$.ajax({
 			type: 'POST', // Use POST with X-HTTP-Method-Override or a straight PUT if appropriate.

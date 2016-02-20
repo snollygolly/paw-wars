@@ -67,9 +67,10 @@ describe("Vendors [Storage] - Handle Transaction", () => {
 		transaction = {
 			id: "testing",
 			type: "buy",
-			index: 0
+			index: 0,
+			vendor: "storage"
 		};
-		newLife = vendors.doVendorTransaction("storage", oldLife, transaction);
+		newLife = vendors.doVendorTransaction(oldLife, transaction);
 	});
 
 	it(`storage vendor should increase all storage`, (done) => {

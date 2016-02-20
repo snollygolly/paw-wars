@@ -3,12 +3,12 @@
 const game = require("../../game.json");
 const common = require("../../helpers/common");
 const model = require("../game_life.js");
-const vendors = {
-	storage: require("./vendors/storage"),
-	weapons: require("./vendors/weapons")
-};
+const vendors = {};
+for (const vendor of game.vendors.enabled) {
+	vendors[vendor] = require(`./vendors/${vendor}`);
+}
 
-module.exports.saveVendorTransaction = function* saveVendorTransaction(vendor, id, transaction) {
+module.exports.saveVendorTransaction = function* saveVendorTransaction(id, transaction) {
 	// get the latest copy from the database
 	let life = yield model.getLife(id);
 	// run all the transaction logic against it and get it back
@@ -23,8 +23,9 @@ module.exports.saveVendorTransaction = function* saveVendorTransaction(vendor, i
 	return life;
 };
 
-module.exports.doVendorTransaction = function doVendorTransaction(vendor, life, transaction) {
+module.exports.doVendorTransaction = function doVendorTransaction(life, transaction) {
 	let newLife = JSON.parse(JSON.stringify(life));
+	const vendor = transaction.vendor;
 	// start to error check the transactions
 	const stock = newLife.listings.vendors[vendor].stock;
 	// check to make sure the transaction looks right

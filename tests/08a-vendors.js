@@ -136,7 +136,8 @@ describe("Vendors - Handle Vendor Transaction", () => {
 			life.listings.vendors[vendor] = vendors.generateVendorListings(vendor, life);
 			// give them some money so they can buy the items
 			life.current.finance.cash += life.listings.vendors[vendor].stock[0].price;
-			const newLife = vendors.doVendorTransaction(vendor, life, transaction);
+			transaction.vendor = vendor;
+			const newLife = vendors.doVendorTransaction(life, transaction);
 			expect(newLife).to.be.an("object");
 			expect(newLife).to.not.have.property("error");
 			return done();

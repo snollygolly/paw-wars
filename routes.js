@@ -59,6 +59,7 @@ routes.post("/game/police/encounter", game_police.encounter);
 
 // vendor routes
 routes.get("/game/vendors", game_vendors.index);
+routes.post("/game/vendors/transaction", game_vendors.transaction);
 
 // for passport
 routes.get("/login", function* get() {

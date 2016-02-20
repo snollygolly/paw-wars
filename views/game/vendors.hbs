@@ -10,7 +10,7 @@
 				{{#if this.open}}
 					<div class="list-group">
 						{{#each this.stock}}
-							<button class="list-group-item">Buy <strong>{{this.units}} {{this.name}}</strong> for <strong>${{this.price}}</strong></button>
+							<button class="list-group-item" data-type="buy" data-index="{{@index}}" data-name="{{this.units}} {{this.name}}" data-price="{{this.price}}" data-toggle="modal" data-target="#vendor-modal">Buy <strong>{{this.units}} {{this.name}}</strong> for <strong>${{this.price}}</strong></button>
 						{{/each}}
 					</div>
 				{{/if}}
@@ -18,3 +18,23 @@
 			{{/each}}
 	</div>
 </div><!-- /.container -->
+
+<div class="modal fade" id="vendor-modal" data-cash="{{life.current.finance.cash}}">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+				<h4 id="vendor-title" class="modal-title"></h4>
+			</div>
+			<div class="modal-body">
+				<p id="vendor-confirm-message"></p>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+				<button type="button" id="vendor-confirm-buy-btn" class="btn btn-success" data-life-id="{{life.id}}">Buy</button>
+			</div>
+		</div><!-- /.modal-content -->
+	</div><!-- /.modal-dialog -->
+</div><!-- /.modal -->

@@ -15,7 +15,7 @@ module.exports.index = function* index() {
 	}
 	life = this.session.life;
 	if (!life) {
-		throw new Error("No life found / hotelController:index");
+		throw new Error("No life found / vendorsController:index");
 	}
 	life = lifeModel.checkDeath(life);
 	if (life.alive === false) {
@@ -25,6 +25,7 @@ module.exports.index = function* index() {
 	this.session.life = life;
 	yield this.render("game/vendors", {
 		player: player,
-		life: life
+		life: life,
+		script: "game_vendors"
 	});
 };

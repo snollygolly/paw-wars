@@ -40,10 +40,10 @@ $( document ).ready(function() {
       }else{
         displayAlert("warning", "Oh no!  Something has gone wrong (" + result.message + ")");
       }
-      $('#transaction-modal').modal('hide');
+      $('#transport-modal').modal('hide');
     }).fail(function(result) {
       displayAlert("danger", "Oh no!  Something has gone terribly wrong (" + JSON.stringify(result, 2, null) + ")");
-      $('#transaction-modal').modal('hide');
+      $('#transport-modal').modal('hide');
     });
   });
 });

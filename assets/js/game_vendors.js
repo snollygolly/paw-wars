@@ -35,7 +35,9 @@ $( document ).ready(function() {
 			data: transaction
 		}).done(function(result) {
 			if (result.error === false){
-				// this should redirect
+				updateHUD(result.life);
+				displayAlert("success", "You have successfully bought " + $(e.target).data('name'));
+				// TODO: remove this item from the vendor list, by data index maybe?
 			}else{
 				displayAlert("warning", "Oh no!	Something has gone wrong (" + result.message + ")");
 			}

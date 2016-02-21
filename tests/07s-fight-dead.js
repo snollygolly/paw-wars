@@ -89,7 +89,7 @@ describe("Police - Simulating Encounter (Fight, Dead)", () => {
 	});
 
 	it("encounter should reduce player health", (done) => {
-		const newDamage = config.GAME.police.base_damage;
+		const newDamage = police.getDamage(life, "police");
 		const newHealth = 1 - newDamage;
 		expect(life.current.health.points).to.equal(newHealth);
 		return done();

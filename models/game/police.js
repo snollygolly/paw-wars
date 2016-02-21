@@ -168,6 +168,8 @@ module.exports.simulateEncounter = function simulateEncounter(life) {
 		// who much damage the entity is dealing this turn
 		const playerDamage = doAttack("player", playerRoll);
 		const policeDamage = doAttack("police", policeRoll);
+		console.log(`playerDamage: ${playerDamage}`);
+		console.log(`policeDamage: ${policeDamage}`);
 		// see who is smaller, player or police
 		// TODO: make who goes first actually matter
 		lifeObj.current.police.encounter.reason = (playerRoll < policeRoll) ? "fight_success" : "fight_failure";
@@ -199,7 +201,7 @@ module.exports.simulateEncounter = function simulateEncounter(life) {
 
 		function doAttack(entity, roll) {
 			if (roll <= game.police[`accuracy_${entity}_base`]) {
-				return game.police.base_damage;
+				return module.exports.getDamage(lifeObj, entity);
 			}
 			return 0;
 		}
@@ -353,6 +355,18 @@ module.exports.simulateEncounter = function simulateEncounter(life) {
 		};
 		return actionObj[police.encounter.action](lifeObj);
 	}
+};
+
+module.exports.getDamage = function getDamage(life, entity) {
+	console.log(`getDamage: entity: ${entity}`);
+	if (entity == "player") {
+		// this is damage that the player is doing
+		return life.current.weapon.damage + game.police.base_damage;
+	} else if (entity == "police") {
+		// this is damage that the police is doing
+		return life.current.police.encounter.officers * game.police.base_damage;
+	}
+	return null;
 };
 
 function getTotalHeat(life) {

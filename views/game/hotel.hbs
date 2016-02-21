@@ -11,6 +11,9 @@
 					<a href="/game/police" class="list-group-item">Police</a>
 				</div>
 			{{else}}
+				{{#vendors_open life}}
+				<p>A vendor is open!</p>
+				{{/vendors_open}}
 				<p>{{life.current.event}}</p>
 				<p>You are currently in <strong>{{life.current.location.city}}</strong> and you're feeling <strong>{{life_health_description life.current.health.points}}</strong>.  You can relax here and contemplate your next move as long as you'd like.  When you're ready, choose somewhere to go.</p>
 
@@ -18,7 +21,9 @@
 					<a href="/game/market" class="list-group-item">Market</a>
 					<a href="/game/airport" class="list-group-item">Airport</a>
 					<a href="/game/bank" class="list-group-item">Bank</a>
+					{{#vendors_open life}}
 					<a href="/game/vendors" class="list-group-item">Vendors</a>
+					{{/vendors_open}}
 					<a href="/game/over" class="list-group-item">Give Up</a>
 				</div>
 			{{/if}}

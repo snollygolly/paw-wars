@@ -231,3 +231,12 @@ hbs.registerHelper("log", function log(variable, opts) {
 	}
 	return variable;
 });
+
+hbs.registerHelper("vendors_open", function log(life, opts) {
+	for (const vendor of game.vendors.enabled) {
+		if (life.listings.vendors[vendor].open === true) {
+			return opts.fn(this);
+		}
+	}
+	return opts.inverse(this);
+});

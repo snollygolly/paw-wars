@@ -187,6 +187,10 @@ module.exports.generateLife = function generateLife(player, parameters) {
 			storage: {
 				available: game.market.starting_storage,
 				total: game.market.starting_storage
+			},
+			weapon: {
+				name: "Claws",
+				damage: 5
 			}
 		},
 		current: {},

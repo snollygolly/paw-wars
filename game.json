@@ -70,7 +70,7 @@
 			}
 		},
 		"weapons": {
-			"start_open": false,
+			"start_open": true,
 			"frequency": 0.10,
 			"stock": 3,
 			"units": 1,

@@ -168,8 +168,6 @@ module.exports.simulateEncounter = function simulateEncounter(life) {
 		// who much damage the entity is dealing this turn
 		const playerDamage = doAttack("player", playerRoll);
 		const policeDamage = doAttack("police", policeRoll);
-		console.log(`playerDamage: ${playerDamage}`);
-		console.log(`policeDamage: ${policeDamage}`);
 		// see who is smaller, player or police
 		// TODO: make who goes first actually matter
 		lifeObj.current.police.encounter.reason = (playerRoll < policeRoll) ? "fight_success" : "fight_failure";
@@ -358,7 +356,6 @@ module.exports.simulateEncounter = function simulateEncounter(life) {
 };
 
 module.exports.getDamage = function getDamage(life, entity) {
-	console.log(`getDamage: entity: ${entity}`);
 	if (entity == "player") {
 		// this is damage that the player is doing
 		return life.current.weapon.damage + game.police.base_damage;

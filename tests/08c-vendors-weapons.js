@@ -31,14 +31,14 @@ describe("Vendors [Weapons] - Generate Stock", () => {
 
 	it("weapons stock should have the right number of units", (done) => {
 		for (const stock of vendorObj.stock) {
-			expect(stock.units).to.equal(config.GAME.vendors.weapons.units);
+			expect(stock.units).to.equal(config.GAME.vendors[vendor].units);
 		}
 		return done();
 	});
 
 	it("weapons stock should be priced correctly", (done) => {
-		const basePrice = config.GAME.vendors.base_price * config.GAME.vendors.weapons.pricing.times_base;
-		const increaseRate = config.GAME.vendors.weapons.pricing.increase_rate;
+		const basePrice = config.GAME.vendors.base_price * config.GAME.vendors[vendor].pricing.times_base;
+		const increaseRate = config.GAME.vendors[vendor].pricing.increase_rate;
 		let lastPrice = basePrice;
 		for (const stock of vendorObj.stock) {
 			expect(stock.price).to.equal(lastPrice * increaseRate);

@@ -63,6 +63,8 @@ describe("Vendors [Weapons] - Handle Transaction", () => {
 		// set up life
 		life = model.generateLife(config.PLAYER, config.LOCATION);
 		life.current.vendor_meta = "lucky";
+		// generate listings to fill stock of closed vendors
+		life.listings.vendors[vendor] = vendors.generateVendorListings(vendor, life);
 		// give the player some extra cash
 		life.current.finance.cash += life.listings.vendors[vendor].stock[0].price;
 		oldLife = JSON.parse(JSON.stringify(life));

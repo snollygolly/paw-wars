@@ -120,7 +120,7 @@ module.exports.getScore = function getScore(life) {
 	// more turns = better/harder?
 	// cash is a little easier to get, doesn't require as much forethought
 	// storage that's taken should count for SOMETHING, although not much
-	const score = Math.round((totalAssets * totalTurns) + totalCash + totalStash);
+	const score = Math.round((totalAssets + totalCash + totalStash) / totalTurns);
 	return score;
 };
 

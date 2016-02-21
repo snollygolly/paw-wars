@@ -5,6 +5,7 @@
 		<p>{{past_life.eulogy.simple}}</p>
 		<ul class="list-group">
 			<li class="list-group-item">Total Turns: <strong>{{past_life.current.turn}}</strong></li>
+			<li class="list-group-item">Total Cash: <strong>{{past_life.current.finance.cash}}</strong></li>
 			<li class="list-group-item">Total Liquid Assets: <strong>{{math past_life.current.finance.cash "+" past_life.current.finance.savings}}</strong></li>
 			<li class="list-group-item">Total Debt: <strong>{{past_life.current.finance.debt}}</strong></li>
 			<li class="list-group-item">Final Score: <strong>{{past_life.score}}</strong></li>

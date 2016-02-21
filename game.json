@@ -39,7 +39,7 @@
 		"starting_debt": 10000
 	},
 	"events": {
-		"event_rate": 0.15,
+		"event_rate": 0.20,
 		"starting_message": "You feel like this is the first day of the rest of your life.",
 		"no_event_message": "Nothing of interest happened this turn."
 	},
@@ -60,8 +60,8 @@
 		"base_price": 250,
 		"enabled": ["storage", "weapons"],
 		"storage": {
-			"start_open": true,
-			"frequency": 0.10,
+			"start_open": false,
+			"frequency": 0.25,
 			"stock": 4,
 			"units": 10,
 			"pricing": {
@@ -70,8 +70,8 @@
 			}
 		},
 		"weapons": {
-			"start_open": true,
-			"frequency": 0.10,
+			"start_open": false,
+			"frequency": 0.25,
 			"stock": 3,
 			"units": 1,
 			"pricing": {

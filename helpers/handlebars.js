@@ -187,6 +187,12 @@ hbs.registerHelper("get_deal_indication", function stringify(id, price, opts) {
 	return `${startingStr}an unknown${endingStr}${modStr}`;
 });
 
+hbs.registerHelper("get_item_name", function get_item_name(id, opts) {
+	const item = common.getObjFromID(id, itemsJSON);
+	return item.name;
+});
+
+
 hbs.registerHelper("math", math);
 Handlebars.registerHelper("math", math);
 

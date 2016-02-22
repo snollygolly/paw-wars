@@ -17,6 +17,7 @@ const game_vendors = require("./controllers/game_vendors.js");
 const game_market = require("./controllers/game_market.js");
 const game_airport = require("./controllers/game_airport.js");
 const game_police = require("./controllers/game_police.js");
+const game_storage = require("./controllers/game_storage.js");
 const game_life = require("./controllers/game_life.js");
 
 // routes
@@ -60,6 +61,9 @@ routes.post("/game/police/encounter", game_police.encounter);
 // vendor routes
 routes.get("/game/vendors", game_vendors.index);
 routes.post("/game/vendors/transaction", game_vendors.transaction);
+
+// storage routes
+routes.get("/game/storage", game_storage.index);
 
 // for passport
 routes.get("/login", function* get() {

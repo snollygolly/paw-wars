@@ -50,3 +50,7 @@ body {
 .transport-buy:hover {
   background-color: #494D4F;
 }
+
+.hud-icon {
+	color: #FFFFFF;
+}

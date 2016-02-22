@@ -1,0 +1,11 @@
+<div class="container">
+	{{> hud}}
+	<div>
+		<h1>Storage</h1>
+		<br>
+		<p>You currently have <strong>{{life.current.storage.available}}</strong> units of storage available out of <strong>{{life.current.storage.total}}</strong> units total.</p>
+		{{#each life.current.inventory}}
+		<p>You have <strong>{{this.units}}</strong> units of <strong>{{get_item_name this.id}}</strong></p>
+		{{/each}}
+	</div>
+</div><!-- /.container -->

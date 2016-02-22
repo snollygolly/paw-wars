@@ -104,7 +104,7 @@ module.exports.checkDeath = function checkDeath(life) {
 			// you're dead
 			life.alive = false;
 			// give them a eulogy
-			lifeObj.eulogy = deathsJSON.old_age;
+			life.eulogy = deathsJSON.old_age;
 		}
 	}
 	return life;

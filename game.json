@@ -5,7 +5,7 @@
 		"max_hp": 100
 	},
 	"market":{
-		"base_price": 250,
+		"base_price": 1000,
 		"base_units": 1000,
 		"price_variance": {
 			"min": -0.75,
@@ -34,7 +34,7 @@
 	"bank": {
 		"debt_interest": 0.03,
 		"savings_interest": 0.01,
-		"starting_cash": 15000,
+		"starting_cash": 10000,
 		"starting_savings": 1000,
 		"starting_debt": 10000
 	},
@@ -45,7 +45,7 @@
 	},
 	"police": {
 		"starting_heat": 0,
-		"heat_rate": 5,
+		"heat_rate": 10,
 		"heat_cap": 100,
 		"total_officers": 4,
 		"search_proficiency": 0.50,

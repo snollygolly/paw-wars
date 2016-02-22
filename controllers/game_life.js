@@ -22,7 +22,6 @@ module.exports.play = function* play() {
 	yield this.render("game/life", {
 		game: game,
 		player: player,
-		life: life,
 		places: placesJSON
 	});
 };

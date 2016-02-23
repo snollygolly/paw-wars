@@ -65,8 +65,8 @@
 			"simple": "You are going to jail"
 		},
 		"fight_success":{
-			"full": "You attack Officer Barks. You are able to surprise him and gain the advantage. Several bites and scratches later you are able to flee from Officer Barks",
-			"simple": "You escaped Officer Barks"
+			"full": "You attack Officer Barks. You are able to surprise him and gain the advantage. Several bites and scratches later you feel like you've done a good amount of damage",
+			"simple": "You have damaged Officer Barks"
 		},
 		"fight_failure":{
 			"full": "You attack Officer Barks. You attempt to scratch and bite at him, but Officer Barks retaliates with a hard bite of his own.",

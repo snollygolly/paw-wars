@@ -346,6 +346,9 @@ module.exports.simulateEncounter = function simulateEncounter(life) {
 					data: lifeObj.current.police
 				});
 				// reset the actual values
+				if (lifeObj.current.police.encounter.reason == "dead") {
+					lifeObj.current.police.death = true;
+				}
 				lifeObj.current.police.encounter = null;
 				lifeObj.current.police.history = [];
 				return lifeObj;

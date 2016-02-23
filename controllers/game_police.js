@@ -67,7 +67,7 @@ module.exports.encounter = function* encounter() {
 		// something went wrong during the process
 		return this.body = {error: true, message: life.message};
 	}
-	if (life.current.police.encounter.reason == "dead") {
+	if (life.current.police.death === true) {
 		// they died :(
 		life.alive = false;
 	}

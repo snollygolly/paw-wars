@@ -9,7 +9,12 @@ $(document).ready(function() {
 
   $(document).on("click", ".police-choice", function (e) {
     disableAll();
-    if (life.alive === false) {
+		console.log(life);
+		var reason;
+		if (life.current.police.encounter !== null) {
+			reason = life.current.police.encounter.reason
+		}
+    if (life.alive === false || reason == "dead") {
       // they died
       window.location.replace("/game/over");
       return;

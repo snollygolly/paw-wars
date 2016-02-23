@@ -103,7 +103,7 @@ module.exports.simulateEncounter = function simulateEncounter(life) {
 		const roll = common.rollDice(0, 1, police.meta);
 		if (roll >= game.police.hiss_success_rate) {
 			// they failed the roll, and have enraged the officer
-			lifeObj.current.health.points -= game.police.base_damage * 2;
+			lifeObj.current.health.points -= module.exports.getDamage(lifeObj, "police") * 2;
 			// increase heat
 			lifeObj.current.police.heat += game.police.heat_rate;
 			// death check
@@ -134,7 +134,7 @@ module.exports.simulateEncounter = function simulateEncounter(life) {
 		const roll = common.rollDice(0, 1, police.meta);
 		if (roll >= game.police.run_success_rate) {
 			// they failed the roll, and are not escaping the officer
-			lifeObj.current.health.points -= game.police.base_damage;
+			lifeObj.current.health.points -= module.exports.getDamage(lifeObj, "police");
 			// increase heat
 			lifeObj.current.police.heat += game.police.heat_rate;
 			// death check

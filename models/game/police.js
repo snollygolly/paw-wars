@@ -288,6 +288,7 @@ module.exports.simulateEncounter = function simulateEncounter(life) {
 				if (lifeObj.current.storage.available === lifeObj.current.storage.total) {
 					// they aren't carrying anything
 					lifeObj.current.police.encounter.reason = "search_failure";
+					lifeObj.current.police.heat -= game.police.heat_rate;
 					return changeModes(actionLifeObj, "end");
 				}
 				// roll here to see if they find what you're carrying
@@ -300,6 +301,7 @@ module.exports.simulateEncounter = function simulateEncounter(life) {
 				}
 				// you somehow didn't get caught
 				lifeObj.current.police.encounter.reason = "search_failure";
+				lifeObj.current.police.heat -= game.police.heat_rate;
 				return changeModes(actionLifeObj, "end");
 			}
 		};

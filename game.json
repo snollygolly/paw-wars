@@ -78,6 +78,16 @@
 				"times_base": 10,
 				"increase_rate": 5.00
 			}
+		},
+		"health": {
+			"start_open": false,
+			"frequency": 0.10,
+			"stock": 5,
+			"units": 10,
+			"pricing": {
+				"times_base": 3,
+				"increase_rate": 1.50
+			}
 		}
 	},
 	"features": {

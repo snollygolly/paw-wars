@@ -42,6 +42,7 @@ describe("Vendors [Health] - Generate Stock", () => {
 		let lastPrice = basePrice;
 		for (const stock of vendorObj.stock) {
 			expect(stock.price).to.equal(lastPrice * increaseRate);
+			expect(common.isWholeNumber(stock.price)).to.be.true;
 			lastPrice = stock.price;
 		}
 		return done();

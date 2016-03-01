@@ -85,8 +85,8 @@
 			"stock": 5,
 			"units": 10,
 			"pricing": {
-				"times_base": 3,
-				"increase_rate": 1.50
+				"times_base": 4,
+				"increase_rate": 2.00
 			}
 		}
 	},

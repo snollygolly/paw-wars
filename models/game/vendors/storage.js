@@ -38,7 +38,7 @@ function fillStock(lifeObj) {
 	// add one item for stock count
 	while (i < game.vendors.storage.stock) {
 		const stockObj = {
-			units: 10,
+			units: game.vendors.storage.units,
 			name: "units of storage",
 			price: (lastPrice * increaseRate),
 			meta: null

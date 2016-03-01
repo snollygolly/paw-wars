@@ -39,7 +39,7 @@ function fillStock(lifeObj) {
 	// add one item for stock count
 	while (i < game.vendors.weapons.stock) {
 		const stockObj = {
-			units: 1,
+			units: game.vendors.weapons.units,
 			name: makeScaryNamedGuns(),
 			price: (lastPrice * increaseRate),
 			meta: {

@@ -23,6 +23,7 @@ $( document ).ready(function() {
     // start populating it with values
     $('#transaction-title').html(friendlyType + ": " + type);
     $('#transaction-amount-label').html("How much do you want to " + type + "?");
+		$('#transaction-confirm-message').html("You currently have <strong>$" + max + "</strong> in the bank.");
     $('#transaction-all-btn').data('max', max);
     $('#transaction-amount').val(0);
     var confirmButton = $('#transaction-confirm-btn');

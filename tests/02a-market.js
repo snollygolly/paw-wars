@@ -185,6 +185,7 @@ describe("Market - Transaction Validation (Sell)", (done) => {
 		};
 		// do the sell and check start the tests
 		transaction = makeTransaction("sell", itemID);
+		console.log(`calling doMarketTransaction:\n oldLife:\n\n ${JSON.stringify(oldLife)} \ntransaction:\n\n ${JSON.stringify(transaction)}`);
 		newLife = market.doMarketTransaction(oldLife, transaction);
 	});
 

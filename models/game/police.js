@@ -363,6 +363,13 @@ module.exports.simulateEncounter = function simulateEncounter(life) {
 module.exports.getDamage = function getDamage(life, entity) {
 	if (entity == "player") {
 		// this is damage that the player is doing
+		let damage = life.current.weapon.damage + game.police.base_damage;
+		if (life.current.health.points - damage < 0) {
+			// if the damage we're going to deal will put us below 0
+			// add the negative difference to damage (which is positive)
+			// to remove the excess... I think
+			damage = (life.current.health.points - damage) + damage;
+		}
 		return life.current.weapon.damage + game.police.base_damage;
 	} else if (entity == "police") {
 		// this is damage that the police is doing

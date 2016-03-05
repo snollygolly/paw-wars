@@ -87,9 +87,7 @@ describe("Police - Simulating Encounter (Run, Dead)", () => {
 	});
 
 	it("encounter should reduce health", (done) => {
-		const newDamage = police.getDamage(life, "police");
-		const newHealth = 1 - newDamage;
-		expect(life.current.health.points).to.equal(newHealth);
+		expect(life.current.health.points).to.equal(0);
 		return done();
 	});
 

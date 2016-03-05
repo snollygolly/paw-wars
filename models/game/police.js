@@ -103,7 +103,9 @@ module.exports.simulateEncounter = function simulateEncounter(life) {
 		const roll = common.rollDice(0, 1, police.meta);
 		if (roll >= game.police.hiss_success_rate) {
 			// they failed the roll, and have enraged the officer
-			lifeObj.current.health.points -= module.exports.getDamage(lifeObj, "police") * 2;
+			lifeObj.current.health.points -= module.exports.getDamage(lifeObj, "police");
+			// deal the damage in two portions to trigger negative health checks
+			lifeObj.current.health.points -= module.exports.getDamage(lifeObj, "police");
 			// increase heat
 			lifeObj.current.police.heat += game.police.heat_rate;
 			// death check
@@ -363,17 +365,20 @@ module.exports.simulateEncounter = function simulateEncounter(life) {
 module.exports.getDamage = function getDamage(life, entity) {
 	if (entity == "player") {
 		// this is damage that the player is doing
-		let damage = life.current.weapon.damage + game.police.base_damage;
+		return life.current.weapon.damage + game.police.base_damage;
+	} else if (entity == "police") {
+		// this is damage that the police is doing
+		let damage = life.current.police.encounter.officers * game.police.base_damage;
+		console.log(`damage: ${damage}`);
+		console.log(`life.current.health.points: ${life.current.health.points}`);
 		if (life.current.health.points - damage < 0) {
 			// if the damage we're going to deal will put us below 0
 			// add the negative difference to damage (which is positive)
 			// to remove the excess... I think
 			damage = (life.current.health.points - damage) + damage;
+			console.log(`hit if: ${damage}`);
 		}
-		return life.current.weapon.damage + game.police.base_damage;
-	} else if (entity == "police") {
-		// this is damage that the police is doing
-		return life.current.police.encounter.officers * game.police.base_damage;
+		return damage;
 	}
 	return null;
 };

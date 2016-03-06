@@ -63,8 +63,10 @@ describe("Market - Transaction Validation (Buy)", () => {
 			id: itemID,
 			units: 0
 		};
+		// give us money so we can buy this item
+		oldLife.current.finance.cash += oldListing.price * config.UNITS;
 		transaction = makeTransaction("buy", itemID);
-		newLife = market.doMarketTransaction(life, transaction);
+		newLife = market.doMarketTransaction(oldLife, transaction);
 	});
 
 	it("market should accept a buy transaction", (done) => {
@@ -174,9 +176,11 @@ describe("Market - Transaction Validation (Sell)", (done) => {
 		oldLife = JSON.parse(JSON.stringify(life));
 		itemID = oldLife.listings.market[0].id;
 		oldListing = common.getObjFromID(itemID, oldLife.listings.market);
+		// give us money so we can buy this item
+		oldLife.current.finance.cash += oldListing.price * config.UNITS;
 		// start to set up a buy transaction first
 		transaction = makeTransaction("buy", itemID);
-		oldLife = market.doMarketTransaction(life, transaction);
+		oldLife = market.doMarketTransaction(oldLife, transaction);
 		// set up listings
 
 		oldInventory = {

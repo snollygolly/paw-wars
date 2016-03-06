@@ -1,9 +1,12 @@
 "use strict";
 
 const fs = require("fs");
-const hbs = require("koa-hbs");
 const Handlebars = require("handlebars");
+const hbs = require("koa-hbs");
 const marked = require("marked");
+marked.setOptions({
+	sanitize: false
+});
 const config = require("../config.json");
 const game = require("../game.json");
 const common = require("./common");
@@ -192,6 +195,31 @@ hbs.registerHelper("get_item_name", function get_item_name(id, opts) {
 	return item.name;
 });
 
+hbs.registerHelper("md_partial", function md_partial(partial, opts) {
+	const data = {
+		game: game,
+		config: config,
+		items: itemsJSON,
+		places: placesJSON
+	};
+	const rawFile = fs.readFileSync(`views/manual/${partial}.md`, "utf8");
+	// we have to manually replace escaped quotes because of marked
+	// https://github.com/chjj/marked/issues/269
+	let parsedFile = marked(rawFile);
+	parsedFile = parsedFile.replace(/\\&quot;/g, '"');
+	const template = Handlebars.compile(parsedFile);
+	const final = template(data);
+	return final;
+});
+
+hbs.registerHelper("vendors_open", function log(life, opts) {
+	for (const vendor of game.vendors.enabled) {
+		if (life.listings.vendors[vendor].open === true) {
+			return opts.fn(this);
+		}
+	}
+	return opts.inverse(this);
+});
 
 hbs.registerHelper("math", math);
 Handlebars.registerHelper("math", math);
@@ -210,39 +238,23 @@ function math(lvalue, operator, rvalue, options) {
 	}
 }
 
-hbs.registerHelper("md_partial", function md_partial(partial, opts) {
-	const data = {
-		game: game,
-		config: config,
-		math: {
-			plus: "+",
-			minus: "-",
-			times: "*",
-			divided: "/"
-		},
-		items: itemsJSON,
-		places: placesJSON
-	};
-	const rawFile = fs.readFileSync(`views/manual/${partial}.md`, "utf8");
-	const parsedFile = marked(rawFile);
-	const template = Handlebars.compile(parsedFile);
-	const final = template(data);
-	return final;
-});
+hbs.registerHelper("log", log);
+Handlebars.registerHelper("log", log);
 
-hbs.registerHelper("log", function log(variable, opts) {
+function log(variable, opts) {
 	console.log(`hbs`, variable, opts);
 	if (opts == "JSON") {
 		return JSON.stringify(variable);
 	}
 	return variable;
-});
+}
 
-hbs.registerHelper("vendors_open", function log(life, opts) {
-	for (const vendor of game.vendors.enabled) {
-		if (life.listings.vendors[vendor].open === true) {
-			return opts.fn(this);
-		}
+Handlebars.registerHelper("get_vendor_property", function log(id, property, opts) {
+	if (!game.vendors[id]) {
+		return "Bad vendor";
 	}
-	return opts.inverse(this);
+	if (!game.vendors[id][property]) {
+		return "Bad vendor property";
+	}
+	return game.vendors[id][property];
 });

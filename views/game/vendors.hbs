@@ -7,7 +7,8 @@
 		<br>
 			{{#each life.listings.vendors}}
 				{{#if this.open}}
-					<p>The <strong>{{@key}}</strong> vendor is currently <strong>{{#if this.open}}open{{else}}closed{{/if}}</strong>
+					<h3>{{this.name}}, the {{@key}} vendor</h3>
+					{{{this.introduction}}}
 					<div class="list-group">
 						{{#each this.stock}}
 							<button class="list-group-item vendor-{{@key}}-listing" data-type="buy" data-index="{{@index}}" data-name="{{this.units}} {{this.name}}" data-price="{{this.price}}" data-vendor="{{@key}}" data-toggle="modal" data-target="#vendor-modal">Buy <strong>{{this.units}} {{this.name}}</strong> for <strong>${{this.price}}</strong></button>

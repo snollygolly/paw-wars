@@ -6,6 +6,14 @@ const model = require("../../game_life.js");
 
 const vendor = "weapons";
 
+const name = "Mittens";
+
+const introduction = `
+	<p>Mittens, a twitchy-looking black-haired cat with white paws, eyes you up and down as you walk into her shop.</p>
+	<p>"You look a little &hellip; <i>cold</i>. Hate to see a nice cat like yourself freezing out there. How about you buy a little <i>heat</i> and help me sleep a little better at night?"</p>
+	<p>You're not sure if she keeps winking at you or just has a bit of a nervous tic.</p>
+`;
+
 module.exports.doVendorTransaction = function doVendorTransaction(life, transaction) {
 	const newLife = JSON.parse(JSON.stringify(life));
 	// remove sold mod from stock
@@ -24,6 +32,8 @@ module.exports.generateVendorListings = function generateVendorListings(life) {
 	// generates the prices and units for the vendor
 	const listingObj = {
 		open: true,
+		name: name,
+		introduction: introduction,
 		stock: fillStock(life)
 	};
 

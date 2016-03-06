@@ -6,6 +6,11 @@ const model = require("../../game_life.js");
 
 const vendor = "health";
 
+const name = "Dr. Mouse, MD";
+const introduction = `
+	<p>Dr. Mouse sighs as you walk into the shop, and pretends he hasn't seen you.</p>
+`;
+
 module.exports.doVendorTransaction = function doVendorTransaction(life, transaction) {
 	const newLife = JSON.parse(JSON.stringify(life));
 	// remove sold mod from stock
@@ -22,6 +27,8 @@ module.exports.generateVendorListings = function generateVendorListings(life) {
 	// generates the prices and units for the vendor
 	const listingObj = {
 		open: true,
+		name: name,
+		introduction: introduction,
 		stock: fillStock(life)
 	};
 

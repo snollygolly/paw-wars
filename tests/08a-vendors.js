@@ -104,6 +104,16 @@ describe("Vendors - Generate Vendor Listings (Open)", () => {
 			return done();
 		});
 
+		it(`current vendor [${vendor}] should have a name`, (done) => {
+			expect(vendorObj[vendor]).to.have.property("name");
+			return done();
+		});
+
+		it(`current vendor [${vendor}] should have a color introduction`, (done) => {
+			expect(vendorObj[vendor]).to.have.property("introduction");
+			return done();
+		});
+
 		it(`current vendor [${vendor}] stock should have all properties`, (done) => {
 			for (const stock of vendorObj[vendor].stock) {
 				expect(stock).to.have.property("units");

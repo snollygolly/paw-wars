@@ -45,7 +45,7 @@
 	},
 	"police": {
 		"starting_heat": 0,
-		"heat_rate": 10,
+		"heat_rate": 7,
 		"heat_cap": 100,
 		"total_officers": 4,
 		"search_proficiency": 0.50,

@@ -31,3 +31,6 @@ tmp
 rethinkdb_data
 assets/bower_components
 coverage
+
+*.map
+*.scssc

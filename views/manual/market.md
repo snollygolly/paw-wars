@@ -3,7 +3,7 @@
 ---
 
 ## Market
-The market is the central point in each city for buying and selling illicit cat goods.  Each time you visit a city, that city generates a set of "market listings" that dictate what the price is, and how much is available for you to purchase.  If you don't like what's available on the market in the city you're in, the only way to get different items is to travel to a different city via the [Airport](/manual/airport).
+The market is the central point in each city for buying and selling illicit cat goods.  Each time you visit a city, that city generates a set of "market listings" that dictate what the price is, and how much is available for you to purchase.  On your very first turn, there's a starting discount of __{{math game.market.starting_discount \"*\" 100}}%__.  If you don't like what's available on the market in the city you're in, the only way to get different items is to travel to a different city via the [Airport](/manual/airport).
 
 Pricing for all [Items](/manual/items) goes off of a "base price" that is either adjusted up or down.  The current base price is __${{game.market.base_price}}__, which means that all prices are based on that price (give or take a random amount based on a number of factors).  __{{game.market.base_units}}__ is the amount of "base units" available for each item.  Based on factors like rarity, the amount of units a location has in stock varies, but is based on this number.
 
@@ -21,4 +21,5 @@ game.market.base_units = {{game.market.base_units}}
 game.market.size_affect = {{game.market.size_affect}}
 game.market.size_max = {{game.market.size_max}}
 game.market.starting_storage = {{game.market.starting_storage}}
+game.market.starting_discount = {{game.market.starting_discount}}
 ```

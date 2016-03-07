@@ -13,44 +13,44 @@ body {
   padding: 40px 15px;
 }
 
-.manual-heading {
-  padding: 40px 15px;
-}
-
-.manual-heading a{
-  text-decoration: none;
-}
-
-#hud table {
-	table-layout: fixed;
-}
-
-.hud-center {
-  text-align: center;
-}
-
 #main-container {
   padding-top: 50px;
-}
-
-.card .card-button-footer {
-	background: transparent;
-	border: 0 none;
-	padding-top: 0;
 }
 
 #debug {
   margin-top: 25px;
 }
 
+.card .card-button-footer {
+  background: transparent;
+  border: 0 none;
+  padding-top: 0;
+}
+
+#hud table {
+  table-layout: fixed;
+}
+
+.hud-center {
+  text-align: center;
+}
+
+.hud-icon {
+  color: #FFFFFF;
+}
+
+.manual-heading {
+  padding: 40px 15px;
+}
+.manual-heading a {
+  text-decoration: none;
+}
+
 .transport-buy {
   cursor: pointer;
 }
-
 .transport-buy:hover {
   background-color: #494D4F;
 }
 
-.hud-icon {
-	color: #FFFFFF;
-}
+/*# sourceMappingURL=custom.css.map */

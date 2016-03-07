@@ -40,7 +40,7 @@ npm run seed
 
 * Start it up.
 ```
-npm start
+grunt
 ```
 
 * Enjoy!

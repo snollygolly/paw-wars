@@ -153,7 +153,15 @@ module.exports.generateMarketListings = function generateMarketListings(life, tu
 		// generate some random numbers for price and qty
 		// TODO: handle variations in price here, they may follow trends?
 		// generate price variance
-		const priceVariance = common.getRandomArbitrary(priceMin, priceMax);
+		let priceVariance;
+		if (life.current.turn === 1) {
+			// this is the first turn, so give them a discount
+			const discountPriceMin = priceMin - game.market.starting_discount;
+			const discountPriceMax = priceMax - game.market.starting_discount;
+			priceVariance = common.getRandomArbitrary(discountPriceMin, discountPriceMax);
+		} else {
+			priceVariance = common.getRandomArbitrary(priceMin, priceMax);
+		}
 		const modBasePrice = (game.market.base_price * priceVariance) + game.market.base_price;
 		// generate unit variance
 		const unitVariance = common.getRandomArbitrary(unitMin, unitMax);

@@ -9,7 +9,7 @@ const vendor = "storage";
 const name = "Bobbums";
 const introduction = `
 	<p>Bobbums, a rotund Scottish Fold sitting atop a series of cardboard boxes, looks up from licking his paws as you enter the shop.</p>
-	<p>"Whatcha want?"</p>
+	<p>\"Whatcha want?\"</p>
 `;
 
 module.exports.doVendorTransaction = function doVendorTransaction(life, transaction) {

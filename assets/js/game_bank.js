@@ -23,10 +23,11 @@ $( document ).ready(function() {
     // start populating it with values
     $('#transaction-title').html(friendlyType + ": " + type);
     $('#transaction-amount-label').html("How much do you want to " + type + "?");
-		if (type == "borrow") {
-			$('#transaction-confirm-message').html("The bank will issue you a loan for up to  <strong>$" + max + "</strong>.");
-		}
-		$('#transaction-confirm-message').html("You currently have <strong>$" + max + "</strong> in the bank.");
+    if (type == "borrow") {
+      $('#transaction-confirm-message').html("The bank will issue you a loan for up to  <strong>$" + max + "</strong>.");
+    }else{
+      $('#transaction-confirm-message').html("You currently have <strong>$" + max + "</strong> in the bank.");
+    }
     $('#transaction-all-btn').data('max', max);
     $('#transaction-amount').val(0);
     var confirmButton = $('#transaction-confirm-btn');

@@ -34,3 +34,4 @@ coverage
 
 *.map
 *.scssc
+.sass-cache

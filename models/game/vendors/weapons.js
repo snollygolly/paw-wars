@@ -10,7 +10,7 @@ const name = "Mittens";
 
 const introduction = `
 	<p>Mittens, a twitchy-looking black-haired cat with white paws, eyes you up and down as you walk into her shop.</p>
-	<p>\"You look a little &hellip; <i>cold</i>. Hate to see a nice cat like yourself freezing out there. How about you buy a little <i>heat</i> and help me sleep a little better at night?\"</p>
+	<p>&quot;You look a little &hellip; <i>cold</i>. Hate to see a nice cat like yourself freezing out there. How about you buy a little <i>heat</i> and help me sleep a little better at night?&quot;</p>
 	<p>You're not sure if she keeps winking at you or just has a bit of a nervous tic.</p>
 `;
 

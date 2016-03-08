@@ -17,8 +17,10 @@ module.exports.doVendorTransaction = function doVendorTransaction(life, transact
 	const newMod = newLife.listings.vendors[vendor].stock.splice(transaction.index, 1)[0];
 	// take the money from them
 	newLife.current.finance.cash -= newMod.price;
-	// increase the player health
+	// increase the player health points
 	newLife.current.health.points += newMod.units;
+	// increase the player max health
+	newLife.current.health.max += newMod.units;
 	// console.log("* doVendorTransaction:", life);
 	return newLife;
 };

@@ -76,11 +76,18 @@ describe("Vendors [health] - Handle Transaction", () => {
 		newLife = vendors.doVendorTransaction(oldLife, transaction);
 	});
 
-	it(`health vendor should increase all health`, (done) => {
+	it(`health vendor should increase health points`, (done) => {
 		const newPoints = oldLife.current[vendor].points + config.GAME.vendors[vendor].units;
 		// health points
 		expect(newLife.current[vendor].points).to.equal(newPoints);
 		expect(common.isWholeNumber(newLife.current[vendor].points)).to.be.true;
+		return done();
+	});
+
+	it(`health vendor should increase max health`, (done) => {
+		const newMax = oldLife.current[vendor].max + config.GAME.vendors[vendor].units;
+		expect(newLife.current[vendor].max).to.equal(newMax);
+		expect(common.isWholeNumber(newLife.current[vendor].max)).to.be.true;
 		return done();
 	});
 

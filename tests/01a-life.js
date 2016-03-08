@@ -122,6 +122,12 @@ describe("Life Model - Starting Validation", () => {
 		expect(life.starting.health.points).to.be.a("number");
 		expect(life.starting.health.points).to.be.above(0);
 		expect(common.isWholeNumber(life.starting.health.points)).to.be.true;
+		expect(life.starting.health.points).to.equal(config.GAME.person.starting_hp);
+		expect(life.starting.health).to.have.property("max");
+		expect(life.starting.health.max).to.be.a("number");
+		expect(life.starting.health.max).to.be.above(0);
+		expect(common.isWholeNumber(life.starting.health.max)).to.be.true;
+		expect(life.starting.health.max).to.equal(config.GAME.person.max_hp);
 		expect(life.starting.health).to.have.property("status");
 		return done();
 	});

@@ -1,5 +1,5 @@
 $( document ).ready(function() {
-	$('[data-toggle="tooltip"]').tooltip({delay: { "show": 500, "hide": 100 }});
+  $('[data-toggle="tooltip"]').tooltip({delay: { "show": 500, "hide": 100 }});
 });
 
 
@@ -12,6 +12,7 @@ function displayAlert(type, message){
 function updateHUD(lifeObj) {
   $("#hud-turn-value").html(lifeObj.current.turn);
   $("#hud-hp-value").html(lifeObj.current.health.points);
+  $("#hud-hp-total-value").html(lifeObj.current.health.max);
   $("#hud-cash-value").html(lifeObj.current.finance.cash);
   $("#hud-savings-value").html(lifeObj.current.finance.savings);
   $("#hud-debt-value").html(lifeObj.current.finance.debt);

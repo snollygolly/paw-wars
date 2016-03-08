@@ -173,7 +173,8 @@ module.exports.generateLife = function generateLife(player, parameters) {
 				coordinates: parameters.location.coordinates
 			},
 			health: {
-				points: 100,
+				points: game.person.starting_hp,
+				max: game.person.max_hp,
 				status: null
 			},
 			finance: {

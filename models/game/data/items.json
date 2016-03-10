@@ -58,5 +58,11 @@
     "name": "Saucer of Milk",
     "description": "A dish filled with cow's milk. A favorite of discerning cats everywhere.",
     "rarity": 2
+  },
+  {
+    "id": "cat_litter",
+    "name": "Cat Litter",
+    "description": "A bucket full of fine sand, clay, and a fresh scent that you can't quite place.  Wonderful for defecating.",
+    "rarity": 40
   }
 ]

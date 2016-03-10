@@ -3,14 +3,9 @@
 const game = require("../../../game.json");
 const common = require("../../../helpers/common");
 const model = require("../../game_life.js");
+const vendors = require("../data/vendors.json");
 
 const vendor = "storage";
-
-const name = "Bobbums";
-const introduction = `
-	<p>Bobbums, a rotund Scottish Fold sitting atop a series of cardboard boxes, looks up from licking his paws as you enter the shop.</p>
-	<p>&quot;Whatcha want?&quot;</p>
-`;
 
 module.exports.doVendorTransaction = function doVendorTransaction(life, transaction) {
 	const newLife = JSON.parse(JSON.stringify(life));
@@ -29,8 +24,8 @@ module.exports.generateVendorListings = function generateVendorListings(life) {
 	// generates the prices and units for the vendor
 	const listingObj = {
 		open: true,
-		name: name,
-		introduction: introduction,
+		name: vendors[vendor].name,
+		introduction: vendors[vendor].introduction,
 		stock: fillStock(life)
 	};
 

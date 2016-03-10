@@ -1,0 +1,14 @@
+{
+	"storage": {
+		"name": "Bobbums",
+		"introduction": "<p>Bobbums, a rotund Scottish Fold sitting atop a series of cardboard boxes, looks up from licking his paws as you enter the shop.</p><p>&quot;Whatcha want?&quot;</p>"
+	},
+	"weapons": {
+		"name": "Mittens",
+		"introduction": "<p>Mittens, a twitchy-looking black-haired cat with white paws, eyes you up and down as you walk into her shop.</p><p>&quot;You look a little &hellip; <i>cold</i>. Hate to see a nice cat like yourself freezing out there. How about you buy a little <i>heat</i> and help me sleep a little better at night?&quot;</p><p>You're not sure if she keeps winking at you or just has a bit of a nervous tic.</p>"
+	},
+	"health": {
+		"name": "Dr. Mouse, MD",
+		"introduction" : "<p>Dr. Mouse sighs as you walk into the shop, and pretends he hasn't seen you.</p>"
+	}
+}

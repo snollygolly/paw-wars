@@ -66,11 +66,6 @@ module.exports.doMarketTransaction = function doMarketTransaction(life, transact
 			} else {
 				inventory.sunkCost = totalPrice;
 			}
-
-			inventory.averagePrice = 0;
-			if (inventory.units !== 0) {
-				inventory.averagePrice = inventory.sunkCost / inventory.units;
-			}
 		}
 
 	} else if (transaction.type == "sell") {
@@ -86,6 +81,18 @@ module.exports.doMarketTransaction = function doMarketTransaction(life, transact
 		newLife.current.storage.available += transaction.units;
 		// adjust the inventory stock
 		inventory.units -= transaction.units;
+	}
+
+	if (newLife.current.upgrades.hasOwnProperty("bookkeeping")) {
+		if (inventory.units !== 0) {
+			inventory.averagePrice = inventory.sunkCost / inventory.units;
+		} else {
+			inventory.averagePrice = 0;
+		}
+
+		if (inventory.averagePrice < 0) {
+			inventory.averagePrice = 0;
+		}
 	}
 
 	// save it back to the array

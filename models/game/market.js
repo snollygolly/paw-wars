@@ -92,8 +92,10 @@ module.exports.generateMarketListings = function generateMarketListings(life, tu
 	// generates the prices and units for the market
 	const priceArr = [];
 	// set the listing multiplier to show how many listings
+
 	const multi = 1 - (life.current.location.size * game.market.size_affect) / game.market.size_max;
-	const listingMulti = (life.current.location.size * game.market.size_affect) / game.market.size_max;
+
+	const listingMulti = (life.current.location.size * (1 - (game.market.size_affect - 1))) / game.market.size_max;
 	const listingLength = Math.ceil(listingMulti * itemsJSON.length);
 	// To help improve balance a bit, the more turns are spent in one setting, the
 	// more likely you are to come across items you already have in your inventory

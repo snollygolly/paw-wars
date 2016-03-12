@@ -4,7 +4,7 @@ const upgrades = {
 			enabled: true
 		};
 
-		return currentLife;
+		return currentLife.upgrades;
 	}
 };
 

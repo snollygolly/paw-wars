@@ -32,10 +32,12 @@ module.exports.doMarketTransaction = function doMarketTransaction(life, transact
 		// we searched the inventory for this object, but didn't find it, lets make it
 		inventory = {
 			id: listing.id,
-			units: 0
+			units: 0,
+			sunkCost: 0
 		};
 		newLife.current.inventory.push(inventory);
 	}
+
 	if (transaction.type == "buy") {
 		if (transaction.units > listing.units) {
 			// they want more than we have
@@ -57,6 +59,15 @@ module.exports.doMarketTransaction = function doMarketTransaction(life, transact
 		newLife.current.storage.available -= transaction.units;
 		// adjust the inventory stock
 		inventory.units += transaction.units;
+
+		if (newLife.current.upgrades.hasOwnProperty("bookkeeping")) {
+			if (inventory.hasOwnProperty("sunkCost")) {
+				inventory.sunkCost += totalPrice;
+			} else {
+				inventory.sunkCost = totalPrice;
+			}
+		}
+
 	} else if (transaction.type == "sell") {
 		const inventory = common.getObjFromID(transaction.item, newLife.current.inventory);
 		if (transaction.units > inventory.units) {
@@ -70,7 +81,20 @@ module.exports.doMarketTransaction = function doMarketTransaction(life, transact
 		newLife.current.storage.available += transaction.units;
 		// adjust the inventory stock
 		inventory.units -= transaction.units;
+
+		if (newLife.current.upgrades.hasOwnProperty("bookkeeping")) {
+			if (inventory.hasOwnProperty("sunkCost")) {
+				inventory.sunkCost -= totalPrice;
+			} else {
+				inventory.sunkCost = totalPrice;
+			}
+		}
 	}
+
+	if (newLife.current.upgrades.hasOwnProperty("bookkeeping")) {
+		inventory.averagePrice = inventory.sunkCost / inventory.units;
+	}
+
 	// save it back to the array
 	newLife.listings.market = common.replaceObjFromArr(listing, newLife.listings.market);
 	newLife.current.inventory = common.replaceObjFromArr(inventory, newLife.current.inventory);

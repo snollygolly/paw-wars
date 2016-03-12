@@ -17,12 +17,30 @@
 							{{#if_eq ../features.deal_indication true}}
 								<br/><small class="text-muted">{{{get_deal_indication id price}}}</small>
 							{{/if_eq}}
+							{{#is_upgrade_enabled ../life.current "bookkeeping"}}
+								<br/><small class="text-muted">According to your bookkeeper, you've currently spent $<span class="sunk-cost">{{get_item_sunk_cost id ../../life.current.inventory}}</span> per unit in your inventory.</small>
+							{{/is_upgrade_enabled}}
 						</p>
 						<p class="card-text">{{description}}</p>
 					</div>
 					<div class="card-footer card-button-footer">
-						<button class="btn btn-success transaction-buy-btn" data-type="buy" data-id="{{id}}" data-name="{{name}}" data-units="{{units}}" data-price="{{price}}" data-toggle="modal" data-target="#transaction-modal">Buy</button>
-						<button class="btn btn-danger transaction-sell-btn" data-type="sell" data-id="{{id}}" data-name="{{name}}" data-units="{{life_inventory id ../life.current.inventory}}" data-price="{{price}}" data-toggle="modal" data-target="#transaction-modal">Sell</button>
+						<button class="btn btn-success transaction-buy-btn"
+							data-type="buy"
+							data-id="{{id}}"
+							data-name="{{name}}"
+							data-units="{{units}}"
+							data-price="{{price}}"
+							data-toggle="modal"
+							data-target="#transaction-modal">Buy</button>
+
+						<button class="btn btn-danger transaction-sell-btn"
+						data-type="sell"
+						data-id="{{id}}"
+						data-name="{{name}}"
+						data-units="{{life_inventory id ../life.current.inventory}}"
+						data-price="{{price}}"
+						data-toggle="modal"
+						data-target="#transaction-modal">Sell</button>
 					</div>
 					<div class="card-footer text-muted">
 						{{#if ../life.id}}
@@ -56,9 +74,12 @@
 			<div class="modal-body">
 				<fieldset class="form-group">
 					<label id="transaction-units-label" for="transaction-units"></label>
+					<p id="transaction-sunk-cost"></p>
 					<input type="number" class="form-control" id="transaction-units" min="0" max="0" value="0" pattern="\d*">
 				</fieldset>
+				{{#is_upgrade_enabled life.current "bookkeeping"}}
 				<p id="transaction-confirm-message"></p>
+				{{/is_upgrade_enabled}}
 			</div>
 			<div class="modal-footer">
 				<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>

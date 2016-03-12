@@ -98,6 +98,9 @@ function updateUnits(life){
     var inventoryObj = getObjFromArr(listings[i].id, inventory);
     $(item).find('.transaction-inventory-units').html(inventoryObj.units);
     $(item).find('.transaction-sell-btn').data('units', inventoryObj.units);
+    if(typeof inventoryObj.sunkCost !== 'undefined') {
+      $(item).find('.sunk-cost').html(inventoryObj.averagePrice);
+    }
     i++;
   }
 }

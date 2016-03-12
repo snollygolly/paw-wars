@@ -1,0 +1,15 @@
+const upgrades = {
+	"Bookkeeping Retainer": function bookkeepingRetainer(currentLife) {
+		currentLife.upgrades.bookkeeping = {
+			enabled: true
+		};
+
+		return currentLife;
+	}
+};
+
+module.exports.addUpgrade = function addUpgrade(upgradeName, currentLife) {
+	if (upgrades.hasOwnProperty(upgradeName)) {
+		return upgrades[upgradeName](currentLife);
+	}
+};

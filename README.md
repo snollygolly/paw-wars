@@ -1,5 +1,6 @@
 # :smiley_cat: paw-wars [![Build Status](https://api.travis-ci.org/snollygolly/paw-wars.svg?branch=master)](https://travis-ci.org/snollygolly/paw-wars)
-A spiritual successor to [Drugwars](https://en.wikipedia.org/wiki/Drugwars), but with cats.
+
+![Paw Wars](https://raw.githubusercontent.com/snollygolly/paw-wars/master/assets/img/paw-wars-logo.png)
 
 ## :kissing_cat: Overview
 [Paw Wars](http://pawwars.org) is a game that takes place in a world where dogs are the ruling class and cats are treated as lower class citizens. Luxury items are strictly forbidden, but a black market persists. You take on the role of a smuggler trying to provide contraband to cats in need. You travel the world buying and selling items, avoiding police, and trying to get rich to die trying.

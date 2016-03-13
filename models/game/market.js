@@ -33,7 +33,8 @@ module.exports.doMarketTransaction = function doMarketTransaction(life, transact
 		inventory = {
 			id: listing.id,
 			units: 0,
-			sunkCost: 0
+			sunkCost: 0,
+			boughtAt: []
 		};
 		newLife.current.inventory.push(inventory);
 	}
@@ -59,15 +60,6 @@ module.exports.doMarketTransaction = function doMarketTransaction(life, transact
 		newLife.current.storage.available -= transaction.units;
 		// adjust the inventory stock
 		inventory.units += transaction.units;
-
-		if (newLife.current.upgrades.hasOwnProperty("bookkeeping")) {
-			if (inventory.hasOwnProperty("sunkCost")) {
-				inventory.sunkCost += totalPrice;
-			} else {
-				inventory.sunkCost = totalPrice;
-			}
-		}
-
 	} else if (transaction.type == "sell") {
 		const inventory = common.getObjFromID(transaction.item, newLife.current.inventory);
 		if (transaction.units > inventory.units) {
@@ -84,15 +76,19 @@ module.exports.doMarketTransaction = function doMarketTransaction(life, transact
 	}
 
 	if (newLife.current.upgrades.hasOwnProperty("bookkeeping")) {
-		if (inventory.units !== 0) {
-			inventory.averagePrice = inventory.sunkCost / inventory.units;
-		} else {
-			inventory.averagePrice = 0;
-		}
+		inventory.boughtAt.push({
+			units: transaction.units,
+			price: listing.price
+		});
 
-		if (inventory.averagePrice < 0) {
-			inventory.averagePrice = 0;
-		}
+		const totals = inventory.boughtAt.reduce(function reduce(previous, current) {
+			return {
+				totalUnits: previous.totalUnits + current.units,
+				totalPrice: previous.totalPrice + (current.price * current.units)
+			};
+		}, { totalUnits: 0, totalPrice: 0 });
+
+		inventory.averagePrice = Math.ceil(totals.totalPrice / totals.totalUnits);
 	}
 
 	// save it back to the array

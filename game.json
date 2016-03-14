@@ -59,7 +59,15 @@
 	},
 	"vendors": {
 		"base_price": 250,
-		"enabled": ["storage", "weapons", "health"],
+		"enabled": ["storage", "weapons", "health", "accounting"],
+		"accounting": {
+			"start_open": false,
+			"stock": 1,
+			"frequency": 0.10,
+			"pricing": {
+				"times_base": 30
+			}
+		},
 		"storage": {
 			"start_open": false,
 			"frequency": 0.20,

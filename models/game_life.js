@@ -185,6 +185,7 @@ module.exports.generateLife = function generateLife(player, parameters) {
 				savings_interest: game.bank.savings_interest
 			},
 			inventory: [],
+			upgrades: {},
 			storage: {
 				available: game.market.starting_storage,
 				total: game.market.starting_storage

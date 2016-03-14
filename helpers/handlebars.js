@@ -258,3 +258,20 @@ Handlebars.registerHelper("get_vendor_property", function log(id, property, opts
 	}
 	return game.vendors[id][property];
 });
+
+hbs.registerHelper("is_upgrade_enabled", function isUpgradeEnabled(life, upgradeName, opts) {
+	if (life.upgrades.hasOwnProperty(upgradeName)) {
+		return life.upgrades[upgradeName].enabled ? opts.fn(this) : opts.inverse(this);
+	}
+
+	return opts.inverse(this);
+});
+
+hbs.registerHelper("get_item_sunk_cost", function itemSunkCost(id, inventory) {
+	for (const item of inventory) {
+		if (item.id === id) {
+			return item.averagePrice;
+		}
+	}
+	return 0;
+});

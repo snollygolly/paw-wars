@@ -32,10 +32,13 @@ module.exports.doMarketTransaction = function doMarketTransaction(life, transact
 		// we searched the inventory for this object, but didn't find it, lets make it
 		inventory = {
 			id: listing.id,
-			units: 0
+			units: 0,
+			sunkCost: 0,
+			boughtAt: []
 		};
 		newLife.current.inventory.push(inventory);
 	}
+
 	if (transaction.type == "buy") {
 		if (transaction.units > listing.units) {
 			// they want more than we have
@@ -71,6 +74,23 @@ module.exports.doMarketTransaction = function doMarketTransaction(life, transact
 		// adjust the inventory stock
 		inventory.units -= transaction.units;
 	}
+
+	if (newLife.current.upgrades.hasOwnProperty("bookkeeping")) {
+		inventory.boughtAt.push({
+			units: transaction.units,
+			price: listing.price
+		});
+
+		const totals = inventory.boughtAt.reduce(function reduce(previous, current) {
+			return {
+				totalUnits: previous.totalUnits + current.units,
+				totalPrice: previous.totalPrice + (current.price * current.units)
+			};
+		}, { totalUnits: 0, totalPrice: 0 });
+
+		inventory.averagePrice = Math.ceil(totals.totalPrice / totals.totalUnits);
+	}
+
 	// save it back to the array
 	newLife.listings.market = common.replaceObjFromArr(listing, newLife.listings.market);
 	newLife.current.inventory = common.replaceObjFromArr(inventory, newLife.current.inventory);

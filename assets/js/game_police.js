@@ -1,11 +1,22 @@
 $(document).ready(function() {
-  try {
-    life = JSON.parse(life);
-  } catch (e) {
-    console.error(e);
-  }
-  // when the document loads, first thing, refresh the encounter
-  refreshEncounter(life);
+	var lifeID = $("#hud").data("id");
+	var life;
+	$.ajax({
+		type: "GET",
+		dataType: 'json',
+		url: "/game/life",
+		data: {id: lifeID}
+	}).done(function(result) {
+		if (result.error === false){
+			life = result.life;
+			// when the document loads, first thing, refresh the encounter
+			refreshEncounter(life);
+		}else{
+			displayAlert("warning", "Oh no!  Something has gone wrong (" + result.message + ")");
+		}
+	}).fail(function(result) {
+		displayAlert("danger", "Oh no!  Something has gone terribly wrong (" + JSON.stringify(result, 2, null) + ")");
+	});
 
   $(document).on("click", ".police-choice", function (e) {
     disableAll();

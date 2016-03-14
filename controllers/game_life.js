@@ -73,7 +73,7 @@ module.exports.get = function* get() {
 	// for error handling
 	this.state.api = true;
 	// 99999_1455077179080 for example
-	const validIDRegex = /\d+_\d+/g;
+	const validIDRegex = /^\d+_\d+$/gm;
 	const parameters = this.request.query;
 	if (!parameters) {
 		return this.body = {error: true, message: "Missing parameter object"};

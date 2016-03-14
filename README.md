@@ -1,6 +1,4 @@
-# :smiley_cat: paw-wars [![Build Status](https://api.travis-ci.org/snollygolly/paw-wars.svg?branch=master)](https://travis-ci.org/snollygolly/paw-wars)
-
-[![Join the chat at https://gitter.im/snollygolly/paw-wars](https://badges.gitter.im/snollygolly/paw-wars.svg)](https://gitter.im/snollygolly/paw-wars?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+# :smiley_cat: paw-wars [![Build Status](https://api.travis-ci.org/snollygolly/paw-wars.svg?branch=master)](https://travis-ci.org/snollygolly/paw-wars) [![Join the chat at https://gitter.im/snollygolly/paw-wars](https://badges.gitter.im/snollygolly/paw-wars.svg)](https://gitter.im/snollygolly/paw-wars?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
 ![Paw Wars](https://raw.githubusercontent.com/snollygolly/paw-wars/master/assets/img/paw-wars-logo.png)
 

@@ -1,8 +1,8 @@
 # [{{config.site.name}}: The Definitive Guide](/manual)
 
 ---
+![Paw Wars](/assets/img/paw-wars-logo.png)
 
-## Overview
 __{{config.site.name}}__ is a game that takes place in a world where dogs are the ruling class and cats are treated as lower class citizens.  Luxury items are strictly forbidden, but a black market persists.  You take on the role of a smuggler trying to provide contraband to cats in need.  You travel the world buying and selling items, avoiding police, and trying to get rich to die trying.
 
 ## Table Of Contents

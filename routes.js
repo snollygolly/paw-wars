@@ -29,6 +29,7 @@ routes.get("/account", main.account);
 
 // game routes (these will be replaced by controllers)
 routes.get("/play", game_life.play);
+routes.get("/game/life", game_life.get);
 routes.post("/game/life", game_life.create);
 routes.get("/game/over", game_life.end);
 

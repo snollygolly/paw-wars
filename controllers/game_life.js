@@ -69,6 +69,31 @@ module.exports.end = function* end() {
 	});
 };
 
+module.exports.get = function* get() {
+	// for error handling
+	this.state.api = true;
+	// 99999_1455077179080 for example
+	const validIDRegex = /\d+_\d+/g;
+	const parameters = this.request.query;
+	if (!parameters) {
+		return this.body = {error: true, message: "Missing parameter object"};
+	}
+	if (!parameters.id) {
+		return this.body = {error: true, message: "Missing parameters"};
+	}
+	const validID = validIDRegex.test(parameters.id);
+	if (validID !== true) {
+		return this.body = {error: true, message: "Bad parameters"};
+	}
+	// we've passed checks at this point
+	life = yield lifeModel.getLife(parameters.id);
+	if (life.error) {
+		// something went wrong during the process
+		return this.body = {error: true, message: life.message};
+	}
+	this.body = {error: false, life: life};
+};
+
 function getLocationObj(id) {
 	for (const place of placesJSON) {
 		if (place.id === id) {

@@ -10,6 +10,10 @@ $( document ).ready(function() {
     var maxMessage;
     // get the modal object
     var modal = $(this);
+    $('#transaction-amount').attr('max', Number(max));
+    $('#transaction-all-btn').data('max', max);
+    $('#transaction-amount').val(0);
+    $('#transaction-amount-label').html("How much do you want to " + type + "?");
     switch (type){
       case "deposit":
         friendlyType = "Banking Transaction";
@@ -22,20 +26,18 @@ $( document ).ready(function() {
       case "repay":
         friendlyType = "Lending Transaction";
         maxMessage = "You currently have <strong>$" + max + "</strong> in the bank.";
+        // the "max" here is actually the amount of the loan
+        $('#transaction-all-btn').data('max', button.data('debt'));
         break;
       case "borrow":
         friendlyType = "Lending Transaction";
         maxMessage = "The bank will issue you a loan for up to  <strong>$" + max + "</strong>.";
         break;
     }
-    $('#transaction-amount').attr('max', Number(max));
     // start populating it with values
     $('#transaction-title').html(friendlyType + ": " + type);
-    $('#transaction-amount-label').html("How much do you want to " + type + "?");
     // set the max and the message for it
     $('#transaction-confirm-message').html(maxMessage);
-    $('#transaction-all-btn').data('max', max);
-    $('#transaction-amount').val(0);
     var confirmButton = $('#transaction-confirm-btn');
     // start populating the button with data
     confirmButton.data('id', id);

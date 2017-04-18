@@ -1,5 +1,7 @@
 # :smiley_cat: paw-wars [![Build Status](https://api.travis-ci.org/snollygolly/paw-wars.svg?branch=master)](https://travis-ci.org/snollygolly/paw-wars) [![Join the chat at https://gitter.im/snollygolly/paw-wars](https://badges.gitter.im/snollygolly/paw-wars.svg)](https://gitter.im/snollygolly/paw-wars?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
+[![Join the chat at https://gitter.im/snollygolly/paw-wars](https://badges.gitter.im/snollygolly/paw-wars.svg)](https://gitter.im/snollygolly/paw-wars?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 ![Paw Wars](https://raw.githubusercontent.com/snollygolly/paw-wars/master/assets/img/paw-wars-logo.png)
 
 [Paw Wars](http://pawwars.org) is a game that takes place in a world where dogs are the ruling class and cats are treated as lower class citizens. Luxury items are strictly forbidden, but a black market persists. You take on the role of a smuggler trying to provide contraband to cats in need. You travel the world buying and selling items, avoiding police, and trying to get rich or die trying.

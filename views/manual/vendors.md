@@ -3,7 +3,7 @@
 ---
 
 ## Vendors
-Vendors will randomly appear in [Locations](/manual/locations) as you travel around on your journey.  A vendor will typically offer some item or service in exchange for money.  Keep in mind that vendor prices aren't linear, so the top items can be rather expensive.
+Vendors will randomly appear in [Places](/manual/places) as you travel around on your journey.  A vendor will typically offer some item or service in exchange for money.  Keep in mind that vendor prices aren't linear, so the top items can be rather expensive.
 
 Pricing for all vendor listings goes off of a "base price" that is either adjusted up or down.  The current base price is __${{game.vendors.base_price}}__, which means that all prices are based on that price.  
 

@@ -13,6 +13,8 @@ const events = require("./game/events");
 const hotel = require("./game/hotel");
 const police = require("./game/police");
 
+const deathsJSON = require("./game/data/deaths.json");
+
 let connection;
 
 function* createConnection() {

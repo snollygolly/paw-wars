@@ -2,11 +2,7 @@
 
 ![Paw Wars](https://raw.githubusercontent.com/snollygolly/paw-wars/master/assets/img/paw-wars-logo.png)
 
-[Paw Wars](http://pawwars.org) is a game that takes place in a world where dogs are the ruling class and cats are treated as lower class citizens. Luxury items are strictly forbidden, but a black market persists. You take on the role of a smuggler trying to provide contraband to cats in need. You travel the world buying and selling items, avoiding police, and trying to get rich or die trying.
-
-#### If you want to play the game, go here: [Paw Wars](http://pawwars.org)
-
-#### If you want to read the manual: [Paw Wars: The Definitive Guide](http://pawwars.org/manual)
+Paw Wars is a game that takes place in a world where dogs are the ruling class and cats are treated as lower class citizens. Luxury items are strictly forbidden, but a black market persists. You take on the role of a smuggler trying to provide contraband to cats in need. You travel the world buying and selling items, avoiding police, and trying to get rich or die trying.
 
 #### If something doesn't work right: [Issue Tracker](https://github.com/snollygolly/paw-wars/issues/new)
 
@@ -62,7 +58,7 @@ grunt
 
 ### Game Configuration
 
-The `game.json` file in the root contains most of the information you'll need to completely customize your experience.  Please refer to [Paw Wars: The Definitive Guide](http://pawwars.org/manual) for explanations of most of the configuration values.
+The `game.json` file in the root contains most of the information you'll need to completely customize your experience.  Please refer to Paw Wars: The Definitive Guide for explanations of most of the configuration values.
 
 ### Folder Structure
 

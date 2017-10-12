@@ -43,6 +43,12 @@ $( document ).ready(function() {
     confirmButton.data('id', id);
     confirmButton.data('amount', 0);
     confirmButton.data('type', type);
+    modal.on('keypress', function (e) {
+      if (e.which == 13) {
+        confirmButton.click();
+        return false;
+      }
+    });
   });
 
   $('#transaction-all-btn').on('click', function(e) {
@@ -94,10 +100,14 @@ $( document ).ready(function() {
       }else{
         displayAlert("warning", "Oh no!  Something has gone wrong (" + result.message + ")");
       }
-      $('#transaction-modal').modal('hide');
+      var modal = $('#transaction-modal');
+      modal.off('keypress');
+      modal.modal('hide');
     }).fail(function(result) {
       displayAlert("danger", "Oh no!  Something has gone terribly wrong (" + JSON.stringify(result, 2, null) + ")");
-      $('#transaction-modal').modal('hide');
+      var modal = $('#transaction-modal');
+      modal.off('keypress');
+      modal.modal('hide');
     });
   });
 });

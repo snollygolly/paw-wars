@@ -34,6 +34,12 @@ $( document ).ready(function() {
     $('#transaction-units').data('price', price);
     $('#transaction-units-label').html("How many units would you like to " + type + "? " + ((type == "buy") ? "They" : "You") + " have <strong>" + units + "</strong> in stock.");
     $('#transaction-confirm-message').html(titleType + "ing <strong id=\"transaction-units-msg\">0</strong> of this item will " + ((type == "buy") ? "cost" : "make") + " you <strong id=\"transaction-price-msg\">$0</strong>.<br>You have $<strong id=\"transaction-cash-msg\">" + cash + "</strong> on you.<br>You have storage space for <strong id=\"transaction-storage-msg\">" + availableStorage + "</strong> more item" + (availableStorage !== 1 ? "s" : "") + ".");
+    modal.on('keypress', function (e) {
+      if (e.which == 13) {
+        confirmButton.click();
+        return false;
+      }
+    });
   });
 
   $('#transaction-units').on('input', function(e){
@@ -113,10 +119,14 @@ function submitTransaction(transaction, callback){
     data: transaction
   }).done(function(result) {
     callback(result);
-    $('#transaction-modal').modal('hide');
+    var modal = $('#transaction-modal');
+    modal.off('keypress');
+    modal.modal('hide');
   }).fail(function(result) {
     displayAlert("danger", "Oh no!  Something has gone terribly wrong (" + JSON.stringify(result, 2, null) + ")");
-    $('#transaction-modal').modal('hide');
+    var modal = $('#transaction-modal');
+    modal.off('keypress');
+    modal.modal('hide');
   });
 }
 

@@ -43,8 +43,8 @@ $( document ).ready(function() {
   });
 
   $('#transaction-units').on('input', function(e){
-    var currentUnits = $(event.target).val();
-    var currentPrice = $(event.target).data('price') * currentUnits;
+    var currentUnits = $(e.target).val();
+    var currentPrice = $(e.target).data('price') * currentUnits;
     $('#transaction-units-msg').html(currentUnits);
     $('#transaction-price-msg').html("$" + currentPrice);
   });

@@ -212,6 +212,16 @@ hbs.registerHelper("md_partial", function md_partial(partial, opts) {
 	return final;
 });
 
+hbs.registerHelper("get_police_encounter", function log(police) {
+	const startingStr = "As you arrive at the hotel, you see ";
+
+	if (police.officers > 1) {
+		return `${startingStr} ${police.officers} polices arrive behind you. They have ${police.total_hp} HP.`;
+	}
+
+	return `${startingStr} the police arrive behind you. The police has ${police.total_hp} HP.`;
+});
+
 hbs.registerHelper("vendors_open", function log(life, opts) {
 	for (const vendor of game.vendors.enabled) {
 		if (life.listings.vendors[vendor].open === true) {

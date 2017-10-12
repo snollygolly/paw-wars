@@ -216,10 +216,10 @@ hbs.registerHelper("get_police_encounter", function log(police) {
 	const startingStr = "As you arrive at the hotel, you see ";
 
 	if (police.officers > 1) {
-		return `${startingStr} ${police.officers} polices arrive behind you. They have ${police.total_hp} HP.`;
+		return `${startingStr} ${police.officers} officers arrive behind you. They have ${police.total_hp} HP.`;
 	}
 
-	return `${startingStr} the police arrive behind you. The police has ${police.total_hp} HP.`;
+	return `${startingStr} the officer arrive behind you. The officer has ${police.total_hp} HP.`;
 });
 
 hbs.registerHelper("vendors_open", function log(life, opts) {

@@ -39,11 +39,11 @@ $( document ).ready(function() {
 				updateListings(transaction);
 				displayAlert("success", "You have successfully bought " + $(e.target).data('name'));
 			}else{
-				displayAlert("warning", "Oh no!	Something has gone wrong (" + result.message + ")");
+				displayAlert("danger", result.responseJSON.message);
 			}
 			$('#vendor-modal').modal('hide');
 		}).fail(function(result) {
-			displayAlert("danger", "Oh no!	Something has gone terribly wrong (" + JSON.stringify(result, 2, null) + ")");
+			displayAlert("danger", result.responseJSON.message);
 			$('#vendor-modal').modal('hide');
 		});
 	});

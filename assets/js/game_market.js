@@ -123,7 +123,7 @@ function submitTransaction(transaction, callback){
     modal.off('keypress');
     modal.modal('hide');
   }).fail(function(result) {
-    displayAlert("danger", "Oh no!  Something has gone terribly wrong (" + JSON.stringify(result, 2, null) + ")");
+    displayAlert("danger", result.responseJSON.message);
     var modal = $('#transaction-modal');
     modal.off('keypress');
     modal.modal('hide');

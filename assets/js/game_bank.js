@@ -94,17 +94,16 @@ $( document ).ready(function() {
       url: endpoint, // A valid URL
       data: transaction
     }).done(function(result) {
-      if (result.error === false){
-        updateDispay(result.result.life);
-        displayAlert("success", "Your transaction was successful!");
-      }else{
-        displayAlert("warning", "Oh no!  Something has gone wrong (" + result.message + ")");
+      if (result.error === true){
+        throw new Error(result.message);
       }
+      updateDispay(result.result.life);
+      displayAlert("success", "Your transaction was successful!");
       var modal = $('#transaction-modal');
       modal.off('keypress');
       modal.modal('hide');
     }).fail(function(result) {
-      displayAlert("danger", "Oh no!  Something has gone terribly wrong (" + JSON.stringify(result, 2, null) + ")");
+      displayAlert("danger", result.responseJSON.message);
       var modal = $('#transaction-modal');
       modal.off('keypress');
       modal.modal('hide');

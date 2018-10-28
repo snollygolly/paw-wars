@@ -6,15 +6,12 @@ const placesJSON = require("../models/game/data/places.json");
 const deathsJSON = require("../models/game/data/deaths.json");
 const lifeModel = require("../models/game_life");
 
-let player = null;
-let life = null;
-
 module.exports.play = async(ctx) => {
+	let player;
 	if (ctx.isAuthenticated()) {
 		player = ctx.session.passport.user;
-		// TODO: add an else in here to redirect, but it's too much of pain atm
 	}
-	life = ctx.session.life;
+	const life = ctx.session.life;
 	// TODO: check if the user has a game in progress eventually
 	if (life) {
 		throw new Error("Can't start a new game when one is in progress / lifeController:play");
@@ -27,15 +24,15 @@ module.exports.play = async(ctx) => {
 };
 
 module.exports.create = async(ctx) => {
+	let player;
 	if (ctx.isAuthenticated()) {
 		player = ctx.session.passport.user;
-		// TODO: add an else in here to redirect, but it's too much of pain atm
 	} else {
 		// so this passes, remove for later
 		player = {};
 		player.id = "99999";
 	}
-	life = ctx.session.life;
+	let life = ctx.session.life;
 	if (life) {
 		throw new Error("Can't start a new game when one is in progress / lifeController:create");
 	}
@@ -48,11 +45,11 @@ module.exports.create = async(ctx) => {
 };
 
 module.exports.end = async(ctx) => {
+	let player;
 	if (ctx.isAuthenticated()) {
 		player = ctx.session.passport.user;
-		// TODO: add an else in here to redirect, but it's too much of pain atm
 	}
-	life = ctx.session.life;
+	const life = ctx.session.life;
 	if (!life) {
 		throw new Error("Can't end a life without a life / lifeController:end");
 	}

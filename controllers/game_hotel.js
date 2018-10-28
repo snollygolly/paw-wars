@@ -5,15 +5,12 @@ const lifeModel = require("../models/game_life");
 
 const common = require("../helpers/common");
 
-let player = null;
-let life = null;
-
 module.exports.index = async(ctx) => {
+	let player;
 	if (ctx.isAuthenticated()) {
 		player = ctx.session.passport.user;
-		// TODO: add an else in here to redirect, but it's too much of pain atm
 	}
-	life = ctx.session.life;
+	let life = ctx.session.life;
 	if (!life) {
 		throw new Error("No life found / hotelController:index");
 	}

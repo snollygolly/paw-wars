@@ -4,8 +4,9 @@
   "description": "A modern take on Drugwars (Dopewars), but with cats.",
   "main": "index.js",
   "scripts": {
-    "start": "./node_modules/.bin/nodemon -e js,hbs index.js",
+    "start": "nodemon --ignore './assets' -e js,hbs ./index.js & nodemon -e scss --watch './assets/css/_src' --exec 'npm run compile'",
     "production": "node index.js",
+    "compile": "node-sass './assets/css/custom.scss' './assets/css/custom.css'",
     "test": "./node_modules/.bin/mocha ./tests/ && ./node_modules/.bin/eslint .",
     "coverage": "./node_modules/.bin/istanbul cover ./node_modules/.bin/_mocha ./tests/",
     "seed": "node helpers/seed.js"
@@ -45,13 +46,8 @@
     "eslint": "^4.9.0",
     "mocha": "^5.1.1",
     "mocha-junit-reporter": "^1.17.0",
+    "node-sass": "^4.9.4",
     "nodemon": "^1.12.1",
-    "nyc": "^11.7.1",
-    "grunt": "^0.4.5",
-    "grunt-concurrent": "^2.2.1",
-    "grunt-contrib-clean": "^1.0.0",
-    "grunt-contrib-sass": "^1.0.0",
-    "grunt-contrib-watch": "^0.6.1",
-    "grunt-nodemon": "^0.4.1"
+    "nyc": "^11.7.1"
   }
 }

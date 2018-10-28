@@ -1,75 +1,56 @@
 html {
   position: relative;
-  min-height: 100%;
-}
+  min-height: 100%; }
 
 body {
   /* Margin bottom by footer height */
   margin-bottom: 50px;
-  padding-top: 50px;
-}
+  padding-top: 50px; }
 
 .template-heading {
-  padding: 40px 15px;
-}
+  padding: 40px 15px; }
 
 #main-container {
-  padding-top: 50px;
-}
+  padding-top: 50px; }
 
 .main-logo {
   max-width: 100%;
   display: block;
   margin-left: auto;
-  margin-right: auto;
-}
+  margin-right: auto; }
 
 .brand-logo {
-  height: 35px;
-}
+  height: 35px; }
 
 .navbar {
-  padding: .25rem 1rem;
-}
+  padding: .25rem 1rem; }
 
 #debug {
-  margin-top: 25px;
-}
+  margin-top: 25px; }
 
 .card .card-button-footer {
   background: transparent;
   border: 0 none;
-  padding-top: 0;
-}
+  padding-top: 0; }
 
 #hud table {
-  table-layout: fixed;
-}
+  table-layout: fixed; }
 
 .hud-center {
-  text-align: center;
-}
+  text-align: center; }
 
 .hud-icon {
-  color: #FFFFFF;
-}
+  color: #FFFFFF; }
 
 .manual-heading {
-  padding: 40px 15px;
-}
-.manual-heading a {
-  text-decoration: none;
-}
+  padding: 40px 15px; }
+  .manual-heading a {
+    text-decoration: none; }
 
 .transport-buy {
-  cursor: pointer;
-}
-.transport-buy:hover {
-  background-color: #494D4F;
-}
+  cursor: pointer; }
+  .transport-buy:hover {
+    background-color: #494D4F; }
 
 .transport-table {
-  max-width: none;
-}
-
-/*# sourceMappingURL=custom.css.map */
+  max-width: none; }

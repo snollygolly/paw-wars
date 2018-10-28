@@ -10,9 +10,7 @@ Paw Wars is a game that takes place in a world where dogs are the ruling class a
 ## :heart_eyes_cat: Technical Information
 
 ### Requirements
-* [Node.js](https://nodejs.org/en/) (Version 5 and up recommended)
-* [Bower](http://bower.io/)
-* [Grunt](http://gruntjs.com/)
+* [Node.js](https://nodejs.org/en/) (Version 8 and up recommended)
 * [RethinkDB](http://www.rethinkdb.com/)
 
 ### Recommendations
@@ -28,11 +26,6 @@ git clone https://github.com/snollygolly/paw-wars.git
 * Install node packages (from inside the paw-wars folder).
 ```
 npm install
-```
-
-* Install bower packages (from inside the paw-wars folder).
-```
-bower install
 ```
 
 * Create your config.  There's a `config.json.example` file in the root.  Edit it to include all your values for the site and your OAuth information.  Save it as `config.json` and leave it in the root.
@@ -51,7 +44,7 @@ npm run seed
 
 * Start it up.
 ```
-grunt
+npm start
 ```
 
 * Enjoy!

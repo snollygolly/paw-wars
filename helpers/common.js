@@ -4,19 +4,26 @@ const winston = require("winston");
 
 const logger = winston.createLogger({
 	level: "verbose",
-	format: winston.format.json(),
+	format: winston.format.combine(
+		winston.format.colorize(),
+		winston.format.simple()
+	),
 	transports: [
 		//
 		// - Write to all logs with level `info` and below to `combined.log`
 		// - Write all logs error (and below) to `error.log`.
 		//
-		new winston.transports.File({ filename: "error.log", level: "error" }),
-		new winston.transports.File({ filename: "combined.log" })
+		new winston.transports.Console(),
+		new winston.transports.File({ filename: "log/error.log", level: "error" }),
+		new winston.transports.File({ filename: "log/combined.log" })
 	]
 });
 
 module.exports.log = (level, msg) => {
-	logger[level](msg);
+	logger.log({
+		level,
+		message: msg
+	});
 };
 
 module.exports.getRandomInt = function getRandomInt(min, max) {

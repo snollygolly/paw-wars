@@ -10,7 +10,7 @@ const serve = require("koa-static");
 const mount = require("koa-mount");
 
 // for passport support
-const session = require("koa-session");
+const session = require("koa-generic-session");
 const bodyParser = require("koa-bodyparser");
 const passport = require("koa-passport");
 
@@ -30,7 +30,7 @@ app.proxy = true;
 
 // sessions
 app.keys = [config.site.secret];
-app.use(session(app));
+app.use(session());
 
 // body parser
 app.use(bodyParser());

@@ -13,8 +13,8 @@
 		<title>{{get_name}}</title>
 
 		<!-- Bootstrap core CSS -->
-		<link href="/assets/css/vendor/all.min.css" rel="stylesheet">
 		<link href="/assets/css/vendor/bootstrap.min.css" rel="stylesheet">
+		<link href="/assets/css/vendor/font-awesome.min.css" rel="stylesheet">
 
 		<!-- Custom styles for this template -->
 		<link href="/assets/css/custom.css" rel="stylesheet">
@@ -47,7 +47,7 @@
 			<div class="collapse" id="life">
 				<pre>
 
-					{{{stringify life.current "pretty"}}}
+{{{stringify life.current "pretty"}}}
 
 				</pre>
 			</div>
@@ -62,9 +62,9 @@
 		<script src="/assets/js/vendor/bootstrap.bundle.min.js"></script>
 		{{#if life}}
 			<script src="/assets/js/game_common.js"></script>
-			{{#if ../script}}
-				<script src="/assets/js/{{../script}}.js"></script>
-			{{/if}}
+			{{#each scripts}}
+				<script src="/assets/js/{{this}}.js"></script>
+			{{/each}}
 		{{/if}}
 
 	</body>

@@ -28,7 +28,7 @@ module.exports.index = async(ctx) => {
 	await ctx.render("game/police", {
 		player: player,
 		life: life,
-		script: "game_police"
+		scripts:["game_police"]
 	});
 };
 
@@ -48,24 +48,24 @@ module.exports.encounter = async(ctx) => {
 		return ctx.redirect("/game/over");
 	}
 	if (life.current.police.encounter === null) {
-		return ctx.body = {error: true, message: "Must have an encounter started"};
+		throw new Error("Must have an encounter started");
 	}
 	const parameters = ctx.request.body;
 	if (!parameters) {
-		return ctx.body = {error: true, message: "Missing parameter object"};
+		throw new Error("Missing parameter object");
 	}
 	if (!parameters.id || !parameters.action) {
-		return ctx.body = {error: true, message: "Missing parameters"};
+		throw new Error("Missing parameters");
 	}
 	if (life.id != parameters.id) {
-		return ctx.body = {error: "Bad ID"};
+		throw new Error("Bad ID");
 	}
 	// we've passed checks at this point
 	// simulate the encounter
 	life = await lifeModel.saveEncounter(life.id, parameters.action);
 	if (life.error) {
 		// something went wrong during the process
-		return ctx.body = {error: true, message: life.message};
+		throw new Error(life.message);
 	}
 	if (life.current.police.death === true) {
 		// they died :(
@@ -73,5 +73,5 @@ module.exports.encounter = async(ctx) => {
 	}
 	// update the session
 	ctx.session.life = life;
-	ctx.body = {error: false, life: life};
+	ctx.body = { life };
 };

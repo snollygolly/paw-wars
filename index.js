@@ -71,8 +71,7 @@ app.use(async(ctx, next) => {
 			};
 		}
 		await ctx.render("error", {
-			message: err.message,
-			error: {}
+			message: err.message
 		});
 	}
 });

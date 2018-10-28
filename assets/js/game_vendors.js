@@ -35,7 +35,7 @@ $( document ).ready(function() {
 			data: transaction
 		}).done(function(result) {
 			if (result.error === false){
-				updateHUD(result.life);
+				updateHUD(result.result.life);
 				updateListings(transaction);
 				displayAlert("success", "You have successfully bought " + $(e.target).data('name'));
 			}else{

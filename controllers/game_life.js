@@ -76,22 +76,22 @@ module.exports.get = async(ctx) => {
 	const validIDRegex = /^\d+_\d+$/gm;
 	const parameters = ctx.request.query;
 	if (!parameters) {
-		return ctx.body = {error: true, message: "Missing parameter object"};
+		throw new Error("Missing parameter object");
 	}
 	if (!parameters.id) {
-		return ctx.body = {error: true, message: "Missing parameters"};
+		throw new Error("Missing parameters");
 	}
 	const validID = validIDRegex.test(parameters.id);
 	if (validID !== true) {
-		return ctx.body = {error: true, message: "Bad parameters"};
+		throw new Error("Bad parameters");
 	}
 	// we've passed checks at this point
 	life = await lifeModel.getLife(parameters.id);
 	if (life.error) {
 		// something went wrong during the process
-		return ctx.body = {error: true, message: life.message};
+		throw new Error(life.message);
 	}
-	ctx.body = {error: false, life: life};
+	ctx.body = { life };
 };
 
 function getLocationObj(id) {

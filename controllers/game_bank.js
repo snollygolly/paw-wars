@@ -27,7 +27,7 @@ module.exports.index = async(ctx) => {
 	await ctx.render("game/bank", {
 		player: player,
 		life: life,
-		script: "game_bank"
+		scripts:["game_bank"]
 	});
 };
 
@@ -44,10 +44,10 @@ module.exports.transaction = async(ctx) => {
 	}
 	life = lifeModel.checkDeath(life);
 	if (life.alive === false) {
-		return ctx.body = {error: true, message: "You're dead and can't do things"};
+		throw new Error("You're dead and can't do things");
 	}
 	if (life.current.hotel === false) {
-		return ctx.body = {error: true, message: "Must be checked into a hotel first"};
+		throw new Error("Must be checked into a hotel first");
 	}
 	let parameters;
 	// figure out which type of transaction they want to be doing here
@@ -58,17 +58,17 @@ module.exports.transaction = async(ctx) => {
 		// this got, this means it's a get
 		parameters = ctx.request.query;
 	} else {
-		return ctx.body = {error: true, message: "Invalid type passed"};
+		throw new Error("Invalid type passed");
 	}
 	// let's start doing some checks
 	parameters.amount = parseFloat(parameters.amount);
 	// is this a valid amount?
 	if (parameters.amount <= 0) {
-		return ctx.body = {error: true, message: "Bad unit amount"};
+		throw new Error("Bad unit amount");
 	}
 	// is this the right life ID?
 	if (life.id != parameters.id) {
-		return ctx.body = {error: true, message: "Bad ID"};
+		throw new Error("Bad ID");
 	}
 	// we've passed checks at this point
 	const transaction = {
@@ -79,11 +79,11 @@ module.exports.transaction = async(ctx) => {
 	life = await lifeModel.saveBankTransaction(life.id, transaction);
 	if (life.error) {
 		// something went wrong during the process
-		return ctx.body = {error: true, message: life.message};
+		throw new Error(life.message);
 	}
 	// update the session
 	ctx.session.life = life;
-	ctx.body = {error: false, life: life};
+	ctx.body = { life };
 };
 
 module.exports.lending = async(ctx) => {
@@ -99,10 +99,10 @@ module.exports.lending = async(ctx) => {
 	}
 	life = lifeModel.checkDeath(life);
 	if (life.alive === false) {
-		return ctx.body = {error: true, message: "You're dead and can't do things"};
+		throw new Error("You're dead and can't do things");
 	}
 	if (life.current.hotel === false) {
-		return ctx.body = {error: true, message: "Must be checked into a hotel first"};
+		throw new Error("Must be checked into a hotel first");
 	}
 	let parameters;
 	// figure out which type of transaction they want to be doing here
@@ -113,17 +113,17 @@ module.exports.lending = async(ctx) => {
 		// this got, this means it's a get
 		parameters = ctx.request.query;
 	} else {
-		return ctx.body = {error: true, message: "Invalid type passed"};
+		throw new Error("Invalid type passed");
 	}
 	// let's start doing some checks
 	parameters.amount = parseFloat(parameters.amount);
 	// is this a valid amount?
 	if (parameters.amount <= 0) {
-		return ctx.body = {error: true, message: "Bad unit amount"};
+		throw new Error("Bad unit amount");
 	}
 	// is this the right life ID?
 	if (life.id != parameters.id) {
-		return ctx.body = {error: "Bad ID"};
+		throw new Error("Bad ID");
 	}
 	// we've passed checks at this point
 	const transaction = {
@@ -134,9 +134,9 @@ module.exports.lending = async(ctx) => {
 	life = await lifeModel.saveBankLending(life.id, transaction);
 	if (life.error) {
 		// something went wrong during the process
-		return ctx.body = {error: true, message: life.message};
+		throw new Error(life.message);
 	}
 	// update the session
 	ctx.session.life = life;
-	ctx.body = {error: false, life: life};
+	ctx.body = { life };
 };

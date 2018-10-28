@@ -34,7 +34,7 @@ module.exports.index = async(ctx) => {
 	await ctx.render("game/airport", {
 		player: (player === null) ? null : player,
 		life: lifeObj,
-		script: "game_airport"
+		scripts:["game_airport"]
 	});
 
 	function sortByTurns(a, b) {
@@ -59,20 +59,20 @@ module.exports.fly = async(ctx) => {
 	}
 	life = lifeModel.checkDeath(life);
 	if (life.alive === false) {
-		return ctx.body = {error: true, message: "You're dead and can't do things"};
+		throw new Error("You're dead and can't do things");
 	}
 	if (life.current.hotel === false) {
-		return ctx.body = {error: true, message: "Must be checked into a hotel first"};
+		throw new Error("Must be checked into a hotel first");
 	}
 	const parameters = ctx.request.body;
 	if (!parameters) {
-		return ctx.body = {error: true, message: "Missing parameter object"};
+		throw new Error("Missing parameter object");
 	}
 	if (!parameters.id || !parameters.destination) {
-		return ctx.body = {error: true, message: "Missing parameters"};
+		throw new Error("Missing parameters");
 	}
 	if (life.id != parameters.id) {
-		return ctx.body = {error: true, message: "Bad ID"};
+		throw new Error("Bad ID");
 	}
 	// TODO: destination verification
 	// we've passed checks at this point
@@ -83,9 +83,9 @@ module.exports.fly = async(ctx) => {
 	life = await lifeModel.saveAirportFly(life.id, flight);
 	if (life.error) {
 		// something went wrong during the process`
-		return ctx.body = {error: true, message: life.message};
+		throw new Error(life.message);
 	}
 	// update the session
 	ctx.session.life = life;
-	ctx.body = {error: false, life: life};
+	ctx.body = { life };
 };

@@ -45,27 +45,27 @@ module.exports.transaction = async(ctx) => {
 	}
 	life = lifeModel.checkDeath(life);
 	if (life.alive === false) {
-		return ctx.body = {error: true, message: "You're dead and can't do things"};
+		throw new Error("You're dead and can't do things");
 	}
 	if (life.current.hotel === false) {
-		return ctx.body = {error: true, message: "Must be checked into a hotel first"};
+		throw new Error("Must be checked into a hotel first");
 	}
 	const parameters = ctx.request.body;
 	if (!parameters) {
-		return ctx.body = {error: true, message: "Missing parameter object"};
+		throw new Error("Missing parameter object");
 	}
 	if (!parameters.id || !parameters.type || !parameters.item || !parameters.units) {
-		return ctx.body = {error: true, message: "Missing parameters"};
+		throw new Error("Missing parameters");
 	}
 	if (life.id != parameters.id) {
-		return ctx.body = {error: "Bad ID"};
+		throw new Error("Bad ID");
 	}
 	if (parameters.type != "buy" && parameters.type != "sell") {
-		return ctx.body = {error: true, message: "Bad transaction type"};
+		throw new Error("Bad transaction type");
 	}
 	parameters.units = parseInt(parameters.units);
 	if (Number.isInteger(parameters.units) === false || parameters.units <= 0) {
-		return ctx.body = {error: true, message: "Bad unit amount"};
+		throw new Error("Bad unit amount");
 	}
 	// we've passed checks at this point
 	const transaction = {
@@ -77,9 +77,9 @@ module.exports.transaction = async(ctx) => {
 	life = await lifeModel.saveMarketTransaction(life.id, transaction);
 	if (life.error) {
 		// something went wrong during the process
-		return ctx.body = {error: true, message: life.message};
+		throw new Error(life.message);
 	}
 	// update the session
 	ctx.session.life = life;
-	ctx.body = {error: false, life: life};
+	ctx.body = { life };
 };

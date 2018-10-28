@@ -95,7 +95,7 @@ $( document ).ready(function() {
       data: transaction
     }).done(function(result) {
       if (result.error === false){
-        updateDispay(result.life);
+        updateDispay(result.result.life);
         displayAlert("success", "Your transaction was successful!");
       }else{
         displayAlert("warning", "Oh no!  Something has gone wrong (" + result.message + ")");

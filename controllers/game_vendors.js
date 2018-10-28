@@ -27,7 +27,7 @@ module.exports.index = async(ctx) => {
 	await ctx.render("game/vendors", {
 		player: player,
 		life: life,
-		script: "game_vendors"
+		scripts:["game_vendors"]
 	});
 };
 
@@ -44,32 +44,32 @@ module.exports.transaction = async(ctx) => {
 	}
 	life = lifeModel.checkDeath(life);
 	if (life.alive === false) {
-		return ctx.body = {error: true, message: "You're dead and can't do things"};
+		throw new Error("You're dead and can't do things");
 	}
 	if (life.current.hotel === false) {
-		return ctx.body = {error: true, message: "Must be checked into a hotel first"};
+		throw new Error("Must be checked into a hotel first");
 	}
 	const parameters = ctx.request.body;
 	if (!parameters) {
-		return ctx.body = {error: true, message: "Missing parameter object"};
+		throw new Error("Missing parameter object");
 	}
 	if (!parameters.id || !parameters.type || !parameters.index) {
-		return ctx.body = {error: true, message: "Missing parameters"};
+		throw new Error("Missing parameters");
 	}
 	if (life.id != parameters.id) {
-		return ctx.body = {error: "Bad ID"};
+		throw new Error("Bad ID");
 	}
 	// maybe sell comes later, for now, it's only buy
 	if (parameters.type != "buy") {
-		return ctx.body = {error: true, message: "Bad transaction type"};
+		throw new Error("Bad transaction type");
 	}
 	parameters.index = parseInt(parameters.index);
 	if (Number.isInteger(parameters.index) === false || parameters.index < 0) {
-		return ctx.body = {error: true, message: "Bad index"};
+		throw new Error("Bad index");
 	}
 	// if this vendor isn't in the array of enabled vendors, reject
 	if (game.vendors.enabled.indexOf(parameters.vendor) <= -1) {
-		return ctx.body = {error: true, message: "Bad vendor"};
+		throw new Error("Bad vendor");
 	}
 	// we've passed checks at this point
 	const transaction = {
@@ -81,9 +81,9 @@ module.exports.transaction = async(ctx) => {
 	life = await lifeModel.saveVendorTransaction(life.id, transaction);
 	if (life.error) {
 		// something went wrong during the process
-		return ctx.body = {error: true, message: life.message};
+		throw new Error(life.message);
 	}
 	// update the session
 	ctx.session.life = life;
-	ctx.body = {error: false, life: life};
+	ctx.body = { life };
 };

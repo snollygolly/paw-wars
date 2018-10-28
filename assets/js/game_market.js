@@ -58,7 +58,7 @@ $( document ).ready(function() {
     };
     submitTransaction(transaction, function(result){
       if (result.error === false){
-        updateUnits(result.life);
+        updateUnits(result.result.life);
         displayAlert("success", "You have successfully bought " + transaction.units + (transaction.units === 1 ? " unit" : " units"));
       }else{
         displayAlert("warning", "Oh no!  Something has gone wrong (" + result.message + ")");
@@ -75,7 +75,7 @@ $( document ).ready(function() {
     };
     submitTransaction(transaction, function(result){
       if (result.error === false){
-        updateUnits(result.life);
+        updateUnits(result.result.life);
         displayAlert("success", "You have successfully sold " + transaction.units + (transaction.units === 1 ? " unit" : " units"));
       }else{
         displayAlert("warning", "Oh no!  Something has gone wrong (" + result.message + ")");

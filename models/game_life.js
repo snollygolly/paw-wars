@@ -17,42 +17,42 @@ const deathsJSON = require("./game/data/deaths.json");
 
 let connection;
 
-function* createConnection() {
+async function createConnection() {
 	try {
 		// Open a connection and wait for r.connect(...) to be resolve
-		connection = yield r.connect(config.site.db);
-	}catch (err) {
+		connection = await r.connect(config.site.db);
+	} catch (err) {
 		console.error(err);
 	}
 }
 
-module.exports.createLife = function* createLife(player, parameters) {
+module.exports.createLife = async(player, parameters) => {
 	// set up the connection
-	yield createConnection();
+	await createConnection();
 	// create the life object
 	const life = module.exports.generateLife(player, parameters);
-	const result = yield r.table("lives").insert(life, {returnChanges: true}).run(connection);
+	const result = await r.table("lives").insert(life, {returnChanges: true}).run(connection);
 	connection.close();
-	// console.log("* createLife:", result.changes[0].new_val);
+	// common.log("debug", "* createLife:", result.changes[0].new_val);
 	return result.changes[0].new_val;
 };
 
-module.exports.getLife = function* getLife(id) {
+module.exports.getLife = async(id) => {
 	// set up the connection
-	yield createConnection();
+	await createConnection();
 	// check to see if the document exists
-	const result = yield r.table("lives").get(id).run(connection);
+	const result = await r.table("lives").get(id).run(connection);
 	if (result === null) {
 		throw new Error("Life document not found / lifeModel.getLife");
 	}
 	connection.close();
-	// console.log("* getLife:", result);
+	// common.log("debug", "* getLife:", result);
 	return result;
 };
 
-module.exports.replaceLife = function* replaceLife(life) {
+module.exports.replaceLife = async(life) => {
 	// set up the connection
-	yield createConnection();
+	await createConnection();
 	// validate
 	const valid = validateLife(life);
 	// if this player object isn't valid...
@@ -60,13 +60,13 @@ module.exports.replaceLife = function* replaceLife(life) {
 		// ...return the error object
 		throw new Error("Life object invalid / lifeModel.replaceLife");
 	}
-	const result = yield r.table("lives").get(life.id).replace(life, {returnChanges: true}).run(connection);
+	const result = await r.table("lives").get(life.id).replace(life, {returnChanges: true}).run(connection);
 	connection.close();
-	// console.log("* replaceLife:", result.changes[0].new_val);
+	// common.log("debug", "* replaceLife:", result.changes[0].new_val);
 	return result.changes[0].new_val;
 };
 
-module.exports.changeTurn = function changeTurn(life, turns) {
+module.exports.changeTurn = (life, turns) => {
 	life.listings.market = market.generateMarketListings(life, turns);
 	life.listings.airport = airport.generateAirportListings(life);
 	// generate vendor listings for each enabled vendor
@@ -82,7 +82,7 @@ module.exports.changeTurn = function changeTurn(life, turns) {
 	return life;
 };
 
-module.exports.checkDeath = function checkDeath(life) {
+module.exports.checkDeath = (life) => {
 	const lifeFinance = life.current.finance;
 	// * Pity Death
 	if (lifeFinance.cash == 0 && lifeFinance.savings == 0) {
@@ -112,7 +112,7 @@ module.exports.checkDeath = function checkDeath(life) {
 	return life;
 };
 
-module.exports.getScore = function getScore(life) {
+module.exports.getScore = (life) => {
 	const totalCash = life.current.finance.cash;
 	const totalAssets = life.current.finance.savings - life.current.finance.debt;
 	const totalTurns = life.current.turn;
@@ -151,7 +151,7 @@ module.exports.simulateEncounter = police.simulateEncounter;
 // vendors
 module.exports.saveVendorTransaction = vendors.saveVendorTransaction;
 
-module.exports.generateLife = function generateLife(player, parameters) {
+module.exports.generateLife = (player, parameters) => {
 	const life = {
 		id: `${player.id}_${Date.now()}`,
 		alive: true,

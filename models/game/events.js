@@ -70,7 +70,7 @@ module.exports.simulateEvents = function simulateEvents(life, eventObj) {
 		type: "event",
 		data: adjustment
 	});
-	// console.log("* simulateEvents:", newLife);
+	// common.log("debug", "* simulateEvents:", newLife);
 	return newLife;
 };
 

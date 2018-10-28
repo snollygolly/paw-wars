@@ -8,9 +8,9 @@ for (const vendor of game.vendors.enabled) {
 	vendors[vendor] = require(`./vendors/${vendor}`);
 }
 
-module.exports.saveVendorTransaction = function* saveVendorTransaction(id, transaction) {
+module.exports.saveVendorTransaction = async(id, transaction) => {
 	// get the latest copy from the database
-	let life = yield model.getLife(id);
+	let life = await model.getLife(id);
 	// run all the transaction logic against it and get it back
 	life = module.exports.doVendorTransaction(life, transaction);
 	// check for errors
@@ -19,7 +19,7 @@ module.exports.saveVendorTransaction = function* saveVendorTransaction(id, trans
 		return life;
 	}
 	// now replace it in the DB
-	life = yield model.replaceLife(life);
+	life = await model.replaceLife(life);
 	return life;
 };
 
@@ -47,7 +47,7 @@ module.exports.doVendorTransaction = function doVendorTransaction(life, transact
 		type: "vendor",
 		data: transaction
 	});
-	// console.log("* doVendorTransaction:", life);
+	// common.log("debug", "* doVendorTransaction:", life);
 	return newLife;
 };
 

@@ -5,16 +5,16 @@ const r = require("rethinkdb");
 
 let connection;
 
-function* createConnection() {
+async function createConnection() {
 	try {
 		// Open a connection and wait for r.connect(...) to be resolve
-		connection = yield r.connect(config.site.db);
+		connection = await r.connect(config.site.db);
 	} catch (err) {
 		console.error(err);
 	}
 }
 
-module.exports.convertProfile = function convertProfile(profile) {
+module.exports.convertProfile = (profile) => {
 	const player = {
 		id: profile.id,
 		username: profile.username,
@@ -24,23 +24,23 @@ module.exports.convertProfile = function convertProfile(profile) {
 	return player;
 };
 
-module.exports.getPlayer = function* getPlayer(player) {
+module.exports.getPlayer = async(player) => {
 	// set up the connection
-	yield createConnection();
+	await createConnection();
 	// try to get the player profile, expect that this might fail
-	let result = yield r.table("players").get(player.id).run(connection);
+	let result = await r.table("players").get(player.id).run(connection);
 	if (result === null) {
 		// they don't exist, let's create them
-		result = yield module.exports.createPlayer(player);
+		result = await module.exports.createPlayer(player);
 	}
 	connection.close();
-	// console.log("* getPlayer:", result);
+	// common.log("debug", "* getPlayer:", result);
 	return result;
 };
 
-module.exports.createPlayer = function* createPlayer(player) {
+module.exports.createPlayer = async(player) => {
 	// set up the connection
-	yield createConnection();
+	await createConnection();
 	// update the createdAt time
 	player.createdAt = r.now();
 	// validate
@@ -51,15 +51,15 @@ module.exports.createPlayer = function* createPlayer(player) {
 		throw new Error("Player object invalid / playerModel.createPlayer");
 	}
 	// insert and get the result
-	const result = yield r.table("players").insert(player, {returnChanges: true}).run(connection);
+	const result = await r.table("players").insert(player, {returnChanges: true}).run(connection);
 	connection.close();
-	// console.log("* createPlayer:", result.changes[0].new_val);
+	// common.log("debug", "* createPlayer:", result.changes[0].new_val);
 	return result.changes[0].new_val;
 };
 
-module.exports.replacePlayer = function* replacePlayer(player) {
+module.exports.replacePlayer = async(player) => {
 	// set up the connection
-	yield createConnection();
+	await createConnection();
 	// update the createdAt time
 	player.createdAt = r.now();
 	// insert and get the result
@@ -70,9 +70,9 @@ module.exports.replacePlayer = function* replacePlayer(player) {
 		// ...return the error object
 		throw new Error("Player object invalid / playerModel.replacePlayer");
 	}
-	const result = yield r.table("players").get(player.id).replace(player, {returnChanges: true}).run(connection);
+	const result = await r.table("players").get(player.id).replace(player, {returnChanges: true}).run(connection);
 	connection.close();
-	// console.log("* replacePlayer:", result.changes[0].new_val);
+	// common.log("debug", "* replacePlayer:", result.changes[0].new_val);
 	return result.changes[0].new_val;
 };
 

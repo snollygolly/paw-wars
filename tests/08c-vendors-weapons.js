@@ -79,14 +79,14 @@ describe("Vendors [Weapons] - Handle Transaction", () => {
 		newLife = vendors.doVendorTransaction(oldLife, transaction);
 	});
 
-	it(`weapons vendor should give new weapon`, (done) => {
+	it("weapons vendor should give new weapon", (done) => {
 		const newWeapon = oldLife.listings.vendors[vendor].stock[0];
 		expect(newLife.current.weapon.name).to.equal(newWeapon.name);
 		expect(newLife.current.weapon.damage).to.equal(newWeapon.meta.value);
 		return done();
 	});
 
-	it(`weapons vendor should decrease cash`, (done) => {
+	it("weapons vendor should decrease cash", (done) => {
 		const newCash = oldLife.current.finance.cash - oldLife.listings.vendors[vendor].stock[0].price;
 		// cash on hand
 		expect(newLife.current.finance.cash).to.equal(newCash);
@@ -94,7 +94,7 @@ describe("Vendors [Weapons] - Handle Transaction", () => {
 		return done();
 	});
 
-	it(`weapons vendor stock should remove sold item`, (done) => {
+	it("weapons vendor stock should remove sold item", (done) => {
 		const newStock = oldLife.listings.vendors[vendor].stock;
 		// take one off the top
 		newStock.shift();

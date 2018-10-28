@@ -3,39 +3,40 @@
 const config = require("../config.json");
 const r = require("rethinkdb");
 const co = require("co");
+const common = require("./common");
 
-co(function* coWrap() {
-	const connection = yield r.connect(config.site.db);
+co(async() => {
+	const connection = await r.connect(config.site.db);
 
 	try {
-		yield r.dbCreate(config.site.db.db).run(connection);
-		console.log(`Databse '${config.site.db.db}' created successfully.`);
+		await r.dbCreate(config.site.db.db).run(connection);
+		common.log("info", `Databse '${config.site.db.db}' created successfully.`);
 	} catch (err) {
-		console.log(`Warning! ${err.msg}`);
+		common.log("warn", `Warning! ${err.msg}`);
 	}
 
 	try {
-		yield r.db(config.site.db.db).tableCreate("players").run(connection);
-		console.log("Table 'players' created successfully.");
+		await r.db(config.site.db.db).tableCreate("players").run(connection);
+		common.log("info", "Table 'players' created successfully.");
 	} catch (err) {
-		console.log(`Warning! ${err.msg}`);
+		common.log("warn", `Warning! ${err.msg}`);
 	}
 
 	try {
-		yield r.db(config.site.db.db).tableCreate("lives").run(connection);
-		console.log("Table 'lives' created successfully.");
+		await r.db(config.site.db.db).tableCreate("lives").run(connection);
+		common.log("info", "Table 'lives' created successfully.");
 	} catch (err) {
-		console.log(`Warning! ${err.msg}`);
+		common.log("warn", `Warning! ${err.msg}`);
 	}
 
-	yield connection.close();
-	console.log("\nYou're all set!");
-	console.log(`Open http://${config.site.db.host}:8080/#tables to view the database.`);
+	await connection.close();
+	common.log("info", "\nYou're all set!");
+	common.log("info", `Open http://${config.site.db.host}:8080/#tables to view the database.`);
 	process.exit();
 }).catch(errorHandler);
 
 function errorHandler(err) {
-	console.error("Error occurred!", err);
+	common.log("error", "Error occurred!", err);
 	throw err;
 	process.exit();
 }

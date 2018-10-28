@@ -2,16 +2,19 @@
 
 const config = require("./config.json");
 
-const koa = require("koa");
+const common = require("./helpers/common");
+
+const Koa = require("koa");
 const hbs = require("koa-hbs");
-const serve = require("koa-static-folder");
+const serve = require("koa-static");
+const mount = require("koa-mount");
 
 // for passport support
-const session = require("koa-generic-session");
+const session = require("koa-session");
 const bodyParser = require("koa-bodyparser");
 const passport = require("koa-passport");
 
-const app = koa();
+const app = new Koa();
 
 exports.app = app;
 exports.passport = passport;
@@ -27,7 +30,7 @@ app.proxy = true;
 
 // sessions
 app.keys = [config.site.secret];
-app.use(session());
+app.use(session(app));
 
 // body parser
 app.use(bodyParser());
@@ -37,7 +40,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 // statically serve assets
-app.use(serve("./assets"));
+app.use(mount("/assets", serve("./assets")));
 
 // load up the handlebars middlewear
 app.use(hbs.middleware({
@@ -47,29 +50,38 @@ app.use(hbs.middleware({
 	defaultLayout: "main"
 }));
 
-app.use(function* appUse(next) {
+
+// Error handling middleware
+app.use(async(ctx, next) => {
 	try {
-		yield next;
-	} catch (err) {
-		if (this.state.api === true) {
-			// if this was an API request, send the error back in a plain response
-			this.app.emit("error", err, this);
-			this.body = {error: true, message: String(err)};
-		} else {
-			// this wasn"t an API request, show the error page
-			this.app.emit("error", err, this);
-			yield this.render("error", {
-				dump: err
-			});
+		await next();
+		if (ctx.state.api === true && ctx.status === 200) {
+			ctx.body = {
+				error: false,
+				result: ctx.body
+			};
 		}
+	} catch (err) {
+		ctx.app.emit("error", err, this);
+		ctx.status = err.status || 500;
+		if (ctx.state.api === true) {
+			return ctx.body = {
+				error: true,
+				message: err.message
+			};
+		}
+		await ctx.render("error", {
+			message: err.message,
+			error: {}
+		});
 	}
 });
 
 require("./routes");
 
-console.log(`${config.site.name} is now listening on port ${config.site.port}`);
+common.log("info", `${config.site.name} is now listening on port ${config.site.port}`);
 app.listen(config.site.port);
 
-process.on("SIGINT", () => {
+process.on("SIGINT", function exit() {
 	process.exit();
 });

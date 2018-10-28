@@ -252,7 +252,7 @@ hbs.registerHelper("log", log);
 Handlebars.registerHelper("log", log);
 
 function log(variable, opts) {
-	console.log(`hbs`, variable, opts);
+	common.log("info", variable);
 	if (opts == "JSON") {
 		return JSON.stringify(variable);
 	}

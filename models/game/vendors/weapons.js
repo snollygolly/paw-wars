@@ -17,7 +17,7 @@ module.exports.doVendorTransaction = function doVendorTransaction(life, transact
 	newLife.current.weapon = {};
 	newLife.current.weapon.name = newMod.name;
 	newLife.current.weapon.damage = newMod.meta.value;
-	// console.log("* doVendorTransaction:", life);
+	// common.log("debug", "* doVendorTransaction:", life);
 	return newLife;
 };
 

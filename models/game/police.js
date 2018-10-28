@@ -39,13 +39,13 @@ module.exports.startEncounter = function startEncounter(life) {
 	};
 	newLife.current.police.encounter = encounter;
 	newLife = module.exports.simulateEncounter(newLife);
-	// console.log("* startEncounter:", newLife);
+	// common.log("debug", "* startEncounter:", newLife);
 	return newLife;
 };
 
-module.exports.saveEncounter = function* saveEncounter(id, action) {
+module.exports.saveEncounter = async(id, action) => {
 	// get the latest copy from the database
-	let life = yield model.getLife(id);
+	let life = await model.getLife(id);
 	life.current.police.encounter.action = action;
 	// run all the transaction logic against it and get it back
 	life = module.exports.simulateEncounter(life);
@@ -55,7 +55,7 @@ module.exports.saveEncounter = function* saveEncounter(id, action) {
 		return life;
 	}
 	// now replace it in the DB
-	life = yield model.replaceLife(life);
+	life = await model.replaceLife(life);
 	return life;
 };
 
@@ -369,14 +369,14 @@ module.exports.getDamage = function getDamage(life, entity) {
 	} else if (entity == "police") {
 		// this is damage that the police is doing
 		let damage = life.current.police.encounter.officers * game.police.base_damage;
-		console.log(`damage: ${damage}`);
-		console.log(`life.current.health.points: ${life.current.health.points}`);
+		common.log("debug", `damage: ${damage}`);
+		common.log("debug", `life.current.health.points: ${life.current.health.points}`);
 		if (life.current.health.points - damage < 0) {
 			// if the damage we're going to deal will put us below 0
 			// add the negative difference to damage (which is positive)
 			// to remove the excess... I think
 			damage = (life.current.health.points - damage) + damage;
-			console.log(`hit if: ${damage}`);
+			common.log("debug", `hit if: ${damage}`);
 		}
 		return damage;
 	}

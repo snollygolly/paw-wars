@@ -16,7 +16,7 @@ module.exports.doVendorTransaction = function doVendorTransaction(life, transact
 	// increase the player storage (both props)
 	newLife.current.storage.available += newMod.units;
 	newLife.current.storage.total += newMod.units;
-	// console.log("* doVendorTransaction:", life);
+	// common.log("debug", "* doVendorTransaction:", life);
 	return newLife;
 };
 

@@ -72,7 +72,6 @@ The `game.json` file in the root contains most of the information you'll need to
 		(all routing is done here)
     |-- assets
 		(front end assets go here)
-    |   |-- bower_components
     |   |-- css
     |   |-- fonts
     |   |-- js

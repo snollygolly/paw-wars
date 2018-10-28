@@ -3,9 +3,9 @@
 const common = require("../../helpers/common");
 const model = require("../game_life.js");
 
-module.exports.saveHotelCheckIn = function* saveHotelCheckIn(id) {
+module.exports.saveHotelCheckIn = async(id) => {
 	// get the latest copy from the database
-	let life = yield model.getLife(id);
+	let life = await model.getLife(id);
 	// run all the transaction logic against it and get it back
 	life = module.exports.doHotelCheckIn(life);
 	// check for errors
@@ -14,7 +14,7 @@ module.exports.saveHotelCheckIn = function* saveHotelCheckIn(id) {
 		return life;
 	}
 	// now replace it in the DB
-	life = yield model.replaceLife(life);
+	life = await model.replaceLife(life);
 	return life;
 };
 

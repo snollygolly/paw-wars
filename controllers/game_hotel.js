@@ -8,18 +8,18 @@ const common = require("../helpers/common");
 let player = null;
 let life = null;
 
-module.exports.index = function* index() {
-	if (this.isAuthenticated()) {
-		player = this.session.passport.user;
+module.exports.index = async(ctx) => {
+	if (ctx.isAuthenticated()) {
+		player = ctx.session.passport.user;
 		// TODO: add an else in here to redirect, but it's too much of pain atm
 	}
-	life = this.session.life;
+	life = ctx.session.life;
 	if (!life) {
 		throw new Error("No life found / hotelController:index");
 	}
 	life = lifeModel.checkDeath(life);
 	if (life.alive === false) {
-		return this.redirect("/game/over");
+		return ctx.redirect("/game/over");
 	}
 	let police;
 	if (life.current.police.encounter !== null) {
@@ -27,12 +27,12 @@ module.exports.index = function* index() {
 		police = true;
 	} else {
 		// check the user in
-		life = yield lifeModel.saveHotelCheckIn(life.id);
+		life = await lifeModel.saveHotelCheckIn(life.id);
 		police = false;
 	}
 	// save the life back to the session
-	this.session.life = life;
-	yield this.render("game/hotel", {
+	ctx.session.life = life;
+	await ctx.render("game/hotel", {
 		player: player,
 		life: life,
 		police: police

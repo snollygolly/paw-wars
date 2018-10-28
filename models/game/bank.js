@@ -3,9 +3,9 @@
 const common = require("../../helpers/common");
 const model = require("../game_life.js");
 
-module.exports.saveBankTransaction = function* saveBankTransaction(id, transaction) {
+module.exports.saveBankTransaction = async(id, transaction) => {
 	// get the latest copy from the database
-	let life = yield model.getLife(id);
+	let life = await model.getLife(id);
 	// run all the transaction logic against it and get it back
 	life = module.exports.doBankTransaction(life, transaction);
 	// check for errors
@@ -14,7 +14,7 @@ module.exports.saveBankTransaction = function* saveBankTransaction(id, transacti
 		return life;
 	}
 	// now replace it in the DB
-	life = yield model.replaceLife(life);
+	life = await model.replaceLife(life);
 	return life;
 };
 
@@ -41,13 +41,13 @@ module.exports.doBankTransaction = function doBankTransaction(life, transaction)
 		type: "bank",
 		data: transaction
 	});
-	// console.log("* doBankTransaction:", newLife);
+	// common.log("debug", "* doBankTransaction:", newLife);
 	return newLife;
 };
 
-module.exports.saveBankLending = function* saveBankLending(id, transaction) {
+module.exports.saveBankLending = async(id, transaction) => {
 	// get the latest copy from the database
-	let life = yield model.getLife(id);
+	let life = await model.getLife(id);
 	// run all the transaction logic against it and get it back
 	life = module.exports.doBankLending(life, transaction);
 	// check for errors
@@ -56,7 +56,7 @@ module.exports.saveBankLending = function* saveBankLending(id, transaction) {
 		return life;
 	}
 	// now replace it in the DB
-	life = yield model.replaceLife(life);
+	life = await model.replaceLife(life);
 	return life;
 };
 
@@ -83,7 +83,7 @@ module.exports.doBankLending = function doBankLending(life, transaction) {
 		type: "bank",
 		data: transaction
 	});
-	// console.log("* doBankTransaction:", newLife);
+	// common.log("debug", "* doBankTransaction:", newLife);
 	return newLife;
 };
 

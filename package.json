@@ -27,29 +27,31 @@
   "homepage": "https://github.com/snollygolly/paw-wars#readme",
   "dependencies": {
     "co": "^4.6.0",
-    "koa": "^1.1.2",
-    "koa-bodyparser": "^2.0.1",
-    "koa-generic-session": "^1.10.0",
-    "koa-hbs": "^0.7.0",
-    "koa-passport": "^1.2.0",
-    "koa-router": "^5.3.0",
-    "koa-static-folder": "^0.1.6",
+    "koa": "^2.3.0",
+    "koa-bodyparser": "^4.2.0",
+    "koa-hbs": "^1.0.0",
+    "koa-mount": "^3.0.0",
+    "koa-passport": "^4.0.1",
+    "koa-router": "^7.2.1",
+    "koa-session": "^5.5.0",
+    "koa-static": "^4.0.1",
     "marked": "^0.3.5",
-    "passport-github": "^1.0.0",
-    "rethinkdb": "^2.2.1"
+    "passport-auth0": "^1.0.0",
+    "rethinkdb": "^2.2.1",
+    "winston": "^3.1.0"
   },
   "devDependencies": {
-    "chai": "^3.4.1",
-    "eslint": "^1.10.3",
+    "chai": "^4.1.2",
+    "eslint": "^4.9.0",
+    "mocha": "^5.1.1",
+    "mocha-junit-reporter": "^1.17.0",
+    "nodemon": "^1.12.1",
+    "nyc": "^11.7.1",
     "grunt": "^0.4.5",
     "grunt-concurrent": "^2.2.1",
     "grunt-contrib-clean": "^1.0.0",
     "grunt-contrib-sass": "^1.0.0",
     "grunt-contrib-watch": "^0.6.1",
-    "grunt-nodemon": "^0.4.1",
-    "istanbul": "^0.4.2",
-    "mocha": "^2.3.4",
-    "shipit-cli": "^1.4.1",
-    "shipit-deploy": "^2.1.2"
+    "grunt-nodemon": "^0.4.1"
   }
 }

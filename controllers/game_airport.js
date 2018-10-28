@@ -22,15 +22,14 @@ module.exports.index = async(ctx) => {
 	if (life.current.hotel === false) {
 		throw new Error("Must be checked into a hotel first / airportController:index");
 	}
-	const lifeObj = JSON.parse(JSON.stringify(life));
-	lifeObj.listings.airport.sort(sortByTurns);
+	life.listings.airport.sort(sortByTurns);
 	// remove the home entry
-	lifeObj.listings.airport.shift();
+	life.listings.airport.shift();
 	// sort by price
-	lifeObj.listings.airport.sort(sortByPrice);
+	life.listings.airport.sort(sortByPrice);
 	await ctx.render("game/airport", {
 		player: (player === null) ? null : player,
-		life: lifeObj,
+		life,
 		scripts:["game_airport"]
 	});
 

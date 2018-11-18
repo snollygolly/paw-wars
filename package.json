@@ -1,6 +1,6 @@
 {
   "name": "paw-wars",
-  "version": "0.0.1",
+  "version": "0.3.0",
   "description": "A modern take on Drugwars (Dopewars), but with cats.",
   "main": "index.js",
   "scripts": {

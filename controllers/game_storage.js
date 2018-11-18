@@ -7,65 +7,62 @@ const game = require("../game.json");
 
 const common = require("../helpers/common");
 
-let player = null;
-let life = null;
-
-module.exports.index = function* index() {
-	if (this.isAuthenticated()) {
-		player = this.session.passport.user;
-		// TODO: add an else in here to redirect, but it's too much of pain atm
+module.exports.index = async(ctx) => {
+	let player;
+	if (ctx.isAuthenticated()) {
+		player = ctx.session.passport.user;
 	}
-	life = this.session.life;
+	let life = ctx.session.life;
 	if (!life) {
 		throw new Error("No life found / storageController:index");
 	}
 	life = lifeModel.checkDeath(life);
 	if (life.alive === false) {
-		return this.redirect("/game/over");
+		return ctx.redirect("/game/over");
 	}
 	if (life.current.hotel === false) {
 		throw new Error("Must be checked into a hotel first / storageController:index");
 	}
-	yield this.render("game/storage", {
+	await ctx.render("game/storage", {
 		player: player,
 		life: life
 	});
 };
 
-module.exports.transaction = function* transaction() {
+module.exports.transaction = async(ctx) => {
 	// for error handling
-	this.state.api = true;
-	if (this.isAuthenticated()) {
-		player = this.session.passport.user;
-		// TODO: add an else in here to redirect, but it's too much of pain atm
+	ctx.state.api = true;
+	let player;
+	if (ctx.isAuthenticated()) {
+		player = ctx.session.passport.user;
 	}
-	life = this.session.life;
+	let life = ctx.session.life;
 	if (!life) {
 		throw new Error("No life found / marketController:transaction");
 	}
 	life = lifeModel.checkDeath(life);
 	if (life.alive === false) {
-		return this.body = {error: true, message: "You're dead and can't do things"};
+		throw new Error("You're dead and can't do things");
 	}
 	if (life.current.hotel === false) {
-		return this.body = {error: true, message: "Must be checked into a hotel first"};
+		throw new Error("Must be checked into a hotel first");
 	}
-	const parameters = this.request.body;
+	const parameters = ctx.request.body;
 	if (!parameters) {
-		return this.body = {error: true, message: "Missing parameter object"};
+		throw new Error("Missing parameter object");
 	}
 	if (!parameters.id || !parameters.type || !parameters.item || !parameters.units) {
-		return this.body = {error: true, message: "Missing parameters"};
+		throw new Error("Missing parameters");
 	}
 	if (life.id != parameters.id) {
-		return this.body = {error: "Bad ID"};
+		throw new Error("Bad ID");
 	}
 	if (parameters.type != "buy" && parameters.type != "sell") {
-		return this.body = {error: true, message: "Bad transaction type"};
+		throw new Error("Bad transaction type");
 	}
 	parameters.units = parseInt(parameters.units);
 	if (Number.isInteger(parameters.units) === false || parameters.units <= 0) {
-		return this.body = {error: true, message: "Bad unit amount"};
+		throw new Error("Bad unit amount");
 	}
 	// we've passed checks at this point
 	const transaction = {
@@ -74,12 +71,12 @@ module.exports.transaction = function* transaction() {
 		item: parameters.item,
 		units: parameters.units
 	};
-	life = yield lifeModel.saveMarketTransaction(life.id, transaction);
+	life = await lifeModel.saveMarketTransaction(life.id, transaction);
 	if (life.error) {
 		// something went wrong during the process
-		return this.body = {error: true, message: life.message};
+		throw new Error(life.message);
 	}
 	// update the session
-	this.session.life = life;
-	this.body = {error: false, life: life};
+	ctx.session.life = life;
+	ctx.body = { life };
 };

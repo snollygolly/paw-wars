@@ -18,7 +18,7 @@
 								<br/><small class="text-muted">{{{get_deal_indication id price}}}</small>
 							{{/if_eq}}
 							{{#is_upgrade_enabled ../life.current "bookkeeping"}}
-								<br/><small class="text-muted">According to your bookkeeper, you've currently spent $<span class="sunk-cost">{{get_item_sunk_cost id ../../life.current.inventory}}</span> per unit in your inventory.</small>
+								<br/><small class="text-muted">According to your bookkeeper, you've currently spent $<span class="sunk-cost">{{get_item_sunk_cost id ../life.current.inventory}}</span> per unit in your inventory.</small>
 							{{/is_upgrade_enabled}}
 						</p>
 						<p class="card-text">{{description}}</p>
@@ -44,7 +44,7 @@
 					</div>
 					<div class="card-footer text-muted">
 						{{#if ../life.id}}
-							You have <strong class="transaction-inventory-units">{{life_inventory id ../../life.current.inventory}}</strong> to sell
+							You have <strong class="transaction-inventory-units">{{life_inventory id ../life.current.inventory}}</strong> to sell
 						{{else}}
 							You can't sell anything here because you're a ghost
 						{{/if}}

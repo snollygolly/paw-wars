@@ -17,7 +17,7 @@ module.exports.doVendorTransaction = function doVendorTransaction(life, transact
 	newLife.current.health.points += newMod.units;
 	// increase the player max health
 	newLife.current.health.max += newMod.units;
-	// console.log("* doVendorTransaction:", life);
+	// common.log("debug", "* doVendorTransaction:", life);
 	return newLife;
 };
 

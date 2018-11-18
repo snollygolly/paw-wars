@@ -5,70 +5,67 @@ const lifeModel = require("../models/game_life");
 
 const common = require("../helpers/common");
 
-let player = null;
-let life = null;
-
-module.exports.index = function* index() {
-	if (this.isAuthenticated()) {
-		player = this.session.passport.user;
-		// TODO: add an else in here to redirect, but it's too much of pain atm
+module.exports.index = async(ctx) => {
+	let player;
+	if (ctx.isAuthenticated()) {
+		player = ctx.session.passport.user;
 	}
-	life = this.session.life;
+	let life = ctx.session.life;
 	if (!life) {
 		throw new Error("No life found / bankController:index");
 	}
 	life = lifeModel.checkDeath(life);
 	if (life.alive === false) {
-		return this.redirect("/game/over");
+		return ctx.redirect("/game/over");
 	}
 	if (life.current.hotel === false) {
 		throw new Error("Must be checked into a hotel first / bankController:index");
 	}
-	yield this.render("game/bank", {
+	await ctx.render("game/bank", {
 		player: player,
 		life: life,
-		script: "game_bank"
+		scripts:["game_bank"]
 	});
 };
 
-module.exports.transaction = function* transaction() {
+module.exports.transaction = async(ctx) => {
 	// for error handling
-	this.state.api = true;
-	if (this.isAuthenticated()) {
-		player = this.session.passport.user;
-		// TODO: add an else in here to redirect, but it's too much of pain atm
+	ctx.state.api = true;
+	let player;
+	if (ctx.isAuthenticated()) {
+		player = ctx.session.passport.user;
 	}
-	life = this.session.life;
+	let life = ctx.session.life;
 	if (!life) {
 		throw new Error("No life found / bankController:transaction");
 	}
 	life = lifeModel.checkDeath(life);
 	if (life.alive === false) {
-		return this.body = {error: true, message: "You're dead and can't do things"};
+		throw new Error("You're dead and can't do things");
 	}
 	if (life.current.hotel === false) {
-		return this.body = {error: true, message: "Must be checked into a hotel first"};
+		throw new Error("Must be checked into a hotel first");
 	}
 	let parameters;
 	// figure out which type of transaction they want to be doing here
-	if (this.request.body.type == "deposit") {
+	if (ctx.request.body.type == "deposit") {
 		// they posted, this means it's a deposit
-		parameters = this.request.body;
-	} else if (this.request.query.type == "withdraw") {
+		parameters = ctx.request.body;
+	} else if (ctx.request.query.type == "withdraw") {
 		// this got, this means it's a get
-		parameters = this.request.query;
+		parameters = ctx.request.query;
 	} else {
-		return this.body = {error: true, message: "Invalid type passed"};
+		throw new Error("Invalid type passed");
 	}
 	// let's start doing some checks
 	parameters.amount = parseFloat(parameters.amount);
 	// is this a valid amount?
 	if (parameters.amount <= 0) {
-		return this.body = {error: true, message: "Bad unit amount"};
+		throw new Error("Bad unit amount");
 	}
 	// is this the right life ID?
 	if (life.id != parameters.id) {
-		return this.body = {error: true, message: "Bad ID"};
+		throw new Error("Bad ID");
 	}
 	// we've passed checks at this point
 	const transaction = {
@@ -76,54 +73,54 @@ module.exports.transaction = function* transaction() {
 		type: parameters.type,
 		amount: parameters.amount
 	};
-	life = yield lifeModel.saveBankTransaction(life.id, transaction);
+	life = await lifeModel.saveBankTransaction(life.id, transaction);
 	if (life.error) {
 		// something went wrong during the process
-		return this.body = {error: true, message: life.message};
+		throw new Error(life.message);
 	}
 	// update the session
-	this.session.life = life;
-	this.body = {error: false, life: life};
+	ctx.session.life = life;
+	ctx.body = { life };
 };
 
-module.exports.lending = function* lending() {
+module.exports.lending = async(ctx) => {
 	// for error handling
-	this.state.api = true;
-	if (this.isAuthenticated()) {
-		player = this.session.passport.user;
-		// TODO: add an else in here to redirect, but it's too much of pain atm
+	ctx.state.api = true;
+	let player;
+	if (ctx.isAuthenticated()) {
+		player = ctx.session.passport.user;
 	}
-	life = this.session.life;
+	let life = ctx.session.life;
 	if (!life) {
 		throw new Error("No life found / bankController:lending");
 	}
 	life = lifeModel.checkDeath(life);
 	if (life.alive === false) {
-		return this.body = {error: true, message: "You're dead and can't do things"};
+		throw new Error("You're dead and can't do things");
 	}
 	if (life.current.hotel === false) {
-		return this.body = {error: true, message: "Must be checked into a hotel first"};
+		throw new Error("Must be checked into a hotel first");
 	}
 	let parameters;
 	// figure out which type of transaction they want to be doing here
-	if (this.request.body.type == "repay") {
+	if (ctx.request.body.type == "repay") {
 		// they posted, this means it's a deposit
-		parameters = this.request.body;
-	} else if (this.request.query.type == "borrow") {
+		parameters = ctx.request.body;
+	} else if (ctx.request.query.type == "borrow") {
 		// this got, this means it's a get
-		parameters = this.request.query;
+		parameters = ctx.request.query;
 	} else {
-		return this.body = {error: true, message: "Invalid type passed"};
+		throw new Error("Invalid type passed");
 	}
 	// let's start doing some checks
 	parameters.amount = parseFloat(parameters.amount);
 	// is this a valid amount?
 	if (parameters.amount <= 0) {
-		return this.body = {error: true, message: "Bad unit amount"};
+		throw new Error("Bad unit amount");
 	}
 	// is this the right life ID?
 	if (life.id != parameters.id) {
-		return this.body = {error: "Bad ID"};
+		throw new Error("Bad ID");
 	}
 	// we've passed checks at this point
 	const transaction = {
@@ -131,12 +128,12 @@ module.exports.lending = function* lending() {
 		type: parameters.type,
 		amount: parameters.amount
 	};
-	life = yield lifeModel.saveBankLending(life.id, transaction);
+	life = await lifeModel.saveBankLending(life.id, transaction);
 	if (life.error) {
 		// something went wrong during the process
-		return this.body = {error: true, message: life.message};
+		throw new Error(life.message);
 	}
 	// update the session
-	this.session.life = life;
-	this.body = {error: false, life: life};
+	ctx.session.life = life;
+	ctx.body = { life };
 };

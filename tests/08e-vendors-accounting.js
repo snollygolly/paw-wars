@@ -35,7 +35,7 @@ describe("Vendors [accounting] - Handle Transaction", () => {
 		newLife = vendors.doVendorTransaction(oldLife, transaction);
 	});
 
-	it(`accounting vendor should decrease cash`, (done) => {
+	it("accounting vendor should decrease cash", (done) => {
 		const newCash = oldLife.current.finance.cash - oldLife.listings.vendors[vendor].stock[0].price;
 		// cash on hand
 		expect(newLife.current.finance.cash).to.equal(newCash);
@@ -43,7 +43,7 @@ describe("Vendors [accounting] - Handle Transaction", () => {
 		return done();
 	});
 
-	it(`accounting vendor stock should remove sold item`, (done) => {
+	it("accounting vendor stock should remove sold item", (done) => {
 		const newStock = oldLife.listings.vendors[vendor].stock;
 		// take one off the top
 		newStock.shift();
@@ -58,7 +58,7 @@ describe("Vendors [accounting] - Handle Transaction", () => {
 		return done();
 	});
 
-	it(`accounting vendor should add upgrades`, (done) => {
+	it("accounting vendor should add upgrades", (done) => {
 		expect(newLife.current.upgrades).to.exist;
 		expect(newLife.current.upgrades.bookkeeping).to.exist;
 		expect(newLife.current.upgrades.bookkeeping.enabled).to.equal(true);

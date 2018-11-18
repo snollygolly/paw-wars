@@ -34,16 +34,15 @@ $( document ).ready(function() {
       url: "/game/airport/fly", // A valid URL
       data: flight
     }).done(function(result) {
-      if (result.error === false){
-        // this should redirect
-        window.location.replace("/game/hotel");
-      }else{
-        displayAlert("warning", "Oh no!  Something has gone wrong (" + result.message + ")");
+      if (result.error === true){
+        throw new Error(result.message);
       }
-      $('#transport-modal').modal('hide');
+      // this should redirect
+      window.location.replace("/game/hotel");
     }).fail(function(result) {
-      displayAlert("danger", "Oh no!  Something has gone terribly wrong (" + JSON.stringify(result, 2, null) + ")");
+      displayAlert("danger", result.responseJSON.message);
       $('#transport-modal').modal('hide');
     });
+
   });
 });

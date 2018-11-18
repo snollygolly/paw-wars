@@ -11,7 +11,7 @@
 					{{{this.introduction}}}
 					<div class="list-group">
 						{{#each this.stock}}
-							<button class="list-group-item vendor-{{@key}}-listing" data-type="buy" data-index="{{@index}}" data-name="{{this.units}} {{this.name}}" data-price="{{this.price}}" data-vendor="{{@key}}" data-toggle="modal" data-target="#vendor-modal">Buy <strong>{{this.units}} {{this.name}}</strong> for <strong>${{this.price}}</strong></button>
+							<button class="list-group-item vendor-{{@../key}}-listing" data-type="buy" data-index="{{@index}}" data-name="{{this.units}} {{this.name}}" data-price="{{this.price}}" data-vendor="{{@../key}}" data-toggle="modal" data-target="#vendor-modal">Buy <strong>{{this.units}} {{this.name}}</strong> for <strong>${{this.price}}</strong></button>
 						{{/each}}
 					</div>
 					<br>

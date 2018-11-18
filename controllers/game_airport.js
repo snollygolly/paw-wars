@@ -6,35 +6,31 @@ const lifeModel = require("../models/game_life");
 
 const common = require("../helpers/common");
 
-let player = null;
-let life = null;
-
-module.exports.index = function* index() {
-	if (this.isAuthenticated()) {
-		player = this.session.passport.user;
-		// TODO: add an else in here to redirect, but it's too much of pain atm
+module.exports.index = async(ctx) => {
+	let player;
+	if (ctx.isAuthenticated()) {
+		player = ctx.session.passport.user;
 	}
-	life = this.session.life;
+	let life = ctx.session.life;
 	if (!life) {
 		throw new Error("No life found / airportController:index");
 	}
 	life = lifeModel.checkDeath(life);
 	if (life.alive === false) {
-		return this.redirect("/game/over");
+		return ctx.redirect("/game/over");
 	}
 	if (life.current.hotel === false) {
 		throw new Error("Must be checked into a hotel first / airportController:index");
 	}
-	const lifeObj = JSON.parse(JSON.stringify(life));
-	lifeObj.listings.airport.sort(sortByTurns);
+	life.listings.airport.sort(sortByTurns);
 	// remove the home entry
-	lifeObj.listings.airport.shift();
+	life.listings.airport.shift();
 	// sort by price
-	lifeObj.listings.airport.sort(sortByPrice);
-	yield this.render("game/airport", {
+	life.listings.airport.sort(sortByPrice);
+	await ctx.render("game/airport", {
 		player: (player === null) ? null : player,
-		life: lifeObj,
-		script: "game_airport"
+		life,
+		scripts:["game_airport"]
 	});
 
 	function sortByTurns(a, b) {
@@ -46,33 +42,33 @@ module.exports.index = function* index() {
 	}
 };
 
-module.exports.fly = function* fly() {
+module.exports.fly = async(ctx) => {
 	// for error handling
-	this.state.api = true;
-	if (this.isAuthenticated()) {
-		player = this.session.passport.user;
-		// TODO: add an else in here to redirect, but it's too much of pain atm
+	ctx.state.api = true;
+	let player;
+	if (ctx.isAuthenticated()) {
+		player = ctx.session.passport.user;
 	}
-	life = this.session.life;
+	let life = ctx.session.life;
 	if (!life) {
 		throw new Error("No life found / airportController:fly");
 	}
 	life = lifeModel.checkDeath(life);
 	if (life.alive === false) {
-		return this.body = {error: true, message: "You're dead and can't do things"};
+		throw new Error("You're dead and can't do things");
 	}
 	if (life.current.hotel === false) {
-		return this.body = {error: true, message: "Must be checked into a hotel first"};
+		throw new Error("Must be checked into a hotel first");
 	}
-	const parameters = this.request.body;
+	const parameters = ctx.request.body;
 	if (!parameters) {
-		return this.body = {error: true, message: "Missing parameter object"};
+		throw new Error("Missing parameter object");
 	}
 	if (!parameters.id || !parameters.destination) {
-		return this.body = {error: true, message: "Missing parameters"};
+		throw new Error("Missing parameters");
 	}
 	if (life.id != parameters.id) {
-		return this.body = {error: true, message: "Bad ID"};
+		throw new Error("Bad ID");
 	}
 	// TODO: destination verification
 	// we've passed checks at this point
@@ -80,12 +76,12 @@ module.exports.fly = function* fly() {
 		id: Date.now(),
 		destination: parameters.destination
 	};
-	life = yield lifeModel.saveAirportFly(life.id, flight);
+	life = await lifeModel.saveAirportFly(life.id, flight);
 	if (life.error) {
 		// something went wrong during the process`
-		return this.body = {error: true, message: life.message};
+		throw new Error(life.message);
 	}
 	// update the session
-	this.session.life = life;
-	this.body = {error: false, life: life};
+	ctx.session.life = life;
+	ctx.body = { life };
 };

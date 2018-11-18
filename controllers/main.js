@@ -3,26 +3,25 @@
 const config = require("../config.json");
 const playerModel = require("../models/game_player");
 
-let player = null;
-let life = null;
-
-module.exports.index = function* index() {
-	if (this.isAuthenticated()) {
-		player = this.session.passport.user;
+module.exports.index = async(ctx) => {
+	let player;
+	if (ctx.isAuthenticated()) {
+		player = ctx.session.passport.user;
 	}
-	life = this.session.life;
-	yield this.render("index", {
+	const life = ctx.session.life;
+	await ctx.render("index", {
 		player: player,
 		life: life
 	});
 };
 
-module.exports.account = function* account() {
-	if (this.isAuthenticated()) {
-		player = this.session.passport.user;
+module.exports.account = async(ctx) => {
+	let player;
+	if (ctx.isAuthenticated()) {
+		player = ctx.session.passport.user;
 	}
-	life = this.session.life;
-	yield this.render("account", {
+	const life = ctx.session.life;
+	await ctx.render("account", {
 		player: player,
 		life: life
 	});

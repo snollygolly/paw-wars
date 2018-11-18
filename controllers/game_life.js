@@ -6,53 +6,50 @@ const placesJSON = require("../models/game/data/places.json");
 const deathsJSON = require("../models/game/data/deaths.json");
 const lifeModel = require("../models/game_life");
 
-let player = null;
-let life = null;
-
-module.exports.play = function* play() {
-	if (this.isAuthenticated()) {
-		player = this.session.passport.user;
-		// TODO: add an else in here to redirect, but it's too much of pain atm
+module.exports.play = async(ctx) => {
+	let player;
+	if (ctx.isAuthenticated()) {
+		player = ctx.session.passport.user;
 	}
-	life = this.session.life;
+	const life = ctx.session.life;
 	// TODO: check if the user has a game in progress eventually
 	if (life) {
 		throw new Error("Can't start a new game when one is in progress / lifeController:play");
 	}
-	yield this.render("game/life", {
+	await ctx.render("game/life", {
 		game: game,
 		player: player,
 		places: placesJSON
 	});
 };
 
-module.exports.create = function* create() {
-	if (this.isAuthenticated()) {
-		player = this.session.passport.user;
-		// TODO: add an else in here to redirect, but it's too much of pain atm
+module.exports.create = async(ctx) => {
+	let player;
+	if (ctx.isAuthenticated()) {
+		player = ctx.session.passport.user;
 	} else {
 		// so this passes, remove for later
 		player = {};
 		player.id = "99999";
 	}
-	life = this.session.life;
+	let life = ctx.session.life;
 	if (life) {
 		throw new Error("Can't start a new game when one is in progress / lifeController:create");
 	}
 	// handle location parsing
-	const location = getLocationObj(this.request.body.location);
+	const location = getLocationObj(ctx.request.body.location);
 	// TODO: don't create a new life if this player already has one
-	life = yield lifeModel.createLife(player, {location: location});
-	this.session.life = life;
-	return this.redirect("/game/hotel");
+	life = await lifeModel.createLife(player, {location: location});
+	ctx.session.life = life;
+	return ctx.redirect("/game/hotel");
 };
 
-module.exports.end = function* end() {
-	if (this.isAuthenticated()) {
-		player = this.session.passport.user;
-		// TODO: add an else in here to redirect, but it's too much of pain atm
+module.exports.end = async(ctx) => {
+	let player;
+	if (ctx.isAuthenticated()) {
+		player = ctx.session.passport.user;
 	}
-	life = this.session.life;
+	const life = ctx.session.life;
 	if (!life) {
 		throw new Error("Can't end a life without a life / lifeController:end");
 	}
@@ -61,37 +58,37 @@ module.exports.end = function* end() {
 		life.eulogy = deathsJSON.stopped;
 	}
 	life.score = lifeModel.getScore(life);
-	delete this.session.life;
-	yield this.render("game/game_over", {
+	delete ctx.session.life;
+	await ctx.render("game/game_over", {
 		title: config.site.name,
 		player: player,
 		past_life: life
 	});
 };
 
-module.exports.get = function* get() {
+module.exports.get = async(ctx) => {
 	// for error handling
-	this.state.api = true;
+	ctx.state.api = true;
 	// 99999_1455077179080 for example
 	const validIDRegex = /^\d+_\d+$/gm;
-	const parameters = this.request.query;
+	const parameters = ctx.request.query;
 	if (!parameters) {
-		return this.body = {error: true, message: "Missing parameter object"};
+		throw new Error("Missing parameter object");
 	}
 	if (!parameters.id) {
-		return this.body = {error: true, message: "Missing parameters"};
+		throw new Error("Missing parameters");
 	}
 	const validID = validIDRegex.test(parameters.id);
 	if (validID !== true) {
-		return this.body = {error: true, message: "Bad parameters"};
+		throw new Error("Bad parameters");
 	}
 	// we've passed checks at this point
-	life = yield lifeModel.getLife(parameters.id);
+	life = await lifeModel.getLife(parameters.id);
 	if (life.error) {
 		// something went wrong during the process
-		return this.body = {error: true, message: life.message};
+		throw new Error(life.message);
 	}
-	this.body = {error: false, life: life};
+	ctx.body = { life };
 };
 
 function getLocationObj(id) {

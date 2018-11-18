@@ -1,6 +1,7 @@
 language: node_js
 node_js:
- - "6.11.4"
+ - "8"
+ - "10"
 before_install:
   - "mv config.json.example config.json"
 script:

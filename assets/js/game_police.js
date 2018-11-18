@@ -7,15 +7,14 @@ $(document).ready(function() {
 		url: "/game/life",
 		data: {id: lifeID}
 	}).done(function(result) {
-		if (result.error === false){
-			life = result.life;
-			// when the document loads, first thing, refresh the encounter
-			refreshEncounter(life);
-		}else{
-			displayAlert("warning", "Oh no!  Something has gone wrong (" + result.message + ")");
+		if (result.error === true){
+			return displayAlert("danger", result.responseJSON.message);
 		}
+		life = result.life;
+		// when the document loads, first thing, refresh the encounter
+		refreshEncounter(life);
 	}).fail(function(result) {
-		displayAlert("danger", "Oh no!  Something has gone terribly wrong (" + JSON.stringify(result, 2, null) + ")");
+		displayAlert("danger", result.responseJSON.message);
 	});
 
   $(document).on("click", ".police-choice", function (e) {
@@ -43,18 +42,18 @@ $(document).ready(function() {
     }).done(function(result) {
       if (result.error === false){
         // this means everything worked out great
-        life = result.life;
+        life = result.result.life;
         if (life.current.police.encounter === null) {
           window.location.replace("/game/hotel");
         } else {
           refreshEncounter(life);
         }
       }else{
-        displayAlert("warning", "Oh no!  Something has gone wrong (" + result.message + ")");
+        displayAlert("danger", result.responseJSON.message);
         enableAll();
       }
     }).fail(function(result) {
-      displayAlert("danger", "Oh no!  Something has gone terribly wrong (" + JSON.stringify(result, 2, null) + ")");
+      displayAlert("danger", result.responseJSON.message);
       enableAll();
     });
   });

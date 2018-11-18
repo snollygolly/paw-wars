@@ -67,17 +67,17 @@ routes.post("/game/vendors/transaction", game_vendors.transaction);
 routes.get("/game/storage", game_storage.index);
 
 // for passport
-routes.get("/login", function* get() {
+routes.get("/login", async(ctx) => {
 	if (this.isAuthenticated()) {
 		user = this.session.passport.user;
 	}
-	yield this.render("login", {player: player});
+	await this.render("login", {player: player});
 });
 
-routes.get("/logout", function* get() {
+routes.get("/logout", async(ctx) => {
 	this.logout();
 	this.redirect("/");
-	yield this.render("index", {player: player});
+	await this.render("index", {player: player});
 });
 
 // you can add as many strategies as you want

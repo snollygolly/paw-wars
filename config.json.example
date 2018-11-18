@@ -5,9 +5,10 @@
     "secret": "games-with-cats-are-the-best-games",
     "oauth": {
       "host": "http://127.0.0.1",
-      "github": {
-        "clientID": "OAUTH CLIENT ID FOR GITHUB",
-        "clientSecret": "OAUTH CLIENT SECRET FOR GITHUB"
+      "auth0": {
+        "domain": "YOURDOMAIN.auth0.com",
+        "clientID": "AUTH0_CLIENT_ID",
+        "clientSecret": "AUTH0_CLIENT_SECRET"
       }
     },
     "db": {

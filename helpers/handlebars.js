@@ -1,17 +1,11 @@
 "use strict";
 
-const fs = require("fs");
 const Handlebars = require("handlebars");
 const hbs = require("koa-hbs");
-const marked = require("marked");
-marked.setOptions({
-	sanitize: false
-});
 const config = require("../config.json");
 const game = require("../game.json");
 const common = require("./common");
 const itemsJSON = require("../models/game/data/items.json");
-const placesJSON = require("../models/game/data/places.json");
 
 hbs.registerHelper("if_eq", function if_eq(a, b, opts) {
 	if (a == b) {
@@ -195,23 +189,6 @@ hbs.registerHelper("get_item_name", function get_item_name(id, opts) {
 	return item.name;
 });
 
-hbs.registerHelper("md_partial", function md_partial(partial, opts) {
-	const data = {
-		game: game,
-		config: config,
-		items: itemsJSON,
-		places: placesJSON
-	};
-	const rawFile = fs.readFileSync(`views/manual/${partial}.md`, "utf8");
-	// we have to manually replace escaped quotes because of marked
-	// https://github.com/chjj/marked/issues/269
-	let parsedFile = marked(rawFile);
-	parsedFile = parsedFile.replace(/\\&quot;/g, '"');
-	const template = Handlebars.compile(parsedFile);
-	const final = template(data);
-	return final;
-});
-
 hbs.registerHelper("get_police_encounter", function log(police) {
 	const startingStr = "As you arrive at the hotel, you see ";
 
@@ -252,7 +229,7 @@ hbs.registerHelper("log", log);
 Handlebars.registerHelper("log", log);
 
 function log(variable, opts) {
-	console.log(`hbs`, variable, opts);
+	common.log("info", variable);
 	if (opts == "JSON") {
 		return JSON.stringify(variable);
 	}

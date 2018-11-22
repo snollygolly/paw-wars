@@ -2,9 +2,11 @@
 
 const config = require("../config.json");
 const game = require("../game.json");
+const common = require("../helpers/common");
 const placesJSON = require("../models/game/data/places.json");
 const deathsJSON = require("../models/game/data/deaths.json");
 const lifeModel = require("../models/game_life");
+const playerModel = require("../models/game_player");
 
 module.exports.play = async(ctx) => {
 	let player;
@@ -30,16 +32,22 @@ module.exports.create = async(ctx) => {
 	} else {
 		// so this passes, remove for later
 		player = {};
-		player.id = "99999";
+		player.id = `generic|${common.getRandomInt(100,999999999)}`;
 	}
 	let life = ctx.session.life;
 	if (life) {
 		throw new Error("Can't start a new game when one is in progress / lifeController:create");
 	}
+	// don't create a new life if this player already has one
+	// TODO: support more than one life at a time?
+	if (player.lives.length > 0) {
+		throw new Error("Can't start a new life when one is attached / lifeController:create");
+	}
 	// handle location parsing
 	const location = getLocationObj(ctx.request.body.location);
-	// TODO: don't create a new life if this player already has one
 	life = await lifeModel.createLife(player, {location: location});
+	player.lives.push(life.id);
+	player = await playerModel.replacePlayer(player);
 	ctx.session.life = life;
 	return ctx.redirect("/game/hotel");
 };
@@ -53,11 +61,16 @@ module.exports.end = async(ctx) => {
 	if (!life) {
 		throw new Error("Can't end a life without a life / lifeController:end");
 	}
+	// TODO: support more than one life at a time?
+	if (player.lives.length <= 0) {
+		throw new Error("Can't end a life when one isn't attached / lifeController:end");
+	}
 	// check to see if they don't have a eulogy
 	if (!life.eulogy) {
 		life.eulogy = deathsJSON.stopped;
 	}
 	life.score = lifeModel.getScore(life);
+	player.lives = [];
 	delete ctx.session.life;
 	await ctx.render("game/game_over", {
 		title: config.site.name,
@@ -69,8 +82,8 @@ module.exports.end = async(ctx) => {
 module.exports.get = async(ctx) => {
 	// for error handling
 	ctx.state.api = true;
-	// 99999_1455077179080 for example
-	const validIDRegex = /^\d+_\d+$/gm;
+	// vendor|99999_1455077179080 for example
+	const validIDRegex = /^[a-z]{5,}+\|\d+_\d+$/gm;
 	const parameters = ctx.request.query;
 	if (!parameters) {
 		throw new Error("Missing parameter object");

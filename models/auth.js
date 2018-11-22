@@ -27,14 +27,7 @@ passport.use(new Auth0Strategy({
 	clientSecret: config.site.oauth.auth0.clientSecret,
 	callbackURL: `${config.site.oauth.host}${port}/auth/auth0/callback`
 }, async(accessToken, refreshToken, extraParams, profile, done) => {
-	let user;
-	try {
-		const player = playerModel.convertProfile(profile);
-		await playerModel.getPlayer(player);
-		done(null, player);
-	} catch (err) {
-		console.error("Something went terribly wrong!");
-		console.error(e.stack);
-		done(e, null);
-	}
+	const player = playerModel.convertProfile(profile);
+	await playerModel.getPlayer(player);
+	done(null, player);
 }));

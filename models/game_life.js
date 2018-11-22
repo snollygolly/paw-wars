@@ -12,6 +12,7 @@ const bank = require("./game/bank");
 const events = require("./game/events");
 const hotel = require("./game/hotel");
 const police = require("./game/police");
+const playerModel = require("./game_player");
 
 const deathsJSON = require("./game/data/deaths.json");
 
@@ -31,6 +32,7 @@ module.exports.createLife = async(player, parameters) => {
 	await createConnection();
 	// create the life object
 	const life = module.exports.generateLife(player, parameters);
+	// create the life
 	const result = await r.table("lives").insert(life, {returnChanges: true}).run(connection);
 	connection.close();
 	// common.log("debug", "* createLife:", result.changes[0].new_val);

@@ -14,7 +14,7 @@ Paw Wars is a game that takes place in a world where dogs are the ruling class a
 * [RethinkDB](http://www.rethinkdb.com/)
 
 ### Recommendations
-* [Github Client ID and Secret](https://github.com/settings/developers) (for OAuth)
+* [Auth0 Account](https://auth0.com/) (for OAuth)
 
 ### Installation
 

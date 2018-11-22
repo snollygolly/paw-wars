@@ -12,10 +12,11 @@ Visit the [Market](/manual/market) to buy and sell items
 Use the [Airport](/manual/airport) to travel around to different locations
 Go to the [Bank](/manual/bank) to manage your money
 
-The game ends when:
-All of your turns allowed have been used
-You are poor and destitute
-You die.
+The game ends when any of the following take place:
+
+- All of your turns allowed have been used
+- You are poor and destitute
+- You die
 
 ---
 

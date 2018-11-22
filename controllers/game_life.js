@@ -40,13 +40,13 @@ module.exports.create = async(ctx) => {
 	}
 	// don't create a new life if this player already has one
 	// TODO: support more than one life at a time?
-	if (player.lives.length > 0) {
+	if (player.currentLives.length > 0) {
 		throw new Error("Can't start a new life when one is attached / lifeController:create");
 	}
 	// handle location parsing
 	const location = getLocationObj(ctx.request.body.location);
 	life = await lifeModel.createLife(player, {location: location});
-	player.lives.push(life.id);
+	player.currentLives.push(life.id);
 	player = await playerModel.replacePlayer(player);
 	ctx.session.life = life;
 	return ctx.redirect("/game/hotel");
@@ -61,8 +61,8 @@ module.exports.end = async(ctx) => {
 	if (!life) {
 		throw new Error("Can't end a life without a life / lifeController:end");
 	}
-	// TODO: support more than one life at a time?
-	if (player.lives.length <= 0) {
+	const lifeIndex = player.currentLives.indexOf(life.id);
+	if (lifeIndex === -1) {
 		throw new Error("Can't end a life when one isn't attached / lifeController:end");
 	}
 	// check to see if they don't have a eulogy
@@ -70,7 +70,9 @@ module.exports.end = async(ctx) => {
 		life.eulogy = deathsJSON.stopped;
 	}
 	life.score = lifeModel.getScore(life);
-	player.lives = [];
+	player.currentLives.splice(lifeIndex, 1);
+	player.pastLives.push(life.id);
+	player = await playerModel.replacePlayer(player);
 	delete ctx.session.life;
 	await ctx.render("game/game_over", {
 		title: config.site.name,

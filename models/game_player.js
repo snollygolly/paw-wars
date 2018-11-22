@@ -19,7 +19,8 @@ module.exports.convertProfile = (profile) => {
 		id: profile.id,
 		username: profile.nickname,
 		name: profile.displayName,
-		lives: []
+		currentLives: [],
+		pastLives: []
 	};
 	return player;
 };

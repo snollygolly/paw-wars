@@ -3,5 +3,19 @@
 		<h1>Account Page</h1>
 		<br>
 		<h3>Welcome {{player.username}}</h3>
+		<br>
+		<p>You are currently living the following lives:</p>
+		<ul>
+		{{#each player.currentLives}}
+			<li>{{this}}</li>
+		{{/each}}
+		</ul>
+		<br>
+		<p>You have lived the following lives:</p>
+		<ul>
+		{{#each player.pastLives}}
+			<li>{{this}}</li>
+		{{/each}}
+		</ul>
 	</div>
 </div><!-- /.container -->

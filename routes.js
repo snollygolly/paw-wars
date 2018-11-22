@@ -20,9 +20,6 @@ const game_police = require("./controllers/game_police.js");
 const game_storage = require("./controllers/game_storage.js");
 const game_life = require("./controllers/game_life.js");
 
-// routes
-const player = null;
-
 // app routes
 routes.get("/", main.index);
 routes.get("/account", main.account);
@@ -68,8 +65,9 @@ routes.get("/game/storage", game_storage.index);
 
 // for passport
 routes.get("/login", async(ctx) => {
+	let player;
 	if (ctx.isAuthenticated()) {
-		user = ctx.session.passport.user;
+		player = ctx.session.passport.user;
 	}
 	await ctx.render("login", {player: player});
 });

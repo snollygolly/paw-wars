@@ -3,6 +3,7 @@
 const passport = require("../index.js").passport;
 const config = require("../config.json");
 const playerModel = require("./game_player");
+const lifeModel = require("./game_life");
 
 // if we have a port other than 80 AND we are running it locally, add it to our callback url
 // otherwise, don't attach a port (accounts for nginx on prod)
@@ -27,7 +28,7 @@ passport.use(new Auth0Strategy({
 	clientSecret: config.site.oauth.auth0.clientSecret,
 	callbackURL: `${config.site.oauth.host}${port}/auth/auth0/callback`
 }, async(accessToken, refreshToken, extraParams, profile, done) => {
-	const player = playerModel.convertProfile(profile);
-	await playerModel.getPlayer(player);
+	let player = playerModel.convertProfile(profile);
+	player = await playerModel.getPlayer(player);
 	done(null, player);
 }));

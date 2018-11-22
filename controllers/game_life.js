@@ -13,10 +13,16 @@ module.exports.play = async(ctx) => {
 	if (ctx.isAuthenticated()) {
 		player = ctx.session.passport.user;
 	}
-	const life = ctx.session.life;
+	let life = ctx.session.life;
 	// TODO: check if the user has a game in progress eventually
 	if (life) {
 		throw new Error("Can't start a new game when one is in progress / lifeController:play");
+	}
+	if (player && player.currentLives.length > 0) {
+		// they already have a life in progress`
+		life = await lifeModel.getLife(player.currentLives[0]);
+		ctx.session.life = life;
+		ctx.redirect("/game/hotel");
 	}
 	await ctx.render("game/life", {
 		game: game,
@@ -30,9 +36,14 @@ module.exports.create = async(ctx) => {
 	if (ctx.isAuthenticated()) {
 		player = ctx.session.passport.user;
 	} else {
-		// so this passes, remove for later
-		player = {};
-		player.id = `generic|${common.getRandomInt(100,999999999)}`;
+		player = playerModel.convertProfile({
+			nickname: "Guest",
+			displayName: "Guest",
+			id: `generic|${common.getRandomInt(100,999999999)}`
+		});
+		ctx.session.passport = {
+			user: player
+		};
 	}
 	let life = ctx.session.life;
 	if (life) {

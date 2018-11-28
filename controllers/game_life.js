@@ -19,8 +19,16 @@ module.exports.play = async(ctx) => {
 		throw new Error("Can't start a new game when one is in progress / lifeController:play");
 	}
 	if (player && player.currentLives.length > 0) {
-		// they already have a life in progress`
-		life = await lifeModel.getLife(player.currentLives[0]);
+		let resumeId = player.currentLives[0];
+		// they already have a life in progress
+		if (ctx.query.id) {
+			// they passed in an ID of a life they want to resume, but it's not theirs
+			if (ctx.query.id.indexOf(player.id) === -1) {
+				throw new Error("Can't resume a game that isn't yours / lifeController:play");
+			}
+			resumeId = ctx.query.id;
+		}
+		life = await lifeModel.getLife(resumeId);
 		ctx.session.life = life;
 		ctx.redirect("/game/hotel");
 	}

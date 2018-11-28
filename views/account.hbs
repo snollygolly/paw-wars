@@ -7,7 +7,7 @@
 		<p>You are currently living the following lives:</p>
 		<ul>
 		{{#each player.currentLives}}
-			<li>{{this}}</li>
+			<li><a href="/play?id={{this}}">{{this}}</a></li>
 		{{/each}}
 		</ul>
 		<br>

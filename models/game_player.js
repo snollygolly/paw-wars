@@ -17,9 +17,10 @@ async function createConnection() {
 module.exports.convertProfile = (profile) => {
 	const player = {
 		id: profile.id,
-		username: profile.username,
+		username: profile.nickname,
 		name: profile.displayName,
-		lives: []
+		currentLives: [],
+		pastLives: []
 	};
 	return player;
 };

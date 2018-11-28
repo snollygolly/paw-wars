@@ -4,25 +4,15 @@
 
 	<div id="navbar" class="navbar-expand">
 		<ul class="navbar-nav ml-auto">
-			<!--
-			{{#if player.id}}
-				<li class="nav-item">
-					<a class="nav-link" href="/settings">Account</a>
-				</li>
+			{{#if player}}
+				{{#if life}}
+					<li class="nav-item"><a class="nav-link" href="/game/hotel">Hotel</a></li>
+				{{else}}
+					<li class="nav-item"><a class="nav-link" href="/play">Play</a></li>
+				{{/if}}
+				<li class="nav-item"><a class="nav-link" href="/account">Account</a></li>
 			{{else}}
-				<li class="nav-item">
-					<a class="nav-link" href="/login">Login</a>
-				</li>
-			{{/if}}
-			-->
-			{{#if life}}
-				<li class="nav-item">
-					<a class="nav-link" href="/game/hotel">Hotel</a>
-				</li>
-			{{else}}
-				<li class="nav-item">
-					<a class="nav-link" href="/play">Play</a>
-				</li>
+				<li class="nav-item"><a class="nav-link" href="/login">Login</a></li>
 			{{/if}}
 		</ul>
 	</div>

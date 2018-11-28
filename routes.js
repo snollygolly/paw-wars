@@ -20,9 +20,6 @@ const game_police = require("./controllers/game_police.js");
 const game_storage = require("./controllers/game_storage.js");
 const game_life = require("./controllers/game_life.js");
 
-// routes
-const player = null;
-
 // app routes
 routes.get("/", main.index);
 routes.get("/account", main.account);
@@ -68,25 +65,30 @@ routes.get("/game/storage", game_storage.index);
 
 // for passport
 routes.get("/login", async(ctx) => {
-	if (this.isAuthenticated()) {
-		user = this.session.passport.user;
+	let player;
+	if (ctx.isAuthenticated()) {
+		player = ctx.session.passport.user;
 	}
-	await this.render("login", {player: player});
+	await ctx.render("login", {player: player});
 });
 
 routes.get("/logout", async(ctx) => {
-	this.logout();
-	this.redirect("/");
-	await this.render("index", {player: player});
+	ctx.logout();
+	await ctx.redirect("/");
 });
 
-// you can add as many strategies as you want
-routes.get("/auth/github",
-	passport.authenticate("github")
+routes.get("/auth/auth0",
+	passport.authenticate("auth0", {
+		clientID: config.site.oauth.auth0.clientID,
+		domain: config.site.oauth.auth0.domain,
+		responseType: "code",
+		audience: `https://${config.site.oauth.auth0.domain}/userinfo`,
+		scope: "openid profile"
+	})
 );
 
-routes.get("/auth/github/callback",
-	passport.authenticate("github", {
+routes.get("/auth/auth0/callback",
+	passport.authenticate("auth0", {
 		successRedirect: "/account",
 		failureRedirect: "/"
 	})

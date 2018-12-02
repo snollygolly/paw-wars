@@ -1,0 +1,17 @@
+<div class="container">
+
+	<div class="template-heading">
+		<img src="/assets/img/paw-wars-logo.png" class="main-logo">
+		<br>
+		<p class="lead"><b>High Scores</b></p>
+	</div>
+
+	<div>
+		<ol>
+			{{#each scores}}
+				<li><b>{{this.name}}</b> [{{this.score}}]</li>
+			{{/each}}
+		</ol>
+	</div>
+
+</div><!-- /.container -->

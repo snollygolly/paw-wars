@@ -50,6 +50,22 @@ module.exports.getLife = async(id) => {
 	return result;
 };
 
+module.exports.getHighScores = async(page = 0, limit = 10) => {
+	// set up the connection
+	await createConnection();
+	// check to see if the document exists
+	const skip = page * limit;
+	const results = await r.table("lives").pluck("id", "name", "alive", "score").filter({
+		alive: false
+	}).orderBy("score").skip(skip).limit(limit).run(connection);
+	if (results === null) {
+		throw new Error("Life document not found / lifeModel.getLife");
+	}
+	connection.close();
+	// common.log("debug", "* getHighScores:", results);
+	return results;
+};
+
 module.exports.replaceLife = async(life) => {
 	// set up the connection
 	await createConnection();
@@ -154,6 +170,7 @@ module.exports.saveVendorTransaction = vendors.saveVendorTransaction;
 module.exports.generateLife = (player, parameters) => {
 	const life = {
 		id: `${player.id}_${Date.now()}`,
+		name: player.username,
 		alive: true,
 		starting: {
 			turn: 1,

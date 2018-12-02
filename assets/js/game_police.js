@@ -10,7 +10,7 @@ $(document).ready(function() {
 		if (result.error === true){
 			return displayAlert("danger", result.responseJSON.message);
 		}
-		life = result.life;
+		life = result.result.life;
 		// when the document loads, first thing, refresh the encounter
 		refreshEncounter(life);
 	}).fail(function(result) {

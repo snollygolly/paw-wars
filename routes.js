@@ -22,6 +22,7 @@ const game_life = require("./controllers/game_life.js");
 
 // app routes
 routes.get("/", main.index);
+routes.get("/highscores/:page?", main.highScores);
 routes.get("/account", main.account);
 
 // game routes (these will be replaced by controllers)

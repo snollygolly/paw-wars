@@ -119,7 +119,7 @@ module.exports.get = async(ctx) => {
 		throw new Error("Bad parameters");
 	}
 	// we've passed checks at this point
-	life = await lifeModel.getLife(parameters.id);
+	const life = await lifeModel.getLife(parameters.id);
 	if (life.error) {
 		// something went wrong during the process
 		throw new Error(life.message);

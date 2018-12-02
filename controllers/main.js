@@ -16,7 +16,7 @@ module.exports.index = async(ctx) => {
 	});
 };
 
-module.exports.highScores = async(ctx) => {
+module.exports.records = async(ctx) => {
 	let player;
 	if (ctx.isAuthenticated()) {
 		player = ctx.session.passport.user;
@@ -30,8 +30,30 @@ module.exports.highScores = async(ctx) => {
 	}
 	const scores = await lifeModel.getHighScores(page);
 	const life = ctx.session.life;
-	await ctx.render("high_scores", {
+	await ctx.render("records", {
 		scores: scores,
+		player: player,
+		life: life
+	});
+};
+
+module.exports.obituary = async(ctx) => {
+	let player;
+	if (ctx.isAuthenticated()) {
+		player = ctx.session.passport.user;
+	}
+	if (!ctx.params.id) {
+		throw new Error("Must supply an ID");
+	}
+	const validIDRegex = /^[a-z]{5,}\|\d+_\d+$/gm;
+	const validID = validIDRegex.test(ctx.params.id);
+	if (validID !== true) {
+		throw new Error("Invalid ID");
+	}
+	const pastLife = await lifeModel.getLife(ctx.params.id);
+	const life = ctx.session.life;
+	await ctx.render("obituary", {
+		pastLife: pastLife,
 		player: player,
 		life: life
 	});

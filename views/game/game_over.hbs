@@ -2,7 +2,7 @@
 	<div>
 		<h1>Game Over</h1>
 		<br>
-		<p>{{past_life.eulogy.simple}}</p>
+		<p>{{past_life.eulogy.full}}</p>
 		<ul class="list-group">
 			<li class="list-group-item">Total Turns: <strong>{{past_life.current.turn}}</strong></li>
 			<li class="list-group-item">Total Cash: <strong>{{past_life.current.finance.cash}}</strong></li>
@@ -10,6 +10,6 @@
 			<li class="list-group-item">Total Debt: <strong>{{past_life.current.finance.debt}}</strong></li>
 			<li class="list-group-item">Final Score: <strong>{{past_life.score}}</strong></li>
 		</ul>
-		<small class="text-muted">People will say {{past_life.eulogy.full}}</small>
+		<small class="text-muted">People will say you {{past_life.eulogy.simple}}</small>
 	</div>
 </div><!-- /.container -->

@@ -57,7 +57,7 @@ module.exports.getHighScores = async(page = 0, limit = 10) => {
 	const skip = page * limit;
 	const results = await r.table("lives").pluck("id", "name", "alive", "score").filter({
 		alive: false
-	}).orderBy("score").skip(skip).limit(limit).run(connection);
+	}).orderBy(r.desc("score")).skip(skip).limit(limit).run(connection);
 	if (results === null) {
 		throw new Error("Life document not found / lifeModel.getLife");
 	}

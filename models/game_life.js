@@ -78,7 +78,11 @@ module.exports.replaceLife = async(life) => {
 	}
 	const result = await r.table("lives").get(life.id).replace(life, {returnChanges: true}).run(connection);
 	connection.close();
-	// common.log("debug", "* replaceLife:", result.changes[0].new_val);
+	if (result.unchanged > 0) {
+		common.log("warn", `* ${result.unchanged} unchanged documents in replace`);
+		return life;
+	}
+	// common.log("debug", "* replaceLife:", result.changes[0]);
 	return result.changes[0].new_val;
 };
 

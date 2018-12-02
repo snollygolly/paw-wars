@@ -6,6 +6,10 @@ const model = require("../game_life.js");
 module.exports.saveHotelCheckIn = async(id) => {
 	// get the latest copy from the database
 	let life = await model.getLife(id);
+	if (life.current.hotel === true) {
+		// if we're already checked in, short circuit this
+		return life;
+	}
 	// run all the transaction logic against it and get it back
 	life = module.exports.doHotelCheckIn(life);
 	// check for errors

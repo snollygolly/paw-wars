@@ -76,7 +76,7 @@ module.exports.end = async(ctx) => {
 	if (ctx.isAuthenticated()) {
 		player = ctx.session.passport.user;
 	}
-	const life = ctx.session.life;
+	let life = ctx.session.life;
 	if (!life) {
 		throw new Error("Can't end a life without a life / lifeController:end");
 	}
@@ -89,6 +89,8 @@ module.exports.end = async(ctx) => {
 		life.eulogy = deathsJSON.stopped;
 	}
 	life.score = lifeModel.getScore(life);
+	life.alive = false;
+	life = await lifeModel.replaceLife(life);
 	player.currentLives.splice(lifeIndex, 1);
 	player.pastLives.push(life.id);
 	player = await playerModel.replacePlayer(player);

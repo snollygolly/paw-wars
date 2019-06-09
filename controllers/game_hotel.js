@@ -24,7 +24,7 @@ module.exports.index = async(ctx) => {
 		police = true;
 	} else {
 		// check the user in
-		life = await lifeModel.saveHotelCheckIn(life.id);
+		life = await lifeModel.saveHotelCheckIn(life._id);
 		police = false;
 	}
 	// save the life back to the session

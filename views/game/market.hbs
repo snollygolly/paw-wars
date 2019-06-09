@@ -43,7 +43,7 @@
 						data-target="#transaction-modal">Sell</button>
 					</div>
 					<div class="card-footer text-muted">
-						{{#if ../life.id}}
+						{{#if ../life._id}}
 							You have <strong class="transaction-inventory-units">{{life_inventory id ../life.current.inventory}}</strong> to sell
 						{{else}}
 							You can't sell anything here because you're a ghost
@@ -81,8 +81,8 @@
 			</div>
 			<div class="modal-footer">
 				<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-				<button type="button" id="transaction-confirm-buy-btn" class="btn btn-success" data-life-id="{{life.id}}">Buy</button>
-				<button type="button" id="transaction-confirm-sell-btn" class="btn btn-danger" data-life-id="{{life.id}}">Sell</button>
+				<button type="button" id="transaction-confirm-buy-btn" class="btn btn-success" data-life-id="{{life._id}}">Buy</button>
+				<button type="button" id="transaction-confirm-sell-btn" class="btn btn-danger" data-life-id="{{life._id}}">Sell</button>
 			</div>
 		</div><!-- /.modal-content -->
 	</div><!-- /.modal-dialog -->

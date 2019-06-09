@@ -67,7 +67,7 @@ module.exports.fly = async(ctx) => {
 	if (!parameters.id || !parameters.destination) {
 		throw new Error("Missing parameters");
 	}
-	if (life.id != parameters.id) {
+	if (life._id != parameters.id) {
 		throw new Error("Bad ID");
 	}
 	// TODO: destination verification
@@ -76,7 +76,7 @@ module.exports.fly = async(ctx) => {
 		id: Date.now(),
 		destination: parameters.destination
 	};
-	life = await lifeModel.saveAirportFly(life.id, flight);
+	life = await lifeModel.saveAirportFly(life._id, flight);
 	if (life.error) {
 		// something went wrong during the process`
 		throw new Error(life.message);

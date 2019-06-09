@@ -13,15 +13,8 @@
     },
     "db": {
       "host": "localhost",
-      "port": 28015,
-      "authKey": "",
-      "db": "paw_wars"
+      "port": 27017,
+      "name": "PawWars"
     }
-  },
-  "deploy":{
-    "username": "YOUR USERNAME",
-    "hostname": "YOUR HOSTNAME",
-    "path": "~/Paw-Wars",
-    "screen": "paw-wars"
   }
 }

@@ -54,7 +54,7 @@ module.exports.transaction = async(ctx) => {
 	if (!parameters.id || !parameters.type || !parameters.item || !parameters.units) {
 		throw new Error("Missing parameters");
 	}
-	if (life.id != parameters.id) {
+	if (life._id != parameters.id) {
 		throw new Error("Bad ID");
 	}
 	if (parameters.type != "buy" && parameters.type != "sell") {
@@ -71,7 +71,7 @@ module.exports.transaction = async(ctx) => {
 		item: parameters.item,
 		units: parameters.units
 	};
-	life = await lifeModel.saveMarketTransaction(life.id, transaction);
+	life = await lifeModel.saveMarketTransaction(life._id, transaction);
 	if (life.error) {
 		// something went wrong during the process
 		throw new Error(life.message);

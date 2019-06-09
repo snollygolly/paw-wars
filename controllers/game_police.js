@@ -54,12 +54,12 @@ module.exports.encounter = async(ctx) => {
 	if (!parameters.id || !parameters.action) {
 		throw new Error("Missing parameters");
 	}
-	if (life.id != parameters.id) {
+	if (life._id != parameters.id) {
 		throw new Error("Bad ID");
 	}
 	// we've passed checks at this point
 	// simulate the encounter
-	life = await lifeModel.saveEncounter(life.id, parameters.action);
+	life = await lifeModel.saveEncounter(life._id, parameters.action);
 	if (life.error) {
 		// something went wrong during the process
 		throw new Error(life.message);

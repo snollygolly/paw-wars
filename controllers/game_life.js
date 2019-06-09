@@ -23,7 +23,7 @@ module.exports.play = async(ctx) => {
 		// they already have a life in progress
 		if (ctx.query.id) {
 			// they passed in an ID of a life they want to resume, but it's not theirs
-			if (ctx.query.id.indexOf(player.id) === -1) {
+			if (ctx.query.id.indexOf(player._id) === -1) {
 				throw new Error("Can't resume a game that isn't yours / lifeController:play");
 			}
 			resumeId = ctx.query.id;
@@ -65,7 +65,7 @@ module.exports.create = async(ctx) => {
 	// handle location parsing
 	const location = getLocationObj(ctx.request.body.location);
 	life = await lifeModel.createLife(player, {location: location});
-	player.currentLives.push(life.id);
+	player.currentLives.push(life._id);
 	player = await playerModel.replacePlayer(player);
 	ctx.session.life = life;
 	return ctx.redirect("/game/hotel");
@@ -80,7 +80,7 @@ module.exports.end = async(ctx) => {
 	if (!life) {
 		throw new Error("Can't end a life without a life / lifeController:end");
 	}
-	const lifeIndex = player.currentLives.indexOf(life.id);
+	const lifeIndex = player.currentLives.indexOf(life._id);
 	if (lifeIndex === -1) {
 		throw new Error("Can't end a life when one isn't attached / lifeController:end");
 	}
@@ -92,7 +92,7 @@ module.exports.end = async(ctx) => {
 	life.alive = false;
 	life = await lifeModel.replaceLife(life);
 	player.currentLives.splice(lifeIndex, 1);
-	player.pastLives.push(life.id);
+	player.pastLives.push(life._id);
 	player = await playerModel.replacePlayer(player);
 	delete ctx.session.life;
 	await ctx.render("game/game_over", {

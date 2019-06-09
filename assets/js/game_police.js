@@ -31,7 +31,7 @@ $(document).ready(function() {
     }
     var selectedChoice = $(e.target).data("id");
     var action = {
-      id: life.id,
+      id: life._id,
       action: selectedChoice
     };
     $.ajax({

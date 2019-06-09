@@ -14,10 +14,10 @@ const logger = winston.createLogger({
 	]
 });
 
-module.exports.log = (level, msg) => {
+module.exports.log = (level, msg, data = null) => {
 	logger.log({
 		level,
-		message: msg
+		message: (data === null) ? msg : `${msg} \n[${JSON.stringify(data, null, 2)}]`
 	});
 };
 

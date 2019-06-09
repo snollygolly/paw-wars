@@ -33,7 +33,7 @@ module.exports.getHighScores = async(page = 0, limit = 10) => {
 	const results = await db.findDocumentsFull({
 		alive: false
 	}, {
-		_id: 1, name: 1, alive: 1, score: 1
+		_id: 1, name: 1, alive: 1, score: 1, guest: 1
 	}, {
 		score: -1
 	}, skip, limit, "lives");
@@ -146,6 +146,7 @@ module.exports.generateLife = (player, parameters) => {
 		_id: `${player._id}_${Date.now()}`,
 		name: player.username,
 		alive: true,
+		guest: (player.guest) ? player.guest : false,
 		starting: {
 			turn: 1,
 			event: game.events.starting_message,

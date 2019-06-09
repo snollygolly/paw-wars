@@ -3,15 +3,21 @@
 const config = require("../config.json");
 const common = require("../helpers/common");
 const db = require("../helpers/db");
+const nouns = require("./game/data/nouns.json");
+const adjectives = require("./game/data/adjectives.json");
 
 module.exports.convertProfile = (profile) => {
 	const player = {
 		_id: profile.id,
+		guest: (profile.guest) ? true : false,
 		username: profile.nickname,
 		name: profile.displayName,
 		currentLives: [],
 		pastLives: []
 	};
+	if (player.guest === true) {
+		player.name = player.username = generateName();
+	}
 	return player;
 };
 
@@ -57,4 +63,8 @@ function validatePlayer(player) {
 	if (!player.username) {return {status: false, reason: "No Username"};}
 	if (!player.name) {return {status: false, reason: "No Name"};}
 	return {status: true};
+}
+
+function generateName() {
+	return `${common.capitalizeWord(adjectives[common.getRandomInt(0, adjectives.length - 1)])} ${common.capitalizeWord(nouns[common.getRandomInt(0, nouns.length - 1)])}`;
 }

@@ -9,7 +9,7 @@
 	<div>
 		<ol>
 			{{#each scores}}
-				<li><a href="/records/obituary/{{this._id}}"><b>{{this.name}}</b> [{{this.score}}]</a></li>
+				<li><a href="/records/obituary/{{this._id}}"><b>{{this.name}} {{#if this.guest}}<span class="fa fa-question"></span>{{/if}}</b> [{{this.score}}]</a></li>
 			{{/each}}
 		</ol>
 	</div>

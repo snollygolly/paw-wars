@@ -47,7 +47,8 @@ module.exports.create = async(ctx) => {
 		player = playerModel.convertProfile({
 			nickname: "Guest",
 			displayName: "Guest",
-			id: `generic|${common.getRandomInt(100,999999999)}`
+			id: `generic|${common.getRandomInt(100,999999999)}`,
+			guest: true
 		});
 		ctx.session.passport = {
 			user: player

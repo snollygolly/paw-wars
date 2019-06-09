@@ -28,7 +28,11 @@ passport.use(new Auth0Strategy({
 	clientSecret: config.site.oauth.auth0.clientSecret,
 	callbackURL: `${config.site.oauth.host}${port}/auth/auth0/callback`
 }, async(accessToken, refreshToken, extraParams, profile, done) => {
-	let player = playerModel.convertProfile(profile);
-	player = await playerModel.getPlayer(player._id);
+	let player = await playerModel.getPlayer(profile.id);
+	if (player === null) {
+		// create them
+		player = playerModel.convertProfile(profile);
+		await playerModel.createPlayer(player);
+	}
 	done(null, player);
 }));

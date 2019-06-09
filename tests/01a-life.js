@@ -23,7 +23,7 @@ describe("Life Model - Base Validation", () => {
 
 	it("life should have required properties", (done) => {
 		expect(life).to.be.an("object");
-		expect(life).to.have.property("id");
+		expect(life).to.have.property("_id");
 		expect(life).to.have.property("alive");
 		expect(life).to.have.property("starting");
 		expect(life).to.have.property("current");
@@ -36,7 +36,7 @@ describe("Life Model - Base Validation", () => {
 		expect(life._id).to.be.a("string");
 		const idArr = life._id.split("_");
 		expect(idArr.length).to.equal(2);
-		expect(idArr[0]).to.equal(config.PLAYER.id);
+		expect(idArr[0]).to.equal(config.PLAYER._id);
 		// TODO: expect().to.be.a.timestamp?
 		return done();
 	});

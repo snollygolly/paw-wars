@@ -21,7 +21,7 @@ module.exports.config = {
 	UNITS: 10,
 	AMOUNT: 500,
 	PLAYER: {
-		id: "testing"
+		_id: "testing"
 	},
 	LOCATION: {
 		location: module.exports.placesJSON[0],

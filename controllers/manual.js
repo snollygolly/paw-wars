@@ -33,7 +33,7 @@ module.exports.index = async(ctx) => {
 	// we have to manually replace escaped quotes because of marked
 	// https://github.com/chjj/marked/issues/269
 	let parsedFile = marked(rawFile);
-	parsedFile = parsedFile.replace(/\\&quot;/g, '"');
+	parsedFile = parsedFile.replace(/\\?&quot;/g, '"');
 	const template = Handlebars.compile(parsedFile);
 	const final = template(data);
 	await ctx.render("manual/index", {

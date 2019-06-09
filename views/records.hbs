@@ -3,15 +3,15 @@
 	<div class="template-heading">
 		<img src="/assets/img/paw-wars-logo.png" class="main-logo">
 		<br>
-		<p class="lead"><b>High Scores</b></p>
+		<p class="lead"><b>These cat smugglers were the most successful at what they did, honor their memory by doing it even bigger!</b></p>
 	</div>
 
 	<div>
-		<ol>
+		<ul class="list-group">
 			{{#each scores}}
-				<li><a href="/records/obituary/{{this._id}}"><b>{{this.name}} {{#if this.guest}}<span class="fa fa-question"></span>{{/if}}</b> [{{this.score}}]</a></li>
+			<li class="list-group-item"><a href="/records/obituary/{{this._id}}"><b>{{this.name}} {{#if this.guest}}<span class="fa fa-question"></span>{{/if}}</b> [{{this.score}}]</a></li>
 			{{/each}}
-		</ol>
+		</ul>
 	</div>
 
 </div><!-- /.container -->

@@ -64,7 +64,7 @@ module.exports.transaction = async(ctx) => {
 		throw new Error("Bad unit amount");
 	}
 	// is this the right life ID?
-	if (life.id != parameters.id) {
+	if (life._id != parameters.id) {
 		throw new Error("Bad ID");
 	}
 	// we've passed checks at this point
@@ -73,7 +73,7 @@ module.exports.transaction = async(ctx) => {
 		type: parameters.type,
 		amount: parameters.amount
 	};
-	life = await lifeModel.saveBankTransaction(life.id, transaction);
+	life = await lifeModel.saveBankTransaction(life._id, transaction);
 	if (life.error) {
 		// something went wrong during the process
 		throw new Error(life.message);
@@ -119,7 +119,7 @@ module.exports.lending = async(ctx) => {
 		throw new Error("Bad unit amount");
 	}
 	// is this the right life ID?
-	if (life.id != parameters.id) {
+	if (life._id != parameters.id) {
 		throw new Error("Bad ID");
 	}
 	// we've passed checks at this point
@@ -128,7 +128,7 @@ module.exports.lending = async(ctx) => {
 		type: parameters.type,
 		amount: parameters.amount
 	};
-	life = await lifeModel.saveBankLending(life.id, transaction);
+	life = await lifeModel.saveBankLending(life._id, transaction);
 	if (life.error) {
 		// something went wrong during the process
 		throw new Error(life.message);

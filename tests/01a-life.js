@@ -33,8 +33,8 @@ describe("Life Model - Base Validation", () => {
 	});
 
 	it("life should have a valid id", (done) => {
-		expect(life.id).to.be.a("string");
-		const idArr = life.id.split("_");
+		expect(life._id).to.be.a("string");
+		const idArr = life._id.split("_");
 		expect(idArr.length).to.equal(2);
 		expect(idArr[0]).to.equal(config.PLAYER.id);
 		// TODO: expect().to.be.a.timestamp?

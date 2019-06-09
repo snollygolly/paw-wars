@@ -3,7 +3,7 @@
 const config = require("../config.json");
 const game = require("../game.json");
 const common = require("../helpers/common");
-const r = require("rethinkdb");
+const db = require("../helpers/db");
 
 const market = require("./game/market");
 const airport = require("./game/airport");
@@ -15,60 +15,34 @@ const police = require("./game/police");
 
 const deathsJSON = require("./game/data/deaths.json");
 
-let connection;
-
-async function createConnection() {
-	try {
-		// Open a connection and wait for r.connect(...) to be resolve
-		connection = await r.connect(config.site.db);
-	} catch (err) {
-		console.error(err);
-	}
-}
-
 module.exports.createLife = async(player, parameters) => {
-	// set up the connection
-	await createConnection();
-	// create the life object
 	const life = module.exports.generateLife(player, parameters);
-	const result = await r.table("lives").insert(life, {returnChanges: true}).run(connection);
-	connection.close();
-	// common.log("debug", "* createLife:", result.changes[0].new_val);
-	return result.changes[0].new_val;
+	const result = await db.insertDocument(life, "lives");
+	// common.log("debug", "* createLife:", result);
+	return result;
 };
 
 module.exports.getLife = async(id) => {
-	// set up the connection
-	await createConnection();
-	// check to see if the document exists
-	const result = await r.table("lives").get(id).run(connection);
-	if (result === null) {
-		throw new Error("Life document not found / lifeModel.getLife");
-	}
-	connection.close();
+	const result = await db.getDocument(id, "lives");
 	// common.log("debug", "* getLife:", result);
 	return result;
 };
 
 module.exports.getHighScores = async(page = 0, limit = 10) => {
-	// set up the connection
-	await createConnection();
-	// check to see if the document exists
-	const skip = page * limit;
-	const results = await r.table("lives").pluck("id", "name", "alive", "score").filter({
+	// TODO: improve this query according to how the original worked
+
+	// const skip = page * limit;
+	// const results = await r.table("lives").pluck("id", "name", "alive", "score").filter({
+	// 	alive: false
+	// }).orderBy(r.desc("score")).skip(skip).limit(limit).run(connection);
+	const results = await db.findDocuments({
 		alive: false
-	}).orderBy(r.desc("score")).skip(skip).limit(limit).run(connection);
-	if (results === null) {
-		throw new Error("Life document not found / lifeModel.getLife");
-	}
-	connection.close();
-	// common.log("debug", "* getHighScores:", results);
+	}, limit, "lives");
+	common.log("debug", "* getHighScores:", results);
 	return results;
 };
 
 module.exports.replaceLife = async(life) => {
-	// set up the connection
-	await createConnection();
 	// validate
 	const valid = validateLife(life);
 	// if this player object isn't valid...
@@ -76,14 +50,11 @@ module.exports.replaceLife = async(life) => {
 		// ...return the error object
 		throw new Error("Life object invalid / lifeModel.replaceLife");
 	}
-	const result = await r.table("lives").get(life.id).replace(life, {returnChanges: true}).run(connection);
-	connection.close();
-	if (result.unchanged > 0) {
-		common.log("warn", `* ${result.unchanged} unchanged documents in replace`);
-		return life;
-	}
-	// common.log("debug", "* replaceLife:", result.changes[0]);
-	return result.changes[0].new_val;
+	const result = await db.replaceDocument({
+		_id: life._id
+	}, life, "lives");
+	// common.log("debug", "* replaceLife:", result);
+	return result;
 };
 
 module.exports.changeTurn = (life, turns) => {
@@ -173,7 +144,7 @@ module.exports.saveVendorTransaction = vendors.saveVendorTransaction;
 
 module.exports.generateLife = (player, parameters) => {
 	const life = {
-		id: `${player.id}_${Date.now()}`,
+		_id: `${player._id}_${Date.now()}`,
 		name: player.username,
 		alive: true,
 		starting: {
@@ -250,7 +221,7 @@ module.exports.generateLife = (player, parameters) => {
 };
 
 function validateLife(life) {
-	if (!life.id) {return {status: false, reason: "No ID"};}
+	if (!life._id) {return {status: false, reason: "No ID"};}
 	if (!life.current) {return {status: false, reason: "No Current Object"};}
 	return {status: true};
 }

@@ -28,7 +28,6 @@
   "homepage": "https://github.com/snollygolly/paw-wars#readme",
   "dependencies": {
     "bluebird": "^3.5.2",
-    "co": "^4.6.0",
     "koa": "^2.3.0",
     "koa-bodyparser": "^4.2.0",
     "koa-generic-session": "^2.0.1",
@@ -38,8 +37,8 @@
     "koa-router": "^7.2.1",
     "koa-static": "^4.0.1",
     "marked": "^0.6.2",
+    "mongodb": "^3.2.7",
     "passport-auth0": "^1.0.0",
-    "rethinkdb": "^2.2.1",
     "winston": "^3.1.0"
   },
   "devDependencies": {

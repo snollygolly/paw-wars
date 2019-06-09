@@ -29,6 +29,6 @@ passport.use(new Auth0Strategy({
 	callbackURL: `${config.site.oauth.host}${port}/auth/auth0/callback`
 }, async(accessToken, refreshToken, extraParams, profile, done) => {
 	let player = playerModel.convertProfile(profile);
-	player = await playerModel.getPlayer(player);
+	player = await playerModel.getPlayer(player._id);
 	done(null, player);
 }));

@@ -11,7 +11,7 @@ Paw Wars is a game that takes place in a world where dogs are the ruling class a
 
 ### Requirements
 * [Node.js](https://nodejs.org/en/) (Version 8 and up recommended)
-* [RethinkDB](http://www.rethinkdb.com/)
+* [MongoDB](https://www.mongodb.com/) (With a database called "PawWars")
 
 ### Recommendations
 * [Auth0 Account](https://auth0.com/) (for OAuth)
@@ -28,18 +28,13 @@ git clone https://github.com/snollygolly/paw-wars.git
 npm install
 ```
 
-* Create your config.  There's a `config.json.example` file in the root.  Edit it to include all your values for the site and your OAuth information.  Save it as `config.json` and leave it in the root.
+* Create your config.  There's a `config.example.json` file in the root.  Edit it to include all your values for the site and your OAuth information.  Save it as `config.json` and leave it in the root.
 
 * If you want to use Google Analytics, set `config.site.analytics` to your Tracking ID and make sure the analytics partial (analytics.hbs) contains the correct Universal Analytics tracking code.  If you don't want to use Google Analytics, remove that property or set it to false.
 
 * Make sure your database is running or start it up.
 ```
-rethinkdb
-```
-
-* Run the seed script.
-```
-npm run seed
+mongod
 ```
 
 * Start it up.

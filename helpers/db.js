@@ -25,15 +25,31 @@ module.exports = {
 			throw new MongoDBError(`DB: Get of [${id}] failed`);
 		}
 	},
-	findDocuments: async(query, limit, collection) => {
+	findDocumentsSimple: async(query, collection) => {
 		try {
 			const client = await MongoClient.connect(url, { useNewUrlParser: true });
 			const db = client.db(dbName);
-			const doc = await db.collection(collection).find(query).limit(limit).toArray();
+			const doc = await db.collection(collection).find(query).toArray();
 			client.close();
 			return doc;
 		} catch (err) {
-			throw new MongoDBError(`DB: Find of [${JSON.stringify(query)}] failed`);
+			throw new MongoDBError(`DB: Find (Simple) of [${JSON.stringify(query)}] failed`);
+		}
+	},
+	findDocumentsFull: async(query, projection, sort, skip, limit, collection) => {
+		try {
+			const client = await MongoClient.connect(url, { useNewUrlParser: true });
+			const db = client.db(dbName);
+			const doc = await db.collection(collection)
+			 .find(query, projection)
+			 .sort(sort)
+			 .skip(skip)
+			 .limit(limit)
+			 .toArray();
+			client.close();
+			return doc;
+		} catch (err) {
+			throw new MongoDBError(`DB: Find (Full) of [${JSON.stringify(query)}] failed`);
 		}
 	},
 	insertDocument: async(document, collection) => {

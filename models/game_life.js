@@ -29,16 +29,15 @@ module.exports.getLife = async(id) => {
 };
 
 module.exports.getHighScores = async(page = 0, limit = 10) => {
-	// TODO: improve this query according to how the original worked
-
-	// const skip = page * limit;
-	// const results = await r.table("lives").pluck("id", "name", "alive", "score").filter({
-	// 	alive: false
-	// }).orderBy(r.desc("score")).skip(skip).limit(limit).run(connection);
-	const results = await db.findDocuments({
+	const skip = page * limit;
+	const results = await db.findDocumentsFull({
 		alive: false
-	}, limit, "lives");
-	common.log("debug", "* getHighScores:", results);
+	}, {
+		_id: 1, name: 1, alive: 1, score: 1
+	}, {
+		score: -1
+	}, skip, limit, "lives");
+	// common.log("debug", "* getHighScores:", results);
 	return results;
 };
 

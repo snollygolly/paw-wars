@@ -297,6 +297,7 @@ hbs.registerHelper("get_obit_stash_flavor", function getObitHeat(size, opts) {
 });
 
 hbs.registerHelper("get_obit_memories", function getObitMemories(actions, opts) {
+	if (actions.length <= 0) { return "I felt like I didn't really get anything done today.  Honestly, it feels like I haven't gotten anything done my entire life.  Sure makes a cat think."; }
 	const actionIndex = common.getRandomInt(0, actions.length - 1);
 	const action = actions[actionIndex];
 	if (action.type !== "airport") {

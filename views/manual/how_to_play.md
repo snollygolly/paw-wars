@@ -8,9 +8,10 @@ __{{config.site.name}}__ is a turn based game. The administrator is able to set 
 You start with __{{game.person.starting_hp}}__ HP and a maximum of __{{game.person.max_hp}}__ HP.  If you lose all of your available HP the game will end.
 
 Once you choose your starting location you can:
-Visit the [Market](/manual/market) to buy and sell items
-Use the [Airport](/manual/airport) to travel around to different locations
-Go to the [Bank](/manual/bank) to manage your money
+
+- Visit the [Market](/manual/market) to buy and sell items
+- Use the [Airport](/manual/airport) to travel around to different locations
+- Go to the [Bank](/manual/bank) to manage your money
 
 The game ends when any of the following take place:
 

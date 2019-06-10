@@ -108,11 +108,15 @@ module.exports.getScore = (life) => {
 	const totalTurns = life.current.turn;
 	const totalStash = life.current.storage.total - life.current.storage.available;
 	// sort of just a rough pass at things
-	// money in the bank is harder to get than money in hand
-	// more turns = better/harder?
 	// cash is a little easier to get, doesn't require as much forethought
+	const cashPoints = totalCash * game.score.cash_mod;
+	// money in the bank is harder to get than money in hand
+	const assetsPoints = totalAssets * game.score.assets_mod;
+	// more turns = better/harder?
+	const turnsPoints = totalTurns * game.score.turns_mod;
 	// storage that's taken should count for SOMETHING, although not much
-	const score = Math.round((totalAssets + totalCash + totalStash) / totalTurns);
+	const stashPoints = totalStash * game.score.stash_mod;
+	const score = Math.round(cashPoints + assetsPoints + turnsPoints + stashPoints);
 	return score;
 };
 

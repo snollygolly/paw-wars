@@ -102,5 +102,11 @@
 	"features": {
 		"deal_indication": true,
 		"deal_indication_price_mod": false
+	},
+	"score": {
+		"assets_mod": 1.5,
+		"cash_mod": 1.2,
+		"stash_mod": 0.5,
+		"turns_mod": 0.4
 	}
 }

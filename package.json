@@ -7,8 +7,8 @@
     "start": "nodemon --ignore './assets' -e js,hbs ./index.js & nodemon -e scss --watch './assets/css/_src' --exec 'npm run compile'",
     "production": "node index.js",
     "compile": "node-sass './assets/css/custom.scss' './assets/css/custom.css'",
-    "test": "./node_modules/.bin/mocha ./tests/ && ./node_modules/.bin/eslint .",
-    "coverage": "./node_modules/.bin/istanbul cover ./node_modules/.bin/_mocha ./tests/"
+    "test": "mocha ./tests/ && eslint .",
+    "coverage": "nyc --reporter=lcov --reporter=text-summary npm run test"
   },
   "repository": {
     "type": "git",

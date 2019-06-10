@@ -35,3 +35,4 @@ coverage
 *.scssc
 .sass-cache
 deploy.js
+.nyc_output

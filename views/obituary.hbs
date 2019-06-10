@@ -1,7 +1,62 @@
 <div class="container">
 
 	<div class="template-heading">
-		This is the obituary for the late <i>{{pastLife.name}}</i>.  <i>{{pastLife.name}}</i> died at the old age of {{pastLife.current.turn}} turns.  They {{pastLife.eulogy.simple}}.
+		<h2>This is the obituary for the late <i>{{pastLife.name}}</i></h2>
+		<p class="lead"><i>{{pastLife.name}}</i> started off life in {{pastLife.starting.location.country}} and lived {{pastLife.current.turn}} turns before dying in {{pastLife.current.location.country}}.  They {{pastLife.eulogy.simple}}.</p>
+	</div>
+
+	<div class="list-group">
+		<div class="list-group-item flex-column align-items-start list-group-item-dark">
+			<div class="d-flex w-100 justify-content-between">
+				<h5 class="mb-1">Trip Memories</h5>
+			</div>
+			<p class="mb-1"><q>{{get_obit_memories pastLife.actions}}</q></p>
+			<small class="text-muted">We found a small bit of <i>{{pastLife.name}}'s</i> notebook, here it is.</small>
+		</div>
+		<br>
+		<div class="list-group-item flex-column align-items-start">
+			<div class="d-flex w-100 justify-content-between">
+				<h5 class="mb-1">Health Report</h5>
+			</div>
+			<p class="mb-1">Before <i>{{pastLife.name}}</i> died, they were feeling {{life_health_description pastLife.current.health.points}}.</p>
+		</div>
+
+		<div class="list-group-item flex-column align-items-start">
+			<div class="d-flex w-100 justify-content-between">
+				<h5 class="mb-1">Financial Report</h5>
+			</div>
+			<p class="mb-1"><i>{{pastLife.name}}</i> died
+				{{#if pastLife.current.finance.cash}}
+					with ${{pastLife.current.finance.cash}} in cash
+				{{else}}
+					without any cash
+				{{/if}} on them and had
+				{{#if pastLife.current.finance.savings}}
+					${{pastLife.current.finance.savings}} sitting in the bank.
+				{{else}}
+					no savings at all.
+				{{/if}}
+				{{#if pastLife.current.finance.debt}}
+					They had an outstanding loan of ${{pastLife.current.finance.debt}}
+				{{else}}
+					They were in good standing with the bank and didn't have any debt
+				{{/if}} when they died.</p>
+		</div>
+
+		<div class="list-group-item flex-column align-items-start">
+			<div class="d-flex w-100 justify-content-between">
+				<h5 class="mb-1">Stash Report</h5>
+			</div>
+			<p class="mb-1"><i>{{pastLife.name}}</i> had {{math pastLife.current.storage.total "-" pastLife.current.storage.available}} units of contraband in their stash when they died.  {{get_obit_stash_flavor pastLife.current.storage.total}}
+				</p>
+		</div>
+
+		<div class="list-group-item flex-column align-items-start">
+			<div class="d-flex w-100 justify-content-between">
+				<h5 class="mb-1">Police Report</h5>
+			</div>
+			<p class="mb-1">{{get_obit_heat pastLife.current.police.awareness}}</p>
+		</div>
 	</div>
 
 </div><!-- /.container -->

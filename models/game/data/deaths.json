@@ -16,11 +16,11 @@
 		"full": "Your game ended because you hissed at the police and were attacked."
 	},
 	"bankrupt": {
-		"simple": "died with nothing to your name, and a mountain of debt",
+		"simple": "died with nothing to their name, and a mountain of debt",
 		"full": "Your game ended because you had very little cash and more debt than you could overcome."
 	},
 	"stopped": {
-		"simple": "retired from the game because you weren't very good at it",
+		"simple": "retired from the game because they weren't very good at it",
 		"full": "Your game ended because you gave up."
 	}
 }

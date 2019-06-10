@@ -47,6 +47,21 @@ body {
   .manual-heading a {
     text-decoration: none; }
 
+.medal-0 {
+  color: #000000;
+  background-color: #CFB53B; }
+
+.medal-1 {
+  color: #000000;
+  background-color: #E6E8FA; }
+
+.medal-2 {
+  color: #000000;
+  background-color: #8C7853; }
+
+.score-container {
+  text-align: center; }
+
 .transport-buy {
   cursor: pointer; }
   .transport-buy:hover {

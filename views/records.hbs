@@ -6,12 +6,28 @@
 		<p class="lead"><b>These cat smugglers were the most successful at what they did, honor their memory by doing it even bigger!</b></p>
 	</div>
 
-	<div>
-		<ul class="list-group">
-			{{#each scores}}
-			<li class="list-group-item"><a href="/records/obituary/{{this._id}}"><b>{{this.name}} {{#if this.guest}}<span class="fa fa-question"></span>{{/if}}</b> [{{this.score}}]</a></li>
-			{{/each}}
-		</ul>
+	<div class="row justify-content-md-center">
+		<div class="col-sm-8">
+			<div class="card">
+				<div class="card-body">
+					<h5 class="card-title text-center">High Scores</h5>
+					<ul class="list-group">
+						{{#each scores}}
+						<a class="list-group-item list-group-item-action" href="/records/obituary/{{this._id}}">
+							{{#if_cond @index "<=" 2}}
+								<span class="badge badge-primary medal-{{@index}}"><span class="fa fa-trophy"></span>&nbsp;#{{math @index "+" 1}}</span>
+							{{/if_cond}}
+							<b>{{this.name}}</b>
+							{{#if this.guest}}
+								<span class="badge badge-secondary"><span class="fa fa-question"></span></span>
+							{{/if}}
+							<span class="badge badge-primary pull-right">Score: {{this.score}}</span>
+						</a>
+						{{/each}}
+					</ul>
+				</div>
+			</div>
+		</div>
 	</div>
 
 </div><!-- /.container -->

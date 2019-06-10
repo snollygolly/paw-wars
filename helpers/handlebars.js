@@ -270,7 +270,7 @@ hbs.registerHelper("get_obit_heat", function getObitHeat(awareness, opts) {
 		countryArr.push({
 			country,
 			heat: awareness[country],
-			star: Math.round(awareness[country] / game.police.heat_per_star)
+			star: Math.round(awareness[country] / game.police.heat_per_star) + 1
 		});
 	}
 	countryArr.sort((a, b) => { (a.heat > b.heat) ? -1 : 1; });

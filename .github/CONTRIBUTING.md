@@ -23,3 +23,8 @@ There's a number of ways you can help:
 	* If you've done a few easy issues, try one of the other ones marked [help wanted](https://github.com/snollygolly/paw-wars/issues?q=is%3Aissue+is%3Aopen+label%3A%22help+wanted%22).  
 	* These are typically issues we want community help with, but they might be complex or require vision on where you'd like the game to go.
 	* This is a great way to add a little bit of yourself into the game and affect change at a greater level.
+
+* Donate!
+	* BTC - __1E6Vyh84pTEP9v6Sh8Yzm693pBZLvguX3m__
+	* ETH - __0xb2921b476838c8DB9a29d708B3cA8c11959D7c7D__
+	* LTC - __LfkD8jcgv4E2rDta4hA2CUHNMiPGdZL1yr__

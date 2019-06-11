@@ -1,0 +1,69 @@
+
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+		<meta name="description" content="">
+		<meta name="author" content="">
+		<link rel="icon" href="/assets/favicon.ico">
+
+		<title>{{get_name}}</title>
+
+		<!-- Bootstrap core CSS -->
+		<link href="/assets/css/vendor/bootstrap.min.css" rel="stylesheet">
+		<link href="/assets/css/vendor/font-awesome.min.css" rel="stylesheet">
+
+		<!-- Custom styles for this template -->
+		<link href="/assets/css/custom.css" rel="stylesheet">
+
+		<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+		<!--[if lt IE 9]>
+			<script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+			<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+		<![endif]-->
+	</head>
+
+	<body>
+		{{> analytics}}
+
+		{{> navbar}}
+
+		<div id="main-container" class="container-fluid">
+
+				{{{body}}}
+
+		</div>
+
+		{{#if life}}
+		<div id="debug" class="container-fluid">
+			<button type="button" class="btn btn-secondary" role="button" data-toggle="collapse" href="#life" aria-expanded="false" aria-controls="life">
+				Current Life
+			</button>
+			<div class="collapse" id="life">
+				<pre>
+
+{{{stringify life.current "pretty"}}}
+
+				</pre>
+			</div>
+		</div>
+		{{/if}}
+
+
+		<!-- Bootstrap core JavaScript
+		================================================== -->
+		<!-- Placed at the end of the document so the pages load faster -->
+		<script src="/assets/js/vendor/jquery-3.3.1.min.js"></script>
+		<script src="/assets/js/vendor/bootstrap.bundle.min.js"></script>
+		{{#if life}}
+			<script src="/assets/js/game_common.js"></script>
+			{{#each scripts}}
+				<script src="/assets/js/{{this}}.js"></script>
+			{{/each}}
+		{{/if}}
+
+	</body>
+</html>

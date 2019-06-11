@@ -25,6 +25,7 @@ module.exports.index = async(ctx) => {
 	}
 	life.listings.market.sort(sortByPrice);
 	await ctx.render("game/market", {
+		layout: "game",
 		player: player,
 		life: life,
 		features: game.features,

@@ -22,6 +22,7 @@ module.exports.index = async(ctx) => {
 		throw new Error("Must be checked into a hotel first / bankController:index");
 	}
 	await ctx.render("game/bank", {
+		layout: "game",
 		player: player,
 		life: life,
 		scripts:["game_bank"]

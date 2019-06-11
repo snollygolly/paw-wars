@@ -28,6 +28,7 @@ module.exports.index = async(ctx) => {
 	// sort by price
 	life.listings.airport.sort(sortByPrice);
 	await ctx.render("game/airport", {
+		layout: "game",
 		player: (player === null) ? null : player,
 		life,
 		scripts:["game_airport"]

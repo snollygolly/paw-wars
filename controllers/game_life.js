@@ -33,6 +33,7 @@ module.exports.play = async(ctx) => {
 		ctx.redirect("/game/hotel");
 	}
 	await ctx.render("game/life", {
+		layout: "game",
 		game: game,
 		player: player,
 		places: placesJSON
@@ -97,6 +98,7 @@ module.exports.end = async(ctx) => {
 	player = await playerModel.replacePlayer(player);
 	delete ctx.session.life;
 	await ctx.render("game/game_over", {
+		layout: "game",
 		title: config.site.name,
 		player: player,
 		past_life: life

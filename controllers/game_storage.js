@@ -24,6 +24,7 @@ module.exports.index = async(ctx) => {
 		throw new Error("Must be checked into a hotel first / storageController:index");
 	}
 	await ctx.render("game/storage", {
+		layout: "game",
 		player: player,
 		life: life
 	});

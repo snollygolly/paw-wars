@@ -23,6 +23,7 @@ module.exports.index = async(ctx) => {
 	}
 
 	await ctx.render("game/police", {
+		layout: "game",
 		player: player,
 		life: life,
 		scripts:["game_police"]

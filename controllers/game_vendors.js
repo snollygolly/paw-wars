@@ -22,6 +22,7 @@ module.exports.index = async(ctx) => {
 	// save the life back to the session
 	ctx.session.life = life;
 	await ctx.render("game/vendors", {
+		layout: "game",
 		player: player,
 		life: life,
 		scripts:["game_vendors"]

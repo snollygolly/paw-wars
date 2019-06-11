@@ -82,6 +82,7 @@ module.exports.checkDeath = (life) => {
 			life.alive = false;
 			// give them a eulogy
 			life.eulogy = deathsJSON.bankrupt;
+			return life;
 		}
 	}
 	// * Dead Death
@@ -89,6 +90,8 @@ module.exports.checkDeath = (life) => {
 	if (lifeHealth.points <= 0) {
 		// you're dead
 		life.alive = false;
+		life.eulogy = deathsJSON.dead;
+		return life;
 	}
 	// * Turn Death
 	if (game.turns != 0) {

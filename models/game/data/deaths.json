@@ -3,6 +3,10 @@
 		"simple": "died of old age",
 		"full": "Your game ended because you reached the end of your turn limit."
 	},
+	"dead": {
+		"simple": "died because they lost all their health",
+		"full": "Your game ended because you lost all your health."
+	},
 	"shot": {
 		"simple": "died in a shootout with police",
 		"full": "Your game ended because you were shot during a police encounter."

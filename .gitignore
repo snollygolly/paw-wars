@@ -36,3 +36,4 @@ coverage
 .sass-cache
 deploy.js
 .nyc_output
+.DS_Store

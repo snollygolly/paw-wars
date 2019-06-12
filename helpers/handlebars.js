@@ -346,12 +346,12 @@ hbs.registerHelper("get_obit_memories", function getObitMemories(actions, opts) 
 			} else if (a.data.type === "adjust_market") {
 				eventType = "The market was going crazy, prices were out of control.";
 			} else {
-				eventType = "I talked to some cats, but they weren't sure what has happening";
+				eventType = "I talked to some cats, but they weren't sure what has happening.";
 			}
 			const phrases = [
 				`On the way back from the hotel today in ${a.location.country}, things were really wild.  ${eventType}  I decided I had enough excitement for the day and stayed inside the rest of the day.  Browsed through some matches on Swattr and set up a date for later in the week.  I'm a sucker for a tabby.`,
 				`I've got to start spending more time out and about in ${a.location.country}.  ${eventType}  I decided to take advantage and grab some ice cream while I was out.  If I ever get back to ${a.location.country}, I'm definitely going to have to get another cone of '${a.location.city} Special Surprise'.  I think the surprise is fish.  Absolutely delicious.`,
-				`${eventType}  That kind of set the pace for the rest of the day.  After grabbing some lunch though, I decided to find a nice place to curl out and catch some sun.  I highly recommend the fountains in ${a.location.city}, they were fantastic.  Not a lot of dog traffic, and the warmest spot I've found on this whole trip`
+				`${eventType}  That kind of set the pace for the rest of the day.  After grabbing some lunch though, I decided to find a nice place to curl out and catch some sun.  I highly recommend the fountains in ${a.location.city}, they were fantastic.  Not a lot of dog traffic, and the warmest spot I've found on this whole trip.`
 			];
 			return phrases[common.getRandomInt(0, phrases.length - 1)];
 		},

@@ -1,6 +1,6 @@
 <div class="container">
 	{{> hud}}
-	<div>
+	<div class="game-content">
 		<h1>Hotel</h1>
 		<br>
 			{{#if police}}
@@ -14,6 +14,7 @@
 				{{#vendors_open life}}
 				<p>A vendor is open!</p>
 				{{/vendors_open}}
+				<p>It is currently turn {{life.current.turn}}.</p>
 				<p>{{life.current.event}}</p>
 				<p>You are currently in <strong>{{life.current.location.city}}</strong> and you're feeling <strong>{{life_health_description life.current.health.points}}</strong>.  You can relax here and contemplate your next move as long as you'd like.  When you're ready, choose somewhere to go.</p>
 

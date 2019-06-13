@@ -13,10 +13,6 @@ body {
   padding: 40px 15px;
 }
 
-#main-container {
-  padding-top: 50px;
-}
-
 .main-logo {
 	max-width: 100%;
 	display: block;
@@ -26,4 +22,8 @@ body {
 
 #debug {
   display: none;
+}
+
+.game-content {
+  padding-top: 80px;
 }

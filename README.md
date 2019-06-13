@@ -2,7 +2,7 @@
 
 ![Paw Wars](https://raw.githubusercontent.com/snollygolly/paw-wars/master/assets/img/paw-wars-logo.png)
 
-Paw Wars is a game that takes place in a world where dogs are the ruling class and cats are treated as lower class citizens. Luxury items are strictly forbidden, but a black market persists. You take on the role of a smuggler trying to provide contraband to cats in need. You travel the world buying and selling items, avoiding police, and trying to get rich or die trying.
+Paw Wars is a game that takes place in a world where dogs are the ruling class and cats are treated as lower class citizens. Luxury items are strictly forbidden, but a black market persists. You take on the role of a smuggler trying to provide contraband to cats in need. You travel the world buying and selling items, avoiding police, and hustling to get rich or die trying.
 
 ### Play it right now in your browser: [Play PawWars](http://pawwars.evilmousestudios.com)
 

@@ -9,7 +9,7 @@
         "domain": "YOURDOMAIN.auth0.com",
         "clientID": "AUTH0_CLIENT_ID",
         "clientSecret": "AUTH0_CLIENT_SECRET"
-      },
+      }
     },
     "analytics": "UA-00000000-0",
     "db": {

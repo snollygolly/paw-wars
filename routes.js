@@ -85,7 +85,8 @@ routes.get("/auth/auth0",
 		domain: config.site.oauth.auth0.domain,
 		responseType: "code",
 		audience: `https://${config.site.oauth.auth0.domain}/userinfo`,
-		scope: "openid profile"
+		scope: "openid profile",
+		prompt: "none"
 	})
 );
 

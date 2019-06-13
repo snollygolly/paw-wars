@@ -14,8 +14,8 @@ module.exports.play = async(ctx) => {
 		player = ctx.session.passport.user;
 	}
 	let life = ctx.session.life;
-	// TODO: check if the user has a game in progress eventually
-	if (life) {
+	if (player.currentLives.indexOf(ctx.query.id) === -1 && life) {
+		// this isn't their life, but they have a life going
 		throw new Error("Can't start a new game when one is in progress / lifeController:play");
 	}
 	if (player && player.currentLives.length > 0) {

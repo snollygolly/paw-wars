@@ -64,7 +64,11 @@ module.exports.account = async(ctx) => {
 	if (ctx.isAuthenticated()) {
 		player = ctx.session.passport.user;
 	}
-	const life = ctx.session.life;
+	let life = ctx.session.life;
+	if (player.currentLives.length > 0 && !life) {
+		life = await lifeModel.getLife(player.currentLives[0]);
+		ctx.session.life = life;
+	}
 	await ctx.render("account", {
 		player: player,
 		life: life

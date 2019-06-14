@@ -1,4 +1,9 @@
 $( document ).ready(function() {
+  resizeCards();
+
+  $(window).on('resize', function() {
+    resizeCards();
+  });
 
   $('#transport-modal').on('show.bs.modal', function (event) {
     var button = $(event.relatedTarget);
@@ -6,6 +11,7 @@ $( document ).ready(function() {
     var id = button.data('id');
     var name = button.data('name');
     var city = button.data('city');
+    var country = button.data('country');
     var price = button.data('price');
     var flightNumber = button.data('flight-number');
     var flightTime = button.data('flight-time');
@@ -13,7 +19,7 @@ $( document ).ready(function() {
     // get the modal object
     var modal = $(this)
     // start populating it with values
-    modal.find('#transport-title').text("Fly to " + city);
+    modal.find('#transport-title').text("Fly to " + city + ", " + country);
     var confirmButton = $('#transport-confirm-book-btn');
     // start populating the button with data
     confirmButton.data('id', id);
@@ -46,3 +52,20 @@ $( document ).ready(function() {
 
   });
 });
+
+function resizeCards() {
+  var maxHeight = -1;
+
+  $('.card > .card-block').each(function (index, card) {
+    $(card).height('');
+    var currentHeight = $(card).height();
+
+    if (currentHeight > maxHeight) {
+      maxHeight = currentHeight;
+    }
+  });
+
+  $('.card > .card-block').each(function (index, card) {
+    $(card).height(maxHeight);
+  });
+}

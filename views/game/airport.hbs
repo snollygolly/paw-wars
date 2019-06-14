@@ -1,35 +1,42 @@
 <div class="container">
 	{{> hud}}
 	<div class="game-content">
+		<a href="/game/hotel">&lt;&nbsp;Back to Hotel</a>
 		<h1>Airport</h1>
 		<br>
 		<p>Here's a listing of where you can fly right now and how much it will cost you. Click on a listing to buy a ticket and fly away from this crazy town.</p>
 		<div id="alert-container"></div>
 		<br>
-		<table class="table table-inverse transport-table">
-			<thead>
-				<tr>
-					<th>AIRPORT</th>
-					<th>FLIGHT</th>
-					<th>DEST</th>
-					<th>PRICE</th>
-					<th>TURNS</th>
-					<th>LOCATION</th>
-				</tr>
-			</thead>
-			<tbody>
+		<div class="row">
 			{{#each life.listings.airport}}
-				<tr class="transport-buy" id="transport-buy-btn" data-id="{{id}}" data-name="{{name}}" data-price="{{price}}" data-city="{{city}}" data-flight-number="{{flight_number}}" data-flight-time="{{flight_time}}" data-toggle="modal" data-target="#transport-modal">
-					<td><tt>{{name}}</tt></td>
-					<td><tt>{{flight_number}}</tt></td>
-					<td><tt>{{id}}</tt></td>
-					<td><tt>${{price}}</tt></td>
-					<td><tt><strong>{{flight_time}}</strong></tt></td>
-					<td><tt>{{city}}, {{country}}</tt></td>
-				</tr>
+				<div class="col-lg-4 col-md-6 transport-info">
+					<div class="card" class="transport-buy" id="transport-buy-btn" data-id="{{id}}" data-name="{{name}}" data-price="{{price}}" data-city="{{city}}" data-country="{{country}}" data-flight-number="{{flight_number}}" data-flight-time="{{flight_time}}" data-toggle="modal" data-target="#transport-modal">
+						<div class="card-body card-block">
+							<h5 class="card-title">{{name}}</h5>
+							<h6 class="card-subtitle text-muted font-italic">{{city}}, {{country}}</h6>
+						</div>
+						<div class="card-footer">
+							<table class="table table-sm table-borderless">
+								<thead>
+									<tr>
+										<th>FLIGHT</th>
+										<th>DEST</th>
+										<th>PRICE</th>
+										<th>TURNS</th>
+									</tr>
+								</thead>
+								<tbody>
+									<td><tt>{{flight_number}}</tt></td>
+									<td><tt>{{id}}</tt></td>
+									<td><tt>${{price}}</tt></td>
+									<td><tt><strong>{{flight_time}}</strong></tt></td>
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
 			{{/each}}
-			</tbody>
-		</table>
+		</div>
 	</div>
 </div><!-- /.container -->
 
@@ -37,10 +44,10 @@
 	<div class="modal-dialog" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
+				<h4 id="transport-title" class="modal-title"></h4>
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 					<span aria-hidden="true">&times;</span>
 				</button>
-				<h4 id="transport-title" class="modal-title"></h4>
 			</div>
 			<div class="modal-body">
 				<p id="transport-confirm-message">Your flight will takeoff

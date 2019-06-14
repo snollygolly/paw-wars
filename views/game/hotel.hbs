@@ -1,7 +1,7 @@
 <div class="container">
 	{{> hud}}
 	<div class="game-content">
-		<h1>Hotel</h1>
+		<h1 class="d-flex justify-content-between align-items-center">Hotel<span class="h4">Turn {{life.current.turn}}</span></h1>
 		<br>
 			{{#if police}}
 				<p>Police!</p>
@@ -14,20 +14,64 @@
 				{{#vendors_open life}}
 				<p>A vendor is open!</p>
 				{{/vendors_open}}
-				<p>It is currently turn {{life.current.turn}}.</p>
 				<p>{{life.current.event}}</p>
 				<p>You are currently in <strong>{{life.current.location.city}}</strong> and you're feeling <strong>{{life_health_description life.current.health.points}}</strong>.  You can relax here and contemplate your next move as long as you'd like.  When you're ready, choose somewhere to go.</p>
 
-				<div class="list-group">
-					<a href="/game/market" class="list-group-item">Market</a>
-					<a href="/game/airport" class="list-group-item">Airport</a>
-					<a href="/game/bank" class="list-group-item">Bank</a>
+				{{!-- <div class="list-group">
+					<a href="/game/market" class="list-group-item"><i class="fa fa-shopping-cart"></i>&nbsp;Market</a>
+					<a href="/game/airport" class="list-group-item"><i class="fa fa-plane"></i>&nbsp;Airport</a>
+					<a href="/game/bank" class="list-group-item"><i class="fa fa-bank"></i>&nbsp;Bank</a>
 					{{#vendors_open life}}
-					<a href="/game/vendors" class="list-group-item">Vendors</a>
+					<a href="/game/vendors" class="list-group-item"><i class="fa fa-user-secret"></i>&nbsp;Vendors</a>
 					{{/vendors_open}}
 					<br>
-					<a href="#" class="list-group-item" data-toggle="modal" data-target="#confirmModal">Give Up</a>
+				</div> --}}
+				<div class="row">
+					<div class="{{#vendors_open life}}col-md-3 col-sm-6{{else}}col-md-4{{/vendors_open}}">
+						<a href="/game/market">
+							<div class="card">
+								<div class="card-body">
+									<p class="text-center"><i class="fa fa-4x fa-shopping-cart"></i></p>
+									<p class="text-center">Market</p>
+								</div>
+							</div>
+						</a>
+					</div>
+					<div class="{{#vendors_open life}}col-md-3 col-sm-6{{else}}col-md-4{{/vendors_open}}">
+						<a href="/game/airport">
+							<div class="card">
+								<div class="card-body">
+									<p class="text-center"><i class="fa fa-4x fa-plane"></i></p>
+									<p class="text-center">Airport</p>
+								</div>
+							</div>
+						</a>
+					</div>
+					<div class="{{#vendors_open life}}col-md-3 col-sm-6{{else}}col-md-4{{/vendors_open}}">
+						<a href="/game/bank">
+							<div class="card">
+								<div class="card-body">
+									<p class="text-center"><i class="fa fa-4x fa-bank"></i></p>
+									<p class="text-center">Bank</p>
+								</div>
+							</div>
+						</a>
+					</div>
+					{{#vendors_open life}}
+					<div class="col-md-3 col-sm-6">
+						<a href="/game/vendors">
+							<div class="card">
+								<div class="card-body">
+									<p class="text-center"><i class="fa fa-4x fa-user-secret"></i></p>
+									<p class="text-center">Vendors</p>
+								</div>
+							</div>
+						</a>
+					</div>
+					{{/vendors_open}}
 				</div>
+				<br/>
+				<button type="button" class="btn btn-danger" data-toggle="modal" data-target="#confirmModal"><i class="fa fa-heartbeat"></i>&nbsp;Give Up</button>
 			{{/if}}
 
 
@@ -39,7 +83,7 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="confirmModalLabel">Confirm</h5>
+        <h5 class="modal-title" id="confirmModalLabel">Give Up</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -48,8 +92,8 @@
         Are you sure you want to give up?
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <a href="/game/over" class="btn btn-danger">Give Up</a>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+        <a href="/game/over" class="btn btn-danger">Confirm</a>
       </div>
     </div>
   </div>

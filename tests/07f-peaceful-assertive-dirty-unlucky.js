@@ -36,9 +36,9 @@ describe("Police - Simulating Encounter (Peaceful, Assertive, Dirty, Unlucky)", 
 	it("encounter should explain what is happening", (done) => {
 		const policeObj = life.current.police;
 		expect(policeObj.encounter.message.simple).to.be.a("string");
-		expect(localization("police_discovery_simple")).to.include(policeObj.encounter.message.simple);
+		expect(localization("police_discovery_simple", true)).to.include(policeObj.encounter.message.simple);
 		expect(policeObj.encounter.message.full).to.be.a("string");
-		expect(localization("police_discovery_full")).to.include(policeObj.encounter.message.full);
+		expect(localization("police_discovery_full", true)).to.include(policeObj.encounter.message.full);
 		return done();
 	});
 
@@ -85,9 +85,9 @@ describe("Police - Simulating Encounter (Peaceful, Assertive, Dirty, Unlucky)", 
 	it("encounter should explain what is happening", (done) => {
 		const policeObj = life.current.police;
 		expect(policeObj.encounter.message.simple).to.be.a("string");
-		expect(localization("police_investigation_simple")).to.include(policeObj.encounter.message.simple);
+		expect(localization("police_investigation_simple", true)).to.include(policeObj.encounter.message.simple);
 		expect(policeObj.encounter.message.full).to.be.a("string");
-		expect(localization("police_investigation_full")).to.include(policeObj.encounter.message.full);
+		expect(localization("police_investigation_full", true)).to.include(policeObj.encounter.message.full);
 		return done();
 	});
 
@@ -134,9 +134,9 @@ describe("Police - Simulating Encounter (Peaceful, Assertive, Dirty, Unlucky)", 
 	it("encounter should explain what is happening", (done) => {
 		const policeObj = life.current.police;
 		expect(policeObj.encounter.message.simple).to.be.a("string");
-		expect(localization("police_search_probable_cause_simple")).to.include(policeObj.encounter.message.simple);
+		expect(localization("police_search_probable_cause_simple", true)).to.include(policeObj.encounter.message.simple);
 		expect(policeObj.encounter.message.full).to.be.a("string");
-		expect(localization("police_search_probable_cause_full")).to.include(policeObj.encounter.message.full);
+		expect(localization("police_search_probable_cause_full", true)).to.include(policeObj.encounter.message.full);
 		return done();
 	});
 
@@ -183,9 +183,9 @@ describe("Police - Simulating Encounter (Peaceful, Assertive, Dirty, Unlucky)", 
 	it("encounter should explain what is happening", (done) => {
 		const policeObj = life.current.police;
 		expect(policeObj.encounter.message.simple).to.be.a("string");
-		expect(localization("police_search_successful_simple")).to.include(policeObj.encounter.message.simple);
+		expect(localization("police_search_successful_simple", true)).to.include(policeObj.encounter.message.simple);
 		expect(policeObj.encounter.message.full).to.be.a("string");
-		expect(localization("police_search_successful_full")).to.include(policeObj.encounter.message.full);
+		expect(localization("police_search_successful_full", true)).to.include(policeObj.encounter.message.full);
 		return done();
 	});
 
@@ -238,9 +238,9 @@ describe("Police - Simulating Encounter (Peaceful, Assertive, Dirty, Unlucky)", 
 	it("encounter should explain what is happening", (done) => {
 		const policeObj = life.current.police;
 		expect(policeObj.encounter.message.simple).to.be.a("string");
-		expect(localization("police_comply_detain_simple")).to.include(policeObj.encounter.message.simple);
+		expect(localization("police_comply_detain_simple", true)).to.include(policeObj.encounter.message.simple);
 		expect(policeObj.encounter.message.full).to.be.a("string");
-		expect(localization("police_comply_detain_full")).to.include(policeObj.encounter.message.full);
+		expect(localization("police_comply_detain_full", true)).to.include(policeObj.encounter.message.full);
 		return done();
 	});
 

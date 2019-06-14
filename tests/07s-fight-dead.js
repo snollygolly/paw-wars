@@ -9,6 +9,7 @@ const model = main.model;
 
 const police = main.police;
 const policeJSON = main.policeJSON;
+const localization = main.localization;
 
 let life;
 
@@ -36,9 +37,9 @@ describe("Police - Simulating Encounter (Fight, Dead)", () => {
 	it("encounter should explain what is happening", (done) => {
 		const policeObj = life.current.police;
 		expect(policeObj.encounter.message.simple).to.be.a("string");
-		expect(policeObj.encounter.message.simple).to.equal(policeJSON.messages.discovery.simple);
+		expect(localization("police_discovery_simple", true)).to.include(policeObj.encounter.message.simple);
 		expect(policeObj.encounter.message.full).to.be.a("string");
-		expect(policeObj.encounter.message.full).to.equal(policeJSON.messages.discovery.full);
+		expect(localization("police_discovery_full", true)).to.include(policeObj.encounter.message.full);
 		return done();
 	});
 
@@ -110,9 +111,9 @@ describe("Police - Simulating Encounter (Fight, Dead)", () => {
 	it("encounter should explain what is happening", (done) => {
 		const policeObj = life.current.police;
 		expect(policeObj.encounter.message.simple).to.be.a("string");
-		expect(policeObj.encounter.message.simple).to.equal(policeJSON.messages.dead.simple);
+		expect(localization("police_dead_simple", true)).to.include(policeObj.encounter.message.simple);
 		expect(policeObj.encounter.message.full).to.be.a("string");
-		expect(policeObj.encounter.message.full).to.equal(policeJSON.messages.dead.full);
+		expect(localization("police_dead_full", true)).to.include(policeObj.encounter.message.full);
 		return done();
 	});
 

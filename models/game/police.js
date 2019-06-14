@@ -5,6 +5,7 @@ const common = require("../../helpers/common");
 const model = require("../game_life.js");
 const policeJSON = require("./data/police.json");
 const deathsJSON = require("./data/deaths.json");
+const localization = require("./data/localization");
 
 module.exports.doSimulateEncounter = function doSimulateEncounter(life) {
 	let newLife = JSON.parse(JSON.stringify(life));
@@ -411,7 +412,10 @@ function doChangeModes(police, mode) {
 }
 
 function updateEncounter(action, choices, lifeObj) {
-	lifeObj.current.police.encounter.message = policeJSON.messages[action];
+	lifeObj.current.police.encounter.message = {
+		full: localization(`police_${action}_full`),
+		simple: localization(`police_${action}_simple`)
+	};
 	lifeObj.current.police.encounter.choices = [];
 	for (const choice of choices) {
 		lifeObj.current.police.encounter.choices.push(policeJSON.choices[choice]);

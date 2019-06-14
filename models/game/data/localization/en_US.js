@@ -167,13 +167,316 @@ module.exports = {
 			`the officer arrives behind you. The officer has ${data.total_hp} HP.`
 		];
 		return phrases[common.getRandomInt(0, phrases.length - 1)];
-	}
-	,
+	},
 	// receives a police object
 	police_starting_plural: (data) => {
 		const phrases = [
 			`${data.officers} officers arrive behind you. They have ${data.total_hp} HP.`
 		];
+		return phrases[common.getRandomInt(0, phrases.length - 1)];
+	},
+	// receives nothing
+	police_discovery_full: (data, all = false) => {
+		const phrases = [
+			"While driving to the hotel you are pulled over by Officer Barks. He gets out of his car and approaches as you roll down your window. 'I hope you are having a nice day,' Officer Barks greets you. 'I stopped you because we have had some reports of suspicious cats in the area. Do you mind if I search your storage for any illegal items?'"
+		];
+		if (all === true) { return phrases; }
+		return phrases[common.getRandomInt(0, phrases.length - 1)];
+	},
+	// receives nothing
+	police_discovery_simple: (data, all = false) => {
+		const phrases = [
+			"Officer Barks wants to search your storage."
+		];
+		if (all === true) { return phrases; }
+		return phrases[common.getRandomInt(0, phrases.length - 1)];
+	},
+	// receives nothing
+	police_investigation_full: (data, all = false) => {
+		const phrases = [
+			"You tell Officer Barks that you don't believe there is any reason to allow him to search. He looks around your storage and says, 'you don't have anything you aren't supposed to, do you?'"
+		];
+		if (all === true) { return phrases; }
+		return phrases[common.getRandomInt(0, phrases.length - 1)];
+	},
+	// receives nothing
+	police_investigation_simple: (data, all = false) => {
+		const phrases = [
+			"Officer Barks wants to know if you have any illegal items."
+		];
+		if (all === true) { return phrases; }
+		return phrases[common.getRandomInt(0, phrases.length - 1)];
+	},
+	// receives nothing
+	police_investigation_successful_full: (data, all = false) => {
+		const phrases = [
+			"You tell Officer Barks that you are a law abiding cat. Officer Barks takes several long sniffs. 'I detect something that you shouldn't have. I will need to search your storage.'"
+		];
+		if (all === true) { return phrases; }
+		return phrases[common.getRandomInt(0, phrases.length - 1)];
+	},
+	// receives nothing
+	police_investigation_successful_simple: (data, all = false) => {
+		const phrases = [
+			"Officer Barks is going to search your storage."
+		];
+		if (all === true) { return phrases; }
+		return phrases[common.getRandomInt(0, phrases.length - 1)];
+	},
+	// receives nothing
+	police_investigation_failure_full: (data, all = false) => {
+		const phrases = [
+			"You tell Officer Barks that you are a law abiding cat. He takes one more look and sniff around your storage and says, 'everything appears to be in order here. Have a nice day.'"
+		];
+		if (all === true) { return phrases; }
+		return phrases[common.getRandomInt(0, phrases.length - 1)];
+	},
+	// receives nothing
+	police_investigation_failure_simple: (data, all = false) => {
+		const phrases = [
+			"Officer Barks is letting you leave."
+		];
+		if (all === true) { return phrases; }
+		return phrases[common.getRandomInt(0, phrases.length - 1)];
+	},
+	// receives nothing
+	police_search_consent_full: (data, all = false) => {
+		const phrases = [
+			"You tell Officer Barks that he is allowed to look through your storage. You step out of the driver's seat and follow him back to his vehicle."
+		];
+		if (all === true) { return phrases; }
+		return phrases[common.getRandomInt(0, phrases.length - 1)];
+	},
+	// receives nothing
+	police_search_consent_simple: (data, all = false) => {
+		const phrases = [
+			"Officer Barks is searching your vehicle."
+		];
+		if (all === true) { return phrases; }
+		return phrases[common.getRandomInt(0, phrases.length - 1)];
+	},
+	// receives nothing
+	police_search_probable_cause_full: (data, all = false) => {
+		const phrases = [
+			"Officer Barks looks into your back seat. 'It looks like you are in possesion of some illegal items,' he says. 'I will need to search your storage.' Officer Barks opens your door and gestures for you to get out"
+		];
+		if (all === true) { return phrases; }
+		return phrases[common.getRandomInt(0, phrases.length - 1)];
+	},
+	// receives nothing
+	police_search_probable_cause_simple: (data, all = false) => {
+		const phrases = [
+			"Officer Barks believes he has spotted some illegal items and wants to search your storage"
+		];
+		if (all === true) { return phrases; }
+		return phrases[common.getRandomInt(0, phrases.length - 1)];
+	},
+	// receives nothing
+	police_search_successful_full: (data, all = false) => {
+		const phrases = [
+			"Officer Barks performs a search of your storage. He comes back with something in his hands. 'I found this in your storage,' he says. 'You are under arrest for illegal possession.'"
+		];
+		if (all === true) { return phrases; }
+		return phrases[common.getRandomInt(0, phrases.length - 1)];
+	},
+	// receives nothing
+	police_search_successful_simple: (data, all = false) => {
+		const phrases = [
+			"Officer Barks is going to take you into custody."
+		];
+		if (all === true) { return phrases; }
+		return phrases[common.getRandomInt(0, phrases.length - 1)];
+	},
+	// receives nothing
+	police_search_failure_full: (data, all = false) => {
+		const phrases = [
+			"Officer Barks performs a search of your storage. He comes back with nothing. 'It looks like you were telling the truth,' he says. 'You are free to leave.'"
+		];
+		if (all === true) { return phrases; }
+		return phrases[common.getRandomInt(0, phrases.length - 1)];
+	},
+	// receives nothing
+	police_search_failure_simple: (data, all = false) => {
+		const phrases = [
+			"Officer Barks is letting you leave."
+		];
+		if (all === true) { return phrases; }
+		return phrases[common.getRandomInt(0, phrases.length - 1)];
+	},
+	// receives nothing
+	police_admit_guilt_full: (data, all = false) => {
+		const phrases = [
+			"You tell Officer Barks that you are in possession of some illegal items in the hope that he will go easy on you. 'I appreciate your honesty,' he says as he opens your door. 'Step out of the vehicle. You are under arrest.'"
+		];
+		if (all === true) { return phrases; }
+		return phrases[common.getRandomInt(0, phrases.length - 1)];
+	},
+	// receives nothing
+	police_admit_guilt_simple: (data, all = false) => {
+		const phrases = [
+			"You are going to jail."
+		];
+		if (all === true) { return phrases; }
+		return phrases[common.getRandomInt(0, phrases.length - 1)];
+	},
+	// receives nothing
+	police_comply_detain_full: (data, all = false) => {
+		const phrases = [
+			"Officer Barks places you under arrest and puts you in his car."
+		];
+		if (all === true) { return phrases; }
+		return phrases[common.getRandomInt(0, phrases.length - 1)];
+	},
+	// receives nothing
+	police_comply_detain_simple: (data, all = false) => {
+		const phrases = [
+			"You are going to jail."
+		];
+		if (all === true) { return phrases; }
+		return phrases[common.getRandomInt(0, phrases.length - 1)];
+	},
+	// receives nothing
+	police_crazy_person_full: (data, all = false) => {
+		const phrases = [
+			"'What kind of crazy person tells an officer they have something illegal when they don't?' Officer Barks asks. He shakes his head and walks back to his car before driving off."
+		];
+		if (all === true) { return phrases; }
+		return phrases[common.getRandomInt(0, phrases.length - 1)];
+	},
+	// receives nothing
+	police_crazy_person_simple: (data, all = false) => {
+		const phrases = [
+			"Officer Barks is letting you go."
+		];
+		if (all === true) { return phrases; }
+		return phrases[common.getRandomInt(0, phrases.length - 1)];
+	},
+	// receives nothing
+	police_escape_full: (data, all = false) => {
+		const phrases = [
+			"You look back and no longer see Officer Barks or any other officers behind you."
+		];
+		if (all === true) { return phrases; }
+		return phrases[common.getRandomInt(0, phrases.length - 1)];
+	},
+	// receives nothing
+	police_escape_simple: (data, all = false) => {
+		const phrases = [
+			"You have evaded the police."
+		];
+		if (all === true) { return phrases; }
+		return phrases[common.getRandomInt(0, phrases.length - 1)];
+	},
+	// receives nothing
+	police_hiss_success_full: (data, all = false) => {
+		const phrases = [
+			"You hiss and show your teeth to Officer Barks. He stops dead in his tracks and runs away from you."
+		];
+		if (all === true) { return phrases; }
+		return phrases[common.getRandomInt(0, phrases.length - 1)];
+	},
+	// receives nothing
+	police_hiss_success_simple: (data, all = false) => {
+		const phrases = [
+			"You scared Officer Barks away."
+		];
+		if (all === true) { return phrases; }
+		return phrases[common.getRandomInt(0, phrases.length - 1)];
+	},
+	// receives nothing
+	police_hiss_failure_full: (data, all = false) => {
+		const phrases = [
+			"You hiss and show your teeth to Officer Barks. He replies with a loud bark of his own and a hard bite in response."
+		];
+		if (all === true) { return phrases; }
+		return phrases[common.getRandomInt(0, phrases.length - 1)];
+	},
+	// receives nothing
+	police_hiss_failure_simple: (data, all = false) => {
+		const phrases = [
+			"You have angered Officer Barks."
+		];
+		if (all === true) { return phrases; }
+		return phrases[common.getRandomInt(0, phrases.length - 1)];
+	},
+	// receives nothing
+	police_run_success_full: (data, all = false) => {
+		const phrases = [
+			"You get on all fours and make a run for it. Traveling down alleys and side streets you attempt to lose Officer Barks. You take a sharp corner and hide behind a trash can as Officer Barks rounds the same corner. He runs past you undetected."
+		];
+		if (all === true) { return phrases; }
+		return phrases[common.getRandomInt(0, phrases.length - 1)];
+	},
+	// receives nothing
+	police_run_success_simple: (data, all = false) => {
+		const phrases = [
+			"You escaped Officer Barks."
+		];
+		if (all === true) { return phrases; }
+		return phrases[common.getRandomInt(0, phrases.length - 1)];
+	},
+	// receives nothing
+	police_run_failure_full: (data, all = false) => {
+		const phrases = [
+			"You get on all fours and make a run for it. Traveling down alleys and side streets you attempt to lose Officer Barks. You take a sharp corner and hide behind a trash can as Officer Barks rounds the same corner. He approaches the trash can and grabs you by the scruff of your neck."
+		];
+		if (all === true) { return phrases; }
+		return phrases[common.getRandomInt(0, phrases.length - 1)];
+	},
+	// receives nothing
+	police_run_failure_simple: (data, all = false) => {
+		const phrases = [
+			"You are going to jail."
+		];
+		if (all === true) { return phrases; }
+		return phrases[common.getRandomInt(0, phrases.length - 1)];
+	},
+	// receives nothing
+	police_fight_success_full: (data, all = false) => {
+		const phrases = [
+			"You attack Officer Barks. You are able to surprise him and gain the advantage. Several bites and scratches later you feel like you've done a good amount of damage."
+		];
+		if (all === true) { return phrases; }
+		return phrases[common.getRandomInt(0, phrases.length - 1)];
+	},
+	// receives nothing
+	police_fight_success_simple: (data, all = false) => {
+		const phrases = [
+			"You have damaged Officer Barks."
+		];
+		if (all === true) { return phrases; }
+		return phrases[common.getRandomInt(0, phrases.length - 1)];
+	},
+	// receives nothing
+	police_fight_failure_full: (data, all = false) => {
+		const phrases = [
+			"You attack Officer Barks. You attempt to scratch and bite at him, but Officer Barks retaliates with a hard bite of his own."
+		];
+		if (all === true) { return phrases; }
+		return phrases[common.getRandomInt(0, phrases.length - 1)];
+	},
+	// receives nothing
+	police_fight_failure_simple: (data, all = false) => {
+		const phrases = [
+			"You are going to jail."
+		];
+		if (all === true) { return phrases; }
+		return phrases[common.getRandomInt(0, phrases.length - 1)];
+	},
+	// receives nothing
+	police_dead_full: (data, all = false) => {
+		const phrases = [
+			"Everything goes quiet and dark. The next thing you hear is a voice asking ,'have you been a good kitty?'"
+		];
+		if (all === true) { return phrases; }
+		return phrases[common.getRandomInt(0, phrases.length - 1)];
+	},
+	// receives nothing
+	police_dead_simple: (data, all = false) => {
+		const phrases = [
+			"You have died"
+		];
+		if (all === true) { return phrases; }
 		return phrases[common.getRandomInt(0, phrases.length - 1)];
 	}
 };

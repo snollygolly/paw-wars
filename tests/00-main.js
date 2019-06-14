@@ -17,6 +17,8 @@ module.exports.placesJSON = require("../models/game/data/places.json");
 module.exports.itemsJSON = require("../models/game/data/items.json");
 module.exports.policeJSON = require("../models/game/data/police.json");
 module.exports.deathsJSON = require("../models/game/data/deaths.json");
+// localization data
+module.exports.localization = require("../models/game/data/localization/index");
 // for setting testing values
 module.exports.config = {
 	UNITS: 10,

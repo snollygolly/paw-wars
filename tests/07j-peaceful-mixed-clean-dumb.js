@@ -34,9 +34,9 @@ describe("Police - Simulating Encounter (Peaceful, Mixed, Clean, Dumb)", () => {
 	it("encounter should explain what is happening", (done) => {
 		const policeObj = life.current.police;
 		expect(policeObj.encounter.message.simple).to.be.a("string");
-		expect(policeObj.encounter.message.simple).to.equal(policeJSON.messages.discovery.simple);
+		expect(localization("police_discovery_simple")).to.include(policeObj.encounter.message.simple);
 		expect(policeObj.encounter.message.full).to.be.a("string");
-		expect(policeObj.encounter.message.full).to.equal(policeJSON.messages.discovery.full);
+		expect(localization("police_discovery_full")).to.include(policeObj.encounter.message.full);
 		return done();
 	});
 
@@ -83,9 +83,9 @@ describe("Police - Simulating Encounter (Peaceful, Mixed, Clean, Dumb)", () => {
 	it("encounter should explain what is happening", (done) => {
 		const policeObj = life.current.police;
 		expect(policeObj.encounter.message.simple).to.be.a("string");
-		expect(policeObj.encounter.message.simple).to.equal(policeJSON.messages.investigation.simple);
+		expect(localization("police_investigation_simple")).to.include(policeObj.encounter.message.simple);
 		expect(policeObj.encounter.message.full).to.be.a("string");
-		expect(policeObj.encounter.message.full).to.equal(policeJSON.messages.investigation.full);
+		expect(localization("police_investigation_full")).to.include(policeObj.encounter.message.full);
 		return done();
 	});
 
@@ -138,9 +138,9 @@ describe("Police - Simulating Encounter (Peaceful, Mixed, Clean, Dumb)", () => {
 	it("encounter should explain what is happening", (done) => {
 		const policeObj = life.current.police;
 		expect(policeObj.encounter.message.simple).to.be.a("string");
-		expect(policeObj.encounter.message.simple).to.equal(policeJSON.messages.crazy_person.simple);
+		expect(localization("police_crazy_person_simple")).to.include(policeObj.encounter.message.simple);
 		expect(policeObj.encounter.message.full).to.be.a("string");
-		expect(policeObj.encounter.message.full).to.equal(policeJSON.messages.crazy_person.full);
+		expect(localization("police_crazy_person_full")).to.include(policeObj.encounter.message.full);
 		return done();
 	});
 

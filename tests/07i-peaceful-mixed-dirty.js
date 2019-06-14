@@ -9,6 +9,7 @@ const model = main.model;
 
 const police = main.police;
 const policeJSON = main.policeJSON;
+const localization = main.localization;
 
 let life;
 

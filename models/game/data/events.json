@@ -2,9 +2,6 @@
   {
     "id": "item_bust",
     "type": "adjust_market",
-    "descriptions": [
-      "The dogs have made a big bust on {{item}}!  Prices are going through the roof."
-    ],
     "parameters": {
       "price": {
         "min": 1.50,
@@ -19,9 +16,6 @@
   {
     "id": "item_flood",
     "type": "adjust_market",
-    "descriptions": [
-      "Cat dealers have flooded the market with cheap {{item}}.  Prices have bottomed out."
-    ],
     "parameters": {
       "price": {
         "min": 0.10,
@@ -36,10 +30,6 @@
   {
     "id": "free_item",
     "type": "adjust_inventory",
-    "descriptions": [
-      "You run into a cat at the airport.  He shakes your hand, and slips you a few units of {{item}}.  He smiles and walks off without saying anything.",
-      "You find a few units of {{item}} on the ground outside the airport!"
-    ],
     "parameters": {
       "units": {
         "min": 0.005,
@@ -50,10 +40,6 @@
   {
     "id": "free_cash",
     "type": "adjust_cash",
-    "descriptions": [
-      "A cat hands you an envelope at the airport with your name on it.  You look down to open the envelope and see ${{amount}}!  When you look up to thank the stranger, they're gone.",
-      "You find ${{amount}} on the ground outside the airport!"
-    ],
     "parameters": {
       "amount": {
         "min": 0.50,

@@ -8,6 +8,7 @@ const common = main.common;
 const model = main.model;
 
 const events = main.events;
+const localization = main.localization;
 
 let life;
 
@@ -19,11 +20,8 @@ describe("Events - Simulation Validation (Adjust Inventory)", () => {
 	let newLife;
 	let itemObj;
 	const eventObj = {
-		id: "testing",
+		id: "free_item",
 		type: "adjust_inventory",
-		descriptions: [
-			"This should have an item here -> {{item}}"
-		],
 		parameters: {
 			units: {
 				min: 0.005,
@@ -57,7 +55,10 @@ describe("Events - Simulation Validation (Adjust Inventory)", () => {
 
 	it("event should update the current event", (done) => {
 		expect(newLife.current.event).to.be.a("string");
-		expect(newLife.current.event).to.equal(`This should have an item here -> ${itemObj.name}`);
+		expect(localization("event_free_item", {
+			item: itemObj,
+			all: true
+		})).to.include(newLife.current.event);
 		return done();
 	});
 
@@ -115,7 +116,7 @@ describe("Events - Simulation Error Validation (Adjust Inventory)", () => {
 	let oldLife;
 	let newLife;
 	const eventObj = {
-		id: "testing",
+		id: "free_item",
 		type: "adjust_inventory",
 		descriptions: [
 			"This should have an item here -> {{item}}"

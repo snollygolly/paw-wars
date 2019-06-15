@@ -8,6 +8,7 @@ const common = main.common;
 const model = main.model;
 
 const events = main.events;
+const localization = main.localization;
 
 let life;
 
@@ -16,11 +17,8 @@ describe("Events - Simulation Validation (Adjust Cash)", () => {
 	let newLife;
 	let adjustmentAmount;
 	const eventObj = {
-		id: "testing",
+		id: "free_cash",
 		type: "adjust_cash",
-		descriptions: [
-			"This should have an amount here -> {{amount}}"
-		],
 		parameters: {
 			amount: {
 				min: 0.50,
@@ -48,7 +46,10 @@ describe("Events - Simulation Validation (Adjust Cash)", () => {
 	it("event should update the current event", (done) => {
 		const newCash = Math.round(adjustmentAmount * config.GAME.market.base_price);
 		expect(newLife.current.event).to.be.a("string");
-		expect(newLife.current.event).to.equal(`This should have an amount here -> ${newCash}`);
+		expect(localization("event_free_cash", {
+			total: newCash,
+			all: true
+		})).to.include(newLife.current.event);
 		return done();
 	});
 

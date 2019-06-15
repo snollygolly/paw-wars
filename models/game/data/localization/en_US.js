@@ -19,6 +19,40 @@ module.exports = {
 		if (data === true) { return phrases; }
 		return phrases[common.getRandomInt(0, phrases.length - 1)];
 	},
+	// includes adjustment and flag to dump phrases for testing
+	event_item_bust: (data) => {
+		const phrases = [
+			`The dogs have made a big bust on ${data.item.name}!  Prices are going through the roof.`
+		];
+		if (data.all) { return phrases; }
+		return phrases[common.getRandomInt(0, phrases.length - 1)];
+	},
+	// includes adjustment and flag to dump phrases for testing
+	event_item_flood: (data) => {
+		const phrases = [
+			`Cat dealers have flooded the market with cheap ${data.item.name}.  Prices have bottomed out.`
+		];
+		if (data.all) { return phrases; }
+		return phrases[common.getRandomInt(0, phrases.length - 1)];
+	},
+	// includes adjustment and flag to dump phrases for testing
+	event_free_item: (data) => {
+		const phrases = [
+			`You run into a cat at the airport.  He shakes your hand, and slips you a few units of ${data.item.name}.  He smiles and walks off without saying anything.`,
+			`You find a few units of ${data.item.name} on the ground outside the airport!`
+		];
+		if (data.all) { return phrases; }
+		return phrases[common.getRandomInt(0, phrases.length - 1)];
+	},
+	// includes adjustment and flag to dump phrases for testing
+	event_free_cash: (data) => {
+		const phrases = [
+			`A cat hands you an envelope at the airport with your name on it.  You look down to open the envelope and see ${data.total}!  When you look up to thank the stranger, they're gone.`,
+			`You find ${data.total} on the ground outside the airport!`
+		];
+		if (data.all) { return phrases; }
+		return phrases[common.getRandomInt(0, phrases.length - 1)];
+	},
 	// receives an array of countries and their awareness of the player
 	obituary_heat_some: (data) => {
 		const phrases = [

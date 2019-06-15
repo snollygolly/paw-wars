@@ -56,11 +56,12 @@ module.exports.simulateEvents = function simulateEvents(life, eventObj) {
 			type: eventObj.type,
 			amount: common.getRandomArbitrary(eventObj.parameters.amount.min, eventObj.parameters.amount.max)
 		};
+		adjustment.total = Math.round(adjustment.amount * game.market.base_price);
 		newLife = adjustCurrentCash(newLife, adjustment);
 		break;
 	}
 	// write the description
-	newLife.current.event = makeDescription(eventObj, adjustment);
+	newLife.current.event = localization(`event_${eventObj.id}`, adjustment);
 	// wipe meta
 	if (newLife.current.event_meta) {
 		delete newLife.current.event_meta;
@@ -74,18 +75,6 @@ module.exports.simulateEvents = function simulateEvents(life, eventObj) {
 	// common.log("debug", "* simulateEvents:", newLife);
 	return newLife;
 };
-
-function makeDescription(eventObj, adjustment) {
-	// pick description
-	let description = eventObj.descriptions[common.getRandomInt(0, (eventObj.descriptions.length - 1))];
-	if (description.indexOf("{{item}}") >= 0) {
-		description = description.replace(/\{\{item\}\}/g, adjustment.item.name);
-	}
-	if (description.indexOf("{{amount}}") >= 0) {
-		description = description.replace(/\{\{amount\}\}/g, Math.round(adjustment.amount * game.market.base_price));
-	}
-	return description;
-}
 
 function adjustMarketListing(life, adjustment) {
 	const newLife = JSON.parse(JSON.stringify(life));

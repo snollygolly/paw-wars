@@ -8,6 +8,7 @@ const common = main.common;
 const model = main.model;
 
 const events = main.events;
+const localization = main.localization;
 
 let life;
 
@@ -19,7 +20,7 @@ describe("Events - Starting State", () => {
 	});
 
 	it("current event should match config values", (done) => {
-		expect(life.current.event).to.equal(config.GAME.events.starting_message);
+		expect(localization("event_starting", true)).to.include(life.current.event);
 		return done();
 	});
 });

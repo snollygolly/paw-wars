@@ -1,6 +1,24 @@
 const common = require("../../../../helpers/common");
 
 module.exports = {
+	// optionally includes flag to dump phrases for testing
+	event_starting: (data) => {
+		const phrases = [
+			"You feel like this is the first day of the rest of your life.",
+			"You wake up feeling refresh and ready to conquer the world"
+		];
+		if (data === true) { return phrases; }
+		return phrases[common.getRandomInt(0, phrases.length - 1)];
+	},
+	// optionally includes flag to dump phrases for testing
+	event_no_event: (data) => {
+		const phrases = [
+			"Nothing of interest happened this turn.",
+			"No events of interest to speak of today."
+		];
+		if (data === true) { return phrases; }
+		return phrases[common.getRandomInt(0, phrases.length - 1)];
+	},
 	// receives an array of countries and their awareness of the player
 	obituary_heat_some: (data) => {
 		const phrases = [

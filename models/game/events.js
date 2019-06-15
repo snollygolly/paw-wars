@@ -5,6 +5,7 @@ const itemsJSON = require("./data/items.json");
 const eventsJSON = require("./data/events.json");
 const common = require("../../helpers/common");
 const model = require("../game_life.js");
+const localization = require("./data/localization");
 
 module.exports.doSimulateEvents = function doSimulateEvents(life) {
 	let newLife = JSON.parse(JSON.stringify(life));
@@ -13,7 +14,7 @@ module.exports.doSimulateEvents = function doSimulateEvents(life) {
 	// see if our roll is good enough for an event
 	if (game.events.event_rate <= roll || life.testing === true) {
 		// they didn't get an event
-		newLife.current.event = game.events.no_event_message;
+		newLife.current.event = localization("event_no_event");
 		return newLife;
 	}
 	// pick a random number from the events

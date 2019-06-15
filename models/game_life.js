@@ -14,6 +14,7 @@ const hotel = require("./game/hotel");
 const police = require("./game/police");
 
 const deathsJSON = require("./game/data/deaths.json");
+const localization = require("./game/data/localization");
 
 module.exports.createLife = async(player, parameters) => {
 	const life = module.exports.generateLife(player, parameters);
@@ -156,7 +157,7 @@ module.exports.generateLife = (player, parameters) => {
 		guest: (player.guest) ? player.guest : false,
 		starting: {
 			turn: 1,
-			event: game.events.starting_message,
+			event: localization("event_starting"),
 			police: {
 				heat: game.police.starting_heat,
 				rate: game.police.heat_rate,

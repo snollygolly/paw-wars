@@ -51,6 +51,10 @@ $( document ).ready(function() {
     });
   });
 
+  $('#transaction-modal').on('shown.bs.modal', function() {
+    $('#transaction-amount').trigger('focus');
+  });
+
   $('#transaction-all-btn').on('click', function(e) {
     var max = $(e.target).data('max');
     $('#transaction-amount').val(max);

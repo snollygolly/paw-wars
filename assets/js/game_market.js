@@ -42,6 +42,10 @@ $( document ).ready(function() {
     });
   });
 
+  $('#transaction-modal').on('shown.bs.modal', function() {
+    $('#transaction-units').trigger('focus');
+  });
+
   $('#transaction-units').on('input', function(e){
     var currentUnits = $(e.target).val();
     var currentPrice = $(e.target).data('price') * currentUnits;

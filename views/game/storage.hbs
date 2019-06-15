@@ -6,7 +6,7 @@
 		<br>
 		<p>You currently have <strong>{{life.current.storage.available}}</strong> units of storage available out of <strong>{{life.current.storage.total}}</strong> units total.</p>
 		{{#each life.current.inventory}}
-		<p>You have <strong>{{this.units}}</strong> units of <strong>{{get_item_name this.id}}</strong></p>
+		{{#if_cond this.units ">" 0}}<p>You have <strong>{{this.units}}</strong> units of <strong>{{get_item_name this.id}}</strong></p>{{/if_cond}}
 		{{/each}}
 	</div>
 </div><!-- /.container -->

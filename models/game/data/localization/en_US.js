@@ -53,6 +53,15 @@ module.exports = {
 		if (data.all) { return phrases; }
 		return phrases[common.getRandomInt(0, phrases.length - 1)];
 	},
+	// receives nothing
+	hotel_welcome: (data) => {
+		const phrases = [
+			"You can relax here and contemplate your next move as long as you'd like. When you're ready, choose somewhere to go.",
+			"This is your home base, feel free to check out the market, airport, or bank.  Keep your eye out for vendors too.",
+			"Be sure to check out the market for any good deals.  The bank's interest on loans compounds on every turn, so buy low, sell high, and pay them back as soon as you can!"
+		];
+		return phrases[common.getRandomInt(0, phrases.length - 1)];
+	},
 	// receives an array of countries and their awareness of the player
 	obituary_heat_some: (data) => {
 		const phrases = [

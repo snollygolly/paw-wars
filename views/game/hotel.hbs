@@ -15,7 +15,7 @@
 				<p>A vendor is open!</p>
 				{{/vendors_open}}
 				<p>{{life.current.event}}</p>
-				<p>You are currently in <strong>{{life.current.location.city}}</strong> and you're feeling <strong>{{life_health_description life.current.health.points}}</strong>.  You can relax here and contemplate your next move as long as you'd like.  When you're ready, choose somewhere to go.</p>
+				<p>You are currently in <strong>{{life.current.location.city}}</strong> and you're feeling <strong>{{life_health_description life.current.health.points}}</strong>.  {{localization "hotel_welcome"}}</p>
 				<div class="row">
 					<div class="{{#vendors_open life}}col-md-3 col-sm-6{{else}}col-md-4{{/vendors_open}}">
 						<a href="/game/market">

@@ -315,3 +315,13 @@ hbs.registerHelper("get_obit_memories", function getObitMemories(actions, opts) 
 
 	return `${localization("obituary_memories_morning", action)}  ${localization(`obituary_memories_${action.type}`, action)}  ${localization("obituary_memories_evening", action)}`;
 });
+
+hbs.registerHelper("localization", (phrase, data, opts) => {
+	let fullPhrase;
+	if (data) {
+		fullPhrase = localization(phrase, data);
+	} else {
+		fullPhrase = localization(phrase);
+	}
+	return fullPhrase;
+});

@@ -19,6 +19,15 @@ The game ends when any of the following take place:
 - You are poor and destitute
 - You die
 
+## Tips
+
+- You should pay off your starting loan from the bank as soon as possible.  The interest from their loan will compound every turn.  That means if you take a 5 turn flight, the interest will compound 5 times.  Ouch!
+
+- Sometimes you have to make big moves that are outside the range of what you can afford.  If a very expensive item is on sale and you can't afford it, you should consider taking out a loan to fill your stash with the discount item.  Depending on the discount, it's often worth it to fly to a large city and sell it.
+
+- You should consider the discount of an item when deciding to buy or sell.  If you purchased a large volume of items at a mild discount, it might make sense to wait a little longer until the price is inflated.  If you got items on a steep discount though, offloading them at a mildly inflated price might make sense to free up storage space to get items with a better discount.
+
+- Time is the only thing you can't get more of.  It makes sense to try to take shorter flights whenever possible.  This is especially true if you have a loan from the bank.
 ---
 
 ```

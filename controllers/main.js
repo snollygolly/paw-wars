@@ -51,6 +51,9 @@ module.exports.obituary = async(ctx) => {
 		throw new Error("Invalid ID");
 	}
 	const pastLife = await lifeModel.getLife(ctx.params.id);
+	if (pastLife === null) {
+		throw new Error("Life doesn't exist");
+	}
 	const life = ctx.session.life;
 	await ctx.render("obituary", {
 		pastLife: pastLife,

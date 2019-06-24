@@ -203,7 +203,20 @@ module.exports.generateLife = (player, parameters) => {
 			airport: [],
 			vendors: {}
 		},
-		actions: []
+		actions: [
+			{
+				turn: 0,
+				type: "airport",
+				data: {
+					id: parameters.location.id,
+					city: parameters.location.city,
+					country: parameters.location.country,
+					continent: parameters.location.continent,
+					size: parameters.location.size,
+					coordinates: parameters.location.coordinates
+				}
+			}
+		]
 	};
 	// adjust the police awareness for the current location here, for the linter
 	life.starting.police.awareness[parameters.location.country] = game.police.starting_heat;

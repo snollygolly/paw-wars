@@ -352,7 +352,14 @@ describe("Life Model - Actions Validation", () => {
 	});
 
 	it("actions should be empty", (done) => {
-		expect(life.actions.length).to.equal(0);
+		expect(life.actions.length).to.equal(1);
+		return done();
+	});
+
+	it("actions should have turn 0 airport action", (done) => {
+		expect(life.actions[0].turn).to.equal(0);
+		expect(life.actions[0].type).to.equal("airport");
+		expect(life.actions[0].data).to.deep.equal(life.current.location);
 		return done();
 	});
 });

@@ -297,7 +297,7 @@ hbs.registerHelper("get_obit_stash_flavor", function getObitHeat(size, opts) {
 });
 
 hbs.registerHelper("get_obit_memories", function getObitMemories(actions, opts) {
-	if (actions.length <= 5) { return localization("obituary_memories_nothing", size); }
+	if (actions.length <= 5) { return localization("obituary_memories_nothing"); }
 	const actionIndex = common.getRandomInt(0, actions.length - 1);
 	const action = actions[actionIndex];
 	if (action.type !== "airport") {

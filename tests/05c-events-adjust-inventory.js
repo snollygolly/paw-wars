@@ -141,7 +141,7 @@ describe("Events - Simulation Error Validation (Adjust Inventory)", () => {
 	});
 
 	it("event should refuse items if storage is full", (done) => {
-		const newAction = newLife.actions[0];
+		const newAction = newLife.actions[1];
 		const newInventory = common.getObjFromID(newAction.data.item.id, newLife.current.inventory);
 		// make sure we didn"t accidentally get one
 		expect(newInventory).to.be.an("object");
@@ -149,7 +149,7 @@ describe("Events - Simulation Error Validation (Adjust Inventory)", () => {
 		// make sure storage is unchanged
 		expect(newLife.current.storage.available).to.equal(0);
 		// the event[1] and the rejection[0]
-		expect(newLife.actions.length).to.equal(2);
+		expect(newLife.actions.length).to.equal(3);
 		expect(newAction.type).to.equal("event - failed (storage)");
 		return done();
 	});

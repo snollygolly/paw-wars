@@ -117,7 +117,7 @@ describe("Airport - Transaction Validation (Flight)", () => {
 
 	it("flight should update the player actions", (done) => {
 		// set up
-		const newAction = newLife.actions[0];
+		const newAction = newLife.actions[1];
 		// turn
 		expect(newAction).to.have.property("turn");
 		expect(newAction.turn).to.be.a("number");

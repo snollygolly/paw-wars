@@ -45,7 +45,7 @@ module.exports.obituary = async(ctx) => {
 	if (!ctx.params.id) {
 		throw new Error("Must supply an ID");
 	}
-	const validIDRegex = /^[a-z]{5,}\|\d+_\d+$/gm;
+	const validIDRegex = /^[\w\d-]{5,}\|[\w\d]+_\d+$/gm;
 	const validID = validIDRegex.test(ctx.params.id);
 	if (validID !== true) {
 		throw new Error("Invalid ID");

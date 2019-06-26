@@ -109,7 +109,7 @@ module.exports.get = async(ctx) => {
 	// for error handling
 	ctx.state.api = true;
 	// vendor|99999_1455077179080 for example
-	const validIDRegex = /^[\w\d]{5,}\|[\w\d]+_\d+$/gm;
+	const validIDRegex = /^[\w\d-]{5,}\|[\w\d]+_\d+$/gm;
 	const parameters = ctx.request.query;
 	if (!parameters) {
 		throw new Error("Missing parameter object");

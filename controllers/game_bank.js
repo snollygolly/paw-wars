@@ -61,7 +61,7 @@ module.exports.transaction = async(ctx) => {
 	// let's start doing some checks
 	parameters.amount = parseFloat(parameters.amount);
 	// is this a valid amount?
-	if (parameters.amount <= 0) {
+	if (parameters.amount <= 0 || isNaN(parameters.amount) === true) {
 		throw new Error("Bad unit amount");
 	}
 	// is this the right life ID?
@@ -116,7 +116,7 @@ module.exports.lending = async(ctx) => {
 	// let's start doing some checks
 	parameters.amount = parseFloat(parameters.amount);
 	// is this a valid amount?
-	if (parameters.amount <= 0) {
+	if (parameters.amount <= 0 || isNaN(parameters.amount) === true) {
 		throw new Error("Bad unit amount");
 	}
 	// is this the right life ID?

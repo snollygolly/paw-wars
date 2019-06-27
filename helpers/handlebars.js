@@ -273,7 +273,9 @@ hbs.registerHelper("get_obit_heat", function getObitHeat(awareness, opts) {
 			star: Math.round(awareness[country] / game.police.heat_per_star) + 1
 		});
 	}
-	countryArr.sort((a, b) => { (a.heat > b.heat) ? -1 : 1; });
+	countryArr.sort((a, b) => {
+		return (a.heat > b.heat) ? -1 : 1;
+	});
 	if (countryArr.length >= 3) {
 		final = localization("obituary_heat_some", countryArr);
 	} else {

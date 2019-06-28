@@ -42,6 +42,7 @@ routes.get("/game/hotel", game_hotel.index);
 // market routes
 routes.get("/game/market", game_market.index);
 routes.post("/game/market/transaction", game_market.transaction);
+routes.delete("/game/market/transaction", game_market.dump);
 
 // airport routes
 routes.get("/game/airport", game_airport.index);

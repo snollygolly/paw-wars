@@ -283,6 +283,86 @@ describe("Market - Transaction Validation (Sell)", (done) => {
 	});
 });
 
+describe("Market - Transaction Validation (Dump)", (done) => {
+	let oldLife;
+	let oldListing;
+	let oldInventory;
+	let transaction;
+	let newLife;
+	let itemID;
+
+	before(() => {
+		// set up life
+		life = model.generateLife(config.PLAYER, config.LOCATION);
+		life.testing = true;
+
+		oldLife = JSON.parse(JSON.stringify(life));
+		itemID = oldLife.listings.market[0].id;
+		oldListing = common.getObjFromID(itemID, oldLife.listings.market);
+		// give us money so we can buy this item
+		oldLife.current.finance.cash += oldListing.price * config.UNITS;
+		// start to set up a buy transaction first
+		transaction = makeTransaction("buy", itemID);
+		oldLife = market.doMarketTransaction(oldLife, transaction);
+		// set up listings
+		oldInventory = {
+			id: itemID,
+			units: config.UNITS
+		};
+		// do the sell and check start the tests
+		transaction = makeTransaction("dump", itemID);
+		newLife = market.dumpInventory(oldLife, transaction);
+	});
+
+	it("market should update the player inventory", (done) => {
+		// set up
+		const newInventory = common.getObjFromID(itemID, newLife.current.inventory);
+		const newUnits = oldInventory.units - config.UNITS;
+		// make sure the listing updated after the buy
+		expect(newInventory).to.have.property("units");
+		expect(newInventory.units).to.be.a("number");
+		expect(newInventory.units).to.be.at.least(0);
+		expect(newInventory.units).to.equal(newUnits);
+		expect(common.isWholeNumber(newInventory.units)).to.be.true;
+		return done();
+	});
+
+	it("market should not update the player cash", (done) => {
+		const newCash = oldLife.current.finance.cash + (oldListing.price * config.UNITS);
+		expect(newLife.current.finance.cash).to.equal(oldLife.current.finance.cash);
+		return done();
+	});
+
+	it("market should update the player storage", (done) => {
+		// set up
+		const newStorage = oldLife.current.storage.available + config.UNITS;
+		// make sure the cash updated after the buy
+		expect(newLife.current.storage.available).to.be.a("number");
+		expect(newLife.current.storage.available).to.be.at.least(0);
+		expect(newLife.current.storage.available).to.equal(newStorage);
+		expect(common.isWholeNumber(newLife.current.storage.available)).to.be.true;
+		return done();
+	});
+
+	it("market should update the player actions", (done) => {
+		// set up
+		const newAction = newLife.actions.pop();
+		// make sure the listing updated after the buy
+		// turn
+		expect(newAction).to.have.property("turn");
+		expect(newAction.turn).to.be.a("number");
+		expect(newAction.turn).to.equal(oldLife.current.turn);
+		// type
+		expect(newAction).to.have.property("type");
+		expect(newAction.type).to.equal("market");
+		// data
+		expect(newAction).to.have.property("data");
+		expect(newAction.data).to.be.an("object");
+		expect(newAction.data).to.equal(transaction);
+		return done();
+	});
+});
+
 function makeTransaction(type, itemID) {
 	return {
 		id: "testing",

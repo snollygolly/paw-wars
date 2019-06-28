@@ -143,7 +143,7 @@ module.exports = {
 		const phrases = [
 			`I was heading to the market to ${data.data.type} the ${data.item.name} and everything seemed fine.  When I met up with the cat I was supposed to see though, he asked if he could pay in fish.  I told him I needed the money and he paid me in money AND fish.  Cats from ${data.location.country} are wild.`,
 			`After I want to the market to ${data.data.type} the ${data.item.name} I decided to take in some of the local culture.  I wandered around ${data.location.country} for a while they tried some street food that looked like a deep friend tennis ball.  I don't think it actually was one, but it sure tasted good.  Maybe that's why dogs are always chasing them.`,
-			`It was really a great day for ${(data.data.type === "buy") ? "buying" : "selling"} in the market.  I made an absolute killing on ${data.item.name}.  While I was sitting on a bench nearby enjoying some smuggled milk, I saw the most beautiful bird fly by and land next to me.  He was sure delicious.`
+			`It was really a great day to ${data.data.type} in the market.  After I dealt with the ${data.item.name}, I went for a nice walk on the boardwalk.  When I got done I sat on a bench nearby and enjoyed some smuggled milk.  I was about to finish when I saw the most beautiful bird fly by and land next to me.  He was sure delicious.`
 		];
 		return phrases[common.getRandomInt(0, phrases.length - 1)];
 	},

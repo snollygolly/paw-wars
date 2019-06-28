@@ -5,8 +5,61 @@
 		<h1>Storage</h1>
 		<br>
 		<p>You currently have <strong>{{life.current.storage.available}}</strong> units of storage available out of <strong>{{life.current.storage.total}}</strong> units total.</p>
-		{{#each life.current.inventory}}
-		{{#if_cond this.units ">" 0}}<p>You have <strong>{{this.units}}</strong> units of <strong>{{get_item_name this.id}}</strong></p>{{/if_cond}}
-		{{/each}}
+		<div id="alert-container"></div>
+		<br>
+		<div class="row">
+			{{#each life.current.inventory}}
+			{{#if_cond this.units ">" 0}}
+			<div class="col-sm-6 col-xs-12">
+				<div class="card text-xs-center transaction-listing" data-id="{{id}}">
+					<div class="card-body card-block">
+						<h4 class="card-title">{{get_item_name this.id}}</h4>
+						<p class="card-text">You have <strong><span class="transaction-listing-units">{{this.units}}</span></strong> units of <strong>{{get_item_name this.id}}</strong></p>
+					</div>
+					<div class="card-footer card-button-footer">
+						<button class="btn btn-success transaction-dump-btn"
+							data-type="dump"
+							data-id="{{id}}"
+							data-name="{{name}}"
+							data-units="{{units}}"
+							data-toggle="modal"
+							data-target="#transaction-modal">Dump</button>
+					</div>
+				</div>
+			</div>
+			{{!-- sm --}}
+			{{#if_cond (math (math @index '+' 1) '%' 2) '===' 0}}
+			<div class="clearfix hidden-md-up hidden-xs-down"></div>
+			{{/if_cond}}
+			{{!-- xs --}}
+			<div class="clearfix hidden-sm-up"></div>
+			{{/if_cond}}
+			{{/each}}
+		</div>
 	</div>
 </div><!-- /.container -->
+
+<div class="modal fade" id="transaction-modal" data-cash="{{life.current.finance.cash}}" data-available-storage="{{life.current.storage.available}}">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h4 id="transaction-title" class="modal-title"></h4>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<fieldset class="form-group">
+					<label id="transaction-units-label" for="transaction-units"></label>
+					<p id="transaction-sunk-cost"></p>
+					<input type="number" class="form-control" id="transaction-units" min="0" max="0" value="0" pattern="\d*">
+				</fieldset>
+				<p id="transaction-confirm-message"></p>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+				<button type="button" id="transaction-confirm-dump-btn" class="btn btn-danger" data-life-id="{{life._id}}">Dump</button>
+			</div>
+		</div><!-- /.modal-content -->
+	</div><!-- /.modal-dialog -->
+</div><!-- /.modal -->

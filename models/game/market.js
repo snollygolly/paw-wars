@@ -8,8 +8,13 @@ const model = require("../game_life.js");
 module.exports.saveMarketTransaction = async(id, transaction) => {
 	// get the latest copy from the database
 	let life = await model.getLife(id);
-	// run all the transaction logic against it and get it back
-	life = module.exports.doMarketTransaction(life, transaction);
+	if (transaction.type === "dump") {
+		// see if this is a dump
+		life = module.exports.dumpInventory(life, transaction);
+	} else {
+		// run all the transaction logic against it and get it back
+		life = module.exports.doMarketTransaction(life, transaction);
+	}
 	// check for errors
 	if (life.error === true) {
 		// exit early
@@ -198,4 +203,28 @@ module.exports.generateMarketListings = function generateMarketListings(life, tu
 		priceArr.push(priceObj);
 	}
 	return priceArr;
+};
+
+module.exports.dumpInventory = function dumpInventory(life, transaction) {
+	const newLife = JSON.parse(JSON.stringify(life));
+	// see if they have the item they want to dump in their inventory
+	const inventory = common.getObjFromID(transaction.item, newLife.current.inventory);
+	if (inventory === false) {
+		return {error: true, message: "You can't dump an item you don't have"};
+	}
+	if (transaction.units > inventory.units) {
+		return {error: true, message: "Transaction dumps more units than available"};
+	}
+	// adjust the storage
+	newLife.current.storage.available += transaction.units;
+	// adjust the inventory stock
+	inventory.units -= transaction.units;
+	newLife.current.inventory = common.replaceObjFromArr(inventory, newLife.current.inventory);
+	newLife.actions.push({
+		turn: life.current.turn,
+		type: "market",
+		data: transaction
+	});
+	// common.log("debug", "* doMarketTransaction:", life);
+	return newLife;
 };

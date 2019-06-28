@@ -28,6 +28,8 @@ The game ends when any of the following take place:
 - You should consider the discount of an item when deciding to buy or sell.  If you purchased a large volume of items at a mild discount, it might make sense to wait a little longer until the price is inflated.  If you got items on a steep discount though, offloading them at a mildly inflated price might make sense to free up storage space to get items with a better discount.
 
 - Time is the only thing you can't get more of.  It makes sense to try to take shorter flights whenever possible.  This is especially true if you have a loan from the bank.
+
+- Forget what you're carrying?  Need to dump some contraband so the cops don't find it?  You can manage your current stash by clicking the briefcase icon in the HUD.
 ---
 
 ```

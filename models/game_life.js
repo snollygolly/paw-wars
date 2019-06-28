@@ -127,6 +127,7 @@ module.exports.getScore = (life) => {
 // market
 module.exports.saveMarketTransaction = market.saveMarketTransaction;
 module.exports.generateMarketListings = market.generateMarketListings;
+module.exports.dumpInventory = market.dumpInventory;
 
 // airport
 module.exports.saveAirportFly = airport.saveAirportFly;

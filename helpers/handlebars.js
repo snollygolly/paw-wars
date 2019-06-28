@@ -288,11 +288,11 @@ hbs.registerHelper("get_obit_stash_flavor", function getObitHeat(size, opts) {
 	const expanded = size - game.market.starting_storage;
 	if (expanded > game.market.starting_storage * 2) {
 		return localization("obituary_stash_highest", size);
-	} else if (expanded >= game.market.starting_storage * 1.5) {
-		return localization("obituary_stash_higher", size);
 	} else if (expanded >= game.market.starting_storage * 1) {
+		return localization("obituary_stash_higher", size);
+	} else if (expanded >= game.market.starting_storage * 0.5) {
 		return localization("obituary_stash_high", size);
-	} else if (expanded > game.market.starting_storage * 0.5) {
+	} else if (expanded > game.market.starting_storage) {
 		return localization("obituary_stash_low", size);
 	}
 	return localization("obituary_stash_lower", size);

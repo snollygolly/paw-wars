@@ -314,7 +314,7 @@
   {
     "id": "KIX",
     "name": "Kansai International Airport",
-    "city": "Tokyo",
+    "city": "Osaka",
     "country": "Japan",
     "continent": "Asia",
     "size": 20,
@@ -482,7 +482,7 @@
   {
     "id": "SUB",
     "name": "Juanda International Airport",
-    "city": "Jakarta",
+    "city": "Sedati",
     "country": "Indonesia",
     "continent": "Asia",
     "size": 10,

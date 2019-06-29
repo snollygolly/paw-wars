@@ -26,8 +26,12 @@ $( document ).ready(function() {
       case "repay":
         friendlyType = "Lending Transaction";
         maxMessage = "You currently have <strong>$" + max + "</strong> in the bank.";
-        // the "max" here is actually the amount of the loan
-        $('#transaction-all-btn').data('max', button.data('debt'));
+        if (max >= button.data('debt')) {
+          // the "max" here is actually the amount of the loan
+          $('#transaction-all-btn').data('max', button.data('debt'));
+        } else {
+          $('#transaction-all-btn').data('max', max);
+        }
         break;
       case "borrow":
         friendlyType = "Lending Transaction";

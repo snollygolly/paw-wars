@@ -36,6 +36,78 @@
     }
   },
   {
+    "id": "ORD",
+    "name": "O'Hare International Airport",
+    "city": "Chicago",
+    "country": "United States of America",
+    "continent": "North America",
+    "size": 10,
+    "coordinates": {
+      "latitude": 41.973971,
+      "longitude": -87.907836
+    }
+  },
+  {
+    "id": "BWI",
+    "name": "Baltimore–Washington International Airport",
+    "city": "Baltimore",
+    "country": "United States of America",
+    "continent": "North America",
+    "size": 10,
+    "coordinates": {
+      "latitude": 39.176905,
+      "longitude": -76.668618
+    }
+  },
+  {
+    "id": "BOS",
+    "name": "Logan International Airport",
+    "city": "Boston",
+    "country": "United States of America",
+    "continent": "North America",
+    "size": 8,
+    "coordinates": {
+      "latitude": 42.365328,
+      "longitude": -71.009861
+    }
+  },
+  {
+    "id": "PHL",
+    "name": "Philadelphia International Airport",
+    "city": "Philadelphia",
+    "country": "United States of America",
+    "continent": "North America",
+    "size": 8,
+    "coordinates": {
+      "latitude": 39.874643,
+      "longitude": -75.243270
+    }
+  },
+  {
+    "id": "IAH",
+    "name": "George Bush Intercontinental Airport",
+    "city": "Houston",
+    "country": "United States of America",
+    "continent": "North America",
+    "size": 8,
+    "coordinates": {
+      "latitude": 29.990443,
+      "longitude": -95.337094
+    }
+  },
+  {
+    "id": "MIA",
+    "name": "Miami International Airport",
+    "city": "Miami",
+    "country": "United States of America",
+    "continent": "North America",
+    "size": 7,
+    "coordinates": {
+      "latitude": 25.796152,
+      "longitude": -80.287748
+    }
+  },
+  {
     "id": "MEX",
     "name": "Mexico City International Airport",
     "city": "Mexico City",
@@ -60,6 +132,18 @@
     }
   },
   {
+    "id": "EZE",
+    "name": "Ministro Pistarini International Airport",
+    "city": "Buenos Aires",
+    "country": "Argentina",
+    "continent": "South America",
+    "size": 16,
+    "coordinates": {
+      "latitude": -34.814898,
+      "longitude": -58.534957
+    }
+  },
+  {
     "id": "BOG",
     "name": "El Dorado International Airport",
     "city": "Bogota",
@@ -81,6 +165,18 @@
     "coordinates": {
       "latitude": -22.9111438,
       "longitude": -43.1670642
+    }
+  },
+  {
+    "id": "GRU",
+    "name": "Sao Paulo International Airport",
+    "city": "Sao Paulo",
+    "country": "Brazil",
+    "continent": "South America",
+    "size": 24,
+    "coordinates": {
+      "latitude": -23.430186,
+      "longitude": -46.473044
     }
   },
   {
@@ -120,6 +216,18 @@
     }
   },
   {
+    "id": "DUS",
+    "name": "Dusseldorf Airport",
+    "city": "Rhine-Ruhr",
+    "country": "Germany",
+    "continent": "Europe",
+    "size": 11,
+    "coordinates": {
+      "latitude": 51.287460,
+      "longitude": 6.766105
+    }
+  },
+  {
     "id": "CDG",
     "name": "Paris Charles de Gaulle Airport",
     "city": "Paris",
@@ -141,6 +249,18 @@
     "coordinates": {
       "latitude": 40.9829888,
       "longitude": 28.8082538
+    }
+  },
+  {
+    "id": "MXP",
+    "name": "Milan Malpensa Airport",
+    "city": "Milan",
+    "country": "Italy",
+    "continent": "Europe",
+    "size": 9,
+    "coordinates": {
+      "latitude": 45.629897,
+      "longitude": 8.724640
     }
   },
   {
@@ -192,6 +312,18 @@
     }
   },
   {
+    "id": "KIX",
+    "name": "Kansai International Airport",
+    "city": "Tokyo",
+    "country": "Japan",
+    "continent": "Asia",
+    "size": 20,
+    "coordinates": {
+      "latitude": 34.432091,
+      "longitude": 135.230372
+    }
+  },
+  {
     "id": "KHI",
     "name": "Jinnah International Airport",
     "city": "Karachi",
@@ -201,6 +333,30 @@
     "coordinates": {
       "latitude": 24.900457,
       "longitude": 67.1659709
+    }
+  },
+  {
+    "id": "IKA",
+    "name": "Imam Khomeini International Airport",
+    "city": "Tehran",
+    "country": "Iran",
+    "continent": "Asia",
+    "size": 14,
+    "coordinates": {
+      "latitude": 35.409536,
+      "longitude": 51.159159
+    }
+  },
+  {
+    "id": "RUH",
+    "name": "King Khalid International Airport",
+    "city": "Riyadh",
+    "country": "Saudi Arabia",
+    "continent": "Asia",
+    "size": 8,
+    "coordinates": {
+      "latitude": 24.959794,
+      "longitude": 46.699691
     }
   },
   {
@@ -216,6 +372,18 @@
     }
   },
   {
+    "id": "HKG",
+    "name": "Hong Kong International Airport",
+    "city": "Hong Kong",
+    "country": "China",
+    "continent": "Asia",
+    "size": 8,
+    "coordinates": {
+      "latitude": 22.306952,
+      "longitude": 113.919641
+    }
+  },
+  {
     "id": "PVG",
     "name": "Shanghai Pudong International Airport",
     "city": "Shanghai",
@@ -228,6 +396,42 @@
     }
   },
   {
+    "id": "CAN",
+    "name": "Guangzhou Baiyun International Airport",
+    "city": "Guangzhou",
+    "country": "China",
+    "continent": "Asia",
+    "size": 25,
+    "coordinates": {
+      "latitude": 23.395923,
+      "longitude": 113.307835
+    }
+  },
+  {
+    "id": "PEK",
+    "name": "Beijing Capital International Airport",
+    "city": "Beijing",
+    "country": "China",
+    "continent": "Asia",
+    "size": 24,
+    "coordinates": {
+      "latitude": 40.079927,
+      "longitude": 116.603289
+    }
+  },
+  {
+    "id": "SZX",
+    "name": "Shenzhen Bao'an International Airport",
+    "city": "Shenzhen",
+    "country": "China",
+    "continent": "Asia",
+    "size": 24,
+    "coordinates": {
+      "latitude": 22.641935,
+      "longitude": 113.815838
+    }
+  },
+  {
     "id": "DEL",
     "name": "Indira Gandhi International Airport",
     "city": "New Delhi",
@@ -237,6 +441,18 @@
     "coordinates": {
       "latitude": 28.5561624,
       "longitude": 77.0977691
+    }
+  },
+  {
+    "id": "BOM",
+    "name": "Chhatrapati Shivaji International Airport",
+    "city": "Mumbai",
+    "country": "India",
+    "continent": "Asia",
+    "size": 21,
+    "coordinates": {
+      "latitude": 19.091161,
+      "longitude": 72.865550
     }
   },
   {
@@ -261,6 +477,30 @@
     "coordinates": {
       "latitude": -6.1204706,
       "longitude": 106.6579084
+    }
+  },
+  {
+    "id": "SUB",
+    "name": "Juanda International Airport",
+    "city": "Jakarta",
+    "country": "Indonesia",
+    "continent": "Asia",
+    "size": 10,
+    "coordinates": {
+      "latitude": -7.378768,
+      "longitude": 112.787289
+    }
+  },
+  {
+    "id": "FIH",
+    "name": "N'djili Airport",
+    "city": "Kinshasa",
+    "country": "Democratic Republic of the Congo",
+    "continent": "Africa",
+    "size": 12,
+    "coordinates": {
+      "latitude": -4.389095,
+      "longitude": 15.446166
     }
   },
   {

@@ -61,7 +61,7 @@ module.exports.generateAirportListings = function generateAirportListings(life) 
 	const listingMulti = (life.current.location.size * game.market.size_affect) / game.market.size_max;
 	const listingLength = Math.ceil(listingMulti * placesJSON.length);
 	// remove random amounts
-	const prunedPlacesJSON = common.randomShrinkArr(placesJSON, listingLength);
+	const prunedPlacesJSON = generatePrunedPlaces(placesJSON, location.country, listingLength);
 	for (const place of prunedPlacesJSON) {
 		const priceObj = {
 			id: place.id,
@@ -137,5 +137,22 @@ module.exports.generateAirportListings = function generateAirportListings(life) 
 		const turnsPerHour = game.airport.turns_per_hour;
 
 		return Math.ceil(hours * turnsPerHour);
+	}
+
+	function generatePrunedPlaces(places, country, size) {
+		const shuffledArr = common.shuffleArr(places);
+		const returnArr = [];
+		let currentSize = 0;
+		for (const place of shuffledArr) {
+			if (place.country === country) {
+				returnArr.push(place);
+				continue;
+			}
+			if (currentSize < size) {
+				returnArr.push(place);
+				currentSize++;
+			}
+		}
+		return returnArr;
 	}
 };

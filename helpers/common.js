@@ -64,6 +64,26 @@ module.exports.randomShrinkArr = function randomShrinkArr(arr, newSize) {
 	return returnArr;
 };
 
+module.exports.shuffleArr = function shuffleArr(arr) {
+	const clonedArr = JSON.parse(JSON.stringify(arr));
+	let currentIndex = clonedArr.length;
+	let temporaryValue;
+	let randomIndex;
+
+	// While there remain elements to shuffle...
+	while (0 !== currentIndex) {
+		// Pick a remaining element...
+		randomIndex = Math.floor(Math.random() * currentIndex);
+		currentIndex -= 1;
+
+		// And swap it with the current element.
+		temporaryValue = clonedArr[currentIndex];
+		clonedArr[currentIndex] = clonedArr[randomIndex];
+		clonedArr[randomIndex] = temporaryValue;
+	}
+	return clonedArr;
+};
+
 module.exports.rollDice = function rollDice(min, max, luck) {
 	if (typeof(luck) == "undefined") {
 		if (max < min) {

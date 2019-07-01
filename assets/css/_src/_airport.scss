@@ -10,10 +10,70 @@
 	max-width: none;
 }
 
-.transport-info .card {
-	cursor: pointer;
+.transport-info {
+  font-family: 'Airport Open';
+  background-color: #232529;
+  text-align: center;
+  font-size: .8rem;
 
-	&:hover {
-		box-shadow: 0 .1875rem .375rem rgba(0, 0, 0, .1125) !important;
-	}
+  &, th, td {
+    border: 1px solid #fff;
+  }
+
+  th, td {
+    padding: .5rem;
+  }
+
+  th {
+    color: #ddd;
+  }
+
+  td {
+    color: #F5EF5A;
+  }
+
+  tr {
+    cursor: pointer;
+  }
+
+  .align-left {
+    text-align: left;
+  }
+
+  &.mobile {
+    color: #ddd;
+    background-color: inherit;
+
+    .transport-buy {
+      background-color: #232529;
+      padding-bottom: .5rem;
+
+      + .transport-buy {
+        margin-top: 1rem;
+      }
+    }
+
+    p {
+      margin: 0;
+      padding: .25rem;
+
+      + p {
+        font-size: .6rem;
+        padding-bottom: 1rem;
+      }
+    }
+
+    .table {
+      margin-bottom: 0;
+    }
+
+    th, td {
+      padding: 0;
+    }
+
+    td {
+      border: 0 none;
+      font-size: 1rem;
+    }
+  }
 }

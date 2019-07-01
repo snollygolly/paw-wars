@@ -7,35 +7,55 @@
 		<p>Here's a listing of where you can fly right now and how much it will cost you. Click on a listing to buy a ticket and fly away from this crazy town.</p>
 		<div id="alert-container"></div>
 		<br>
-		<div class="row">
+		<div class="transport-info d-md-none mobile">
 			{{#each life.listings.airport}}
-				<div class="col-lg-4 col-md-6 transport-info">
-					<div class="card" class="transport-buy" id="transport-buy-btn" data-id="{{id}}" data-name="{{name}}" data-price="{{price}}" data-city="{{city}}" data-country="{{country}}" data-flight-number="{{flight_number}}" data-flight-time="{{flight_time}}" data-toggle="modal" data-target="#transport-modal">
-						<div class="card-body card-block">
-							<h5 class="card-title">{{name}}</h5>
-							<h6 class="card-subtitle text-muted font-italic">{{city}}, {{country}}</h6>
-						</div>
-						<div class="card-footer">
-							<table class="table table-sm table-borderless">
-								<thead>
-									<tr>
-										<th>FLIGHT</th>
-										<th>DEST</th>
-										<th>PRICE</th>
-										<th>TURNS</th>
-									</tr>
-								</thead>
-								<tbody>
-									<td><tt>{{flight_number}}</tt></td>
-									<td><tt>{{id}}</tt></td>
-									<td><tt>${{price}}</tt></td>
-									<td><tt><strong>{{flight_time}}</strong></tt></td>
-								</tbody>
-							</table>
-						</div>
-					</div>
+				<div class="transport-buy" id="transport-buy-btn" data-id="{{id}}" data-name="{{name}}" data-price="{{price}}" data-city="{{city}}" data-country="{{country}}" data-flight-number="{{flight_number}}" data-flight-time="{{flight_time}}" data-toggle="modal" data-target="#transport-modal">
+					<p>{{name}}</p>
+					<p>{{city}}, {{country}}</p>
+					<table class="table table-sm table-borderless">
+						<thead>
+							<tr>
+								<th>FLIGHT</th>
+								<th>DEST</th>
+								<th>PRICE</th>
+								<th>TURNS</th>
+							</tr>
+						</thead>
+						<tbody>
+							<td><tt>{{flight_number}}</tt></td>
+							<td><tt>{{id}}</tt></td>
+							<td><tt>${{price}}</tt></td>
+							<td><tt><strong>{{flight_time}}</strong></tt></td>
+						</tbody>
+					</table>
 				</div>
 			{{/each}}
+		</div>
+		<div class="transport-info d-none d-md-block">
+			<table>
+				<thead>
+					<tr>
+						<th>AIRPORT</th>
+						<th>CITY</th>
+						<th>FLIGHT</th>
+						<th>DEST</th>
+						<th>PRICE</th>
+						<th>TURNS</th>
+					</tr>
+				</thead>
+				<tbody>
+					{{#each life.listings.airport}}
+						<tr class="transport-buy" id="transport-buy-btn" data-id="{{id}}" data-name="{{name}}" data-price="{{price}}" data-city="{{city}}" data-country="{{country}}" data-flight-number="{{flight_number}}" data-flight-time="{{flight_time}}" data-toggle="modal" data-target="#transport-modal">
+							<td class="align-left">{{name}}</td>
+							<td class="align-left">{{city}}, {{country}}</td>
+							<td>{{flight_number}}</td>
+							<td>{{id}}</td>
+							<td>${{price}}</td>
+							<td>{{flight_time}}</td>
+						</tr>
+					{{/each}}
+				</tbody>
+			</table>
 		</div>
 	</div>
 </div><!-- /.container -->

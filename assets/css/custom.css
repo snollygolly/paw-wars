@@ -22,6 +22,18 @@ body {
 .game-content {
   padding-top: 80px; }
 
+@font-face {
+  font-family: 'Airport';
+  src: url("../fonts/Erbos-Draco-1st-NBP.woff2") format("woff2"), url("../fonts/Erbos-Draco-1st-NBP.woff") format("woff");
+  font-weight: normal;
+  font-style: normal; }
+
+@font-face {
+  font-family: 'Airport Open';
+  src: url("../fonts/Erbos-Draco-1st-Open-NBP.woff2") format("woff2"), url("../fonts/Erbos-Draco-1st-Open-NBP.woff") format("woff");
+  font-weight: normal;
+  font-style: normal; }
+
 .brand-logo {
   height: 35px; }
 
@@ -82,7 +94,41 @@ a:hover .card {
 .transport-table {
   max-width: none; }
 
-.transport-info .card {
-  cursor: pointer; }
-  .transport-info .card:hover {
-    box-shadow: 0 0.1875rem 0.375rem rgba(0, 0, 0, 0.1125) !important; }
+.transport-info {
+  font-family: 'Airport Open';
+  background-color: #232529;
+  text-align: center;
+  font-size: .8rem; }
+  .transport-info, .transport-info th, .transport-info td {
+    border: 1px solid #fff; }
+  .transport-info th, .transport-info td {
+    padding: .5rem; }
+  .transport-info th {
+    color: #ddd; }
+  .transport-info td {
+    color: #F5EF5A; }
+  .transport-info tr {
+    cursor: pointer; }
+  .transport-info .align-left {
+    text-align: left; }
+  .transport-info.mobile {
+    color: #ddd;
+    background-color: inherit; }
+    .transport-info.mobile .transport-buy {
+      background-color: #232529;
+      padding-bottom: .5rem; }
+      .transport-info.mobile .transport-buy + .transport-buy {
+        margin-top: 1rem; }
+    .transport-info.mobile p {
+      margin: 0;
+      padding: .25rem; }
+      .transport-info.mobile p + p {
+        font-size: .6rem;
+        padding-bottom: 1rem; }
+    .transport-info.mobile .table {
+      margin-bottom: 0; }
+    .transport-info.mobile th, .transport-info.mobile td {
+      padding: 0; }
+    .transport-info.mobile td {
+      border: 0 none;
+      font-size: 1rem; }

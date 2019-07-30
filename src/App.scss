@@ -1,0 +1,30 @@
+@import '~bootstrap/scss/functions';
+@import '~bootstrap/scss/variables';
+@import '~bootstrap/scss/mixins';
+
+.logo {
+  display: block;
+  margin: 0 auto 1rem;
+}
+
+.lead {
+  margin-bottom: 3rem;
+}
+
+.github-corner {
+  position: relative;
+  display: block;
+}
+
+.navbar {
+  height: 4rem;
+}
+
+.container {
+  padding-top: 2.5rem;
+  padding-bottom: 1rem;
+
+  @include media-breakpoint-down(xs) {
+    padding-top: 1rem;
+  }
+}

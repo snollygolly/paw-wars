@@ -1,3 +1,7 @@
+# [{{config.site.name}}: The Definitive Guide](/manual)
+
+---
+
 ## Airport
 The airport is the place you go to change locations and explore new markets.  Size plays an important role in Airports as well as [Markets](/manual/market).  The smaller a city, the fewer outbound flights it has.  The bigger a city, the more outbound flights it has.  The amount that the size of a city contributes to outbound flight availability is currently __{{math game.airport.size_affect \"*\" 100}}%__.  For all the [Places](/manual/places) in the game, there is a size assigned to it (displayed in millions of people populating that metro area). Based on that size and the maximum size (__{{game.airport.size_max}}__), the availability and price of flights goes up and down.  Much like [Markets](/manual/market), Airports have a "base price as well".  This determines the rough range of prices for flights.  It's currently set at __${{game.airport.base_price}}__.
 

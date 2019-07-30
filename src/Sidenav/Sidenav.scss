@@ -1,0 +1,85 @@
+@import '~bootstrap/scss/functions';
+@import '~bootstrap/scss/variables';
+@import '~bootstrap/scss/mixins';
+
+.sidenav-outer-container {
+  height: calc(100vh - 2.5rem);
+  display: flex;
+
+  @include media-breakpoint-down(xs) {
+    height: auto;
+  }
+
+  .sidenav {
+    position: sticky;
+    top: 4rem;
+    z-index: 1000;
+    height: calc(100vh - 4rem);
+
+    .sidenav-container {
+      margin: 0 -15px;
+    }
+
+    .sidenav-nav {
+      max-height: calc(100vh - 9rem);
+      overflow-y: auto;
+      margin: 1rem 0;
+    }
+
+    .sidenav-main-header {
+      display: block;
+      font-weight: bold;
+      padding: 1rem !important;
+    }
+
+    .header {
+      display: block;
+      padding: 1.5rem 1rem .5rem;
+      font-weight: bold;
+    }
+
+    .sidenav-link {
+      display: block;
+      padding: .5rem 1rem;
+
+      &.selected {
+        background-color: $primary;
+        color: #fff;
+      }
+    }
+  }
+
+  .sidenav-collapse {
+    .sidenav-collapse-header {
+      padding: .5rem 30px;
+      background-color: $primary;
+      margin: 0 -15px;
+
+      button {
+        border-color: lighten($primary, 15);
+      }
+    }
+
+    .sidenav-container {
+      margin: 0 -15px;
+    }
+
+    .sidenav-link {
+      display: block;
+      padding: .25rem 30px;
+    }
+
+    .header {
+      display: block;
+      padding: .5rem 30px .25rem;
+      font-weight: bold;
+    }
+  }
+
+  .main {
+    @include media-breakpoint-up(sm) {
+      max-height: calc(100vh - 4rem);
+      overflow-y: auto;
+    }
+  }
+}

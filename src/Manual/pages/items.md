@@ -1,3 +1,7 @@
+# [{{config.site.name}}: The Definitive Guide](/manual)
+
+---
+
 ## Items
 Items play a critical role in the game.  They are the things that you buy and sell to make money.  They are listed below along with their stats and properties.
 

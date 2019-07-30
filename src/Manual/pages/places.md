@@ -1,3 +1,7 @@
+# [{{config.site.name}}: The Definitive Guide](/manual)
+
+---
+
 ## Places
 Places are defined as destinations you can travel to.  Each place is unique, and has a number of parameters that determine how it behaves.
 

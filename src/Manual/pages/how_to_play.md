@@ -1,3 +1,7 @@
+# [{{config.site.name}}: The Definitive Guide](/manual)
+
+---
+
 ## How To Play
 __{{config.site.name}}__ is a turn based game. The administrator is able to set a "turn limit." This limit is how many turns you can play before the game is over and your score is calculated.  Your current limit is __{{game.turns}}__.  Keep in mind that if this setting is set to 0 you will be in "endless" mode.
 

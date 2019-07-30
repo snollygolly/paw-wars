@@ -1,3 +1,7 @@
+# [{{config.site.name}}: The Definitive Guide](/manual)
+
+---
+
 ## Hotel
 The Hotel is the first place you see when you start playing the game.  You can think of it as your base of operations or cat tree (whichever works for you).  The [Market](/manual/market), [Airport](/manual/airport), [Bank](/manual/bank), and more are all available from your Hotel.  You can go to these places after checking into your Hotel at each new location you visit.
 

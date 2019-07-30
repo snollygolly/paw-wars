@@ -1,3 +1,7 @@
+# [{{config.site.name}}: The Definitive Guide](/manual)
+
+---
+
 ## Police
 Police play a critical role in the mid/late game.  When you first start out, you have __{{game.police.starting_heat}}__ heat.  Heat is an arbitrary measure of how wanted you are in general.  When you engage with police in encounters they find suspicious, you'll build your heat at a rate of __{{game.police.heat_rate}}__ heat per interaction.  Keep in mind that you can have several interactions within an encounter, so heat may be applied multiple times.  A heat cap (of __{{game.police.heat_cap}}__ heat) exists to serve as a guide of where heat should be at the high end of things.  This cap isn't a true cap in that the player's heat may rise above this level.  Police encounters when players have very high heat will be difficult to defeat, and will happen with a good degree of frequency.
 

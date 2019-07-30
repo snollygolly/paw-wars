@@ -1,3 +1,7 @@
+# [{{config.site.name}}: The Definitive Guide](/manual)
+
+---
+
 ## Bank
 You will start off in a city of your choosing with $__{{game.bank.starting_cash}}__ in starting cash, $__{{game.bank.starting_savings}}__ in starting savings, and $-__{{game.bank.starting_debt}}__ in starting debt.
 

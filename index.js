@@ -5,6 +5,7 @@ const config = require("./config.json");
 const common = require("./helpers/common");
 
 const Koa = require("koa");
+const cors = require('@koa/cors');
 const hbs = require("koa-hbs");
 const serve = require("koa-static");
 const mount = require("koa-mount");
@@ -15,6 +16,7 @@ const bodyParser = require("koa-bodyparser");
 const passport = require("koa-passport");
 
 const app = new Koa();
+app.use(cors());
 
 exports.app = app;
 exports.passport = passport;

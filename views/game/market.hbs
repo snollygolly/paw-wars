@@ -2,14 +2,21 @@
 	{{> hud}}
 	<div class="game-content">
 		<a href="/game/hotel">&lt;&nbsp;Back to Hotel</a>
-		<h1>Marketplace</h1>
-		<br>
-		<p>Here's a listing of which items you can buy and sell and the prices for each</p>
-		<div id="alert-container"></div>
+		<div class="row">
+			<div class="col-sm-6 location-header">
+				<h1>Marketplace</h1>
+				<br>
+				<p>Here's a listing of which items you can buy and sell and the prices for each</p>
+				<div id="alert-container"></div>
+			</div>
+			<div class="col-sm-6">
+				<img src="/assets/img/market.jpg" alt="Market Image" class="img-fluid" />
+			</div>
+		</div>
 		<br>
 		<div class="row">
 			{{#each life.listings.market}}
-			<div class="col-sm-6 col-xs-12">
+			<div class="col-md-4 col-sm-6 col-xs-12">
 				<div class="card text-xs-center transaction-listing" data-id="{{id}}">
 					<div class="card-body card-block">
 						<h4 class="card-title">{{name}}</h4>

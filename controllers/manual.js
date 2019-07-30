@@ -6,10 +6,6 @@ const itemsJSON = require("../models/game/data/items.json");
 const placesJSON = require("../models/game/data/places.json");
 const bluebird = require("bluebird");
 const fs = bluebird.promisifyAll(require("fs"));
-const marked = require("marked");
-marked.setOptions({
-	sanitize: false
-});
 const Handlebars = require("handlebars");
 
 module.exports.index = async(ctx) => {
@@ -30,13 +26,8 @@ module.exports.index = async(ctx) => {
 		places: placesJSON
 	};
 	const rawFile = await fs.readFileAsync(`views/manual/${partialName}.md`, "utf8");
-	// we have to manually replace escaped quotes because of marked
-	// https://github.com/chjj/marked/issues/269
-	let parsedFile = marked(rawFile);
-	parsedFile = parsedFile.replace(/\\?&quot;/g, '"');
+	const parsedFile = rawFile.replace(/\\"/g, '"');
 	const template = Handlebars.compile(parsedFile);
 	const final = template(data);
-	await ctx.render("manual/index", {
-		content: final
-	});
+	ctx.body = final;
 };

@@ -7,6 +7,7 @@ import { Navbar } from './Navbar';
 import { Home } from './Home';
 import { Login } from './Login';
 import { Manual } from './Manual';
+import { Records } from './Records';
 
 const App: React.FC = (): ReactElement => {
   return (
@@ -16,6 +17,7 @@ const App: React.FC = (): ReactElement => {
       <Route path="/" exact component={Home} />
       <Route path="/login" component={Login} />
       <Route path="/manual" component={Manual} />
+      <Route path="/records" component={Records} />
     </Router>
   );
 };

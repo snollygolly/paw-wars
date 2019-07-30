@@ -1,0 +1,55 @@
+@import '~bootstrap/scss/functions';
+@import '~bootstrap/scss/variables';
+@import '~bootstrap/scss/mixins';
+
+.records-header-container {
+  img {
+    display: block;
+    margin: 0 auto 2rem;
+  }
+
+  p {
+    text-align: center;
+  }
+}
+
+.records-container {
+  a {
+    text-decoration: none;
+    color: $secondary;
+    display: block;
+    padding: 0.75rem 1.25rem;
+    margin: -0.75rem -1.25rem;
+  }
+
+  .list-group-item {
+    cursor: pointer;
+
+    &:hover {
+      background-color: lighten($primary, 40);
+    }
+  }
+
+  [class^='medal'] {
+    margin-right: .5rem;
+  }
+
+  .medal-0 {
+    color: #000000;
+    background-color: #CFB53B;
+  }
+
+  .medal-1 {
+    color: #000000;
+    background-color: #E6E8FA;
+  }
+
+  .medal-2 {
+    color: #000000;
+    background-color: #8C7853;
+  }
+
+  .guest-badge {
+    margin-left: .5rem;
+  }
+}

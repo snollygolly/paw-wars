@@ -62,7 +62,7 @@ export class Manual extends Component<RouteComponentProps, ManualState> {
 
   public render(): ReactElement {
     return (
-      <div>
+      <>
         <GithubCorner
           href="https://github.com/snollygolly/paw-wars"
           direction="right"
@@ -163,7 +163,7 @@ export class Manual extends Component<RouteComponentProps, ManualState> {
                 path={this.props.match.path}
                 render={(): ReactElement => {
                   return (
-                    <div>
+                    <>
                       <img src={logo} className="img-fluid" alt="Paw Wars" />
                       <p>
                         <strong>Paw Wars</strong> is a game that takes place in a world where dogs are the ruling class
@@ -172,14 +172,14 @@ export class Manual extends Component<RouteComponentProps, ManualState> {
                         need. You travel the world buying and selling items, avoiding police, and hustling to get rich
                         or die trying.
                       </p>
-                    </div>
+                    </>
                   );
                 }}
               />
             </Container>
           }
         />
-      </div>
+      </>
     );
   }
 }

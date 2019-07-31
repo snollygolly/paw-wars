@@ -3,13 +3,6 @@
 @import '~bootstrap/scss/mixins';
 
 .sidenav-outer-container {
-  height: calc(100vh - 2.5rem);
-  display: flex;
-
-  @include media-breakpoint-down(xs) {
-    height: auto;
-  }
-
   .sidenav {
     position: sticky;
     top: 4rem;
@@ -23,7 +16,7 @@
     .sidenav-nav {
       max-height: calc(100vh - 9rem);
       overflow-y: auto;
-      margin: 1rem 0;
+      padding: 1rem 0;
     }
 
     .sidenav-main-header {
@@ -51,7 +44,7 @@
 
   .sidenav-collapse {
     .sidenav-collapse-header {
-      padding: .5rem 30px;
+      padding: .5rem 15px;
       background-color: $primary;
       margin: 0 -15px;
 

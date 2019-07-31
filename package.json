@@ -1,7 +1,30 @@
 {
-  "name": "paw-wars-react",
-  "version": "0.1.0",
-  "private": true,
+  "name": "paw-wars",
+  "version": "0.3.0",
+  "description": "A modern take on Drugwars (Dopewars), but with cats.",
+  "main": "index.js",
+  "scripts": {
+    "start": "concurrently --kill-others -p [{name}] -n \"API,REACT\" -c \"bgGreen.bold,bgBlue.bold\" \"./node_modules/.bin/nodemon -e js index.js\" \"react-scripts start\"",
+    "build": "react-scripts build",
+    "eject": "react-scripts eject",
+    "test": "mocha ./tests/ && eslint . && react-scripts test",
+    "coverage": "nyc --reporter=lcov --reporter=text-summary npm run test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/snollygolly/paw-wars.git"
+  },
+  "keywords": [
+    "paw-wars",
+    "drugwars",
+    "dopewars"
+  ],
+  "author": "snollygolly (@snollygolly)",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/snollygolly/paw-wars/issues"
+  },
+  "homepage": "https://github.com/snollygolly/paw-wars#readme",
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^1.2.19",
     "@fortawesome/free-solid-svg-icons": "^5.9.0",
@@ -52,12 +75,6 @@
     "nyc": "^14.1.1",
     "prettier": "^1.18.2",
     "prop-types": "^15.7.2"
-  },
-  "scripts": {
-    "start": "concurrently --kill-others -p [{name}] -n \"API,REACT\" -c \"bgGreen.bold,bgBlue.bold\" \"./node_modules/.bin/nodemon node index.js\" \"react-scripts start\"",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
   },
   "eslintConfig": {
     "extends": "react-app"

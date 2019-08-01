@@ -58,7 +58,7 @@ export class Records extends Component<{}, {}> {
                     {this.state.scores.map(
                       (score: Score, key: number): ReactElement => (
                         <ListGroup.Item key={score._id}>
-                          <Link to={`/records/obituary/${score._id}`}>
+                          <Link to={`/obituary/${score._id}`}>
                             <div className="d-flex justify-content-between align-items-center">
                               <div className="d-flex align-items-center">
                                 {key <= 0 && (

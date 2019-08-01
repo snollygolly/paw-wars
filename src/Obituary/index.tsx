@@ -1,0 +1,1 @@
+export { Obituary } from './Obituary';

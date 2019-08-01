@@ -3,6 +3,7 @@
 const config = require('../config.json');
 const lifeModel = require('../models/game_life');
 const playerModel = require('../models/game_player');
+const hbs = require('../helpers/handlebars');
 
 module.exports.index = async ctx => {
   let player;
@@ -59,12 +60,25 @@ module.exports.obituary = async ctx => {
   if (pastLife === null) {
     throw new Error("Life doesn't exist");
   }
+  pastLife.obituary = {
+    memories: hbs.getObitMemories(pastLife.actions),
+    stashFlavor: hbs.getObitStashFlavor(pastLife.current.storage.total),
+    heat: hbs.getObitHeat(pastLife.current.police.awareness)
+  };
+  pastLife.health = {
+    description: hbs.getLifeHealthDescription(pastLife.current.health.points)
+  };
   const life = ctx.session.life;
-  await ctx.render('obituary', {
+  // await ctx.render('obituary', {
+  //   pastLife: pastLife,
+  //   player: player,
+  //   life: life
+  // });
+  ctx.body = {
     pastLife: pastLife,
     player: player,
     life: life
-  });
+  };
 };
 
 module.exports.account = async ctx => {

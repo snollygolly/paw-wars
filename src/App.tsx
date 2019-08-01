@@ -8,6 +8,7 @@ import { Home } from './Home';
 import { Login } from './Login';
 import { Manual } from './Manual';
 import { Records } from './Records';
+import { Obituary } from './Obituary';
 
 const App: React.FC = (): ReactElement => {
   return (
@@ -18,6 +19,7 @@ const App: React.FC = (): ReactElement => {
       <Route path="/login" component={Login} />
       <Route path="/manual" component={Manual} />
       <Route path="/records" component={Records} />
+      <Route path="/obituary/:id" component={Obituary} />
     </Router>
   );
 };

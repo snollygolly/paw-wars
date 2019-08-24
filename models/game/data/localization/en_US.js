@@ -549,7 +549,7 @@ module.exports = {
 		const phrases = [
 			"You escaped Officer Barks.",
 			"Escaped by the skins of your paws.",
-			"Nice trick. Barks didn't see it coming, as you make it farther and father away.
+			"Nice trick. Barks didn't see it coming, as you make it farther and father away."
 		];
 		if (data === true) { return phrases; }
 		return phrases[common.getRandomInt(0, phrases.length - 1)];

@@ -29,7 +29,7 @@ module.exports = {
 	event_item_bust: (data) => {
 		const phrases = [
 			`The dogs have made a big bust on ${data.item.name}!  Prices are going through the roof.`,
-			`${data.item.name} is on the dogs' radar!  Expect a price hike.`,
+			`${data.item.name} is on the dogs radar!  Expect a price hike.`,
 			`Dogs have confiscated significant ${data.item.name}.  They are no longer going to be cheap.`
 		];
 		if (data.all) { return phrases; }

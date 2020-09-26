@@ -2,9 +2,16 @@ const config = require("../config.json");
 const MongoClient	= require("mongodb").MongoClient;
 
 // Connection URL
-const url = `mongodb://${config.site.db.host}:${config.site.db.port}`;
+let url;
 const dbName = config.site.db.name;
+const user = config.site.db.user;
+const password = config.site.db.password;
 
+if (user && password) {
+	url = `mongodb://${user}:${password}@${config.site.db.host}:${config.site.db.port}`;
+} else {
+	url = `mongodb://${config.site.db.host}:${config.site.db.port}`;
+}
 
 // A custom Error just for database problems.
 function MongoDBError(message) {

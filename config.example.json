@@ -15,7 +15,9 @@
     "db": {
       "host": "localhost",
       "port": 27017,
-      "name": "PawWars"
+      "name": "PawWars",
+      "user": "",
+      "password": ""
     }
   }
 }

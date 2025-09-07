@@ -10,7 +10,7 @@ const serve = require("koa-static");
 const mount = require("koa-mount");
 
 // for passport support
-const session = require("koa-generic-session");
+const session = require("koa-session");
 const bodyParser = require("koa-bodyparser");
 const passport = require("koa-passport");
 
@@ -29,7 +29,15 @@ require("./helpers/handlebars");
 app.proxy = true;
 
 // sessions
-app.use(session());
+app.keys = [config.site.secret];
+const sessionStore = require("./helpers/session_store");
+const SESSION_CONFIG = {
+	key: "paw:sess",
+	// Keep default cookie options; data is stored server-side via store
+	store: sessionStore
+};
+
+app.use(session(SESSION_CONFIG, app));
 
 // body parser
 app.use(bodyParser());

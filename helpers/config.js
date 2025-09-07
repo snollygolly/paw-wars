@@ -86,7 +86,15 @@ config.getSessionStore = function getSessionStore() {
 			connectTimeout: 5000,
 			retryStrategy: (times) => Math.min(times * 200, 2000)
 		});
-		common.log("info", "Session store: redis", config.site.redis_url);
+		common.log("info", "Session store: redis");
+		if (store && store.client && typeof store.client.on === "function") {
+			const c = store.client;
+			c.on("connect", () => common.log("info", "Redis: connect"));
+			c.on("ready", () => common.log("info", "Redis: ready"));
+			c.on("reconnecting", () => common.log("warn", "Redis: reconnecting"));
+			c.on("end", () => common.log("warn", "Redis: end"));
+			c.on("error", (err) => common.log("warn", `Redis: error ${err.message}`));
+		}
 		return store;
 	} catch (err) {
 		common.log("warn", `Redis session store unavailable, using memory store: ${err.message}`);

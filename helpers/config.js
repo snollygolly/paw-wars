@@ -4,6 +4,11 @@ const fs = require("fs");
 const path = require("path");
 const common = require("./common");
 
+function isValidRedisUrl(url) {
+	if (!url || typeof url !== "string") { return false; }
+	return url.startsWith("redis://") || url.startsWith("rediss://");
+}
+
 function isRailway() {
 	return Boolean(
 		process.env.RAILWAY_PROJECT_ID
@@ -69,16 +74,19 @@ const config = {
 // otherwise falling back to the in-memory store.
 config.getSessionStore = function getSessionStore() {
 	const memoryStore = require("./session_store");
-	const useRedis = isProduction() && Boolean(config.site.redis_url);
+	const useRedis = isProduction() && isValidRedisUrl(config.site.redis_url);
 	if (!useRedis) {
 		common.log("info", "Session store: in-memory");
 		return memoryStore;
 	}
 	try {
-		const Redis = require("ioredis");
 		const koaRedis = require("koa-redis");
-		const client = new Redis(config.site.redis_url);
-		const store = koaRedis({ client });
+		const store = koaRedis({
+			url: config.site.redis_url,
+			maxRetriesPerRequest: 1,
+			enableOfflineQueue: false,
+			connectTimeout: 5000
+		});
 		common.log("info", "Session store: redis");
 		return store;
 	} catch (err) {

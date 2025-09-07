@@ -4,14 +4,13 @@ const config = require("../helpers/config");
 const game = require("../game.json");
 const itemsJSON = require("../models/game/data/items.json");
 const placesJSON = require("../models/game/data/places.json");
-const bluebird = require("bluebird");
-const fs = bluebird.promisifyAll(require("fs"));
+const fs = require("fs").promises;
 const { marked } = require("marked");
 
 const Handlebars = require("handlebars");
 
 module.exports.index = async(ctx) => {
-	const whitelist = await fs.readdirAsync("views/manual/");
+	const whitelist = await fs.readdir("views/manual/");
 	let partialName = "index";
 	if (ctx.params.page) {
 		// they passed a page, let's use it
@@ -27,7 +26,7 @@ module.exports.index = async(ctx) => {
 		items: itemsJSON,
 		places: placesJSON
 	};
-	const rawFile = await fs.readFileAsync(`views/manual/${partialName}.md`, "utf8");
+	const rawFile = await fs.readFile(`views/manual/${partialName}.md`, "utf8");
 	// we have to manually replace escaped quotes because of marked
 	// https://github.com/chjj/marked/issues/269
 	let parsedFile = marked.parse(rawFile);

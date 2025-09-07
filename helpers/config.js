@@ -4,11 +4,6 @@ const fs = require("fs");
 const path = require("path");
 const common = require("./common");
 
-function isValidRedisUrl(url) {
-	if (!url || typeof url !== "string") { return false; }
-	return url.startsWith("redis://") || url.startsWith("rediss://");
-}
-
 function isRailway() {
 	return Boolean(
 		process.env.RAILWAY_PROJECT_ID
@@ -29,10 +24,11 @@ function loadLocalConfig() {
 const fileConfig = loadLocalConfig();
 
 function isProduction() {
-	return process.env.NODE_ENV === "production" || isRailway();
+	return process.env.NODE_ENV === "production" || isRailway() || true;
 }
 
 const config = {
+	isProduction,
 	site: {
 		port: parseInt(process.env.PW_SITE__PORT || fileConfig.site?.port || 5050, 10),
 		name: process.env.PW_SITE__NAME || fileConfig.site?.name || "Paw Wars",
@@ -67,38 +63,6 @@ const config = {
 			user: process.env.MONGOUSER || fileConfig.site?.db?.user || "",
 			password: process.env.MONGOPASSWORD || fileConfig.site?.db?.password || ""
 		}
-	}
-};
-
-// Provide a session store, selecting Redis in production when available,
-// otherwise falling back to the in-memory store.
-config.getSessionStore = function getSessionStore() {
-	const memoryStore = require("./session_store");
-	const useRedis = isProduction() && isValidRedisUrl(config.site.redis_url);
-	if (!useRedis) {
-		common.log("info", "Session store: in-memory");
-		return memoryStore;
-	}
-	try {
-		const koaRedis = require("koa-redis");
-		const store = koaRedis({
-			url: config.site.redis_url,
-			connectTimeout: 5000,
-			retryStrategy: (times) => Math.min(times * 200, 2000)
-		});
-		common.log("info", "Session store: redis");
-		if (store && store.client && typeof store.client.on === "function") {
-			const c = store.client;
-			c.on("connect", () => common.log("info", "Redis: connect"));
-			c.on("ready", () => common.log("info", "Redis: ready"));
-			c.on("reconnecting", () => common.log("warn", "Redis: reconnecting"));
-			c.on("end", () => common.log("warn", "Redis: end"));
-			c.on("error", (err) => common.log("warn", `Redis: error ${err.message}`));
-		}
-		return store;
-	} catch (err) {
-		common.log("warn", `Redis session store unavailable, using memory store: ${err.message}`);
-		return memoryStore;
 	}
 };
 

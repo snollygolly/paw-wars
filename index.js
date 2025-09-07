@@ -10,9 +10,10 @@ const serve = require("koa-static");
 const mount = require("koa-mount");
 
 // for passport support
-const session = require("koa-session");
+const session = require("koa-generic-session");
 const bodyParser = require("koa-bodyparser");
 const passport = require("koa-passport");
+const redisStore = require("koa-redis");
 
 const app = new Koa();
 
@@ -30,18 +31,17 @@ app.proxy = true;
 
 // sessions
 app.keys = [config.site.secret];
-const sessionStore = config.getSessionStore();
-// 7 days session; secure when behind proxy; lax for CSRF protection
-const SESSION_CONFIG = {
-	key: "paw:sess",
-	maxAge: 7 * 24 * 60 * 60 * 1000,
-	rolling: true,
-	renew: true,
-	sameSite: "lax",
-	secure: Boolean(app.proxy),
-	store: sessionStore
-};
-app.use(session(SESSION_CONFIG, app));
+if (config.isProduction() === true) {
+	common.log("info", "Production detected, using Redis");
+	app.use(session({
+		store: redisStore({
+			url: config.site.redis_url
+		})
+	}));
+} else {
+	common.log("info", "Non-production detected, using in memory");
+	app.use(session());
+}
 
 // body parser
 app.use(bodyParser());

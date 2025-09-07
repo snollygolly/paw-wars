@@ -86,7 +86,7 @@ config.getSessionStore = function getSessionStore() {
 			connectTimeout: 5000,
 			retryStrategy: (times) => Math.min(times * 200, 2000)
 		});
-		common.log("info", "Session store: redis", process.env.REDISHOST);
+		common.log("info", "Session store: redis", config.site.redis_url);
 		return store;
 	} catch (err) {
 		common.log("warn", `Redis session store unavailable, using memory store: ${err.message}`);

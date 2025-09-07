@@ -18,6 +18,7 @@
       "name": "PawWars",
       "user": "",
       "password": ""
-    }
+    },
+    "redis_url": "http://user:pass@host"
   }
 }

@@ -2,6 +2,7 @@
 
 const fs = require("fs");
 const path = require("path");
+const common = require("./common");
 
 function isRailway() {
 	return Boolean(
@@ -22,11 +23,18 @@ function loadLocalConfig() {
 
 const fileConfig = loadLocalConfig();
 
+function isProduction() {
+	return process.env.NODE_ENV === "production" || isRailway();
+}
+
 const config = {
 	site: {
 		port: parseInt(process.env.PW_SITE__PORT || fileConfig.site?.port || 5050, 10),
 		name: process.env.PW_SITE__NAME || fileConfig.site?.name || "Paw Wars",
 		secret: process.env.PW_SITE__SECRET || fileConfig.site?.secret || "",
+		// Redis connection string for production session store
+		// Prefer REDIS_URL if provided by hosting platform
+		redis_url: process.env.REDIS_URL || fileConfig.site?.redis_url || "",
 
 		oauth: {
 			host: process.env.PW_SITE__OAUTH__HOST || fileConfig.site?.oauth?.host || "",
@@ -54,6 +62,28 @@ const config = {
 			user: process.env.MONGOUSER || fileConfig.site?.db?.user || "",
 			password: process.env.MONGOPASSWORD || fileConfig.site?.db?.password || ""
 		}
+	}
+};
+
+// Provide a session store, selecting Redis in production when available,
+// otherwise falling back to the in-memory store.
+config.getSessionStore = function getSessionStore() {
+	const memoryStore = require("./session_store");
+	const useRedis = isProduction() && Boolean(config.site.redis_url);
+	if (!useRedis) {
+		common.log("info", "Session store: in-memory");
+		return memoryStore;
+	}
+	try {
+		const Redis = require("ioredis");
+		const koaRedis = require("koa-redis");
+		const client = new Redis(config.site.redis_url);
+		const store = koaRedis({ client });
+		common.log("info", "Session store: redis");
+		return store;
+	} catch (err) {
+		common.log("warn", `Redis session store unavailable, using memory store: ${err.message}`);
+		return memoryStore;
 	}
 };
 

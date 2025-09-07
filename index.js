@@ -30,10 +30,15 @@ app.proxy = true;
 
 // sessions
 app.keys = [config.site.secret];
-const sessionStore = require("./helpers/session_store");
+const sessionStore = config.getSessionStore();
+// 7 days session; secure when behind proxy; lax for CSRF protection
 const SESSION_CONFIG = {
 	key: "paw:sess",
-	// Keep default cookie options; data is stored server-side via store
+	maxAge: 7 * 24 * 60 * 60 * 1000,
+	rolling: true,
+	renew: true,
+	sameSite: "lax",
+	secure: Boolean(app.proxy),
 	store: sessionStore
 };
 app.use(session(SESSION_CONFIG, app));

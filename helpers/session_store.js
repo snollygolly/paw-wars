@@ -7,19 +7,19 @@
 const store = new Map();
 
 module.exports = {
-  // Get session by key
-  get: async (key) => {
-    return store.get(key);
-  },
+	// Get session by key
+	get: (key) => {
+		return store.get(key);
+	},
 
-  // Set session by key
-  set: async (key, sess, maxAge, { rolling, changed } = {}) => {
-    store.set(key, sess);
-  },
+	// Set session by key
+	set: (key, sess, maxAge, { rolling, changed } = {}) => {
+		store.set(key, sess);
+	},
 
-  // Destroy session by key
-  destroy: async (key) => {
-    store.delete(key);
-  }
+	// Destroy session by key
+	destroy: (key) => {
+		store.delete(key);
+	}
 };
 

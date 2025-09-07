@@ -30,7 +30,13 @@ app.proxy = true;
 
 // sessions
 app.keys = [config.site.secret];
-app.use(session(app));
+const sessionStore = require("./helpers/session_store");
+const SESSION_CONFIG = {
+    key: "paw:sess",
+    // Keep default cookie options; data is stored server-side via store
+    store: sessionStore
+};
+app.use(session(SESSION_CONFIG, app));
 
 // body parser
 app.use(bodyParser());

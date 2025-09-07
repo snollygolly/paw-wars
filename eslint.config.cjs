@@ -12,7 +12,7 @@ module.exports = [
 	},
 	{
 		languageOptions: {
-			ecmaVersion: 2017,
+			ecmaVersion: 2021,
 			globals: Object.assign(
 				{},
 				globals.node,

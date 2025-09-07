@@ -4,7 +4,7 @@ const config = require("./helpers/config");
 
 const app = require("./index.js").app;
 const passport = require("./index.js").passport;
-const Router = require("koa-router");
+const Router = require("@koa/router");
 
 const routes = new Router();
 
@@ -97,4 +97,5 @@ routes.get("/auth/auth0/callback",
 	})
 );
 
-app.use(routes.middleware());
+app.use(routes.routes());
+app.use(routes.allowedMethods());

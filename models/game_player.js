@@ -1,6 +1,6 @@
 "use strict";
 
-const config = require("../config.json");
+const config = require("../helpers/config");
 const common = require("../helpers/common");
 const db = require("../helpers/db");
 const nouns = require("./game/data/nouns.json");

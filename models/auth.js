@@ -1,7 +1,7 @@
 "use strict";
 
 const passport = require("../index.js").passport;
-const config = require("../config.json");
+const config = require("../helpers/config");
 const playerModel = require("./game_player");
 const lifeModel = require("./game_life");
 

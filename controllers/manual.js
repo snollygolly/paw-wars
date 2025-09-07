@@ -1,6 +1,6 @@
 "use strict";
 
-const config = require("../config.json");
+const config = require("../helpers/config");
 const game = require("../game.json");
 const itemsJSON = require("../models/game/data/items.json");
 const placesJSON = require("../models/game/data/places.json");

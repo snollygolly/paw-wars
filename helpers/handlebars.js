@@ -2,7 +2,7 @@
 
 const Handlebars = require("handlebars");
 const hbs = require("koa-hbs");
-const config = require("../config.json");
+const config = require("./config");
 const game = require("../game.json");
 const common = require("./common");
 const itemsJSON = require("../models/game/data/items.json");

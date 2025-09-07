@@ -12,7 +12,7 @@ function isRailway() {
 }
 
 function loadLocalConfig() {
-	const p = path.resolve(__dirname, "config.json");
+	const p = path.resolve(__dirname, "..", "config.json");
 	if (!isRailway() && fs.existsSync(p)) {
 		const raw = fs.readFileSync(p, "utf8");
 		return JSON.parse(raw);

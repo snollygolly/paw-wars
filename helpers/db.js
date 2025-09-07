@@ -9,8 +9,10 @@ const password = config.site.db.password;
 
 if (user && password) {
 	url = `mongodb://${user}:${password}@${config.site.db.host}:${config.site.db.port}`;
+	console.log("info", `user+pass provided, connecting to mongo@${config.site.db.host}:${config.site.db.port}`);
 } else {
 	url = `mongodb://${config.site.db.host}:${config.site.db.port}`;
+	console.log("info", `open access, connecting to mongo@${config.site.db.host}:${config.site.db.port}`);
 }
 
 // A custom Error just for database problems.

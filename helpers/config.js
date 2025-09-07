@@ -24,7 +24,7 @@ function loadLocalConfig() {
 const fileConfig = loadLocalConfig();
 
 function isProduction() {
-	return process.env.NODE_ENV === "production" || isRailway() || true;
+	return process.env.NODE_ENV === "production" || isRailway();
 }
 
 const config = {

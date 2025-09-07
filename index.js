@@ -30,18 +30,7 @@ require("./helpers/handlebars");
 app.proxy = true;
 
 // sessions
-app.keys = [config.site.secret];
-if (config.isProduction() === true) {
-	common.log("info", "Production detected, using Redis");
-	app.use(session({
-		store: redisStore({
-			url: config.site.redis_url
-		})
-	}));
-} else {
-	common.log("info", "Non-production detected, using in memory");
-	app.use(session());
-}
+app.use(session());
 
 // body parser
 app.use(bodyParser());

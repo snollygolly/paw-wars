@@ -48,11 +48,11 @@ const config = {
 			|| "",
 
 		db: {
-			host: process.env.PW_SITE__DB__HOST || fileConfig.site?.db?.host || "localhost",
-			port: parseInt(process.env.PW_SITE__DB__PORT || fileConfig.site?.db?.port || 27017, 10),
-			name: process.env.PW_SITE__DB__NAME || fileConfig.site?.db?.name || "",
-			user: process.env.PW_SITE__DB__USER || fileConfig.site?.db?.user || "",
-			password: process.env.PW_SITE__DB__PASSWORD || fileConfig.site?.db?.password || ""
+			host: process.env.MONGOHOST || fileConfig.site?.db?.host || "localhost",
+			port: parseInt(process.env.MONGOPORT || fileConfig.site?.db?.port || 27017, 10),
+			name: process.env.PW_SITE__DB__NAME || fileConfig.site?.db?.name || "PawWars",
+			user: process.env.MONGOUSER || fileConfig.site?.db?.user || "",
+			password: process.env.MONGOPASSWORD || fileConfig.site?.db?.password || ""
 		}
 	}
 };

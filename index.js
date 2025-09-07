@@ -13,7 +13,6 @@ const mount = require("koa-mount");
 const session = require("koa-generic-session");
 const bodyParser = require("koa-bodyparser");
 const passport = require("koa-passport");
-const redisStore = require("koa-redis");
 
 const app = new Koa();
 

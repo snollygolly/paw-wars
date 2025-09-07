@@ -83,11 +83,10 @@ config.getSessionStore = function getSessionStore() {
 		const koaRedis = require("koa-redis");
 		const store = koaRedis({
 			url: config.site.redis_url,
-			maxRetriesPerRequest: 1,
-			enableOfflineQueue: false,
-			connectTimeout: 5000
+			connectTimeout: 5000,
+			retryStrategy: (times) => Math.min(times * 200, 2000)
 		});
-		common.log("info", "Session store: redis");
+		common.log("info", "Session store: redis", process.env.REDISHOST);
 		return store;
 	} catch (err) {
 		common.log("warn", `Redis session store unavailable, using memory store: ${err.message}`);

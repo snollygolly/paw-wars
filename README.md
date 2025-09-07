@@ -1,4 +1,4 @@
-# :smiley_cat: paw-wars [![Build Status](https://api.travis-ci.org/snollygolly/paw-wars.svg?branch=master)](https://travis-ci.org/snollygolly/paw-wars)
+# :smiley_cat: paw-wars [![Node.js CI](https://github.com/snollygolly/paw-wars/actions/workflows/node.js.yml/badge.svg)](https://github.com/snollygolly/paw-wars/actions/workflows/node.js.yml)
 
 ![Paw Wars](https://raw.githubusercontent.com/snollygolly/paw-wars/master/assets/img/paw-wars-logo.png)
 

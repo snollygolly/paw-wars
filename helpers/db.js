@@ -7,7 +7,10 @@ const dbName = config.site.db.name;
 const user = config.site.db.user;
 const password = config.site.db.password;
 
-if (user && password) {
+if (config.site.db.url) {
+	url = config.site.db.url;
+	console.log("info", "connection string provided, connecting to mongo via MONGO_URL");
+} else if (user && password) {
 	url = `mongodb://${user}:${password}@${config.site.db.host}:${config.site.db.port}`;
 	console.log("info", `user+pass provided, connecting to mongo@${config.site.db.host}:${config.site.db.port}`);
 } else {

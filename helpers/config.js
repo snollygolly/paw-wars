@@ -57,6 +57,9 @@ const config = {
 			|| "",
 
 		db: {
+			// Full Mongo connection string, e.g. mongodb+srv://user:pass@host/db
+			// Takes precedence over the individual host/port/user/password fields below
+			url: process.env.MONGO_URL || fileConfig.site?.db?.url || "",
 			host: process.env.MONGOHOST || fileConfig.site?.db?.host || "localhost",
 			port: parseInt(process.env.MONGOPORT || fileConfig.site?.db?.port || 27017, 10),
 			name: process.env.PW_SITE__DB__NAME || fileConfig.site?.db?.name || "PawWars",

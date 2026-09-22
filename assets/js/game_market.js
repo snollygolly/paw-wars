@@ -18,6 +18,7 @@ $( document ).ready(function() {
     var availableStorage = $('#transaction-modal').data('available-storage');
     // get the modal object
     var modal = $(this);
+    modal.data('type', type);
     // start populating it with values
     modal.find('#transaction-title').text(titleType + " " + name);
     // see what type of button to show/type
@@ -27,10 +28,16 @@ $( document ).ready(function() {
     confirmButton.show();
     // get the cash from the button
     var cash = $('#transaction-modal').data('cash');
+    // determine the maximum units allowed
+    var maxUnits = units;
+    if (type === 'buy') {
+      var affordable = Math.floor(cash / price);
+      maxUnits = Math.min(units, affordable, availableStorage);
+    }
     // start populating the button with data
     confirmButton.data('id', id);
     confirmButton.data('price', price);
-    $('#transaction-units').attr('max', units);
+    $('#transaction-units').attr('max', maxUnits);
     $('#transaction-units').data('price', price);
     $('#transaction-units-label').html("How many units would you like to " + type + "? " + ((type == "buy") ? "They" : "You") + " have <strong>" + units + "</strong> in stock.");
     $('#transaction-confirm-message').html(titleType + "ing <strong id=\"transaction-units-msg\">0</strong> of this item will " + ((type == "buy") ? "cost" : "make") + " you <strong id=\"transaction-price-msg\">$0</strong>.<br>You have $<strong id=\"transaction-cash-msg\">" + cash + "</strong> on you.<br>You have storage space for <strong id=\"transaction-storage-msg\">" + availableStorage + "</strong> more item" + (availableStorage !== 1 ? "s" : "") + ".");
@@ -51,6 +58,20 @@ $( document ).ready(function() {
     var currentPrice = $(e.target).data('price') * currentUnits;
     $('#transaction-units-msg').html(currentUnits);
     $('#transaction-price-msg').html("$" + currentPrice);
+  });
+
+  $('#transaction-max-btn').on('click', function(){
+    var modal = $('#transaction-modal');
+    var type = modal.data('type');
+    var price = $('#transaction-units').data('price');
+    var cash = modal.data('cash');
+    var availableStorage = modal.data('available-storage');
+    var maxUnits = parseInt($('#transaction-units').attr('max'), 10) || 0;
+    if (type === 'buy') {
+      var affordable = Math.floor(cash / price);
+      maxUnits = Math.min(maxUnits, affordable, availableStorage);
+    }
+    $('#transaction-units').val(maxUnits).trigger('input');
   });
 
   $('#transaction-confirm-buy-btn').on('click', function(e){

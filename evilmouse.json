@@ -1,0 +1,12 @@
+{
+  "id": "paw-wars",
+  "title": "Paw Wars",
+  "tagline": "Run contraband in a world where dogs make the rules.",
+  "body": "Paw Wars takes place in a world where dogs are the ruling class and cats are treated as lower class citizens. Luxury items are strictly forbidden, but a black market persists. You take on the role of a smuggler trying to provide contraband to cats in need. Travel the world buying and selling, dodge the police, and hustle to get rich or die trying.",
+  "origin": "handmade",
+  "status": "Complete",
+  "tags": ["Trading", "Text-based", "Browser"],
+  "art": "paw-wars.png",
+  "links": { "play": "https://pawwars.org", "github": null },
+  "site": { "hidden": false }
+}
